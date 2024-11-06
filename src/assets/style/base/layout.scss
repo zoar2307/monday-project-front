@@ -3,7 +3,11 @@
   // padding-left: 1.6rem;
   // padding-right: 1.6rem;
 }
-
+.homepage {
+  height: 98vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
 .container {
   max-width: 800px;
   padding: 1em;

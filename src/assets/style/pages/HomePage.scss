@@ -1,0 +1,39 @@
+*{
+    font-family: Poppins, Roboto, Helvetica, Arial, sans-serif
+}
+
+.homepage{
+    margin: 0em 2em;
+}
+
+.home-content {
+    background-color: $light-menu-bcg;
+    border: none;
+    border-radius: 2rem;
+
+}
+
+.home-content h1{
+    color: $light-menu-h1;
+    font-weight: 200;
+    font-size: 8rem;
+    text-align: center;
+    margin-bottom: 1.1rem;
+    padding-top: 2rem;
+}
+.home-content p{
+    color: $light-menu-h1;
+    text-align: center;
+    font-size: 2rem;
+    line-height: 3rem;
+    font-weight: 400;
+}
+.homepage button{
+    background-color: $light-menu-button;
+    color: white;
+    font-size: 2rem;
+    padding: 0.8em 2em;
+    border: none;
+    border-radius: 3.2rem;
+    font-weight: 300;
+}
