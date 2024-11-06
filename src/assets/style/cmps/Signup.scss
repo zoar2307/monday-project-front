@@ -1,0 +1,84 @@
+.signup {
+    display: grid;
+    grid-template-columns: auto 40%;
+
+    height: 100vh;
+    overflow: hidden;
+
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        grid-column: 1;
+        height: 100%;
+    }
+
+    .content {
+        display: flex;
+        flex: 1 1 0%;
+        flex-direction: column;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .signup-top {
+
+        color: $light-signup-clr1 ;
+
+        .signup-title {
+            h1 {
+                text-align: center;
+                font-size: rem(32px);
+
+                letter-spacing: -0.5px;
+                line-height: lh(40px, 32px);
+
+                margin: 0;
+                padding-bottom: em(8px, 32px);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            font-size: rem(16px);
+
+            line-height: lh(30px, 16px);
+            letter-spacing: -0.1px;
+
+            margin: 0;
+            margin-bottom: 48px;
+        }
+    }
+
+    .form-container {
+        width: 400px;
+
+        .button-container {
+            button {
+                font-size: rem(16px);
+                line-height: lh(22px, 16px);
+                padding: em(8px, 16px) em(16px, 16px);
+                border-radius: em(4px, 16px);
+            }
+
+            .google-svg {
+                width: em(16px, 16px);
+                height: em(16px, 16px);
+            }
+
+            color: $light-signup-clr1 ;
+        }
+    }
+
+    .img-container {
+        grid-column: 2;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+}
