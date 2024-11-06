@@ -1,10 +1,11 @@
-
 export function HomePage() {
-    return (
-        <div className="homepage">
-
-            <p>Home Page Details....</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, minus sint adipisci iusto cupiditate eum quasi perferendis, sunt atque laborum, saepe fugit consequuntur odit incidunt veniam excepturi voluptas illum. Saepe.</p>
-        </div>
-    )
+  return (
+    <div className="homepage">
+      <h1>Your go-to work platform</h1>
+      <p>
+        Streamline workflows and gain clear visibility across teams <br></br>to
+        make strategic decisions with confidence
+      </p>
+    </div>
+  )
 }
