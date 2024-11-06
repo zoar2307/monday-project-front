@@ -1,39 +1,77 @@
-*{
-    font-family: Poppins, Roboto, Helvetica, Arial, sans-serif
-}
 
-.homepage{
-    margin: 0em 2em;
-}
-
-.home-content {
-    background-color: $light-menu-bcg;
-    border: none;
-    border-radius: 2rem;
-
-}
-
-.home-content h1{
-    color: $light-menu-h1;
-    font-weight: 200;
-    font-size: 8rem;
-    text-align: center;
-    margin-bottom: 1.1rem;
-    padding-top: 2rem;
-}
-.home-content p{
-    color: $light-menu-h1;
-    text-align: center;
-    font-size: 2rem;
-    line-height: 3rem;
-    font-weight: 400;
-}
-.homepage button{
+button{
     background-color: $light-menu-button;
     color: white;
-    font-size: 2rem;
-    padding: 0.8em 2em;
     border: none;
-    border-radius: 3.2rem;
+    border-radius: em(40px);
+    &:hover {
+        background: $light-menu-button-hover;
+    }
+    cursor: pointer;
+    i{
+        margin-left: rem(10px);
+    }
+}
+
+.homepage *:not(.fa-solid) {
+    font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
     font-weight: 300;
+    
+}
+.homepage {
+    padding: 0em 2em ;
+    margin: 0 calc((100% - min(100%, 1920px)) / 2 + 16px);
+
+}
+
+.home-nav{
+    height: rem(72px);
+    margin: 0 calc((100% - min(100%, 2000px)) / 2 + 210px);
+    P{
+        margin-left: rem(80px);
+
+    }
+    .btn-nav{
+        
+        font-size: 0.8125rem;
+        padding: 8px 16px;
+        height: rem(40px);
+        
+        margin: 0  rem(80px);
+      }
+   
+}
+
+
+
+.home-content {
+  background-color: $light-menu-bcg;
+  border: none;
+  border-radius: 2rem;
+  height: rem(959px);
+
+  h1 {
+    color: $light-menu-h1;
+    font-size: rem(72px);
+    margin-top: rem(80px);
+    font-weight: 200 !important;
+    text-align: center;
+  }
+  p {
+    color: $light-menu-h1;
+    text-align: center;
+    font-size: 1.125em;
+    line-height: rem(32px);
+    margin-top: 0;
+    margin-bottom: rem(40px);
+    max-width: rem(540px);
+  }
+  .btn-content {
+    font-size: 1em;
+    padding: rem(16px)rem(32px) rem(14px) rem(32px);
+    font-weight: 300; 
+    
+  }
+ 
 }
