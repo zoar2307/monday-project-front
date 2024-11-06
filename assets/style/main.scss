@@ -1,0 +1,31 @@
+/* Setup */
+@import 'setup/vars';
+@import 'setup/typography';
+
+/* Base */
+@import 'base/base';
+@import 'base/helpers';
+@import 'base/layout';
+@import 'base/forms';
+
+/* Components */
+@import 'cmps/AppHeader';
+@import 'cmps/AppFooter';
+
+
+/* Pages */
+@import 'pages/HomePage';
+
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.app>* {
+    width: 100%;
+}
+
+main {
+    flex-grow: 1;
+}
