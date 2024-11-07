@@ -1,22 +1,17 @@
 import { Link } from 'react-router-dom'
 import signupImg1 from '../assets/img/welcome-to-monday.avif'
-import signupImg2 from '../assets/img/set-up-your-account.avif'
 import { useState } from 'react'
 
 export function Signup() {
 
-    const [userToSignUp, setUserToSignUp] = useState()
-    const [signUpPage, setSignUpPage] = useState(1)
-
     function onSubmitEmail(ev) {
         ev.preventDefault()
-        setSignUpPage(2)
     }
 
     return (
         <section className="signup .full">
             <div className="main-container">
-                {signUpPage === 1 && <div className="content">
+                <div className="content">
                     <div className="signup-top">
                         <div className="signup-title">
                             <h1>Welcome to monday.com</h1>
@@ -50,18 +45,16 @@ export function Signup() {
 
                         </form>
                     </div>
-                </div>}
-                {signUpPage === 1 && <div className="signup-footer">
+                </div>
+                <div className="signup-footer">
                     <span>Already have an account?</span> <span><Link>Log in</Link></span>
-                </div>}
-                {signUpPage === 2 && <div>2</div>}
+                </div>
             </div>
 
 
 
             <div className="img-container">
-                {signUpPage === 1 && <img src={signupImg1} alt="" />}
-                {signUpPage === 2 && <img src={signupImg2} alt="" />}
+                <img src={signupImg1} alt="" />
             </div>
         </section>
     )
