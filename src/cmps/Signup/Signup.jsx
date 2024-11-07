@@ -10,7 +10,6 @@ export function Signup() {
 
     function onSubmitEmail(ev) {
         ev.preventDefault()
-        setSignUpPage(2)
     }
 
     return (
@@ -54,7 +53,7 @@ export function Signup() {
                 {signUpPage === 1 && <div className="signup-footer">
                     <span>Already have an account?</span> <span><Link>Log in</Link></span>
                 </div>}
-                {signUpPage === 2 && <div>2</div>}
+                {setSignUpPage === 2 && <div>2</div>}
             </div>
 
 
