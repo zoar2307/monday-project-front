@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
 import welcomeSignUp from '../assets/img/welcome-to-monday.avif'
+import { useRef } from 'react'
 
 export function Signup() {
+
+    function onSubmitEmail(ev) {
+        ev.preventDefault()
+    }
+
     return (
         <section className="signup .full">
             <div className="main-container">
@@ -28,7 +34,7 @@ export function Signup() {
                             <div className="or-line"></div>
                         </div>
 
-                        <form >
+                        <form onSubmit={onSubmitEmail}>
                             <div className="input-container">
                                 <input className='btn' type="text" placeholder="name@compamy.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
                             </div>
