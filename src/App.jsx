@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <section className="app">
-        {/* <AppHeader /> */}
+        <AppHeader />
         <main className='main-layout'>
           <Routes>
             <Route element={<HomePage />} path="/" />
