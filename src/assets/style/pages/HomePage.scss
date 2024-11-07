@@ -1,17 +1,5 @@
 
-button{
-    background-color: $light-menu-button;
-    color: white;
-    border: none;
-    border-radius: em(40px);
-    &:hover {
-        background: $light-menu-button-hover;
-    }
-    cursor: pointer;
-    i{
-        margin-left: rem(10px);
-    }
-}
+
 
 .homepage *:not(.fa-solid) {
     font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
@@ -22,7 +10,19 @@ button{
 .homepage {
     padding: 0em 2em ;
     margin: 0 calc((100% - min(100%, 1920px)) / 2 + 16px);
-
+    button{
+      background-color: $light-menu-button;
+      color: white;
+      border: none;
+      border-radius: em(40px);
+      &:hover {
+          background: $light-menu-button-hover;
+      }
+      cursor: pointer;
+      i{
+          margin-left: rem(10px);
+      }
+  }
 }
 
 .home-nav{
