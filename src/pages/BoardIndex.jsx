@@ -1,13 +1,12 @@
 import { BoardList } from '../cmps/BoardList'
 
-function BoardIndex() {
+export function BoardIndex() {
 
     return (
         <>
-            <BoardList></BoardList>
+            <BoardList />
         </>
     )
 }
 
-export default App
 

@@ -6,9 +6,9 @@ export function HomePage() {
       <nav className="home-nav flex justify-between align-center">
         <p>LOGO</p>
         <div className="home-nav-right flex align-center">
-        <NavLink to="/about">
-      <p>About us</p>
-        </NavLink>
+          <NavLink to="/about">
+            <p>About us</p>
+          </NavLink>
           <p>Log in</p>
           <NavLink to="/auth/signup">
             <button className="btn-nav">
@@ -26,7 +26,7 @@ export function HomePage() {
           Streamline workflows and gain clear visibility across teams <br></br>
           to make strategic decisions with confidence
         </p>
-        <NavLink to="/auth/signup">
+        <NavLink to="/board-page">
           <button className="btn-content">
             Get Started <i class="fa-solid fa-arrow-right"></i>{" "}
           </button>
