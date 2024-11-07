@@ -14,7 +14,7 @@ window.cs = boardService
 
 async function query(filterBy = { title: "" }) {
   let boards = await storageService.query(STORAGE_KEY)
-  const { title} = filterBy
+  const { title } = filterBy
 
   if (title) {
     const regex = new RegExp(title, "i")
@@ -140,7 +140,7 @@ function _createBoards() {
         activities: [],
       }),
     ]
-    storageService.save(STORAGE_KEY, boards)
+    storageService.post(STORAGE_KEY, boards)
   }
 }
 
