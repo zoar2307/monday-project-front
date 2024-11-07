@@ -2,7 +2,9 @@
   box-sizing: border-box;
 }
 
-html {}
+html {
+  background: $light-sidebar-clr1;
+}
 
 body {
   margin: 0;

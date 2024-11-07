@@ -6,6 +6,7 @@ import { AppFooter } from './cmps/AppFooter.jsx'
 import { HomePage } from './pages/HomePage.jsx'
 import { AboutUs } from './pages/AboutUs.jsx'
 import { Signup } from './pages/Signup.jsx'
+import { SideBar } from './cmps/SideBar.jsx'
 
 function App() {
 
@@ -15,9 +16,10 @@ function App() {
         {/* <AppHeader /> */}
         <main className='main-layout'>
           <Routes>
-            <Route element={<HomePage />} path="/" />
-            <Route element={<AboutUs />} path="/about" />
-            <Route element={<Signup />} path="/auth/signup" />
+            <Route element={<SideBar />} path="/" />
+            {/* <Route element={<HomePage />} path="/" /> */}
+            {/* <Route element={<AboutUs />} path="/about" /> */}
+            {/* <Route element={<Signup />} path="/auth/signup" /> */}
           </Routes>
         </main>
         {/* <AppFooter /> */}
