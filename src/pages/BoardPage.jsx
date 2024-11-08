@@ -11,11 +11,11 @@ import { SideBar } from "../cmps/SideBar"
 export function BoardPage() {
   return (
     <>
-      <section className="main-layout app">
+      <section className="board-page main-layout app">
         <BoardHeader />
-        <main>
-          <BoardIndex />
+        <main className="main-content">
           <SideBar />
+          <BoardIndex />
         </main>
         <BoardFooter />
       </section>

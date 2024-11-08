@@ -15,10 +15,12 @@
 @import 'cmps/BoardHeader';
 @import 'cmps/Signup';
 @import 'cmps/SideBar';
+@import 'cmps/BoardIndex.scss';
 
 
 /* Pages */
 @import 'pages/HomePage';
+@import 'pages/BoardPage.scss';
 
 .app {
     display: flex;
