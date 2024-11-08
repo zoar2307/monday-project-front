@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { GroupList } from "../cmps/GroupList"
-import { BoardHeader } from "../cmps/BoardHeader"
 import { loadBoards } from "../store/actions/board.actions"
 
 export function BoardDetails() {
@@ -36,7 +35,6 @@ export function BoardDetails() {
 
   return (
     <>
-      <BoardHeader />
       <h2>{board.title}</h2>
       <GroupList groups={board.groups} />
     </>

@@ -8,12 +8,14 @@ import { BoardPage } from "./pages/BoardPage.jsx"
 import { BoardDetails } from "./pages/BoardDetails.jsx"
 import { store } from "./store/store.js"
 import { Provider } from "react-redux"
+import { DynamicHeader } from "./cmps/DynamicHeader.jsx"
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <section className="app">
+        <DynamicHeader />
           <main className="main-layout">
             <Routes>
               <Route element={<HomePage />} path="/" />
