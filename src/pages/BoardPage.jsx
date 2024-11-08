@@ -13,20 +13,20 @@ import { SideBar } from "../cmps/SideBar"
 export function BoardPage() {
   return (
     <>
-      {/* <Provider store={store}> */}
-      <section className="main-layout app">
-        <BoardHeader />
-        <main>
-          <BoardIndex />
-          <Routes>
-            <Route element={<BoardDetails />} path="/board/:boardId" />
-            <Route element={<GroupList />} path="/board/:boardId" />
-          </Routes>
-          {/* <SideBar /> */}
-        </main>
-        <BoardFooter />
-      </section>
-      {/* </Provider> */}
+      <Provider store={store}>
+        <section className="main-layout app">
+          <BoardHeader />
+          <main>
+            <BoardIndex />
+            <Routes>
+              <Route element={<BoardDetails />} path="/board/:boardId" />
+              <Route element={<GroupList />} path="/board/:boardId" />
+            </Routes>
+            <SideBar />
+          </main>
+          <BoardFooter />
+        </section>
+      </Provider>
     </>
   )
 }

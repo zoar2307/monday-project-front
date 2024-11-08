@@ -8,6 +8,9 @@
     background: linear-gradient(135deg, #ffffff 5%, $light-sidebar-clr1 100%);
     border-radius: 0 em(8px, 16px) 0 0;
 
+    transition: .3s;
+
+
     >*:not(.divider) {
         padding-left: em(12px, 16px);
     }
@@ -114,6 +117,12 @@
         margin-bottom: em(4px, 16px);
         cursor: pointer;
 
+        .star {
+            stroke: black;
+            stroke-width: 1px;
+            fill: none;
+        }
+
         .content {
             display: flex;
             justify-content: start;
@@ -141,8 +150,6 @@
 
                 width: em(18px, 14px);
                 height: em(18px, 14px);
-
-
             }
 
             &:hover {
@@ -155,6 +162,7 @@
                 margin-left: auto;
 
                 gap: em(6px, 16px);
+
             }
 
         }
@@ -188,29 +196,67 @@
                 cursor: pointer;
             }
 
+
             &:hover {
                 background-color: $light-sidebar-clr2;
             }
         }
 
-        svg {
-            stroke: black;
-            fill: none;
-        }
+
 
         .favorite-boards {
-            background-color: #FFCB00;
             height: 0;
-
             transition: height .3s;
+            display: flex;
+            flex-direction: column;
+            gap: em(2px, 16px);
+
+            .board {
+                opacity: 0;
+                height: 0;
+
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                gap: em(7px, 14px);
+
+                width: 100%;
+                height: 0;
+                border: 1px solid transparent;
+                border-radius: em(4px, 14px);
+
+                padding-right: em(4px, 14px);
+                padding-left: em(5px, 14px);
+
+                font-size: rem(14px);
+
+                &:hover {
+                    background-color: $light-sidebar-clr2;
+                }
+
+                &.active {
+                    text-decoration: none;
+                    background-color: $light-sidebar-clr4;
+                }
+            }
         }
 
         &.active {
             height: calc(100% - 32px - 16px);
 
             .favorite-boards {
-                background-color: #FFCB00;
                 height: 100%;
+
+                .board {
+                    opacity: 1;
+                    height: 32px;
+
+                    transition: height .3s, opacity .3s;
+                }
+            }
+
+            .arrow {
+                rotate: 180deg;
             }
 
             .dots {
@@ -224,7 +270,27 @@
         }
     }
 
+    &.close {
+        >*:not(.navigation) {
+            visibility: hidden;
+        }
+
+        a {
+            visibility: hidden;
+        }
+
+        .left-arrow {
+            visibility: unset;
+            rotate: 180deg;
+        }
+
+
+    }
+
     &:hover {
+        .navigation {
+            display: flex;
+        }
 
         .nav:nth-child(1) {
             a {
@@ -236,4 +302,154 @@
             visibility: unset;
         }
     }
+
+    .workspaces-display {
+        display: flex;
+        align-items: center;
+        margin-top: em(10px, 16px);
+        width: 100%;
+        height: 32px;
+        overflow: hidden;
+
+        .workspace-name {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            border-radius: em(4px, 16px);
+            width: 100%;
+            height: 100%;
+
+            &:hover {
+                background-color: $light-sidebar-clr2;
+            }
+
+            .letter {
+                margin-left: em(6px, 15px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+
+
+                font-size: rem(14px);
+                border-radius: em(4px, 14px);
+                font-weight: 600;
+
+                height: em(20px, 14px);
+                min-width: em(20px, 14px);
+                background-color: rgb(187, 51, 84);
+            }
+
+            .title {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+                width: 100%;
+
+                font-size: rem(16px);
+                font-weight: 600;
+
+                margin-left: em(1px, 16px);
+                padding-left: em(5px, 16px);
+            }
+
+            .arrow {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                margin-left: em(6px, 16px);
+                margin-right: em(6px, 16px);
+            }
+        }
+
+        .dots {
+            margin-left: em(10px, 16px);
+
+            button {
+                margin-right: em(16px, 16px);
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                font-size: rem(16px);
+
+                border: none;
+                background-color: transparent;
+                border-radius: em(4px, 16px);
+
+                height: 32px;
+                width: 32px;
+
+                &:hover {
+                    background-color: $light-sidebar-clr2;
+                }
+            }
+        }
+    }
+
+    .search-workspace {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding-right: em(16px, 16px);
+        padding-left: em(14px, 16px);
+        padding-bottom: em(8px, 16px);
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            height: em(32px, 16px);
+            width: 100%;
+            padding: em(6px, 16px) em(4px, 16px) em(4px, 16px) em(4px, 16px);
+        }
+
+        .plus {
+            cursor: pointer;
+            margin-left: em(10px, 16px);
+
+            svg {
+                height: em(32px, 16px);
+                width: em(32px, 16px);
+            }
+        }
+    }
+
+    .boards {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-right: em(16px, 16px);
+
+        .board {
+            height: 32px;
+
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: em(7px, 14px);
+
+            width: 100%;
+            border: 1px solid transparent;
+            border-radius: em(4px, 14px);
+
+            padding-right: em(8px, 14px);
+            padding-left: em(8px, 14px);
+
+            font-size: rem(14px);
+
+            &:hover {
+                background-color: $light-sidebar-clr2;
+            }
+
+            &.active {
+                text-decoration: none;
+                background-color: $light-sidebar-clr4;
+            }
+        }
+    }
+
 }
