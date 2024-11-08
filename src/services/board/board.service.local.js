@@ -1,7 +1,7 @@
 import { storageService } from "../async-storage.service.js"
 import { makeId } from "../util.service.js"
 
-const STORAGE_KEY = "boards"
+const STORAGE_KEY = "boardDB"
 _createBoards()
 
 export const boardService = {
@@ -50,99 +50,157 @@ async function save(board) {
 }
 
 
-
-function _createBoard(board) {
-  board._id = makeId()
-  board.createdAt = Date.now()
-  board.groups = board.groups || []
-  board.activities = board.activities || []
-  board.members = board.members || []
-  return board
-}
-
 function _createBoards() {
   let boards = loadBoardsFromStorage()
   if (!boards || !boards.length) {
-    boards =
-      _createBoard({
-        title: "Robot dev proj",
-        isStarred: false,
-        archivedAt: 1589983468418,
-        createdBy: {
-          _id: "u101",
-          fullname: "Abi Abambi",
-          imgUrl: "http://some-img",
-        },
-        labels: [
-          { id: "l101", title: "Done", color: "#61bd4f" },
-          { id: "l102", title: "Progress", color: "#61bd33" },
-        ],
-        members: [
-          {
-            _id: "u101",
-            fullname: "Tal Taltal",
-            imgUrl: "https://www.google.com",
-          },
-          {
-            _id: "u102",
-            fullname: "Josh Ga",
-            imgUrl: "https://www.google.com",
-          },
-        ],
-        groups: [
-          {
-            id: "g101",
-            title: "Group 1",
-            archivedAt: 1589983468418,
-            tasks: [
-              { id: "c101", title: "Replace logo" },
-              { id: "c102", title: "Add Samples" },
-            ],
-          },
-        ],
-        activities: [],
-      })
+    boards = []
+    let board
+    for (let i = 0; i < 3; i++) {
+      board = _createBoard()
+      boards.push(board)
+    }
+    console.log(boards);
     storageService.post(STORAGE_KEY, boards)
-    // boards = _createBoard({
-    //   title: "AI Research Project",
-    //   isStarred: true,
-    //   archivedAt: null,
-    //   createdBy: {
-    //     _id: "u102",
-    //     fullname: "Jane Doe",
-    //     imgUrl: "http://some-other-img",
-    //   },
-    //   labels: [
-    //     { id: "l201", title: "Completed", color: "#4a90e2" },
-    //     { id: "l202", title: "In Progress", color: "#f5a623" },
-    //   ],
-    //   members: [
-    //     {
-    //       _id: "u102",
-    //       fullname: "Alice Smith",
-    //       imgUrl: "https://example.com/alice.jpg",
-    //     },
-    //     {
-    //       _id: "u103",
-    //       fullname: "Bob Johnson",
-    //       imgUrl: "https://example.com/bob.jpg",
-    //     },
-    //   ],
-    //   groups: [
-    //     {
-    //       id: "g201",
-    //       title: "Phase 1 - Research",
-    //       tasks: [
-    //         { id: "c201", title: "Literature Review" },
-    //         { id: "c202", title: "Develop Hypothesis" },
-    //       ],
-    //     },
-    //   ],
-    //   activities: [],
-    // })
-    // storageService.post(STORAGE_KEY, boards)
   }
 }
+
+
+///////////////
+
+function _createBoard() {
+  function makeId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
+
+  function _getRandomDate() {
+    return Date.now() - Math.floor(Math.random() * 1000000000);
+  }
+
+  const board = {
+    title: `Project ${Math.floor(Math.random() * 1000)}`,
+    isStarred: Math.random() < 0.5,
+    archivedAt: _getRandomDate(),
+    createdBy: {
+      _id: makeId(),
+      fullname: `User ${Math.floor(Math.random() * 100)}`,
+      imgUrl: 'https://www.example.com/default-img.jpg',
+    },
+    style: {
+      backgroundImage: 'https://www.example.com/default-background.jpg',
+    },
+    labels: [
+      { id: makeId(), title: 'Done', color: '#61bd4f' },
+      { id: makeId(), title: 'In Progress', color: '#ffab00' },
+      { id: makeId(), title: 'To Do', color: '#eb5a46' },
+    ],
+    members: [
+      { _id: makeId(), fullname: 'Alice Doe', imgUrl: 'https://www.example.com/user1.jpg' },
+      { _id: makeId(), fullname: 'Bob Smith', imgUrl: 'https://www.example.com/user2.jpg' },
+    ],
+    groups: [
+      {
+        id: makeId(),
+        title: `Group ${Math.floor(Math.random() * 100)}`,
+        archivedAt: _getRandomDate(),
+        tasks: [
+          {
+            id: makeId(),
+            title: 'Sample Task 1',
+            archivedAt: _getRandomDate(),
+            status: 'In Progress',
+            priority: 'High',
+            dueDate: '2024-12-31',
+            description: 'This is a sample task description.',
+            comments: [
+              {
+                id: makeId(),
+                title: 'Please review this task',
+                createdAt: _getRandomDate(),
+                byMember: {
+                  _id: makeId(),
+                  fullname: 'Commenter User',
+                  imgUrl: '',
+                },
+              },
+            ],
+            checklists: [
+              {
+                id: makeId(),
+                title: 'Checklist 1',
+                todos: [
+                  { id: makeId(), title: 'Sub-task 1', isDone: false },
+                  { id: makeId(), title: 'Sub-task 2', isDone: true },
+                ],
+              },
+            ],
+            memberIds: [makeId(), makeId()],
+            labelIds: ['l101', 'l102'],
+            byMember: {
+              _id: makeId(),
+              fullname: 'Task Creator',
+              imgUrl: '',
+            },
+            style: {
+              backgroundColor: '#26de81',
+            },
+          },
+        ],
+        style: {},
+      },
+      {
+        id: makeId(),
+        title: `Group ${Math.floor(Math.random() * 100) + 1}`,
+        tasks: [
+          {
+            id: makeId(),
+            title: 'Another Task',
+            status: 'To Do',
+            priority: 'Medium',
+            dueDate: '2025-01-15',
+            description: 'Another task for the group.',
+            comments: [],
+            checklists: [],
+            memberIds: [makeId()],
+            labelIds: ['l101'],
+            byMember: {
+              _id: makeId(),
+              fullname: 'Another User',
+              imgUrl: '',
+            },
+            style: {
+              backgroundColor: '#3498db',
+            },
+          },
+        ],
+        style: {},
+      },
+    ],
+    activities: [
+      {
+        id: makeId(),
+        title: 'Board Created',
+        createdAt: _getRandomDate(),
+        byMember: {
+          _id: makeId(),
+          fullname: 'Activity User',
+          imgUrl: 'https://www.example.com/default-activity-img.jpg',
+        },
+        group: {
+          id: makeId(),
+          title: 'Initial Group',
+        },
+        task: {
+          id: makeId(),
+          title: 'Initial Task',
+        },
+      },
+    ],
+    cmpsOrder: ['StatusPicker', 'MemberPicker', 'DatePicker'],
+  };
+
+  return board;
+}
+
 
 function loadBoardsFromStorage() {
   const data = localStorage.getItem(STORAGE_KEY)

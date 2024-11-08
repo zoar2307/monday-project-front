@@ -5,7 +5,7 @@ export function BoardPreview({ board }) {
     return (
         <>
 
-            <NavLink to={`/toy/${board._id}`}>
+            <NavLink to={`/board/:${board._id}`}>
                 <article className="project-card flex flex-column">
                     <div className="img-card">
                         <img src="https://cdn.monday.com/images/quick_search_recent_board.svg" alt="" />
@@ -13,7 +13,7 @@ export function BoardPreview({ board }) {
                     <span className="name-card">{board.title}</span>
                     <div className="path-card"></div>
                 </article>
-            </NavLink >
+            </NavLink>
         </>
     )
 }

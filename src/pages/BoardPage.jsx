@@ -18,8 +18,7 @@ export function BoardPage() {
           <main>
             <BoardIndex />
             <Routes>
-              <Route element={<BoardDetails />} path="/board/:boardId" />
-              <Route element={<GroupList />} path="/board/:boardId" />
+              <Route element={<BoardDetails />} path="/board/:boardId?" />
             </Routes>
             {/* <SideBar /> */}
           </main>
