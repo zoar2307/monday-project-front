@@ -3,8 +3,7 @@
     flex-direction: column;
     align-items: start;
 
-    margin-top: 44px;
-    height: calc(100vh - 44px);
+    height: calc(100vh - 48px);
     background: linear-gradient(135deg, #ffffff 5%, $light-sidebar-clr1 100%);
     border-radius: 0 em(8px, 16px) 0 0;
 
@@ -202,8 +201,6 @@
             }
         }
 
-
-
         .favorite-boards {
             height: 0;
             transition: height .3s;
@@ -395,25 +392,79 @@
         display: flex;
         align-items: center;
         width: 100%;
+        height: em(32px, 16px);
         padding-right: em(16px, 16px);
         padding-left: em(14px, 16px);
-        padding-bottom: em(8px, 16px);
+        margin: em(11px, 16px) 0;
 
         .search-bar {
             display: flex;
             align-items: center;
+            min-height: em(32px, 16px);
             height: em(32px, 16px);
             width: 100%;
             padding: em(6px, 16px) em(4px, 16px) em(4px, 16px) em(4px, 16px);
+
+            border: 1px solid $light-sidebar-clr6;
+            border-radius: em(4px, 16px);
+
+            svg:nth-child(1) {
+                min-width: em(16px, 14px);
+                height: em(16px, 14px);
+                font-size: rem(14px);
+                margin: em(4px, 14px);
+
+                color: $light-sidebar-clr7;
+            }
+
+            svg:nth-child(3) {
+                min-width: em(16px, 16px);
+                height: em(16px, 16px);
+                font-size: rem(16px);
+
+                color: $light-sidebar-clr8;
+            }
+
+            svg:nth-child(4) {
+                min-width: em(16px, 16px);
+                height: em(16px, 16px);
+                font-size: rem(16px);
+
+                color: $light-sidebar-clr8;
+            }
+
+            input {
+                outline: none;
+                width: 100%;
+                height: 100%;
+                font-size: rem(14px);
+                border: none;
+                font-family: 'Figtree';
+
+                color: $light-sidebar-clr7;
+            }
         }
 
         .plus {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: rem(16px);
+
             cursor: pointer;
             margin-left: em(10px, 16px);
+            background-color: transparent;
+            border: none;
+            min-height: 32px;
+            // width: em(32px, 16px);
+            background-color: $light-sidebar-clr9;
+
+            border-radius: em(4px, 16px);
 
             svg {
-                height: em(32px, 16px);
-                width: em(32px, 16px);
+                color: white;
+                height: em(20px, 16px);
+                width: em(20px, 16px);
             }
         }
     }
