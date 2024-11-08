@@ -33,9 +33,9 @@ export function BoardDetails() {
 
   return (
     <>
+      <SideBar />
       <h2>{board.title}</h2>
       <GroupList groups={board.groups} />
-      <SideBar/>
     </>
   )
 }
