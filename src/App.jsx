@@ -9,13 +9,14 @@ import { BoardDetails } from "./pages/BoardDetails.jsx"
 import { store } from "./store/store.js"
 import { Provider } from "react-redux"
 import { DynamicHeader } from "./cmps/DynamicHeader.jsx"
+import { MyWork } from "./cmps/MyWork.jsx"
 
 function App() {
   return (
     <Provider store={store}>
       <Router>
         <section className="app">
-        <DynamicHeader />
+          <DynamicHeader />
           <main className="main-layout">
             <Routes>
               <Route element={<HomePage />} path="/" />
@@ -23,6 +24,7 @@ function App() {
               <Route element={<Signup />} path="/auth/signup" />
               <Route element={<BoardPage />} path="/board-page/*" />
               <Route element={<BoardDetails />} path="/board/:boardId" />
+              <Route element={<MyWork />} path="/my-work" />
             </Routes>
           </main>
           {/* <AppFooter /> */}

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { BoardIndex } from "../cmps/BoardIndex"
 import { BoardFooter } from "../cmps/BoardFooter"
 import { SideBar } from "../cmps/SideBar"
-import { BoardIndexHeader } from "../cmps/BoardIndexHeader"
+import { BoardHeader } from "../cmps/BoardHeader"
 
 
 export function BoardPage() {

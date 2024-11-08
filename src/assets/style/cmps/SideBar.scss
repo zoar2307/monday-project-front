@@ -3,12 +3,11 @@
     flex-direction: column;
     align-items: start;
 
-    height: calc(100vh - 48px);
+    height: calc(100vh - 50px);
     background: linear-gradient(135deg, #ffffff 5%, $light-sidebar-clr1 100%);
     border-radius: 0 em(8px, 16px) 0 0;
 
     transition: .3s;
-
 
     >*:not(.divider) {
         padding-left: em(12px, 16px);
@@ -115,6 +114,8 @@
         padding-right: em(16px, 16px);
         margin-top: em(4px, 16px);
         margin-bottom: em(4px, 16px);
+        transition: height .3s;
+
         cursor: pointer;
 
         .star {
@@ -164,7 +165,6 @@
                 gap: em(6px, 16px);
 
             }
-
         }
 
         .dots {
@@ -196,7 +196,6 @@
                 cursor: pointer;
             }
 
-
             &:hover {
                 background-color: $light-sidebar-clr2;
             }
@@ -209,6 +208,8 @@
             flex-direction: column;
             gap: em(2px, 16px);
 
+
+
             .board {
                 opacity: 0;
                 height: 0;
@@ -219,7 +220,6 @@
                 gap: em(7px, 14px);
 
                 width: 100%;
-                height: 0;
                 border: 1px solid transparent;
                 border-radius: em(4px, 14px);
 
@@ -227,6 +227,7 @@
                 padding-left: em(5px, 14px);
 
                 font-size: rem(14px);
+                transition: height .3s;
 
                 &:hover {
                     background-color: $light-sidebar-clr2;
@@ -248,8 +249,6 @@
                 .board {
                     opacity: 1;
                     height: 32px;
-
-                    transition: height .3s, opacity .3s;
                 }
             }
 
@@ -388,7 +387,15 @@
             }
         }
 
-        &.hidden {}
+        &.hidden {
+            .arrow {
+                rotate: 180deg;
+            }
+
+            .dots {
+                display: none;
+            }
+        }
     }
 
     .search-workspace {
@@ -411,6 +418,8 @@
             border: 1px solid $light-sidebar-clr6;
             border-radius: em(4px, 16px);
 
+
+
             svg:nth-child(1) {
                 min-width: em(16px, 14px);
                 height: em(16px, 14px);
@@ -420,23 +429,43 @@
                 color: $light-sidebar-clr7;
             }
 
-            svg:nth-child(3) {
-                min-width: em(16px, 16px);
-                height: em(16px, 16px);
+            .clear {
+                min-width: em(24px, 16px);
+                height: em(24px, 16px);
                 font-size: rem(16px);
+
+                padding: em(4px, 16px);
+                border-radius: em(4px, 16px);
+                margin-left: em(8px, 16px);
+
 
                 outline: none;
                 border: none;
 
                 color: $light-sidebar-clr8;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $light-sidebar-clr2;
+                }
             }
 
-            svg:nth-child(4) {
-                min-width: em(16px, 16px);
-                height: em(16px, 16px);
+            .filter {
+                min-width: em(24px, 16px);
+                height: em(24px, 16px);
                 font-size: rem(16px);
 
+                padding: em(4px, 16px);
+                display: none;
+                border-radius: em(4px, 16px);
+                margin-left: em(8px, 16px);
+
                 color: $light-sidebar-clr8;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $light-sidebar-clr2;
+                }
             }
 
             input {
@@ -450,7 +479,27 @@
                 background-color: transparent;
 
                 color: $light-sidebar-clr7;
+
+                cursor: pointer;
+
+                &:focus+.filter {
+                    display: inherit;
+                }
+
+                &:active+.filter {
+                    display: inherit;
+                }
             }
+
+            &:hover {
+                .filter {
+                    display: inherit;
+                }
+
+                border-color: black;
+            }
+
+
         }
 
         .plus {
@@ -464,7 +513,6 @@
             background-color: transparent;
             border: none;
             min-height: 32px;
-            // width: em(32px, 16px);
             background-color: $light-sidebar-clr9;
 
             border-radius: em(4px, 16px);
@@ -475,7 +523,9 @@
                 width: em(20px, 16px);
             }
 
-
+            &:hover {
+                background-color: $light-sidebar-clr10;
+            }
         }
 
         &.hidden {
@@ -484,10 +534,9 @@
     }
 
     .boards {
-        display: flex;
-        flex-direction: column;
         width: 100%;
         padding-right: em(16px, 16px);
+        overflow-x: hidden;
         overflow-y: scroll;
 
         &::-webkit-scrollbar {
@@ -495,21 +544,18 @@
         }
 
         .board {
-            height: 32px;
-
             display: flex;
             justify-content: start;
             align-items: center;
-            gap: em(7px, 14px);
-
+            gap: em(7px, 16px);
             width: 100%;
-            border: 1px solid transparent;
-            border-radius: em(4px, 14px);
+            height: 32px;
 
             padding-right: em(8px, 14px);
             padding-left: em(8px, 14px);
+            border: 1px solid transparent;
+            border-radius: em(4px, 14px);
 
-            font-size: rem(14px);
             cursor: pointer;
 
             &:hover {
@@ -517,9 +563,22 @@
             }
 
             &.active {
-                text-decoration: none;
                 background-color: $light-sidebar-clr4;
             }
+
+            p {
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+                font-size: rem(14px);
+            }
+
+            svg {
+                color: $light-sidebar-clr7;
+            }
+
         }
 
         &.hidden {
