@@ -1,10 +1,13 @@
 import { BoardPreview } from '../cmps/BoardPreview'
 
-export function BoardList() {
+export function BoardList({ boards }) {
 
     return (
         <>
-            <BoardPreview />
+            {boards.map(board =>
+                <div className='board-list'>
+                    <BoardPreview board={board} />
+                </div>)}
         </>
     )
 }
