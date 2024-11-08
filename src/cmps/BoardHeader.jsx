@@ -9,19 +9,19 @@ export function BoardHeader() {
           <div className="board-header-btns flex  align-center">
             <div>
               <button>
-                <i class="fa-regular fa-bell"></i>
+                <i className="fa-regular fa-bell"></i>
               </button>
               <button>
-                <i class="fa-solid fa-inbox"></i>
+                <i className="fa-solid fa-inbox"></i>
               </button>
               <button>
-                <i class="fa-solid fa-user-plus"></i>
+                <i className="fa-solid fa-user-plus"></i>
               </button>
             </div>
             <hr/>
             <div>
               <button>
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i className="fa-solid fa-magnifying-glass"></i>
               </button>
               <button>LOGO USER_IMG</button>
             </div>

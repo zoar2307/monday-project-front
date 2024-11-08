@@ -1,5 +1,8 @@
 .board-header{
     background-color: $light-mainpage-header-bcg;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    height: 48px;
     button{
         background-color: transparent;
         border: none;
@@ -8,11 +11,11 @@
         margin-right: rem(16px);
     }
     img{
-        width: rem(67px);
-        height: rem(70px);
+        margin-left: 40px;
+        width: rem(50px);
       }
       .logo-home-nav{
-        font-size: em(45px);
+        font-size: em(35px);
         font-weight: 600;
         color: #7d73fc;
         letter-spacing: -3px;
