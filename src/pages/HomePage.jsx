@@ -61,7 +61,7 @@ export function HomePage() {
       </div>
       <div className="carousel">
         <button className="carousel-btn left" onClick={shiftLeft}>
-          <i class="fa-solid fa-arrow-left"></i>
+          <i className="fa-solid fa-arrow-left"></i>
         </button>
         <div className="img-container">
           {images.map((src, index) => (
@@ -69,7 +69,7 @@ export function HomePage() {
           ))}
         </div>
         <button className="carousel-btn right" onClick={shiftRight}>
-          <i class="fa-solid fa-arrow-right"></i>
+          <i className="fa-solid fa-arrow-right"></i>
         </button>
       </div>
     </div>

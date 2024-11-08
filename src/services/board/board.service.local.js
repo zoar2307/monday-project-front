@@ -1,7 +1,7 @@
 import { storageService } from "../async-storage.service.js"
 import { makeId } from "../util.service.js"
 
-const STORAGE_KEY = "boards"
+const STORAGE_KEY = "boardDB"
 _createBoards()
 
 export const boardService = {
@@ -10,7 +10,7 @@ export const boardService = {
   save,
   remove,
   getDefaultFilter,
-  getEmptyBoard
+  getEmptyBoard,
 }
 window.cs = boardService
 
@@ -60,111 +60,109 @@ function _createBoard(board) {
   return board
 }
 
-function _createBoards() {
-  let boards = loadBoardsFromStorage()
+async function _createBoards() {
+  let boards = await storageService.query(STORAGE_KEY)
   if (!boards || !boards.length) {
-    boards =
-      _createBoard({
-        title: "Robot dev proj",
-        isStarred: false,
-        archivedAt: 1589983468418,
-        createdBy: {
+    await storageService.post(STORAGE_KEY, {
+      title: "Robot dev proj",
+      isStarred: false,
+      archivedAt: 1589983468418,
+      createdBy: {
+        _id: "u101",
+        fullname: "Abi Abambi",
+        imgUrl: "http://some-img",
+      },
+      labels: [
+        { id: "l101", title: "Done", color: "#61bd4f" },
+        { id: "l102", title: "Progress", color: "#61bd33" },
+      ],
+      members: [
+        {
           _id: "u101",
-          fullname: "Abi Abambi",
-          imgUrl: "http://some-img",
+          fullname: "Tal Taltal",
+          imgUrl: "https://www.google.com",
         },
-        labels: [
-          { id: "l101", title: "Done", color: "#61bd4f" },
-          { id: "l102", title: "Progress", color: "#61bd33" },
-        ],
-        members: [
-          {
-            _id: "u101",
-            fullname: "Tal Taltal",
-            imgUrl: "https://www.google.com",
-          },
-          {
-            _id: "u102",
-            fullname: "Josh Ga",
-            imgUrl: "https://www.google.com",
-          },
-        ],
-        groups: [
-          {
-            id: "g101",
-            title: "Group 1",
-            archivedAt: 1589983468418,
-            tasks: [
-              { id: "c101", title: "Replace logo" },
-              { id: "c102", title: "Add Samples" },
-            ],
-          },
-        ],
-        activities: [],
-      })
-    storageService.post(STORAGE_KEY, boards)
-    // boards = _createBoard({
-    //   title: "AI Research Project",
-    //   isStarred: true,
-    //   archivedAt: null,
-    //   createdBy: {
-    //     _id: "u102",
-    //     fullname: "Jane Doe",
-    //     imgUrl: "http://some-other-img",
-    //   },
-    //   labels: [
-    //     { id: "l201", title: "Completed", color: "#4a90e2" },
-    //     { id: "l202", title: "In Progress", color: "#f5a623" },
-    //   ],
-    //   members: [
-    //     {
-    //       _id: "u102",
-    //       fullname: "Alice Smith",
-    //       imgUrl: "https://example.com/alice.jpg",
-    //     },
-    //     {
-    //       _id: "u103",
-    //       fullname: "Bob Johnson",
-    //       imgUrl: "https://example.com/bob.jpg",
-    //     },
-    //   ],
-    //   groups: [
-    //     {
-    //       id: "g201",
-    //       title: "Phase 1 - Research",
-    //       tasks: [
-    //         { id: "c201", title: "Literature Review" },
-    //         { id: "c202", title: "Develop Hypothesis" },
-    //       ],
-    //     },
-    //   ],
-    //   activities: [],
-    // })
-    // storageService.post(STORAGE_KEY, boards)
+        {
+          _id: "u102",
+          fullname: "Josh Ga",
+          imgUrl: "https://www.google.com",
+        },
+      ],
+      groups: [
+        {
+          id: "g101",
+          title: "Group 1",
+          archivedAt: 1589983468418,
+          tasks: [
+            { id: "c101", title: "Replace logo" },
+            { id: "c102", title: "Add Samples" },
+          ],
+        },
+      ],
+      activities: [],
+    })
+
+    await storageService.post(STORAGE_KEY, {
+      title: "AI Research Project",
+      isStarred: true,
+      archivedAt: null,
+      createdBy: {
+        _id: "u102",
+        fullname: "Jane Doe",
+        imgUrl: "http://some-other-img",
+      },
+      labels: [
+        { id: "l201", title: "Completed", color: "#4a90e2" },
+        { id: "l202", title: "In Progress", color: "#f5a623" },
+      ],
+      members: [
+        {
+          _id: "u102",
+          fullname: "Alice Smith",
+          imgUrl: "https://example.com/alice.jpg",
+        },
+        {
+          _id: "u103",
+          fullname: "Bob Johnson",
+          imgUrl: "https://example.com/bob.jpg",
+        },
+      ],
+      groups: [
+        {
+          id: "g201",
+          title: "Phase 1 - Research",
+          tasks: [
+            { id: "c201", title: "Literature Review" },
+            { id: "c202", title: "Develop Hypothesis" },
+          ],
+        },
+      ],
+      activities: [],
+    })
   }
 }
 
 function loadBoardsFromStorage() {
   const data = localStorage.getItem(STORAGE_KEY)
-  return (data) ? JSON.parse(data) : undefined
+  return data ? JSON.parse(data) : undefined
 }
 
 function getDefaultFilter() {
-  return { title: '' }
+  return { title: "" }
 }
 
 function getEmptyBoard() {
   return {
-    title: '',
+    title: "",
     isStarred: false,
     archivedAt: null,
     createdBy: {
-      _id: '',
-      fullname: '',
-      imgUrl: '',
+      _id: "",
+      fullname: "",
+      imgUrl: "",
     },
     style: {
-      backgroundImage: '',
+      backgroundImage: "",
     },
     labels: [],
     members: [],
