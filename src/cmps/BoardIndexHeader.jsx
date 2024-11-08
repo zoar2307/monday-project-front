@@ -13,7 +13,12 @@ export function BoardIndexHeader() {
                     </div>
                 </div>
                 <div className='buttons-container'>
+                    <div className="bottuns">
+                        <div className="feedback-button">
+                            <span>Give feedback</span>
+                        </div>
 
+                    </div>
                 </div>
             </header>
         </>)
