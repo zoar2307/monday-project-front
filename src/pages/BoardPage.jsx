@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { BoardIndex } from "../cmps/BoardIndex"
 import { BoardHeader } from "../cmps/BoardHeader"
 import { BoardFooter } from "../cmps/BoardFooter"
-
+import { Provider } from "react-redux"
+import { store } from "../store/store"
+import { SideBar } from "../cmps/SideBar"
 
 
 export function BoardPage() {
@@ -13,6 +15,11 @@ export function BoardPage() {
           <BoardHeader />
           <main>
             <BoardIndex />
+            <Routes>
+              <Route element={<BoardDetails />} path="/board/:boardId" />
+              <Route element={<GroupList />} path="/board/:boardId" />
+            </Routes>
+            <SideBar />
           </main>
           <BoardFooter />
         </section>
