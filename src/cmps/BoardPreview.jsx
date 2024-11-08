@@ -1,13 +1,18 @@
 import { NavLink } from "react-router-dom"
 
-export function BoardPreview() {
+export function BoardPreview({ board }) {
 
     return (
         <>
+
             <NavLink to="/board/:boardId?">
-                <button className="btn-content">
-                    Get Project <i class="fa-solid fa-arrow-right"></i>{" "}
-                </button>
+                <article className="project-card flex flex-column">
+                    <div className="img-card">
+                        <img src="https://cdn.monday.com/images/quick_search_recent_board.svg" alt="" />
+                    </div>
+                    <span className="name-card">{board.title}</span>
+                    <div className="path-card"></div>
+                </article>
             </NavLink>
         </>
     )
