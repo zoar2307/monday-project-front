@@ -5,6 +5,7 @@ import { BoardDetails } from "../pages/BoardDetails"
 import { GroupList } from "../cmps/GroupList"
 import { BoardHeader } from "../cmps/BoardHeader"
 import { BoardFooter } from "../cmps/BoardFooter"
+import { SideBar } from "../cmps/SideBar"
 
 
 export function BoardPage() {
@@ -19,7 +20,7 @@ export function BoardPage() {
             <Route element={<BoardDetails />} path="/board/:boardId" />
             <Route element={<GroupList />} path="/board/:boardId" />
           </Routes>
-          {/* <SideBar /> */}
+          <SideBar />
         </main>
         <BoardFooter />
       </section>

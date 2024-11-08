@@ -2,51 +2,238 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: em(4px, 16px);
 
     margin-top: 44px;
     height: calc(100vh - 44px);
-    background: linear-gradient(0deg, $light-sidebar-clr1 0%, #ffffff 80%);
+    background: linear-gradient(135deg, #ffffff 5%, $light-sidebar-clr1 100%);
     border-radius: 0 em(8px, 16px) 0 0;
-    padding-left: em(12px, 16px);
+
+    >*:not(.divider) {
+        padding-left: em(12px, 16px);
+    }
+
+    >* {
+        font-family: 'Figtree';
+    }
+
+    position: relative;
 
     .navigation {
         margin-top: em(4px, 16px);
         width: 100%;
+        margin-bottom: em(4px, 16px);
+
+        display: flex;
+        flex-direction: column;
+        gap: em(2px, 16px);
 
         .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             height: em(32px, 16px);
+            padding-right: em(12px, 16px);
 
             a {
                 display: flex;
                 justify-content: start;
                 align-items: center;
+                gap: em(7px, 14px);
 
                 width: 100%;
                 height: 100%;
-                // border: 1px solid transparent;
-                border: 1px solid black;
-                border-radius: em(4px, 16px);
+                border: 1px solid transparent;
+                border-radius: em(4px, 14px);
 
-                padding-right: em(4px, 16px);
-                padding-left: em(5px, 16px);
-            }
+                padding-right: em(4px, 14px);
+                padding-left: em(5px, 14px);
 
-            .left-arrow {
-                margin-left: em(12px, 16px);
-                border: 1px solid black;
-                padding: em(12px, 16px) em(8px, 16px);
-                border-radius: 0 em(8px, 16px);
+                font-size: rem(14px);
+                transition: .1s;
 
-                span {
-                    // border: 1px solid transparent;
-                    // border: 1px solid black;
-                    // padding: em(12px, 16px) em(8px, 16px);
+                &:hover {
+                    background-color: $light-sidebar-clr2;
+                }
+
+                &.active {
+                    text-decoration: none;
+                    background-color: $light-sidebar-clr4;
                 }
             }
+        }
+    }
+
+    .left-arrow {
+        visibility: hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        button {
+            padding: em(12px, 15px) em(8px, 15px);
+
+            text-align: start;
+
+            width: 100%;
+            display: flex;
+            justify-content: center;
+
+            font-size: rem(15px);
+            line-height: lh(22.5px, 15px);
+
+            border: none;
+            border-radius: 0 em(8px, 15px);
+
+            background-color: $light-sidebar-clr3;
+            cursor: pointer;
+
+            svg {
+                outline: none;
+                border: none;
+            }
+
+            &:hover {
+                background-color: $light-sidebar-clr2;
+            }
+        }
+    }
+
+    .divider {
+        background-color: $light-sidebar-clr5;
+        height: 1px;
+        width: 100%;
+    }
+
+    .favorites-container {
+        width: 100%;
+        height: em(32px, 16px);
+
+        padding-right: em(16px, 16px);
+        margin-top: em(4px, 16px);
+        margin-bottom: em(4px, 16px);
+        cursor: pointer;
+
+        .content {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: em(7px, 14px);
+
+            margin-bottom: em(4px, 16px);
+
+            width: 100%;
+            height: 32px;
+            border: 1px solid transparent;
+            border-radius: em(4px, 14px);
+
+            font-size: rem(14px);
+            line-height: lh(20px, 14px);
+
+            padding-right: em(4px, 14px);
+            padding-left: em(5px, 14px);
+
+            .arrow {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: em(4px, 14px);
+
+                width: em(18px, 14px);
+                height: em(18px, 14px);
+
+
+            }
+
+            &:hover {
+                background-color: $light-sidebar-clr2;
+            }
+
+            .tools {
+                display: flex;
+                align-items: center;
+                margin-left: auto;
+
+                gap: em(6px, 16px);
+            }
+
+        }
+
+        .dots {
+            height: em(24px, 16px);
+            width: em(24px, 16px);
+
+            margin-left: auto;
+            visibility: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: em(4px, 16px);
+
+            button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                background-color: transparent;
+                border: none;
+
+                svg {
+                    height: em(16px, 16px);
+                    width: em(16px, 16px);
+                    font-size: rem(16px);
+                }
+
+                cursor: pointer;
+            }
+
+            &:hover {
+                background-color: $light-sidebar-clr2;
+            }
+        }
+
+        svg {
+            stroke: black;
+            fill: none;
+        }
+
+        .favorite-boards {
+            background-color: #FFCB00;
+            height: 0;
+
+            transition: height .3s;
+        }
+
+        &.active {
+            height: calc(100% - 32px - 16px);
+
+            .favorite-boards {
+                background-color: #FFCB00;
+                height: 100%;
+            }
+
+            .dots {
+                visibility: unset;
+            }
+
+            svg {
+                stroke: none;
+                fill: #FFCB00;
+            }
+        }
+    }
+
+    &:hover {
+
+        .nav:nth-child(1) {
+            a {
+                width: calc(100% - em(30px, 16px));
+            }
+        }
+
+        .left-arrow {
+            visibility: unset;
         }
     }
 }
