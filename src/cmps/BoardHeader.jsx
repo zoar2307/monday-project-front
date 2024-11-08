@@ -15,6 +15,7 @@ export function BoardHeader() {
                 <i class="fa-solid fa-user-plus"></i>
               </button>
             </div>
+            <hr/>
             <div>
               <button>
                 <i class="fa-solid fa-magnifying-glass"></i>
