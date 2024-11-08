@@ -1,7 +1,7 @@
 import { storageService } from "../async-storage.service.js"
 import { makeId } from "../util.service.js"
 
-const STORAGE_KEY = "boards"
+const STORAGE_KEY = "boardDB"
 _createBoards()
 
 export const boardService = {
@@ -48,6 +48,8 @@ async function save(board) {
   }
   return savedBoard
 }
+
+
 
 function _createBoard(board) {
   board._id = makeId()
