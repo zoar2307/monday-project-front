@@ -1,0 +1,20 @@
+.board-header{
+    background-color: $light-mainpage-header-bcg;
+    button{
+        background-color: transparent;
+        border: none;
+        color: $light-mainpage-header-btns-clr;
+        font-size: rem(16px);
+        margin-right: rem(16px);
+    }
+    img{
+        width: rem(67px);
+        height: rem(70px);
+      }
+      .logo-home-nav{
+        font-size: em(45px);
+        font-weight: 600;
+        color: #7d73fc;
+        letter-spacing: -3px;
+      }
+}
