@@ -1,4 +1,3 @@
-// DynamicHeader.js
 import { useLocation } from "react-router-dom"
 import { BoardHeader } from "./BoardHeader"
 import { AppHeader } from "./AppHeader"

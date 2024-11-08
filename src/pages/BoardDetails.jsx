@@ -3,13 +3,13 @@ import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { GroupList } from "../cmps/GroupList"
 import { loadBoards } from "../store/actions/board.actions"
+import { SideBar } from "../cmps/SideBar"
 
 export function BoardDetails() {
   const { boardId } = useParams()
   const boards = useSelector((state) => state.boardModule.boards)
   const board = boards.find((board) => board._id === boardId)
   const [loading, setLoading] = useState(!board)
-  const [error, setError] = useState(null)
 
   useEffect(() => {
     const fetchBoards = async () => {
@@ -30,13 +30,12 @@ export function BoardDetails() {
   }, [boards.length])
 
   if (loading) return <div>Loading...</div>
-  if (error) return <div>{error}</div>
-  if (!board) return <div>Board not found.</div>
 
   return (
     <>
       <h2>{board.title}</h2>
       <GroupList groups={board.groups} />
+      <SideBar/>
     </>
   )
 }
