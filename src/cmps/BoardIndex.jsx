@@ -24,7 +24,6 @@ export function BoardIndex() {
     return (
         <section className='board-index'>
             <BoardIndexHeader />
-
             <section className='board-body flex'>
                 <section className='main-panel-container'>
                     <header className='category-header'>
@@ -38,12 +37,9 @@ export function BoardIndex() {
                             boards={boards}
                         />
                     </div>
-
                 </section>
                 <div className='right-panel-container'>
-
                 </div>
-
             </section>
         </section>
     )
