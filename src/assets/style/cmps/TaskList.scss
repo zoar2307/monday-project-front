@@ -1,19 +1,21 @@
 .task-list {
     width: 100%;
     border-collapse: collapse;
+    font-family: figtree;
   
     td {
-      border: 1px solid gray;
+      border: 1px solid #d3d4dd;
       padding: 4px 6px;
       text-align: center; 
       vertical-align: middle; 
     }
   
     th {
-      border: 1px solid gray;
+      border: 1px solid #d3d4dd;
       padding: 6px;
       text-align: center; 
       vertical-align: middle; 
+      font-weight: 400;
     }
   
     th:first-child,

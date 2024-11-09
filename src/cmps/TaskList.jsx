@@ -1,10 +1,15 @@
-import { TaskPreview } from "../cmps/TaskPreview";
+import { TaskPreview } from "../cmps/TaskPreview"
 
-export function TaskList({ tasks, labels, groupColor }) {
+export function TaskList({ tasks, labels, members }) {
   const getStatusColor = (status) => {
-    const label = labels.find((label) => label.title === status);
-    return label ? label.color : "#ddd";
-  };
+    const label = labels.find((label) => label.title === status)
+    return label ? label.color : "#ddd"
+  }
+
+  const getAssignedMemberImage = (assignedToId) => {
+    const member = members.find((member) => member._id === assignedToId)
+    return member?.imgUrl
+  }
 
   return (
     <table className="task-list">
@@ -33,7 +38,20 @@ export function TaskList({ tasks, labels, groupColor }) {
             </td>
             <td>
               <div className="task-person">
-                {task.assignedTo?.fullname || "Unassigned"}
+                {task.assignedTo?._id ? (
+                  <img
+                    src={getAssignedMemberImage(task.assignedTo._id)}
+                    alt={task.assignedTo.fullname || "User Image"}
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                    }}
+                  />
+                ) : (
+                  <span>Unassigned</span>
+                )}
               </div>
             </td>
             <td>
@@ -43,19 +61,17 @@ export function TaskList({ tasks, labels, groupColor }) {
                   backgroundColor: getStatusColor(task.status),
                   color: "#fff",
                   padding: "5px",
-                  width : "100%",
+                  width: "100%",
                   borderRadius: "4px",
                 }}
               >
                 {task.status || "No Status"}
               </div>
             </td>
-            <td>
-              
-            </td>
+            <td></td>
           </tr>
         ))}
       </tbody>
     </table>
-  );
+  )
 }
