@@ -8,9 +8,9 @@ import {
 } from '../reducers/board.reducer'
 import { store } from '../store'
 
-export async function loadBoards() {
+export async function loadBoards(filterBy) {
     try {
-        const boards = await boardService.query()
+        const boards = await boardService.query(filterBy)
         store.dispatch({ type: SET_BOARDS, boards })
         // store.dispatch({ type: SET_MAX_PAGE, maxPage })
     } catch (err) {

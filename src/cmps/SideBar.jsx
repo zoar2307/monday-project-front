@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
+import { loadBoards } from "../store/actions/board.actions";
 
 export function SideBar() {
 
@@ -15,21 +16,62 @@ export function SideBar() {
     const [sidebarWidth, setSideBarWidth] = useState(255)
     const [sideBarIsClose, setSideBarIsClose] = useState('')
     const [filterByToEdit, setFilterByToEdit] = useState('')
+    const [sidebarBounds, setSidebarBounds] = useState({})
     const [favoritesIsOpen, setFavoriteIsOpen] = useState(false)
 
-    const { boardId } = useParams()
 
-    const boards = useSelector(storeState => storeState.boardModule.boards)
+
+    const { pathname } = useLocation()
+
+    let boards = useSelector(storeState => storeState.boardModule.boards)
+    const [filteredBoards, setFilteredBoards] = useState(boards)
+
+
+    useEffect(() => {
+        setSidebarBounds(sideBarRef.current.getBoundingClientRect())
+        // const mouseMove = (e) => {
+        //     setMousePosition({
+        //         x: e.clientX,
+        //         y: e.clientY
+        //     })
+        // }
+        // const endDrag = (e) => {
+        //     sideBarRef.current.classList.remove('resize')
+        //     setSidebarBounds(sideBarRef.current.getBoundingClientRect())
+
+        // }
+        // window.addEventListener("mouseup", endDrag);
+        // window.addEventListener("mousemove", mouseMove)
+        // return () => {
+        //     window.addEventListener("mouseup", endDrag);
+        //     window.addEventListener("mousemove", mouseMove)
+        // }
+    }, [])
 
     useEffect(() => {
         if (!sideBarIsClose) {
             sideBarRef.current.style.width = sidebarWidth + 'px'
         }
-    }, [setSideBarWidth])
+    }, [sidebarWidth])
+
+    // useEffect(() => {
+    //     if (sideBarRef.current.classList.contains('resize')) {
+    //         setSideBarWidth(prev => prev + relativeLocation)
+    //         setSidebarBounds(sideBarRef.current.getBoundingClientRect())
+    //         console.log(`mousePosition.x:`, mousePosition.x)
+    //         console.log(`sideBarRef.current.getBoundingClientRect():`, sideBarRef.current.getBoundingClientRect())
+
+    //     }
+    // }, [mousePosition])
 
     useEffect(() => {
         if (filterByToEdit.name) filterIconRef.current.style.display = 'inherit'
         if (!filterByToEdit.name) filterIconRef.current.style.display = ''
+
+        if (filterByToEdit.title) {
+            const regex = new RegExp(filterByToEdit.title, "i")
+            setFilteredBoards(boards.filter((board) => regex.test(board.title)))
+        }
     }, [filterByToEdit])
 
     function onActiveFavorites() {
@@ -88,10 +130,39 @@ export function SideBar() {
         setFilterByToEdit({ name: '' })
     }
 
+    const handleMouseDown = (e) => {
+        if (sidebarBounds.width + 5 - e.clientX <= 15 && sidebarBounds.width + 5 - e.clientX > 2) {
+            window.addEventListener("mousemove", handleDrag)
+            window.addEventListener("mouseup", () => {
+                window.removeEventListener("mousemove", handleDrag)
+                setSidebarBounds(sideBarRef.current.getBoundingClientRect())
+                sideBarRef.current.classList.remove('resize')
+                document.body.style.cursor = 'default'
+
+            })
+        }
+    }
+
+    const handleDrag = (e) => {
+        sideBarRef.current.classList.add('resize')
+        document.body.style.cursor = 'col-resize'
+        console.log(e)
+        console.log(sidebarBounds)
+        if (e.clientX >= 200 && e.clientX <= 570) {
+            setSideBarWidth(e.clientX)
+            setSidebarBounds(sideBarRef.current.getBoundingClientRect())
+        }
+        else {
+            console.log('under or over')
+        }
+    }
+
+
     const hiddenClass = favoritesIsOpen ? 'hidden' : ''
 
     return (
         <section
+            onMouseDown={handleMouseDown}
             ref={sideBarRef}
             className={`sidebar `}>
             <div className="navigation">
@@ -107,7 +178,7 @@ export function SideBar() {
                     </div>
                 </div>
                 <div className="nav">
-                    <NavLink ref={myWorkRef} to='/my-work' className={boardId && ''}>
+                    <NavLink ref={myWorkRef} to='/my-work' >
                         <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true" tabIndex="-1" className="icon_e7210c37bd" data-testid="icon"><path d="M5.99986 1.82129C6.41407 1.82129 6.74986 2.15708 6.74986 2.57129V4.10701H13.2499V2.57129C13.2499 2.15708 13.5856 1.82129 13.9999 1.82129C14.4141 1.82129 14.7499 2.15708 14.7499 2.57129V4.107H16.2856C16.7876 4.107 17.269 4.30643 17.624 4.66141C17.979 5.01639 18.1784 5.49784 18.1784 5.99986V16.2856C18.1784 16.7876 17.979 17.269 17.624 17.624C17.269 17.979 16.7876 18.1784 16.2856 18.1784H3.71415C3.21213 18.1784 2.73067 17.979 2.37569 17.624C2.02071 17.269 1.82129 16.7876 1.82129 16.2856V5.99986C1.82129 5.49784 2.02071 5.01639 2.37569 4.66141C2.73067 4.30643 3.21213 4.107 3.71415 4.107C3.763 4.107 3.81077 4.11168 3.85702 4.1206C3.90326 4.11168 3.95102 4.10701 3.99986 4.10701H5.24986V2.57129C5.24986 2.15708 5.58565 1.82129 5.99986 1.82129ZM5.24986 7.14272V5.60701H3.99986C3.95101 5.60701 3.90324 5.60234 3.85699 5.59342C3.81075 5.60233 3.76299 5.607 3.71415 5.607C3.60995 5.607 3.51003 5.64839 3.43635 5.72207C3.36268 5.79574 3.32129 5.89567 3.32129 5.99986V16.2856C3.32129 16.3898 3.36268 16.4897 3.43635 16.5634C3.51003 16.637 3.60995 16.6784 3.71415 16.6784H16.2856C16.3898 16.6784 16.4897 16.637 16.5634 16.5634C16.637 16.4897 16.6784 16.3898 16.6784 16.2856V5.99986C16.6784 5.89567 16.637 5.79574 16.5634 5.72207C16.4897 5.64839 16.3898 5.607 16.2856 5.607H14.7499V7.14272C14.7499 7.55693 14.4141 7.89272 13.9999 7.89272C13.5856 7.89272 13.2499 7.55693 13.2499 7.14272V5.60701H6.74986V7.14272C6.74986 7.55693 6.41407 7.89272 5.99986 7.89272C5.58565 7.89272 5.24986 7.55693 5.24986 7.14272ZM13.4214 9.92231C13.6942 9.61058 13.6626 9.13676 13.3509 8.864C13.0392 8.59124 12.5653 8.62283 12.2926 8.93455L8.75058 12.9825L7.02129 11.6856C6.68992 11.437 6.21982 11.5042 5.97129 11.8356C5.72276 12.1669 5.78992 12.637 6.12129 12.8856L8.407 14.5999C8.72086 14.8353 9.16309 14.789 9.42144 14.4937L13.4214 9.92231Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd"></path></svg>
                         My work
                     </NavLink>
@@ -135,9 +206,9 @@ export function SideBar() {
                 </div>
 
                 <div className="favorite-boards">
-                    <div className="board active">
+                    {/* <div className={boardId === board._id ? 'board active' : 'board'}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="19" height="19" aria-hidden="true" className="icon_1360dfb99d" data-testid="icon"><path d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
-                        Monday project</div>
+                        Monday project</div> */}
                 </div>
             </div>
 
@@ -164,7 +235,7 @@ export function SideBar() {
             <div className={`search-workspace ${hiddenClass}`}>
                 <div className="search-bar">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" data-testid="icon" ><path d="M8.65191 2.37299C6.9706 2.37299 5.35814 3.04089 4.16927 4.22976C2.9804 5.41863 2.3125 7.03108 2.3125 8.7124C2.3125 10.3937 2.9804 12.0062 4.16927 13.195C5.35814 14.3839 6.9706 15.0518 8.65191 15.0518C10.0813 15.0518 11.4609 14.5691 12.5728 13.6939L16.4086 17.5303C16.7014 17.8232 17.1763 17.8232 17.4692 17.5303C17.7621 17.2375 17.7622 16.7626 17.4693 16.4697L13.6334 12.6333C14.5086 11.5214 14.9913 10.1418 14.9913 8.7124C14.9913 7.03108 14.3234 5.41863 13.1346 4.22976C11.9457 3.04089 10.3332 2.37299 8.65191 2.37299ZM12.091 12.1172C12.9878 11.2113 13.4913 9.98783 13.4913 8.7124C13.4913 7.42891 12.9815 6.19798 12.0739 5.29042C11.1663 4.38285 9.9354 3.87299 8.65191 3.87299C7.36842 3.87299 6.1375 4.38285 5.22993 5.29042C4.32237 6.19798 3.8125 7.42891 3.8125 8.7124C3.8125 9.99589 4.32237 11.2268 5.22993 12.1344C6.1375 13.0419 7.36842 13.5518 8.65191 13.5518C9.92736 13.5518 11.1509 13.0483 12.0568 12.1514C12.0623 12.1455 12.0679 12.1397 12.0737 12.134C12.0794 12.1283 12.0851 12.1227 12.091 12.1172Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
-                    <input type="text" name="name" placeholder="Search" onChange={handleChange} value={filterByToEdit.name} />
+                    <input type="text" name="title" placeholder="Search" onChange={handleChange} value={filterByToEdit.name} />
                     {filterByToEdit.name && <svg className="clear" onClick={onCleanSearch} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" role="button" tabIndex="0" aria-hidden="false" data-testid="icon"><path d="M6.53033 5.46967C6.23744 5.17678 5.76256 5.17678 5.46967 5.46967C5.17678 5.76256 5.17678 6.23744 5.46967 6.53033L8.62562 9.68628L5.47045 12.8415C5.17756 13.1343 5.17756 13.6092 5.47045 13.9021C5.76334 14.195 6.23822 14.195 6.53111 13.9021L9.68628 10.7469L12.8415 13.9021C13.1343 14.195 13.6092 14.195 13.9021 13.9021C14.195 13.6092 14.195 13.1343 13.9021 12.8415L10.7469 9.68628L13.9029 6.53033C14.1958 6.23744 14.1958 5.76256 13.9029 5.46967C13.61 5.17678 13.1351 5.17678 12.8422 5.46967L9.68628 8.62562L6.53033 5.46967Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>}
                     <svg ref={filterIconRef} className="filter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" role="img" aria-hidden="true"><path d="M17.8571 2.87669C18.107 3.41157 18.0246 4.04275 17.6457 4.49555L12.4892 10.6589V15.3856C12.4892 16.0185 12.097 16.5852 11.5048 16.8082L9.56669 17.5381C9.09976 17.7139 8.57627 17.6494 8.16598 17.3655C7.75569 17.0816 7.51084 16.6144 7.51084 16.1155V10.6589L2.35425 4.49555C1.97542 4.04275 1.89302 3.41157 2.14291 2.87669C2.39279 2.34182 2.92977 2 3.52013 2H16.4799C17.0702 2 17.6072 2.34182 17.8571 2.87669ZM16.4799 3.52012H3.52013L8.91611 9.96964C8.99036 10.0584 9.03096 10.1698 9.03096 10.2848V16.1155L10.969 15.3856V10.2848C10.969 10.1698 11.0096 10.0584 11.0839 9.96964L16.4799 3.52012Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
 
@@ -174,13 +245,23 @@ export function SideBar() {
                 </button>
             </div>
 
-            <div className={`boards ${hiddenClass}`}>
-                {boards && boards.map(board => {
-                    return <div onClick={() => onBoardClick(board._id)} key={board._id} className={boardId === board._id ? 'board active' : 'board'}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="19" height="19" aria-hidden="true" data-testid="icon"><path d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
-                        <p>{board.title}</p></div>
-                })}
+            {boards && <div className={`boards ${hiddenClass}`}>
+                {filterByToEdit.title ?
+                    filteredBoards.map(board => {
+                        return <div onClick={() => onBoardClick(board._id)} key={board._id} className={pathname === `/board/${board._id}` ? 'board active' : 'board'}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="19" height="19" aria-hidden="true" data-testid="icon"><path d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
+                            <p>{board.title}</p></div>
+                    })
+                    :
+                    boards.map(board => {
+                        return <div onClick={() => onBoardClick(board._id)} key={board._id} className={pathname === `/board/${board._id}` ? 'board active' : 'board'}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="19" height="19" aria-hidden="true" data-testid="icon"><path d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
+                            <p>{board.title}</p></div>
+                    })
+                }
+
             </div>
+            }
 
         </section>
     )

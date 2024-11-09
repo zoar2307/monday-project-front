@@ -16,6 +16,7 @@
 @import 'cmps/Signup';
 @import 'cmps/SideBar';
 @import 'cmps/BoardIndex.scss';
+@import 'cmps/RightPanel.scss';
 @import 'cmps/BoardList.scss';
 @import 'cmps/BoardPreview.scss';
 @import 'cmps/BoardDetailsHeader.scss';
@@ -33,13 +34,10 @@
 .app {
     display: flex;
     flex-direction: column;
-    // min-height: 100vh;
+    min-height: 100vh;
+    user-select: none
 }
 
 .app>* {
     width: 100%;
-}
-
-main {
-    flex-grow: 1;
 }

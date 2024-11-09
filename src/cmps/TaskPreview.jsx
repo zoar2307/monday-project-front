@@ -1,7 +1,7 @@
 
-export function TaskPreview() {
+export function TaskPreview({ task }) {
 
     return (
-        <h1>heyy</h1>
+        <h1>{task.title}</h1>
     )
 }
