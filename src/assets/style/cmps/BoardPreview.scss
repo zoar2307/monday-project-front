@@ -1,0 +1,39 @@
+.board-preview {
+    .project-card {
+
+        .img-card {
+            display: flex;
+            margin-bottom: 8px;
+            background-color: #6c6cff;
+            border-radius: 4px;
+            justify-content: center;
+
+            overflow: hidden;
+        }
+
+        .name-card {
+            font-weight: 700;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+
+            .title-card {
+                display: flex;
+                align-content: center;
+            }
+
+            .star-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+        }
+
+        .path-card {
+            display: flex;
+            align-items: center;
+        }
+    }
+}

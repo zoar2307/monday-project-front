@@ -24,18 +24,20 @@ export function BoardIndex() {
     return (
         <section className='board-index'>
             <BoardIndexHeader />
-            <section className='board-body flex'>
+            <section className='boards-body flex'>
                 <section className='main-panel-container'>
                     <header className='category-header'>
                         <div className='arrow'>
 
                         </div>
-                        <h3>Recently visited</h3>
+                        <h4>Recently visited</h4>
                     </header>
-                    <div className='category-content'>
-                        <BoardList
-                            boards={boards}
-                        />
+                    <div className='category-container'>
+                        <div className='category-content'>
+                            <BoardList
+                                boards={boards}
+                            />
+                        </div>
                     </div>
                 </section>
                 <div className='right-panel-container'>
