@@ -4,6 +4,7 @@ import { useSelector } from "react-redux"
 import { GroupList } from "../cmps/GroupList"
 import { loadBoards } from "../store/actions/board.actions"
 import { SideBar } from "../cmps/SideBar"
+import { BoardDetailsHeader } from "../cmps/BoardDetailsHeader"
 
 export function BoardDetails() {
   const { boardId } = useParams()
@@ -29,13 +30,14 @@ export function BoardDetails() {
     fetchBoards()
   }, [boards.length])
 
+  console.log(board)
+
   if (loading) return <div>Loading...</div>
 
   return (
-    <>
-      <SideBar />
-      <h2>{board.title}</h2>
-      <GroupList groups={board.groups} />
-    </>
+    <section className="board-details">
+      <BoardDetailsHeader board={board} />
+
+    </section>
   )
 }

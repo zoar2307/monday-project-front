@@ -119,12 +119,17 @@ async function _createBoards() {
         {
           _id: "u102",
           fullname: "Alice Smith",
-          imgUrl: "https://example.com/alice.jpg",
+          imgUrl: "https://robohash.org/1",
         },
         {
           _id: "u103",
           fullname: "Bob Johnson",
-          imgUrl: "https://example.com/bob.jpg",
+          imgUrl: "https://robohash.org/2",
+        },
+        {
+          _id: "u104",
+          fullname: "Ron Johnson",
+          imgUrl: "https://robohash.org/3",
         },
       ],
       groups: [

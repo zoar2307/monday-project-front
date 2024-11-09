@@ -10,6 +10,7 @@ import { store } from "./store/store.js"
 import { Provider } from "react-redux"
 import { DynamicHeader } from "./cmps/DynamicHeader.jsx"
 import { MyWork } from "./cmps/MyWork.jsx"
+import { SideBar } from "./cmps/SideBar.jsx"
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <section className="app">
           <DynamicHeader />
           <main className="main-layout">
+            <SideBar />
             <Routes>
               <Route element={<HomePage />} path="/" />
               <Route element={<AboutUs />} path="/about" />

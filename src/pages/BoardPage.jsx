@@ -11,7 +11,7 @@ export function BoardPage() {
     <>
       <section className="board-page main-layout app">
         <main className="main-content">
-          <SideBar />
+          {/* <SideBar /> */}
           <BoardIndex />
         </main>
         <BoardFooter />

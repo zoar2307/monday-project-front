@@ -1,12 +1,15 @@
 .main-layout {
-  margin: 0 auto;
-  // padding-left: 1.6rem;
-  // padding-right: 1.6rem;
+  // margin: 0 auto;
+  height: calc(100vh - 48px);
+  display: flex;
+  gap: em(10px, 16px);
 }
+
 .homepage {
   display: grid;
   grid-template-rows: auto 1fr;
 }
+
 .container {
   max-width: 800px;
   padding: 1em;

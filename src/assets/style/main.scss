@@ -18,11 +18,13 @@
 @import 'cmps/BoardIndex.scss';
 @import 'cmps/BoardList.scss';
 @import 'cmps/BoardPreview.scss';
+@import 'cmps/BoardDetailsHeader.scss';
 
 
 /* Pages */
 @import 'pages/HomePage';
 @import 'pages/BoardPage.scss';
+@import 'pages/BoardDetails.scss';
 
 .app {
     display: flex;

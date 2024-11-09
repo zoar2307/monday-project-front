@@ -1,0 +1,360 @@
+.board-details-header {
+    padding: em(18px, 16px) em(30px, 16px) 0 em(38px, 16px);
+
+    column-gap: 16px;
+    display: grid;
+    grid-template-areas:
+        "name name users-data"
+        "views views views"
+        "filter filter filter";
+    grid-template-columns: fit-content(800px) 1fr;
+    grid-template-rows: auto;
+    width: 100%;
+
+    .board-name {
+        display: flex;
+        align-items: center;
+        gap: em(7px, 16px);
+        grid-area: name;
+        height: em(32px, 16px);
+        max-width: max-content;
+        padding: em(1px, 16px) em(4px, 16px);
+        border-radius: em(4px, 16px);
+
+        overflow: hidden;
+        cursor: pointer;
+
+        h2 {
+            font-size: rem(24px);
+            line-height: lh(30px, 24px);
+
+            font-family: Poppins;
+            font-weight: 500;
+
+            color: $light-board-details-clr2;
+
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        svg {
+            height: em(24px, 16px);
+            width: em(24px, 16px);
+
+            color: $light-board-details-clr1;
+        }
+
+        &:hover {
+            background-color: rgba($color: $light-board-details-clr1, $alpha: 0.1);
+        }
+
+        &:active {
+            background-color: $light-board-details-clr3;
+        }
+    }
+
+    .board-users-data {
+        grid-area: users-data;
+        justify-self: end;
+
+        height: em(32px, 16px);
+
+        display: flex;
+        align-items: center;
+        gap: em(8px, 16px);
+
+        width: 100%;
+
+        .decision {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: em(4px, 16px);
+
+            button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                font-size: rem(16px);
+                padding: 0;
+                height: em(32px, 16px);
+                min-width: em(32px, 16px);
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+
+                svg {
+                    height: em(20px, 16px);
+                    min-width: em(20px, 16px);
+                    color: $light-board-details-clr1;
+                }
+
+            }
+
+            &:hover {
+                background-color: rgba($color: $light-board-details-clr1, $alpha: 0.1);
+            }
+
+            &:active {
+                background-color: $light-board-details-clr3;
+            }
+        }
+
+        .active-users {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: em(4px, 16px);
+            height: em(32px, 16px);
+
+            width: max-content;
+
+            button {
+                font-size: rem(16px);
+                padding: em(4px, 16px) em(8px, 16px);
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                border: none;
+                width: 100%;
+                height: 100%;
+                background-color: transparent;
+                padding-right: em(16px, 16px);
+                cursor: pointer;
+                position: relative;
+            }
+
+            .member:nth-child(1) {
+                position: relative;
+
+                z-index: 1;
+            }
+
+            .member:nth-child(2) {
+                position: relative;
+                right: 8px;
+                z-index: 2;
+            }
+
+            .member-img {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                width: em(28px, 16px);
+                height: em(28px, 16px);
+                border-radius: 50%;
+                border: 1px solid white;
+
+                object-fit: cover;
+
+                background-color: black;
+            }
+
+            .plus-member {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                position: relative;
+                z-index: 3;
+
+                font-size: rem(14px);
+                margin-left: em(-16px, 14px);
+                padding: 0 em(1px, 14px);
+                line-height: lh(24px, 14px);
+
+
+                width: em(34px, 14px);
+                height: em(28px, 14px);
+
+                font-family: Figtree;
+
+                border: 1px solid white;
+
+                border-radius: em(14px, 14px);
+                background-color: $light-board-details-clr4;
+                color: $light-board-details-clr2;
+            }
+
+            &:hover {
+                background-color: rgba($color: $light-board-details-clr1, $alpha: 0.1);
+            }
+        }
+
+        .invite {
+            height: em(32px, 16px);
+
+            .invite-button {
+                font-size: rem(14px);
+                line-height: lh(22px, 14px);
+                font-family: Figtree;
+                border-radius: em(4px, 14px);
+                color: $light-board-details-clr2;
+                padding: em(4px, 14px) em(8px, 14px);
+                height: 100%;
+                background-color: transparent;
+
+                border: 1px solid $light-board-details-clr4;
+
+                &:hover {
+                    background-color: rgba($color: $light-board-details-clr1, $alpha: 0.1);
+                }
+            }
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: em(4px, 16px);
+
+            button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                font-size: rem(16px);
+                padding: 0;
+                height: em(32px, 16px);
+                min-width: em(32px, 16px);
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+
+                svg {
+                    height: em(24px, 16px);
+                    min-width: em(24px, 16px);
+                    color: $light-board-details-clr1;
+                }
+
+            }
+
+            &:hover {
+                background-color: rgba($color: $light-board-details-clr1, $alpha: 0.1);
+            }
+        }
+    }
+
+    .views {
+        grid-area: views;
+        font-size: rem(14px);
+
+        display: flex;
+        align-items: end;
+
+        height: em(42px, 14px);
+        width: 100%;
+        border-bottom: 2px solid rgba($color: $light-board-details-clr1, $alpha: 0.1);
+
+        .view {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: max-content;
+
+            padding: em(4px, 14px) em(20px, 14px);
+            height: em(32px, 14px);
+
+            gap: em(4px, 14px);
+            border-radius: em(4px, 16px);
+
+            margin-bottom: 1px;
+            color: $light-board-details-clr2;
+
+            font-family: Figtree;
+
+            transition: .2s;
+            cursor: pointer;
+
+            svg {
+                height: em(16px, 14px);
+                width: em(16px, 14px);
+            }
+
+            .active-line {
+                background-color: $light-sidebar-clr9;
+                width: 100%;
+                height: 2px;
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+
+                opacity: 0;
+                transition: .3s;
+            }
+
+            .dots {
+                button {
+                    color: $light-board-details-clr2;
+
+                    display: flex;
+                    align-items: center;
+                    font-size: rem(12px);
+
+                    width: em(20px, 12px);
+                    height: em(20px, 12px);
+                    padding: em(3px, 12px);
+                    border-radius: em(4px, 12px);
+
+                    border: none;
+                    background-color: transparent;
+
+                    opacity: 0;
+                    cursor: pointer;
+
+                    transition: .3s;
+
+                    svg {
+                        text-align: center;
+                    }
+
+                    &:hover {
+                        background-color: $light-board-details-clr3;
+                    }
+                }
+            }
+
+            &:hover {
+                .dots {
+                    button {
+                        opacity: 1;
+                    }
+                }
+
+                background-color: rgba($color: $light-board-details-clr1, $alpha: 0.1);
+            }
+
+            &.active {
+                .active-line {
+                    opacity: 1;
+                }
+            }
+        }
+
+        .add-view {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: em(32px, 14px);
+            width: em(32px, 14px);
+
+            span {
+                color: $light-board-details-clr2;
+
+                i {
+                    font-size: rem(10px);
+                }
+            }
+        }
+    }
+
+    .board-details-filter {
+        grid-area: filter;
+    }
+}
