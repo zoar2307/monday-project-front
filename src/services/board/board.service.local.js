@@ -61,7 +61,7 @@ function _createBoard(board) {
 }
 
 async function _createBoards() {
-  let boards = await storageService.query(STORAGE_KEY)
+  let boards = await storageService.query(STORAGE_KEY);
   if (!boards || !boards.length) {
     await storageService.post(STORAGE_KEY, {
       title: "Robot dev proj",
@@ -73,8 +73,8 @@ async function _createBoards() {
         imgUrl: "http://some-img",
       },
       labels: [
-        { id: "l101", title: "Done", color: "#61bd4f" },
-        { id: "l102", title: "Progress", color: "#61bd33" },
+        { id: "l101", title: "Done", color: "#01c875" },
+        { id: "l102", title: "Stuck", color: "#e02f4b" },
       ],
       members: [
         {
@@ -92,15 +92,26 @@ async function _createBoards() {
         {
           id: "g101",
           title: "Group 1",
+          color: "#007bff", // Assign a unique color to this group
           archivedAt: 1589983468418,
           tasks: [
-            { id: "c101", title: "Replace logo" },
-            { id: "c102", title: "Add Samples" },
+            { 
+              id: "c101", 
+              title: "Replace logo", 
+              assignedTo: { _id: "u101", fullname: "Tal Taltal" },
+              status: "Done" 
+            },
+            { 
+              id: "c102", 
+              title: "Add Samples", 
+              assignedTo: { _id: "u102", fullname: "Josh Ga" },
+              status: "Stuck" 
+            },
           ],
         },
       ],
       activities: [],
-    })
+    });
 
     await storageService.post(STORAGE_KEY, {
       title: "AI Research Project",
@@ -112,8 +123,8 @@ async function _createBoards() {
         imgUrl: "http://some-other-img",
       },
       labels: [
-        { id: "l201", title: "Completed", color: "#4a90e2" },
-        { id: "l202", title: "In Progress", color: "#f5a623" },
+        { id: "l201", title: "Done", color: "#01c875" },
+        { id: "l202", title: "Working on it", color: "#fdab3d" },
       ],
       members: [
         {
@@ -136,16 +147,29 @@ async function _createBoards() {
         {
           id: "g201",
           title: "Phase 1 - Research",
+          color: "#ff6347", // Assign a unique color to this group
           tasks: [
-            { id: "c201", title: "Literature Review" },
-            { id: "c202", title: "Develop Hypothesis" },
+            { 
+              id: "c201", 
+              title: "Literature Review", 
+              assignedTo: { _id: "u102", fullname: "Alice Smith" },
+              status: "Done" 
+            },
+            { 
+              id: "c202", 
+              title: "Develop Hypothesis", 
+              assignedTo: { _id: "u103", fullname: "Bob Johnson" },
+              status: "Working on it" 
+            },
           ],
         },
       ],
       activities: [],
-    })
+    });
   }
 }
+
+
 
 function loadBoardsFromStorage() {
   const data = localStorage.getItem(STORAGE_KEY)

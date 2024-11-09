@@ -43,6 +43,6 @@ export async function saveBoard(board) {
     }
 }
 
-export function setFilterBy(filterBy = toyService.getDefaultFilter()) {
+export function setFilterBy(filterBy = boardService.getDefaultFilter()) {
     store.dispatch({ type: SET_FILTER_BY, filterBy: filterBy })
 }
