@@ -1,49 +1,62 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { TaskList } from "../cmps/TaskList";
-import { updateGroupTitle } from "../store/actions/group.actions";
+import { useState } from "react"
+import { TaskList } from "../cmps/TaskList"
+import { updateGroup, addTaskToGroup } from "../store/actions/group.actions"
 
-export function GroupPreview({ group, members, labels, boardId }) {
-    const [groupTitle, setGroupTitle] = useState(group.title);
-    const [isChanged, setIsChanged] = useState(false);
+export function GroupPreview({
+  group,
+  members,
+  labels,
+  boardId,
+  onRemoveGroup,
+}) {
+  const [groupTitle, setGroupTitle] = useState(group.title)
+  const [tasks, setTasks] = useState(group.tasks)
 
-    const handleTitleChange = (e) => {
-        setGroupTitle(e.target.value);
-        setIsChanged(true);
-    };
+  const handleTitleChange = (e) => setGroupTitle(e.target.value)
 
-    const saveTitle = () => {
-        // Directly call updateGroupTitle, which internally dispatches the action
-        updateGroupTitle(boardId, group.id, groupTitle);
-        setIsChanged(false);
-    };
+  const saveTitle = () => {
+    const updatedGroup = { ...group, title: groupTitle }
+    updateGroup(boardId, updatedGroup)
+  }
 
-    return (
-        <div className="group-preview">
-            <header className="flex align-center">
-                <p style={{ color: group.color }}>
-                    <i className="fa-solid fa-chevron-down"></i>
-                </p>
-                <input
-                    type="text"
-                    value={groupTitle}
-                    onChange={handleTitleChange}
-                    style={{ color: group.color }}
-                    className="group-title-input"
-                />
-                {isChanged && (
-                    <button onClick={saveTitle} className="save-btn">
-                        Save
-                    </button>
-                )}
-            </header>
-            <main className="flex">
-                <div
-                    className="side-group-color"
-                    style={{ backgroundColor: group.color }}
-                ></div>
-                <TaskList tasks={group.tasks} members={members} labels={labels} />
-            </main>
-        </div>
-    );
+  const handleAddTask = (newTask) => {
+    setTasks([...tasks, newTask])
+    addTaskToGroup(boardId, group.id, newTask)
+  }
+
+  return (
+    <div className="group-preview">
+      <header className="flex align-center">
+        <p style={{ color: group.color }}>
+          <i className="fa-solid fa-chevron-down"></i>
+        </p>
+        <input
+          type="text"
+          value={groupTitle}
+          onChange={handleTitleChange}
+          onBlur={saveTitle}
+          style={{ color: group.color }}
+          className="group-title-input"
+        />
+        <button
+          onClick={() => onRemoveGroup(group.id)}
+          className="delete-group-btn"
+        >
+          Delete Group
+        </button>
+      </header>
+      <main className="flex">
+        <div
+          className="side-group-color"
+          style={{ backgroundColor: group.color }}
+        ></div>
+        <TaskList
+          tasks={tasks}
+          members={members}
+          labels={labels}
+          onAddTask={handleAddTask}
+        />
+      </main>
+    </div>
+  )
 }

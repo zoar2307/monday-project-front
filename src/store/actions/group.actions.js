@@ -1,58 +1,62 @@
-import { ADD_GROUP, REMOVE_GROUP, SET_GROUPS, UPDATE_GROUP } from "../reducers/group.reducer"
+import { boardService } from "../../services/board/board.service.local"
+import { SET_GROUPS, ADD_GROUP, REMOVE_GROUP, UPDATE_GROUP } from "../reducers/group.reducer"
+import { getRandomColor } from "../../services/util.service"
 import { store } from "../store"
 
+export async function loadGroups(boardId) {
+  try {
+    const board = await boardService.getById(boardId)
+    const groups = board ? board.groups : []
+    store.dispatch({ type: SET_GROUPS, groups })
+  } catch (err) {
+    console.error("Cannot load groups:", err)
+  }
+}
 
-export function loadGroups(boardId) {
-    try {
-        const state = store.getState()
-        const board = state.boardModule.boards.find(board => board._id === boardId)
-        const groups = board ? board.groups : []
-        store.dispatch({ type: SET_GROUPS, groups })
-    } catch (err) {
-        console.error("group action -> Cannot load groups", err)
-        throw err
-    }
+export async function addGroup(boardId) {
+  const newGroup = { id: Date.now().toString(), title: "New Group", color: getRandomColor(), tasks: [] }
+  try {
+    const board = await boardService.getById(boardId)
+    board.groups.push(newGroup)
+    await boardService.save(board)
+    store.dispatch({ type: ADD_GROUP, group: newGroup })
+  } catch (err) {
+    console.error("Cannot add group:", err)
+  }
 }
 
 export async function removeGroup(boardId, groupId) {
-    try {
-        const state = store.getState()
-        const board = state.boardModule.boards.find(board => board._id === boardId)
-        if (!board) throw new Error("Board not found")
-
-        board.groups = board.groups.filter(group => group.id !== groupId)
-        store.dispatch({ type: REMOVE_GROUP, groupId })
-    } catch (err) {
-        console.error("group action -> Cannot remove group", err)
-        throw err
-    }
+  try {
+    const board = await boardService.getById(boardId)
+    board.groups = board.groups.filter((group) => group.id !== groupId)
+    await boardService.save(board)
+    store.dispatch({ type: REMOVE_GROUP, groupId })
+  } catch (err) {
+    console.error("Cannot remove group:", err)
+  }
 }
 
-export async function saveGroup(boardId, group) {
-    try {
-        const state = store.getState()
-        const board = state.boardModule.boards.find(board => board._id === boardId)
-        if (!board) throw new Error("Board not found")
-
-        const existingGroup = group.id && board.groups.find(g => g.id === group.id)
-        if (existingGroup) {
-            board.groups = board.groups.map(g => (g.id === group.id ? group : g))
-        } else {
-            group.id = generateId() 
-            board.groups.push(group)
-        }
-
-        store.dispatch({
-            type: existingGroup ? UPDATE_GROUP : ADD_GROUP,
-            group,
-        })
-
-    } catch (err) {
-        console.error("group action -> Cannot save group", err)
-        throw err
-    }
+export async function updateGroup(boardId, updatedGroup) {
+  try {
+    const board = await boardService.getById(boardId)
+    board.groups = board.groups.map((group) => group.id === updatedGroup.id ? updatedGroup : group)
+    await boardService.save(board)
+    store.dispatch({ type: UPDATE_GROUP, group: updatedGroup })
+  } catch (err) {
+    console.error("Cannot update group:", err)
+  }
 }
 
-function generateId() {
-    return '_' + Math.random().toString(36).substr(2, 9)
+export async function addTaskToGroup(boardId, groupId, newTask) {
+  try {
+    const board = await boardService.getById(boardId)
+    board.groups = board.groups.map((group) => 
+      group.id === groupId ? { ...group, tasks: [...group.tasks, newTask] } : group
+    )
+    await boardService.save(board)
+    const updatedGroup = board.groups.find((group) => group.id === groupId)
+    store.dispatch({ type: UPDATE_GROUP, group: updatedGroup })
+  } catch (err) {
+    console.error("Cannot add task to group:", err)
+  }
 }

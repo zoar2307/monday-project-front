@@ -1,6 +1,9 @@
-import { TaskPreview } from "../cmps/TaskPreview"
+import { useState } from "react"
+import { makeId } from "../services/util.service"
 
-export function TaskList({ tasks, labels, members }) {
+export function TaskList({ tasks, labels, members, onAddTask }) {
+  const [newTaskTitle, setNewTaskTitle] = useState("")
+
   const getStatusColor = (status) => {
     const label = labels.find((label) => label.title === status)
     return label ? label.color : "#ddd"
@@ -9,6 +12,17 @@ export function TaskList({ tasks, labels, members }) {
   const getAssignedMemberImage = (assignedToId) => {
     const member = members.find((member) => member._id === assignedToId)
     return member?.imgUrl
+  }
+
+  const handleNewTaskBlur = () => {
+    const newTask = {
+      id: makeId(),
+      title: newTaskTitle,
+      assignedTo: null,
+      status: "No Status",
+    }
+    onAddTask(newTask)
+    setNewTaskTitle("")
   }
 
   return (
@@ -71,6 +85,18 @@ export function TaskList({ tasks, labels, members }) {
             <td></td>
           </tr>
         ))}
+        <tr>
+          <td colSpan="5">
+            <input
+              type="text"
+              value={newTaskTitle}
+              onChange={(e) => setNewTaskTitle(e.target.value)}
+              onBlur={handleNewTaskBlur}
+              placeholder="Add a new task..."
+              className="new-task-input"
+            />
+          </td>
+        </tr>
       </tbody>
     </table>
   )
