@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { loadBoards } from '../store/actions/board.actions'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import { BoardIndexHeader } from './BoardIndexHeader'
+import { RightPanel } from './RightPanel'
 
 
 export function BoardIndex() {
@@ -45,8 +46,7 @@ export function BoardIndex() {
                         </div>
                     </div>
                 </section>
-                <div className='right-panel-container'>
-                </div>
+                <RightPanel />
             </section>
         </section>
     )
