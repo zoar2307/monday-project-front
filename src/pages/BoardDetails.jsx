@@ -37,7 +37,7 @@ export function BoardDetails() {
   return (
     <section className="board-details">
       <BoardDetailsHeader board={board} />
-
+      <GroupList groups={board.groups} />
     </section>
   )
 }
