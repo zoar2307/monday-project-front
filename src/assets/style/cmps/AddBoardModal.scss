@@ -3,9 +3,112 @@
     top: 50%;
     left: 50%;
     translate: -50% -50%;
+    z-index: 100;
 
     border-radius: em(8px, 16px);
     padding: em(32px, 16px);
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.7) 0px 25px 50px -15px;
+
+    color: $light-board-details-clr2;
+
+    >* {
+        font-family: 'Figtree';
+    }
+
+    .close-x {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background-color: transparent;
+        border: none;
+        border-radius: em(4px, 16px);
+
+        height: em(32px, 16px);
+        width: em(28px, 16px);
+
+        padding: em(4px, 16px) em(8px, 16px);
+
+        cursor: pointer;
+
+        &:hover {
+            background-color: rgba($color: $light-board-details-filter-clr1, $alpha: 0.1);
+        }
+
+        i {
+            font-size: rem(14px);
+        }
+    }
+
+    h2 {
+        font-size: rem(32px);
+        line-height: lh(48px, 32px);
+        margin-bottom: em(16px, 32px);
+        width: em(436px, 32px);
+
+        font-weight: 400;
+    }
+
+    .form-line {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: start;
+        height: em(71px, 16px);
+        gap: em(8px, 16px);
+
+        label {
+            font-weight: 400;
+            font-size: rem(15px);
+            line-height: lh(22.5px, 15px);
+        }
+
+        input {
+            font-size: rem(16px);
+            padding: em(8px, 16px) em(16px, 16px);
+            height: em(42px, 16px);
+            border-radius: em(4px, 16px);
+            line-height: lh(22.5px, 16px);
+            border: 1px solid $light-board-details-clr4;
+            width: 100%;
+            font-family: 'Figtree';
+            color: $light-board-details-clr2;
+        }
+
+        margin-bottom: em(16px, 16px);
+    }
+
+    .button-container {
+        display: flex;
+        align-self: center;
+        justify-content: end;
+
+        height: em(40px, 16px);
+
+        button {
+            padding: em(8px, 16px) em(16px, 16px);
+            border-radius: em(4px, 16px);
+            border: none;
+
+            cursor: pointer;
+        }
+
+        button:nth-child(1) {
+            background-color: transparent;
+            margin-right: em(8px, 16px);
+
+            &:hover {
+                background-color: rgba($color: $light-board-details-filter-clr1, $alpha: 0.1);
+            }
+        }
+
+        button:nth-child(2) {
+            color: white;
+            background-color: $light-board-details-filter-clr2;
+
+            &:hover {
+                background-color: $light-board-details-filter-clr3;
+            }
+        }
+    }
 }

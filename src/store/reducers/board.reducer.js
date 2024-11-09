@@ -8,11 +8,13 @@ export const UPDATE_BOARD = 'UPDATE_BOARD'
 
 export const SET_FILTER_BY = 'SET_FILTER_BY'
 export const SET_BACKDROP = 'SET_BACKDROP'
+export const SET_IS_ADD_BOARD_MODAL = 'SET_IS_ADD_BOARD_MODAL'
 
 const initialState = {
     boards: [],
     filterBy: boardService.getDefaultFilter(),
     backdrop: false,
+    isAddBoardModal: false
 }
 
 export function boardReducer(state = initialState, action = {}) {
@@ -41,6 +43,9 @@ export function boardReducer(state = initialState, action = {}) {
 
         case SET_BACKDROP:
             return { ...state, backdrop: action.backdrop }
+
+        case SET_IS_ADD_BOARD_MODAL:
+            return { ...state, isAddBoardModal: action.modal }
 
         default:
             return state

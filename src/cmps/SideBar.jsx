@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
-import { loadBoards, setBackdrop } from "../store/actions/board.actions";
+import { loadBoards, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions";
 import { AddBoardModal } from "./AddBoardModal";
 
 export function SideBar() {
@@ -131,6 +131,7 @@ export function SideBar() {
 
     function onAddBoard() {
         setBackdrop(true)
+        setIsAddBoardModal(true)
     }
 
     const hiddenClass = favoritesIsOpen ? 'hidden' : ''

@@ -5,7 +5,8 @@ import {
     ADD_BOARD,
     UPDATE_BOARD,
     SET_FILTER_BY,
-    SET_BACKDROP
+    SET_BACKDROP,
+    SET_IS_ADD_BOARD_MODAL
 } from '../reducers/board.reducer'
 import { store } from '../store'
 
@@ -50,4 +51,8 @@ export function setFilterBy(filterBy = boardService.getDefaultFilter()) {
 
 export function setBackdrop(backdrop) {
     store.dispatch({ type: SET_BACKDROP, backdrop })
+}
+
+export function setIsAddBoardModal(modal) {
+    store.dispatch({ type: SET_IS_ADD_BOARD_MODAL, modal })
 }

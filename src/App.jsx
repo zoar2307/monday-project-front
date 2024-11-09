@@ -12,6 +12,7 @@ import { DynamicHeader } from "./cmps/DynamicHeader.jsx"
 import { MyWork } from "./cmps/MyWork.jsx"
 import { SideBar } from "./cmps/SideBar.jsx"
 import { BackDrop } from "./cmps/BackDrop.jsx"
+import { AddBoardModal } from "./cmps/AddBoardModal.jsx"
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <section className="app">
           <DynamicHeader />
           <main className="main-layout">
+            <AddBoardModal />
             <BackDrop />
             <SideBar />
             <Routes>
