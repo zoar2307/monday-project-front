@@ -7,10 +7,12 @@ export const ADD_BOARD = 'ADD_BOARD'
 export const UPDATE_BOARD = 'UPDATE_BOARD'
 
 export const SET_FILTER_BY = 'SET_FILTER_BY'
+export const SET_BACKDROP = 'SET_BACKDROP'
 
 const initialState = {
     boards: [],
     filterBy: boardService.getDefaultFilter(),
+    backdrop: false,
 }
 
 export function boardReducer(state = initialState, action = {}) {
@@ -36,6 +38,9 @@ export function boardReducer(state = initialState, action = {}) {
 
         case SET_FILTER_BY:
             return { ...state, filterBy: { ...state.filterBy, ...action.filterBy } }
+
+        case SET_BACKDROP:
+            return { ...state, backdrop: action.backdrop }
 
         default:
             return state

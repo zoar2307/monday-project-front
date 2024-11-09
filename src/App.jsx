@@ -11,6 +11,7 @@ import { Provider } from "react-redux"
 import { DynamicHeader } from "./cmps/DynamicHeader.jsx"
 import { MyWork } from "./cmps/MyWork.jsx"
 import { SideBar } from "./cmps/SideBar.jsx"
+import { BackDrop } from "./cmps/BackDrop.jsx"
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <section className="app">
           <DynamicHeader />
           <main className="main-layout">
+            <BackDrop />
             <SideBar />
             <Routes>
               <Route element={<HomePage />} path="/" />

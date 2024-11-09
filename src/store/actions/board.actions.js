@@ -4,7 +4,8 @@ import {
     REMOVE_BOARD,
     ADD_BOARD,
     UPDATE_BOARD,
-    SET_FILTER_BY
+    SET_FILTER_BY,
+    SET_BACKDROP
 } from '../reducers/board.reducer'
 import { store } from '../store'
 
@@ -45,4 +46,8 @@ export async function saveBoard(board) {
 
 export function setFilterBy(filterBy = boardService.getDefaultFilter()) {
     store.dispatch({ type: SET_FILTER_BY, filterBy: filterBy })
+}
+
+export function setBackdrop(backdrop) {
+    store.dispatch({ type: SET_BACKDROP, backdrop })
 }

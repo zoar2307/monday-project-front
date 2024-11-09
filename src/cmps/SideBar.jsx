@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
-import { loadBoards } from "../store/actions/board.actions";
+import { loadBoards, setBackdrop } from "../store/actions/board.actions";
+import { AddBoardModal } from "./AddBoardModal";
 
 export function SideBar() {
 
@@ -19,8 +20,6 @@ export function SideBar() {
     const [sidebarBounds, setSidebarBounds] = useState({})
     const [favoritesIsOpen, setFavoriteIsOpen] = useState(false)
 
-
-
     const { pathname } = useLocation()
 
     let boards = useSelector(storeState => storeState.boardModule.boards)
@@ -29,23 +28,6 @@ export function SideBar() {
 
     useEffect(() => {
         setSidebarBounds(sideBarRef.current.getBoundingClientRect())
-        // const mouseMove = (e) => {
-        //     setMousePosition({
-        //         x: e.clientX,
-        //         y: e.clientY
-        //     })
-        // }
-        // const endDrag = (e) => {
-        //     sideBarRef.current.classList.remove('resize')
-        //     setSidebarBounds(sideBarRef.current.getBoundingClientRect())
-
-        // }
-        // window.addEventListener("mouseup", endDrag);
-        // window.addEventListener("mousemove", mouseMove)
-        // return () => {
-        //     window.addEventListener("mouseup", endDrag);
-        //     window.addEventListener("mousemove", mouseMove)
-        // }
     }, [])
 
     useEffect(() => {
@@ -53,16 +35,6 @@ export function SideBar() {
             sideBarRef.current.style.width = sidebarWidth + 'px'
         }
     }, [sidebarWidth])
-
-    // useEffect(() => {
-    //     if (sideBarRef.current.classList.contains('resize')) {
-    //         setSideBarWidth(prev => prev + relativeLocation)
-    //         setSidebarBounds(sideBarRef.current.getBoundingClientRect())
-    //         console.log(`mousePosition.x:`, mousePosition.x)
-    //         console.log(`sideBarRef.current.getBoundingClientRect():`, sideBarRef.current.getBoundingClientRect())
-
-    //     }
-    // }, [mousePosition])
 
     useEffect(() => {
         if (filterByToEdit.name) filterIconRef.current.style.display = 'inherit'
@@ -157,6 +129,9 @@ export function SideBar() {
         }
     }
 
+    function onAddBoard() {
+        setBackdrop(true)
+    }
 
     const hiddenClass = favoritesIsOpen ? 'hidden' : ''
 
@@ -219,16 +194,19 @@ export function SideBar() {
                 <div onClick={onOpenBoards} className="workspace-name">
                     <h2 className="letter">S</h2>
                     <h2 className="title">Sprint 4 - monday</h2>
-                    <div className="arrow">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true" className="icon_e7210c37bd bar6H noFocusStyle_26dd7872ca" data-testid="icon"><path d="M10.5303 12.5303L10 12L9.46967 12.5303C9.76256 12.8232 10.2374 12.8232 10.5303 12.5303ZM10 10.9393L6.53033 7.46967C6.23744 7.17678 5.76256 7.17678 5.46967 7.46967C5.17678 7.76256 5.17678 8.23744 5.46967 8.53033L9.46967 12.5303L10 12L10.5303 12.5303L14.5303 8.53033C14.8232 8.23744 14.8232 7.76256 14.5303 7.46967C14.2374 7.17678 13.7626 7.17678 13.4697 7.46967L10 10.9393Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
+                    <div>
+                        <div className="arrow">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true" className="icon_e7210c37bd bar6H noFocusStyle_26dd7872ca" data-testid="icon"><path d="M10.5303 12.5303L10 12L9.46967 12.5303C9.76256 12.8232 10.2374 12.8232 10.5303 12.5303ZM10 10.9393L6.53033 7.46967C6.23744 7.17678 5.76256 7.17678 5.46967 7.46967C5.17678 7.76256 5.17678 8.23744 5.46967 8.53033L9.46967 12.5303L10 12L10.5303 12.5303L14.5303 8.53033C14.8232 8.23744 14.8232 7.76256 14.5303 7.46967C14.2374 7.17678 13.7626 7.17678 13.4697 7.46967L10 10.9393Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
+                        </div>
+                    </div>
+
+                    <div className="dots">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
+                        </button>
                     </div>
                 </div>
 
-                <div className="dots">
-                    <button>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
-                    </button>
-                </div>
 
             </div>
 
@@ -240,7 +218,7 @@ export function SideBar() {
                     <svg ref={filterIconRef} className="filter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" role="img" aria-hidden="true"><path d="M17.8571 2.87669C18.107 3.41157 18.0246 4.04275 17.6457 4.49555L12.4892 10.6589V15.3856C12.4892 16.0185 12.097 16.5852 11.5048 16.8082L9.56669 17.5381C9.09976 17.7139 8.57627 17.6494 8.16598 17.3655C7.75569 17.0816 7.51084 16.6144 7.51084 16.1155V10.6589L2.35425 4.49555C1.97542 4.04275 1.89302 3.41157 2.14291 2.87669C2.39279 2.34182 2.92977 2 3.52013 2H16.4799C17.0702 2 17.6072 2.34182 17.8571 2.87669ZM16.4799 3.52012H3.52013L8.91611 9.96964C8.99036 10.0584 9.03096 10.1698 9.03096 10.2848V16.1155L10.969 15.3856V10.2848C10.969 10.1698 11.0096 10.0584 11.0839 9.96964L16.4799 3.52012Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
 
                 </div>
-                <button className="plus">
+                <button className="plus" onClick={onAddBoard}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="icon_e7210c37bd noFocusStyle_26dd7872ca" data-testid="icon"><g id="Icon / Basic / Add"><path id="Union" d="M10 2.25C10.4142 2.25 10.75 2.58579 10.75 3V9.25H17C17.4142 9.25 17.75 9.58579 17.75 10C17.75 10.4142 17.4142 10.75 17 10.75H10.75V17C10.75 17.4142 10.4142 17.75 10 17.75C9.58579 17.75 9.25 17.4142 9.25 17V10.75H3C2.58579 10.75 2.25 10.4142 2.25 10C2.25 9.58579 2.58579 9.25 3 9.25H9.25V3C9.25 2.58579 9.58579 2.25 10 2.25Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></g></svg>
                 </button>
             </div>

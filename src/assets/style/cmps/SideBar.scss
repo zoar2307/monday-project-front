@@ -122,7 +122,6 @@
         margin-bottom: em(4px, 16px);
         transition: height .3s;
 
-        cursor: pointer;
 
         .star {
             stroke: black;
@@ -148,6 +147,7 @@
 
             padding-right: em(4px, 14px);
             padding-left: em(5px, 14px);
+            cursor: pointer;
 
             .arrow {
                 display: flex;
@@ -213,8 +213,6 @@
             display: flex;
             flex-direction: column;
             gap: em(2px, 16px);
-
-
 
             .board {
                 opacity: 0;
@@ -356,6 +354,7 @@
 
                 margin-left: em(1px, 16px);
                 padding-left: em(5px, 16px);
+
             }
 
             .arrow {
@@ -523,6 +522,8 @@
 
             border-radius: em(4px, 16px);
 
+            transition: scale 0.3s;
+
             svg {
                 color: white;
                 height: em(20px, 16px);
@@ -531,6 +532,10 @@
 
             &:hover {
                 background-color: $light-sidebar-clr10;
+            }
+
+            &:active {
+                scale: 0.95;
             }
         }
 
