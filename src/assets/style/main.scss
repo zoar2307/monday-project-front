@@ -19,6 +19,7 @@
 @import 'cmps/BoardList.scss';
 @import 'cmps/BoardPreview.scss';
 @import 'cmps/BoardDetailsHeader.scss';
+@import 'cmps/BoardDetailsFilter.scss';
 
 
 /* Pages */
@@ -29,7 +30,7 @@
 .app {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    // min-height: 100vh;
 }
 
 .app>* {

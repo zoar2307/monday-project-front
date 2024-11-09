@@ -1,4 +1,6 @@
 .board-page {
+    height: calc(100vh - 48px);
+
     .main-content {
         display: flex;
         flex-direction: row;

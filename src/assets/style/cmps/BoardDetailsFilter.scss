@@ -1,0 +1,92 @@
+.board-details-filter {
+    display: flex;
+    align-items: center;
+    height: em(64px, 16px);
+    width: 100%;
+
+    gap: em(14px, 16px);
+
+    .new-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: em(32px, 16px);
+
+        button {
+            border: none;
+            background-color: $light-board-details-filter-clr2;
+            color: white;
+            height: 100%;
+            font-family: Figtree;
+
+            cursor: pointer;
+
+            transition: .3s;
+
+            &:active {
+                scale: 0.9;
+            }
+
+            &:hover {
+                background-color: $light-board-details-filter-clr3 ;
+            }
+        }
+
+        .new-item-btn {
+            font-size: rem(14px);
+            border-radius: em(4px, 14px) 0px 0px em(4px, 14px);
+            border-right: 1px solid $light-board-details-filter-clr3;
+            padding: em(4px, 14px) em(8px, 14px);
+            font-weight: 300;
+        }
+
+        .more-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: rem(14px);
+            border-radius: 0 em(4px, 14px) em(4px, 14px) 0;
+
+            width: em(28px, 14px);
+        }
+    }
+
+    .filters {
+        display: flex;
+        height: em(32px, 16px);
+        align-items: center;
+        gap: em(8px, 16px);
+    }
+
+    .filter {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-family: Figtree;
+        font-size: rem(14px);
+        color: $light-board-details-filter-clr4;
+
+        height: 100%;
+        border-radius: em(4px, 14px);
+
+        background-color: transparent;
+        cursor: pointer;
+
+        span {
+            padding-right: em(12px, 14px);
+        }
+
+        svg {
+            color: $light-board-details-filter-clr1;
+            height: em(20px, 14px);
+            width: em(32px, 14px);
+        }
+
+        &:hover {
+            background-color: rgba($color: $light-board-details-filter-clr1, $alpha: 0.1);
+        }
+    }
+}
