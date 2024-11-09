@@ -296,18 +296,16 @@
                     align-items: center;
                     font-size: rem(12px);
 
-                    width: em(20px, 12px);
                     height: em(20px, 12px);
                     padding: em(3px, 12px);
                     border-radius: em(4px, 12px);
 
                     border: none;
                     background-color: transparent;
-
-                    opacity: 0;
+                    width: 0;
                     cursor: pointer;
 
-                    transition: .3s;
+                    transition: .2s;
 
                     svg {
                         text-align: center;
@@ -322,9 +320,11 @@
             &:hover {
                 .dots {
                     button {
-                        opacity: 1;
+                        pointer-events: all;
+                        width: em(20px, 12px);
                     }
                 }
+
 
                 background-color: rgba($color: $light-board-details-clr1, $alpha: 0.1);
             }
