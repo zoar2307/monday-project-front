@@ -2,7 +2,7 @@ export function BoardIndexHeader() {
 
     return (
         <>
-            <header className='flex'>
+            <header className='second-header flex'>
                 <div className='header-container flex'>
                     <div className='titles-container flex flex-column'>
                         <div className='welcome-message '>good afternoon Avi!</div>
