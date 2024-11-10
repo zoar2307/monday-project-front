@@ -9,9 +9,13 @@ import {
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import { useDispatch } from "react-redux"
 import { SET_GROUPS } from "../store/reducers/group.reducer"
+import { saveBoard } from "../store/actions/board.actions"
+import { store } from "../store/store"
 
 export function GroupList({ boardId, members, labels }) {
   const groups = useSelector((state) => state.groupModule.groups)
+  const { boards } = store.getState().boardModule
+
 
   const dispatch = useDispatch()
 
@@ -39,8 +43,13 @@ export function GroupList({ boardId, members, labels }) {
       newGroupOrder.splice(source.index, 1)
       const movedGroup = groups.filter(group => group.id === draggableId)[0]
       newGroupOrder.splice(destination.index, 0, movedGroup)
-      console.log(newGroupOrder)
 
+      let board = boards.filter(board => board._id === boardId)[0]
+      const newBoard = {
+        ...board,
+        groups: newGroupOrder
+      }
+      saveBoard(board)
       dispatch({ type: SET_GROUPS, groups: newGroupOrder })
       return
     }
@@ -108,7 +117,7 @@ export function GroupList({ boardId, members, labels }) {
         <div className="group-list">
           <Droppable droppableId={boardId} direction="vertical" type="column" >
             {(provided) => (
-              <div
+              <div className="fff"
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >

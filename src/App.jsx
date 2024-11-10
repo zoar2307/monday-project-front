@@ -23,13 +23,13 @@ function App() {
           <main className="main-layout">
             <AddBoardModal />
             <BackDrop />
-            <SideBar />
+            {/* <SideBar /> */}
             <Routes>
               <Route element={<HomePage />} path="/" />
               <Route element={<AboutUs />} path="/about" />
               <Route element={<Signup />} path="/auth/signup" />
-              <Route element={<BoardPage />} path="/board-page/*" />
-              <Route element={<BoardDetails />} path="/board/:boardId" />
+              <Route element={<BoardPage />} path="/board/" />
+              <Route element={<BoardPage />} path="/board/:boardId" />
               <Route element={<MyWork />} path="/my-work" />
             </Routes>
           </main>
