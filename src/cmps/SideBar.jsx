@@ -37,8 +37,6 @@ export function SideBar() {
     }, [sidebarWidth])
 
     useEffect(() => {
-        console.log(filteredBoards)
-        console.log(boards)
     }, [filteredBoards])
 
     useEffect(() => {

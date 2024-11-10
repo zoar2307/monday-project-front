@@ -18,7 +18,6 @@ export function BoardIndex() {
             .catch(err => {
                 showErrorMsg('Cannot load boards!', err)
             })
-        console.log(boards)
     }, [filterBy])
 
     function onCloseCategory() {

@@ -10,7 +10,7 @@ export function BoardDetails() {
   const boards = useSelector((state) => state.boardModule.boards)
   const board = boards.find((board) => board._id === boardId)
   const [loading, setLoading] = useState(!board)
-  console.log(board)
+
   useEffect(() => {
     const fetchBoards = async () => {
       if (!boards.length) {

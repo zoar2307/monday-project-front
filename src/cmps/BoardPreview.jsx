@@ -13,7 +13,6 @@ export function BoardPreview({ board }) {
     const defaultColor = 'rgb(103, 104, 121)'
 
     useEffect(() => {
-        console.log(board)
         setIsStarred(board.isStarred);
     }, [board.isStarred]);
 
