@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
-import { loadBoards, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions";
+import { loadBoards, removeBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions";
 import { AddBoardModal } from "./AddBoardModal";
+
 
 export function SideBar() {
 
@@ -13,12 +14,18 @@ export function SideBar() {
     const sideBarRef = useRef()
     const favoritesRef = useRef()
     const filterIconRef = useRef()
+    const modalRef = useRef()
+
 
     const [sidebarWidth, setSideBarWidth] = useState(255)
     const [sideBarIsClose, setSideBarIsClose] = useState('')
     const [filterByToEdit, setFilterByToEdit] = useState('')
     const [sidebarBounds, setSidebarBounds] = useState({})
     const [favoritesIsOpen, setFavoriteIsOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [modalBoardId, setModalBoardId] = useState(null)
+    const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 })
+
 
     const { pathname } = useLocation()
 
@@ -52,6 +59,8 @@ export function SideBar() {
             setFilteredBoards(boards.filter((board) => regex.test(board.title)))
         }
     }, [filterByToEdit])
+
+
 
     function onActiveFavorites() {
         favoritesRef.current.classList.toggle('active')
@@ -142,9 +151,102 @@ export function SideBar() {
         setIsAddBoardModal(true)
     }
 
-    function onRemove() {
 
+
+    function BoardOptionsModal({ onClose, boardId, onAddToFavorites }) {
+        return (
+            <div className="modal-overlay" onClick={(e) => {
+                if (e.target === e.currentTarget) onClose();
+            }}>
+                <div
+                    ref={modalRef}
+                    className="modal-content"
+                    style={{ top: modalPosition.top, left: modalPosition.left }}
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    <button onClick={() => { console.log('Rename clicked for:', boardId); onRename(boardId); }}>Rename</button>
+                    <button onClick={() => { console.log('Delete clicked for:', boardId); onDelete(boardId); }}>Delete</button>
+                    <button onClick={() => { console.log('Add to Favorites clicked for:', boardId); onAddToFavorites(boardId); }}>Add to Favorites</button>
+                </div>
+            </div>
+        )
     }
+    
+
+
+
+// Updated onDelete function to receive boardId
+async function onDelete(boardId) {
+    console.log('Deleting board...', boardId)
+    try {
+        if (boardId) {
+            // Remove board immediately
+            await removeBoard(boardId)
+            console.log('Board removed successfully.')
+
+            // Optional: Reload board list after deletion
+            await loadBoards()
+            closeModal()
+            navigate('/board')
+        }
+    } catch (err) {
+        console.error("Error deleting board:", err)
+    }
+}
+
+// Updated onRename function to receive boardId
+async function onRename(boardId) {
+    console.log('Renaming board...', boardId)
+    const newTitle = prompt("Enter the new board name:")
+    if (newTitle) {
+        try {
+            await updateBoard(boardId, { title: newTitle })
+            await loadBoards()
+            closeModal()
+        } catch (err) {
+            console.error("Error renaming board:", err)
+        }
+    }
+}
+
+
+    // Function to open the modal
+    const openModal = (boardId, event) => {
+        setModalBoardId(boardId)
+        const { top, left, height } = event.currentTarget.getBoundingClientRect()
+        setModalPosition({
+            top: top + height + window.scrollY,
+            left: left + window.scrollX
+        })
+        setIsModalOpen(true)
+    }
+
+    // Function to close the modal
+    const closeModal = () => {
+        setIsModalOpen(false)
+        setModalBoardId(null)
+    }
+
+useEffect(() => {
+    const handleClickOutside = (event) => {
+        console.log('Click target:', event.target);
+        if (modalRef.current && !modalRef.current.contains(event.target)) {
+            closeModal()
+        }
+    }
+
+    if (isModalOpen) {
+        document.addEventListener("mousedown", handleClickOutside)
+    }
+
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside)
+    }
+}, [isModalOpen])
+
+
+
+
 
     const hiddenClass = favoritesIsOpen ? 'hidden' : ''
 
@@ -246,10 +348,10 @@ export function SideBar() {
             {boards && <div className={`boards ${hiddenClass}`}>
                 {filterByToEdit.title ?
                     filteredBoards.map(board => {
-                        return <div onClick={() => onBoardClick(board._id)} key={board._id} className={pathname === `/board/${board._id}` ? 'board active' : 'board'}>
+                        return <div onClick={() => onBoardClick(board._id)} key={board._id} className={`board-wrapper ${pathname === `/board/${board._id}` ? 'board active' : 'board'}`} >
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="19" height="19" aria-hidden="true" data-testid="icon"><path d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
                             <p>{board.title}</p>
-                            <div className="dots">
+                            <div className="dots" onClick={(e) => { e.stopPropagation(); openModal(board._id, e) }}>
                                 <button>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
                                 </button>
@@ -258,10 +360,10 @@ export function SideBar() {
                     })
                     :
                     boards.map(board => {
-                        return <div onClick={() => onBoardClick(board._id)} key={board._id} className={pathname === `/board/${board._id}` ? 'board active' : 'board'}>
+                        return <div onClick={() => onBoardClick(board._id)} key={board._id} className={`board-wrapper ${pathname === `/board/${board._id}` ? 'board active' : 'board'}`}>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="19" height="19" aria-hidden="true" data-testid="icon"><path d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
                             <p>{board.title}</p>
-                            <div className="dots">
+                            <div className="dots" onClick={(e) => { e.stopPropagation(); openModal(board._id, e) }}>
                                 <button>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
                                 </button>
@@ -272,6 +374,13 @@ export function SideBar() {
 
             </div>
             }
+            {isModalOpen && (
+                <BoardOptionsModal
+                    onClose={closeModal}
+                    boardId={modalBoardId} // Pass boardId to the modal
+                    onAddToFavorites={() => console.log("Add to Favorites", modalBoardId)}
+                />
+            )}
 
         </section>
     )

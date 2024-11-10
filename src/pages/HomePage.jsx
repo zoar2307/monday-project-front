@@ -53,7 +53,7 @@ export function HomePage() {
           Streamline workflows and gain clear visibility across teams <br />
           to make strategic decisions with confidence
         </p>
-        <NavLink to="/board-page">
+        <NavLink to="/board">
           <button className="btn-content">
             Get Started <i className="fa-solid fa-arrow-right"></i>
           </button>
