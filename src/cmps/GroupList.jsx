@@ -11,7 +11,7 @@ export function GroupList({ boardId, members, labels }) {
   const groups = useSelector((state) => state.groupModule.groups)
 
   useEffect(() => {
-    loadGroups(boardId) 
+    loadGroups(boardId)
   }, [boardId])
 
   const handleAddGroup = () => addGroup(boardId)

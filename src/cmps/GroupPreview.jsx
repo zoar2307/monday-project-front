@@ -12,6 +12,10 @@ export function GroupPreview({
   const [groupTitle, setGroupTitle] = useState(group.title)
   const [tasks, setTasks] = useState(group.tasks)
 
+  const priorities = labels.filter((label) => 
+    ["High", "Medium", "Low"].includes(label.title)
+  )
+
   const handleTitleChange = (e) => setGroupTitle(e.target.value)
 
   const saveTitle = () => {
@@ -54,6 +58,9 @@ export function GroupPreview({
           tasks={tasks}
           members={members}
           labels={labels}
+          boardId={boardId}
+          groupId={group.id}
+          priorities={priorities}
           onAddTask={handleAddTask}
         />
       </main>
