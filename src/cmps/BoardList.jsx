@@ -1,5 +1,3 @@
-import { BoardPreview } from "../cmps/BoardPreview"
-
 export function BoardList({ boards }) {
   return (
     <>
