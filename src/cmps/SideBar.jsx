@@ -28,7 +28,7 @@ export function SideBar() {
 
     useEffect(() => {
         setSidebarBounds(sideBarRef.current.getBoundingClientRect())
-    }, [])
+    }, [boards])
 
     useEffect(() => {
         if (!sideBarIsClose) {
@@ -40,6 +40,10 @@ export function SideBar() {
         console.log(filteredBoards)
         console.log(boards)
     }, [filteredBoards])
+
+    useEffect(() => {
+        setFilteredBoards(boards.filter((board) => board.isStarred))
+    }, [boards])
 
     useEffect(() => {
         if (filterByToEdit.name) filterIconRef.current.style.display = 'inherit'
