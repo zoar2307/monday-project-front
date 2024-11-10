@@ -1,6 +1,6 @@
 import { boardService } from "../../services/board/board.service.local"
 import { SET_GROUPS, ADD_GROUP, REMOVE_GROUP, UPDATE_GROUP } from "../reducers/group.reducer"
-import { getRandomColor } from "../../services/util.service"
+import { getRandomColor, makeId } from "../../services/util.service"
 import { store } from "../store"
 
 export async function loadGroups(boardId) {
@@ -14,16 +14,26 @@ export async function loadGroups(boardId) {
 }
 
 export async function addGroup(boardId) {
-  const newGroup = { id: Date.now().toString(), title: "New Group", color: getRandomColor(), tasks: [] }
+  const newGroup = {
+    id: makeId(),
+    title: "New Group",
+    color: getRandomColor(),
+    tasks: []
+  }
+
   try {
     const board = await boardService.getById(boardId)
+    if (!board) throw new Error('Board not found')
+
     board.groups.push(newGroup)
-    await boardService.save(board)
+    await boardService.save(board) 
+
     store.dispatch({ type: ADD_GROUP, group: newGroup })
   } catch (err) {
     console.error("Cannot add group:", err)
   }
 }
+
 
 export async function removeGroup(boardId, groupId) {
   try {

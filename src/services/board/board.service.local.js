@@ -56,6 +56,17 @@ function _createBoard(board) {
   board.createdAt = Date.now()
   board.groups = board.groups || []
   board.activities = board.activities || []
+  board.labels = board.labels || [
+    { id: "l101", title: "Done", color: "#01c875", type: "status" },
+    { id: "l102", title: "Stuck", color: "#e02f4b", type: "status" },
+    { id: "l103", title: "Working on it", color: "#fdbb63", type: "status" },
+    { id: "l104", title: "Bonus", color: "#b57ce3", type: "status" },
+    { id: "l105", title: "Coming soon", color: "#7aaffd", type: "status" },
+    { id: "l106", title: "High", color: "#6545a9", type: "priority" },
+    { id: "l107", title: "Medium", color: "#777ae5", type: "priority" },
+    { id: "l108", title: "Low", color: "#7aaffd", type: "priority" },
+    { id: "l109", title: "Critical", color: "#5c5c5c", type: "priority" }
+  ]
   board.members = board.members || []
   return board
 }
