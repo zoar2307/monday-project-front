@@ -1,7 +1,42 @@
+// TaskPreview.js
+import React from 'react'
+import { DynamicCmp } from './DynamicCmp'
 
-export function TaskPreview({ task }) {
+export function TaskPreview({ key, task, labels, members }) {
+    console.log(labels);
+
+
+    // Define the order of components to display for each task
+    const cmpsOrder = ['StatusPicker', 'MemberPicker', 'DatePicker', 'PriorityPicker']
 
     return (
-        <h1>{task.title}</h1>
+        <>
+            <td><input type="checkbox" /></td>
+            <td>
+                <span>{task.title}</span>
+                <i className="fa-solid fa-comment-medical"></i>
+            </td>
+
+            {cmpsOrder.map((cmp, idx) => {
+                return (
+                    <td>
+                        <DynamicCmp
+                            cmp={cmp}
+                            key={idx}
+                            info={task}
+                            onUpdate={data => {
+                                console.log('Updating: ', cmp, 'with data:', data)
+                                // make a copy, update the task, create an action
+                                // Call action: updateTask(task, action)
+                            }}
+                        />
+                    </td>
+                )
+            })}
+            <td></td>
+
+        </>
+
+
     )
 }
