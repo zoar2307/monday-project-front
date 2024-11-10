@@ -41,7 +41,6 @@ export async function saveBoard(board) {
         store.dispatch({ type, board: savedBoard })
         if (type === 'ADD_BOARD') {
             addGroup(savedBoard._id)
-            addGroup(savedBoard._id)
         }
         return savedBoard
     } catch (err) {
