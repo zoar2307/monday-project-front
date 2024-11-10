@@ -33,13 +33,12 @@
 @import 'pages/BoardPage.scss';
 @import 'pages/BoardDetails.scss';
 
-.app {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    user-select: none
-}
+// .app {
+//     // display: flex;
+//     // flex-direction: column;
+//     min-height: 100vh;
+// }
 
-.app>* {
-    width: 100%;
-}
+// .app>* {
+//     width: 100%;
+// }
