@@ -2,8 +2,8 @@
 import React from 'react'
 import { DynamicCmp } from './DynamicCmp'
 
-export function TaskPreview({ key, task, labels, members }) {
-    console.log(labels);
+export function TaskPreview({ task, labels, members }) {
+
 
 
     // Define the order of components to display for each task

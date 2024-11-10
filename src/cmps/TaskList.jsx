@@ -4,9 +4,6 @@ import { TaskPreview } from './TaskPreview';
 import { store } from '../store/store';
 
 export function TaskList({ tasks, labels, members, boardId, groupId }) {
-
-  console.log(members);
-
   const { boards } = store.getState().boardModule
   const boardArr = boards.filter(board => board._id === boardId)
 

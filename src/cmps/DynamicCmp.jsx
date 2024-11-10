@@ -5,7 +5,6 @@ import { MemberPicker } from './MemberPicker.jsx'
 import { PriorityPicker } from './PriorityPicker.jsx'
 
 export function DynamicCmp({ cmp, info, onUpdate }) {
-    console.log(cmp);
 
     switch (cmp) {
         case 'StatusPicker':
