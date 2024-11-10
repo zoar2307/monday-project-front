@@ -213,6 +213,7 @@
             display: flex;
             flex-direction: column;
             gap: em(2px, 16px);
+            width: 100%;
 
             overflow-y: scroll;
 
@@ -239,6 +240,20 @@
                 font-size: rem(14px);
                 transition: height .3s;
 
+                p {
+                    min-width: 0;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+
+                    font-size: rem(14px);
+                }
+
+                svg {
+                    color: $light-sidebar-clr7;
+                }
+
+
                 &:hover {
                     background-color: $light-sidebar-clr2;
                 }
@@ -252,6 +267,7 @@
 
         &.active {
             height: calc(100% - 32px - 16px);
+            width: 100%;
 
             .favorite-boards {
                 height: 100%;
@@ -314,6 +330,7 @@
         display: flex;
         align-items: center;
         margin-top: em(10px, 16px);
+        padding-right: em(16px, 16px);
         width: 100%;
         height: 32px;
         overflow: hidden;
@@ -353,7 +370,7 @@
                 text-overflow: ellipsis;
                 white-space: nowrap;
 
-                width: 100%;
+                min-width: 0;
 
                 font-size: rem(16px);
                 font-weight: 600;
@@ -374,9 +391,10 @@
         }
 
         .dots {
-            margin-left: em(10px, 16px);
+            // margin-left: em(10px, 16px);
 
             button {
+                cursor: pointer;
                 margin-right: em(16px, 16px);
 
                 display: flex;
@@ -560,6 +578,40 @@
             display: none;
         }
 
+        .dots {
+            height: em(24px, 16px);
+            width: em(24px, 16px);
+
+            margin-left: auto;
+            visibility: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: em(4px, 16px);
+
+            button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                background-color: transparent;
+                border: none;
+
+                svg {
+                    height: em(16px, 16px);
+                    width: em(16px, 16px);
+                    font-size: rem(16px);
+                }
+
+                cursor: pointer;
+            }
+
+            &:hover {
+                background-color: $light-sidebar-clr2;
+            }
+        }
+
         .board {
             display: flex;
             justify-content: start;
@@ -576,6 +628,11 @@
             cursor: pointer;
 
             &:hover {
+
+                .dots {
+                    visibility: unset;
+                }
+
                 background-color: $light-sidebar-clr2;
             }
 
@@ -602,5 +659,4 @@
             display: none;
         }
     }
-
 }

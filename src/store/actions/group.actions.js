@@ -50,7 +50,7 @@ export async function updateGroup(boardId, updatedGroup) {
 export async function addTaskToGroup(boardId, groupId, newTask) {
   try {
     const board = await boardService.getById(boardId)
-    board.groups = board.groups.map((group) => 
+    board.groups = board.groups.map((group) =>
       group.id === groupId ? { ...group, tasks: [...group.tasks, newTask] } : group
     )
     await boardService.save(board)

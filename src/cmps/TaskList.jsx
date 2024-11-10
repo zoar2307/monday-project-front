@@ -87,7 +87,7 @@ export function TaskList({ tasks, labels, members, onAddTask }) {
         ))}
         <tr>
           <td>
-          <input className="checkbox-last" type="checkbox" />
+            <input className="checkbox-last" type="checkbox" />
           </td>
           <td colSpan="5">
             <input

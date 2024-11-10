@@ -9,6 +9,7 @@ import {
     SET_IS_ADD_BOARD_MODAL
 } from '../reducers/board.reducer'
 import { store } from '../store'
+import { addGroup } from "./group.actions";
 
 export async function loadBoards(filterBy) {
     try {
@@ -38,6 +39,10 @@ export async function saveBoard(board) {
     try {
         const savedBoard = await boardService.save(board)
         store.dispatch({ type, board: savedBoard })
+        if (type === 'ADD_BOARD') {
+            addGroup(savedBoard._id)
+            addGroup(savedBoard._id)
+        }
         return savedBoard
     } catch (err) {
         console.log('board action -> Cannot save board', err)
