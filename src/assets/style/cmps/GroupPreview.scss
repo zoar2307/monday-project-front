@@ -4,10 +4,17 @@
     }
     header{
         height: rem(41px);
+        padding-bottom: 5px;
         p{
-            font-size: rem(14px);
-            margin-left: rem(12px);
+            font-size: rem(12px);
+            margin-left: rem(14px);
             margin-right: rem(12px);
+        }
+        input{
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            font-family: Poppins;
         }
     }
     main{
@@ -17,4 +24,5 @@
             border-bottom-left-radius: 15px;
         }
     }
+    
 }

@@ -9,7 +9,7 @@ export function TaskList({ tasks, labels, members, onAddTask }) {
     return label ? label.color : "#ddd"
   }
 
-  const getAssignedMemberImage = (assignedToId) => {
+  const getImgById = (assignedToId) => {
     const member = members.find((member) => member._id === assignedToId)
     return member?.imgUrl
   }
@@ -32,7 +32,7 @@ export function TaskList({ tasks, labels, members, onAddTask }) {
           <th>
             <input type="checkbox" />
           </th>
-          <th>Item</th>
+          <th>Task</th>
           <th>Person</th>
           <th>Status</th>
           <th>+</th>
@@ -54,7 +54,7 @@ export function TaskList({ tasks, labels, members, onAddTask }) {
               <div className="task-person">
                 {task.assignedTo?._id ? (
                   <img
-                    src={getAssignedMemberImage(task.assignedTo._id)}
+                    src={getImgById(task.assignedTo._id)}
                     alt={task.assignedTo.fullname || "User Image"}
                     style={{
                       width: "30px",
@@ -86,6 +86,9 @@ export function TaskList({ tasks, labels, members, onAddTask }) {
           </tr>
         ))}
         <tr>
+          <td>
+          <input className="checkbox-last" type="checkbox" />
+          </td>
           <td colSpan="5">
             <input
               type="text"

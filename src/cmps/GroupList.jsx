@@ -21,9 +21,6 @@ export function GroupList({ boardId, members, labels }) {
 
   return (
     <div className="group-list">
-      <button onClick={handleAddGroup} className="add-group-btn">
-        Add Group
-      </button>
       {groups.map((group) => (
         <div key={group.id} className="group-list-item">
           <GroupPreview
@@ -35,6 +32,9 @@ export function GroupList({ boardId, members, labels }) {
           />
         </div>
       ))}
+      <button onClick={handleAddGroup} className="add-group-btn">
+        Add Group
+      </button>
     </div>
   )
 }

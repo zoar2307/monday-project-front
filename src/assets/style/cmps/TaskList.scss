@@ -2,17 +2,17 @@
     width: 100%;
     border-collapse: collapse;
     font-family: figtree;
+    font-size: 14px;
   
     td {
       border: 1px solid #d3d4dd;
-      padding: 4px 6px;
       text-align: center; 
       vertical-align: middle; 
     }
   
     th {
       border: 1px solid #d3d4dd;
-      padding: 6px;
+      padding: 2px 6px 6px 7px;
       text-align: center; 
       vertical-align: middle; 
       font-weight: 400;
@@ -20,7 +20,8 @@
   
     th:first-child,
     td:first-child {
-      width: 30px;
+      width: 33px;
+      padding-top: 7px;
     }
     th:nth-child(2),
     td:nth-child(2) {
@@ -40,9 +41,12 @@
     }
   
     input[type="checkbox"] {
-      display: inline-block;
-      width: 15px;
-      height: 15px;
+      width: 16px;
+      height: 14px;
+      margin: 0;
+    }
+    td:last-child{
+      padding-bottom: 12px;
     }
   }
   
