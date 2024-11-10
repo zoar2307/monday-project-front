@@ -157,7 +157,7 @@ export function TaskList({ tasks, labels, members, boardId, groupId }) {
                 value={newTaskTitle}
                 onChange={(e) => setNewTaskTitle(e.target.value)}
                 onBlur={handleNewTaskBlur}
-                placeholder="Add a new task..."
+                placeholder="+ Add task"
                 className="new-task-input"
               />
             </td>

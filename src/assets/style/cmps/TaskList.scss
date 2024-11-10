@@ -46,7 +46,7 @@
       margin: 0;
     }
     td:last-child{
-      padding-bottom: 12px;
+      text-align: start;
     }
 
     .task-person{
@@ -58,7 +58,11 @@
       }
     }
 
-
+    .new-task-input{
+      border: none;
+      padding-top: 10px;
+      padding-bottom: 7px;
+    }
   }
 
   .task-label{

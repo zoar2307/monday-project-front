@@ -1,3 +1,5 @@
+import { BoardPreview } from "./BoardPreview"
+
 export function BoardList({ boards }) {
   return (
     <>

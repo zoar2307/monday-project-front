@@ -26,12 +26,8 @@ export function GroupList({ boardId, members, labels }) {
 
   function handleDragEnd(result) {
     const { destination, source, draggableId, type } = result
-    console.log('end')
-    console.log(`result:`, result)
-    // user drop outside
     if (!destination) return
 
-    // // user drop in the same pos
     if (destination.droppableId === source.droppableId && destination.index === source.index) return
 
     if (type === 'column') {
@@ -39,7 +35,6 @@ export function GroupList({ boardId, members, labels }) {
       newGroupOrder.splice(source.index, 1)
       const movedGroup = groups.filter(group => group.id === draggableId)[0]
       newGroupOrder.splice(destination.index, 0, movedGroup)
-      console.log(newGroupOrder)
 
       dispatch({ type: SET_GROUPS, groups: newGroupOrder })
       return
@@ -139,8 +134,9 @@ export function GroupList({ boardId, members, labels }) {
               </div>
             ))} */}
           </Droppable>
-          <button onClick={handleAddGroup} className="add-group-btn">
-            Add Group
+          <button onClick={handleAddGroup} className="add-group-btn flex align-center">
+          <i class="fa-solid fa-plus"></i>
+            Add new group
           </button>
         </div>
       </DragDropContext>
