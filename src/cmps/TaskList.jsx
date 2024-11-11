@@ -77,7 +77,7 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
                 // >
 
 
-                return <TaskPreview key={task.id} task={task} labels={labels} members={members} idx={idx} />
+                return <TaskPreview groupId={groupId} boardId={boardId} key={task.id} task={task} labels={labels} members={members} idx={idx} />
 
                 // </tr>
                 //     )}
