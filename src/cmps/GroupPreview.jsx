@@ -15,9 +15,6 @@ export function GroupPreview({
   const [tasks, setTasks] = useState(group.tasks)
   const [isEditGroupTitle, setIsEditGroupTitle] = useState(false)
 
-  const priorities = labels.filter((label) =>
-    ["High", "Medium", "Low"].includes(label.title)
-  )
 
   useEffect(() => {
     setTasks(group.tasks)
@@ -103,7 +100,6 @@ export function GroupPreview({
                   labels={labels}
                   boardId={boardId}
                   groupId={group.id}
-                  priorities={priorities}
                   onAddTask={handleAddTask}
                   group={group}
                 />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PickerModal } from './DynamicCmp'
+import { PickerModal } from './PickerModal'
 
 export function PriorityPicker({ info, onUpdate, labels }) {
   const [isModalOpen, setModalOpen] = useState(false)
