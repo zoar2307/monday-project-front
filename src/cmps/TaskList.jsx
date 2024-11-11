@@ -1,20 +1,15 @@
-// TaskList.js
 import React, { useEffect, useState } from 'react';
 import { TaskPreview } from './TaskPreview';
-import { store } from '../store/store';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { useSelector } from 'react-redux';
 
 export function TaskList({ tasks, labels, members, boardId, groupId }) {
-  const { boards } = store.getState().boardModule
-  const boardArr = boards.filter(board => board._id === boardId)
-
-  const [isTaskDragging, setIsTaskDragging] = useState(false)
-
+  const boards = useSelector((state) => state.boardModule.boards)
+  const [boardArr, setBoardArr] = useState(boards.filter(board => board._id === boardId))
+  console.log(boards)
   useEffect(() => {
-    console.log(isTaskDragging)
-  }, [isTaskDragging])
-
-  const dargClass = isTaskDragging ? 'drag' : ''
+    setBoardArr(boards.filter(board => board._id === boardId))
+  }, [boards])
 
   return (
     <>
@@ -51,7 +46,6 @@ export function TaskList({ tasks, labels, members, boardId, groupId }) {
                 >
                   {(provided, snapshot) => (
                     <tr key={task.id}
-                      className={dargClass}
                       {...provided.draggableProps}
                       ref={provided.innerRef}
                       {...provided.dragHandleProps}>
