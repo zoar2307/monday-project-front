@@ -15,7 +15,6 @@ export function GroupPreview({
   const [tasks, setTasks] = useState(group.tasks)
   const [isEditGroupTitle, setIsEditGroupTitle] = useState(false)
 
-
   useEffect(() => {
     setTasks(group.tasks)
   }, [group])

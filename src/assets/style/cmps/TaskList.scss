@@ -8,6 +8,7 @@
   outline: 1px solid #d3d4dd;
   border-left: em(5px, 14px) solid;
   border-radius: em(4px, 14px);
+  background-color: white;
 
   overflow-x: auto;
 
@@ -15,9 +16,7 @@
   transition: 1s;
 
   &.close {
-
     height: 0;
-
   }
 
   .group-header {
@@ -32,8 +31,6 @@
   .group-body {
     display: flex;
     flex-direction: column;
-
-
   }
 
   .task-row {
@@ -43,12 +40,27 @@
     width: 100%;
 
     &.drag {
-      opacity: 0.5;
-      rotate: 2deg;
+      // rotate: 2deg;
+      animation: shake 2s infinite;
+      border: 1px dashed #d3d4dd;
     }
 
     &.add-task {
       border-bottom: none;
+    }
+
+    &:not(.add-task) {
+      &:hover {
+        background-color: #f5f6f8;
+        box-shadow: 4px 3px 6px -3px #c3c6d4;
+
+        .text-title-input {
+          background-color: #f5f6f8;
+
+        }
+
+        ;
+      }
     }
   }
 
@@ -70,9 +82,10 @@
   .task-title {
     display: flex;
     align-items: center;
-    min-width: 355px;
+    width: 355px;
     height: 100%;
     border-right: 1px solid #d3d4dd;
+    overflow: hidden;
 
     &.header {
       justify-content: center;
@@ -87,10 +100,49 @@
 
       .task-title-txt {
         display: flex;
+        justify-content: space-between;
         align-items: center;
         border-right: 1px solid #d3d4dd;
         height: 100%;
         width: 100%;
+        overflow: hidden;
+
+
+        .task-title-input {
+          width: 80%;
+          color: #323338;
+          font-family: Figtree;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          text-wrap: nowrap;
+          border: 1px solid transparent;
+          padding: 3px 2px;
+          cursor: pointer;
+          outline: none;
+          border-radius: 4px;
+
+          &:hover {
+            border: 1px solid #d3d4dd;
+            width: 65%;
+            color: #323338;
+          }
+
+          &:focus {
+            border: 1px solid blue;
+            width: 80%;
+            color: #323338;
+          }
+
+
+        }
+
+        .handle {
+          width: 20%;
+          height: 100%;
+        }
+
+
+
       }
 
       .task-title-chat {
@@ -115,7 +167,7 @@
     border-radius: 0;
     height: em(36px, 14px);
     border-right: 1px solid #d3d4dd;
-    border-left: 1px solid #d3d4dd;
+    // border-left: 1px solid #d3d4dd;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -175,9 +227,22 @@
   .add-label {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-left: em(10px, 16px);
-    height: 100%;
+    height: em(22px, 16px);
+    width: em(22px, 16px);
     border: none;
+    border-radius: em(4px, 16px);
+
+    &:hover {
+      background-color: rgba($color: #676879, $alpha: 0.1);
+    }
+
+    svg {
+      color: #323338;
+      height: em(18px, 16px);
+      width: em(18px, 16px);
+    }
   }
 
   .add-task {
@@ -208,12 +273,55 @@
       }
     }
 
-
-
-
   }
 
+  @keyframes shake {
+    0% {
+      rotate: 0;
+    }
 
+    10% {
+      rotate: 2deg;
+
+    }
+
+    20% {
+      rotate: -2deg;
+    }
+
+    30% {
+      rotate: 2deg;
+    }
+
+    40% {
+      rotate: -2deg;
+    }
+
+    50% {
+      rotate: 2deg;
+    }
+
+    60% {
+      rotate: -2deg;
+    }
+
+    70% {
+      rotate: 2deg;
+    }
+
+    80% {
+      rotate: -2deg;
+    }
+
+    90% {
+      rotate: 2deg;
+    }
+
+    100% {
+      rotate: 0;
+
+    }
+  }
 
 
 
