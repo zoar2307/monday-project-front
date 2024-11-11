@@ -2,9 +2,7 @@
 import React from 'react'
 import { StatusPicker } from './StatusPicker.jsx'
 import { MemberPicker } from './MemberPicker.jsx'
-import { PriorityPicker} from './PriorityPicker.jsx'
-
-
+import { PriorityPicker } from './PriorityPicker.jsx';
 export function DynamicCmp({ cmp, info, onUpdate , labels , members}) {
     console.log(cmp);
 
@@ -26,7 +24,6 @@ export function DynamicCmp({ cmp, info, onUpdate , labels , members}) {
 
 export function PickerModal({ options, onSelect, closeModal, modalType }) {
   return (
-    <div className="picker-modal-overlay" onClick={closeModal}>
       <div className="picker-modal" onClick={(e) => e.stopPropagation()}>
         <ul className="picker-options">
           {options.map((option) => (
@@ -34,6 +31,8 @@ export function PickerModal({ options, onSelect, closeModal, modalType }) {
               key={option.title || option._id}
               onClick={() => onSelect(option)}
               style={{
+                position:"relative",
+                top:"0",
                 backgroundColor: modalType !== "member" ? option.color : "transparent",
                 cursor: "pointer",
                 padding: "8px",
@@ -58,7 +57,6 @@ export function PickerModal({ options, onSelect, closeModal, modalType }) {
           ))}
         </ul>
       </div>
-    </div>
   )
 }
 
