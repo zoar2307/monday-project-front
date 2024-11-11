@@ -4,39 +4,27 @@ import { useSelector, useDispatch } from "react-redux"
 import { loadBoards } from "../store/actions/board.actions"
 import { BoardDetailsHeader } from "../cmps/BoardDetailsHeader"
 import { GroupList } from "../cmps/GroupList"
+import { boardService } from "../services/board/board.service.local"
 
 export function BoardDetails() {
   const { boardId } = useParams()
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  
-  const boards = useSelector((state) => state.boardModule.boards)
-  const board = boards.find((board) => board._id === boardId)
-  
-  const [loading, setLoading] = useState(!board)
+  const [board, setBoard] = useState(null)
 
   useEffect(() => {
-    const fetchBoards = async () => {
-      if (!boards.length) {
-        try {
-          await dispatch(loadBoards())
-        } catch (err) {
-          console.error("Failed to load boards:", err)
-        }
-      }
-      setLoading(false)
+    if (boardId) loadBoards()
+  }, [boardId])
+
+  async function loadBoards() {
+    try {
+      const board = await boardService.getById(boardId)
+      setBoard(board)
+    } catch (err) {
+      console.log('Had issues in board details', err)
+      navigate('/board')
     }
+  }
 
-    fetchBoards()
-  }, [boards.length, dispatch])
-
-  useEffect(() => {
-    if (!loading && !board) {
-      navigate("/board") 
-    }
-  }, [loading, board, navigate])
-
-  if (loading) return <div>Loading...</div>
+  if (!board) return <div>Loading...</div>
 
   return (
     board ? (

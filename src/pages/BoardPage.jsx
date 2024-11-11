@@ -6,13 +6,7 @@ import { useEffect } from "react"
 import { BoardDetails } from "./BoardDetails"
 
 export function BoardPage() {
-
   const { boardId } = useParams()
-  console.log(boardId)
-
-  useEffect(() => {
-    console.log(boardId)
-  }, [])
 
   return (
     <>
