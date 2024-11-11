@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { TaskPreview } from './TaskPreview';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { useSelector } from 'react-redux';
-import { addTaskToGroup } from '../store/actions/group.actions';
-import { addTask } from '../store/actions/task.actions';
+import React, { useEffect, useState } from 'react'
+import { TaskPreview } from './TaskPreview'
+import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { useSelector } from 'react-redux'
+import { addTaskToGroup } from '../store/actions/group.actions'
+import { addTask } from '../store/actions/task.actions'
 
 export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
   const boards = useSelector((state) => state.boardModule.boards)
@@ -50,10 +50,10 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
             <div className='group-header ' key={idx}>
               <div className='check-label'><input type="checkbox" /></div >
               <div className='task-title header'>Task</div>
-              {board.cmpsOrder?.includes('StatusPicker') && <div className='label status'>Status</div>}
-              {board.cmpsOrder?.includes('MemberPicker') && <div className='label members'>Person</div>}
+              {board.cmpsOrder?.includes('StatusPicker') && <div className='status label header'>Status</div>}
+              {board.cmpsOrder?.includes('MemberPicker') && <div className='members label header'>Person</div>}
               {/* {board.cmpsOrder?.includes('DatePicker') && <div className='label date'>Date</div>} ADD LATER*/}
-              {board.cmpsOrder?.includes('PriorityPicker') && <div className='label priority'>Priority</div>}
+              {board.cmpsOrder?.includes('PriorityPicker') && <div className='priority label header'>Priority</div>}
               <div className='add-label'>+</div>
             </div  >
           ))}
@@ -70,18 +70,7 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
               {...provided.droppableProps}
             >
               {tasks.map((task, idx) => {
-                // <Draggable
-                //   draggableId={task.id}
-                //   index={idx}
-                //   key={task.id}
-                // >
-
-
                 return <TaskPreview groupId={groupId} boardId={boardId} key={task.id} task={task} labels={labels} members={members} idx={idx} />
-
-                // </tr>
-                //     )}
-                // </Draggable>
               })}
               {provided.placeholder}
               <div className='add-task task-row '>

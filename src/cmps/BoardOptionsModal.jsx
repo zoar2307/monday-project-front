@@ -19,9 +19,10 @@ export function BoardOptionsModal({ onClose, boardId, onAddToFavorites, modalPos
                 }}
                 onClick={(e) => e.stopPropagation()}
             >
-                <button onClick={() => { onRename(boardId); onClose() }}>Rename</button>
-                <button onClick={() => onDelete(boardId)}>Delete</button>
+                <button onClick={() => { onRename(boardId); onClose() }}><i class="fa-solid fa-pencil"></i>Rename</button>
+                <button onClick={() => onDelete(boardId)}><i class="fa-regular fa-trash-can"></i>Delete</button>
                 <button onClick={() => onAddToFavorites(boardId)}>
+                <i class="fa-regular fa-star"></i>
                     {isStarred ? 'Remove from Favorites' : 'Add to Favorites'}
                 </button>
             </div>

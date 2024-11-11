@@ -15,17 +15,12 @@ export function StatusPicker({ info, onUpdate, labels }) {
   }
 
   return (
-    <div>
+    <div className='label-container'>
       <div
         onClick={() => setModalOpen(true)}
-        className="status label"
+        className="status label not-header"
         style={{
           backgroundColor: getLabelColor("status", info.status),
-          color: "#fff",
-          border: "none",
-          appearance: "none",
-          textAlign: "center",
-          cursor: "pointer",
         }}
       >
         {info.status}
