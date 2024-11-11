@@ -17,19 +17,22 @@ export function GroupList({ boardId, members, labels }) {
   const groups = useSelector((state) => state.groupModule.groups)
   const { boards } = store.getState().boardModule
 
-
   const dispatch = useDispatch()
 
   useEffect(() => {
     loadGroups(boardId)
   }, [boardId])
 
+  useEffect(() => {
+    console.log(groups)
+  }, [groups])
+
   const handleAddGroup = () => addGroup(boardId)
   const handleRemoveGroup = (groupId) => removeGroup(boardId, groupId)
 
   if (!groups || !groups.length) return null
 
-  function handleDragEnd(result) {
+  async function handleDragEnd(result) {
     const { destination, source, draggableId, type } = result
     const board = boards.filter(board => board._id === boardId)[0]
     if (!destination) return
@@ -83,7 +86,7 @@ export function GroupList({ boardId, members, labels }) {
       ...start,
       tasks: startTasks
     }
-    dispatch({ type: UPDATE_GROUP, group: newStart })
+    // dispatch({ type: UPDATE_GROUP, group: newStart })
 
     const finishTasks = Array.from(finish.tasks)
     finishTasks.splice(destination.index, 0, draggedTask)
@@ -93,9 +96,14 @@ export function GroupList({ boardId, members, labels }) {
       tasks: finishTasks
     }
 
-    dispatch({ type: UPDATE_GROUP, group: newFinish })
-    updateGroup(boardId, newStart)
-    updateGroup(boardId, newFinish)
+    // dispatch({ type: UPDATE_GROUP, group: newFinish })
+    try {
+      await updateGroup(boardId, newStart)
+      updateGroup(boardId, newFinish)
+
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (

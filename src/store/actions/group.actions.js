@@ -51,7 +51,9 @@ export async function updateGroup(boardId, updatedGroup) {
     store.dispatch({ type: UPDATE_GROUP, group: updatedGroup })
     const board = await boardService.getById(boardId)
     board.groups = board.groups.map((group) => group.id === updatedGroup.id ? updatedGroup : group)
-    await boardService.save(board)
+
+    const updatedBoard = await boardService.save(board)
+    console.log(updatedBoard.groups)
   } catch (err) {
     console.error("Cannot update group:", err)
   }
