@@ -2,13 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { TaskPreview } from './TaskPreview';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
+import { loadTasks } from '../store/actions/task.actions';
 
 export function TaskList({ tasks, labels, members, boardId, groupId }) {
   const boards = useSelector((state) => state.boardModule.boards)
+  // const tasks = useSelector((state) => state.taskModule.tasks)
   const [boardArr, setBoardArr] = useState(boards.filter(board => board._id === boardId))
-  console.log(boards)
+
   useEffect(() => {
-    setBoardArr(boards.filter(board => board._id === boardId))
+
+    try {
+      loadTasks(boardId, groupId)
+      setBoardArr(boards.filter(board => board._id === boardId))
+    } catch (error) {
+
+    }
+
   }, [boards])
 
   return (
@@ -46,7 +55,7 @@ export function TaskList({ tasks, labels, members, boardId, groupId }) {
                 // >
 
 
-                <TaskPreview key={task.id} task={task} labels={labels} members={members} idx={idx} />
+                <TaskPreview boardId={boardId} groupId={groupId} key={task.id} task={task} labels={labels} members={members} idx={idx} />
 
                 // </tr>
                 //     )}

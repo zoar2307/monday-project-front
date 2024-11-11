@@ -2,8 +2,10 @@
 import React, { useState } from 'react'
 import { DynamicCmp } from './DynamicCmp'
 import { Draggable } from 'react-beautiful-dnd'
+import { updateTask } from '../store/actions/task.actions'
+// import { updateTask } from '../store/actions/task.actions'
 
-export function TaskPreview({ key, task, labels, members, idx }) {
+export function TaskPreview({ boardId, groupId, task, labels, members, idx }) {
 
 
     const cmpsOrder = ['StatusPicker', 'MemberPicker', 'PriorityPicker']
@@ -37,6 +39,8 @@ export function TaskPreview({ key, task, labels, members, idx }) {
                                     members={members}
                                     onUpdate={data => {
                                         console.log('Updating: ', cmp, 'with data:', data)
+                                        updateTask(boardId, groupId, task.id, data)
+
                                         // make a copy, update the task, create an action
                                         // Call action: updateTask(task, action)
                                     }}
