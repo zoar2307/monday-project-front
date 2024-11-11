@@ -4,6 +4,7 @@
   display: flex;
   gap: em(10px, 16px);
   user-select: none;
+  overflow: hidden;
 }
 
 .homepage {

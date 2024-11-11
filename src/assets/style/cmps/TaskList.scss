@@ -1,13 +1,14 @@
 .task-list {
   width: 100%;
   border-collapse: collapse;
-  font-family: "Figtree", sans-serif; /* Ensure fallback if "Figtree" is unavailable */
+  font-family: "Figtree", sans-serif;
+  /* Ensure fallback if "Figtree" is unavailable */
   font-size: 14px;
 
   td {
     border: 1px solid #d3d4dd;
     text-align: center;
-    
+
     p {
       margin: 0;
     }
@@ -15,7 +16,7 @@
 
   tr {
     border: 1px solid #d3d4dd;
-    
+
   }
 
   th {
@@ -25,6 +26,7 @@
     text-align: center;
     vertical-align: middle;
     font-weight: 400;
+
     input {
       padding: 0;
     }
@@ -34,7 +36,7 @@
     padding-top: 10px;
     width: 33px;
   }
-  
+
   th:nth-child(2) {
     width: 360px;
   }

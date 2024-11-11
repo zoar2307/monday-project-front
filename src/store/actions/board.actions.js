@@ -41,7 +41,6 @@ export async function saveBoard(board) {
         if (type === 'ADD_BOARD') {
             addGroup(savedBoard._id)
         }
-        console.log(saveBoard)
         return savedBoard
     } catch (err) {
         console.log('board action -> Cannot save board', err)

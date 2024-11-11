@@ -9,13 +9,15 @@ import { boardService } from "../services/board/board.service.local"
 export function BoardDetails() {
   const { boardId } = useParams()
   const [board, setBoard] = useState(null)
+  const navigate = useNavigate()
 
   useEffect(() => {
-    if (boardId) loadBoards()
+    if (boardId) loadBoard()
   }, [boardId])
 
-  async function loadBoards() {
+  async function loadBoard() {
     try {
+      await loadBoards({})
       const board = await boardService.getById(boardId)
       setBoard(board)
     } catch (err) {

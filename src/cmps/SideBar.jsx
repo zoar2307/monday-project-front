@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { loadBoards, removeBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions";
-import { AddBoardModal } from "./AddBoardModal";
 
 
 export function SideBar() {
@@ -16,7 +15,6 @@ export function SideBar() {
     const filterIconRef = useRef()
     const modalRef = useRef()
 
-
     const [sidebarWidth, setSideBarWidth] = useState(255)
     const [sideBarIsClose, setSideBarIsClose] = useState('')
     const [filterByToEdit, setFilterByToEdit] = useState('')
@@ -25,7 +23,6 @@ export function SideBar() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalBoardId, setModalBoardId] = useState(null)
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 })
-
 
     const { pathname } = useLocation()
 
@@ -59,8 +56,6 @@ export function SideBar() {
             setFilteredBoards(boards.filter((board) => regex.test(board.title)))
         }
     }, [filterByToEdit])
-
-
 
     function onActiveFavorites() {
         favoritesRef.current.classList.toggle('active')
@@ -151,8 +146,6 @@ export function SideBar() {
         setIsAddBoardModal(true)
     }
 
-
-
     function BoardOptionsModal({ onClose, boardId, onAddToFavorites }) {
         return (
             <div className="modal-overlay" onClick={(e) => {
@@ -165,50 +158,46 @@ export function SideBar() {
                     onClick={(e) => e.stopPropagation()}
                 >
                     <button onClick={() => { console.log('Rename clicked for:', boardId); onRename(boardId); }}>Rename</button>
-                    <button onClick={() => { console.log('Delete clicked for:', boardId); onDelete(boardId); }}>Delete</button>
+                    <button onClick={() => onDelete(boardId)}>Delete</button>
                     <button onClick={() => { console.log('Add to Favorites clicked for:', boardId); onAddToFavorites(boardId); }}>Add to Favorites</button>
                 </div>
             </div>
         )
     }
-    
 
-
-
-// Updated onDelete function to receive boardId
-async function onDelete(boardId) {
-    console.log('Deleting board...', boardId)
-    try {
-        if (boardId) {
-            // Remove board immediately
-            await removeBoard(boardId)
-            console.log('Board removed successfully.')
-
-            // Optional: Reload board list after deletion
-            await loadBoards()
-            closeModal()
-            navigate('/board')
-        }
-    } catch (err) {
-        console.error("Error deleting board:", err)
-    }
-}
-
-// Updated onRename function to receive boardId
-async function onRename(boardId) {
-    console.log('Renaming board...', boardId)
-    const newTitle = prompt("Enter the new board name:")
-    if (newTitle) {
+    // Updated onDelete function to receive boardId
+    async function onDelete(boardId) {
+        console.log('Deleting board...', boardId)
         try {
-            await updateBoard(boardId, { title: newTitle })
-            await loadBoards()
-            closeModal()
+            if (boardId) {
+                // Remove board immediately
+                await removeBoard(boardId)
+                console.log('Board removed successfully.')
+
+                // Optional: Reload board list after deletion
+                await loadBoards()
+                closeModal()
+                navigate('/board')
+            }
         } catch (err) {
-            console.error("Error renaming board:", err)
+            console.error("Error deleting board:", err)
         }
     }
-}
 
+    // Updated onRename function to receive boardId
+    async function onRename(boardId) {
+        console.log('Renaming board...', boardId)
+        const newTitle = prompt("Enter the new board name:")
+        if (newTitle) {
+            try {
+                await updateBoard(boardId, { title: newTitle })
+                await loadBoards()
+                closeModal()
+            } catch (err) {
+                console.error("Error renaming board:", err)
+            }
+        }
+    }
 
     // Function to open the modal
     const openModal = (boardId, event) => {
@@ -227,26 +216,22 @@ async function onRename(boardId) {
         setModalBoardId(null)
     }
 
-useEffect(() => {
-    const handleClickOutside = (event) => {
-        console.log('Click target:', event.target);
-        if (modalRef.current && !modalRef.current.contains(event.target)) {
-            closeModal()
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            console.log('Click target:', event);
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                closeModal()
+            }
         }
-    }
 
-    if (isModalOpen) {
-        document.addEventListener("mousedown", handleClickOutside)
-    }
+        if (isModalOpen) {
+            window.addEventListener("mousedown", handleClickOutside)
+        }
 
-    return () => {
-        document.removeEventListener("mousedown", handleClickOutside)
-    }
-}, [isModalOpen])
-
-
-
-
+        return () => {
+            window.removeEventListener("mousedown", handleClickOutside)
+        }
+    }, [isModalOpen])
 
     const hiddenClass = favoritesIsOpen ? 'hidden' : ''
 
