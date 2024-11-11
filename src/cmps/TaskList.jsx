@@ -19,10 +19,10 @@ export function TaskList({ tasks, labels, members, boardId, groupId }) {
             <tr key={idx}>
               <th><input type="checkbox" /></th>
               <th>Task</th>
-              {board.cmpsOrder.includes('StatusPicker') && <th>Status</th>}
-              {board.cmpsOrder.includes('MemberPicker') && <th>Person</th>}
-              {board.cmpsOrder.includes('DatePicker') && <th>Date</th>}
-              {board.cmpsOrder.includes('PriorityPicker') && <th>Priority</th>}
+              {board.cmpsOrder?.includes('StatusPicker') && <th>Status</th>}
+              {board.cmpsOrder?.includes('MemberPicker') && <th>Person</th>}
+              {/* {board.cmpsOrder?.includes('DatePicker') && <th>Date</th>} ADD LATER*/} 
+              {board.cmpsOrder?.includes('PriorityPicker') && <th>Priority</th>}
               <th>+</th>
             </tr>
           ))}
@@ -38,5 +38,5 @@ export function TaskList({ tasks, labels, members, boardId, groupId }) {
         </tbody>
       </table>
     </>
-  );
+  )
 }

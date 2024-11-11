@@ -1,23 +1,30 @@
-// MemberPicker.js
-import React from 'react';
+import React from 'react'
 
-export function MemberPicker({ info, onUpdate }) {
-    const handleChange = (e) => {
-        const newMember = e.target.value;
-        onUpdate({ assignedTo: newMember });  // Pass the updated member data
-    };
+export function MemberPicker({ info, onUpdate, members }) {
+  const handleChange = (e) => {
+    const selectedMemberId = e.target.value
+    onUpdate({ assignedTo: selectedMemberId }) 
+  }
 
-    return (
-
-        <div>
-            <label>Assign Member:</label>
-            <select value={info.assignedTo} onChange={handleChange}>
-                <option value="Unassigned">Unassigned</option>
-                <option value="User 1">User 1</option>
-                <option value="User 2">User 2</option>
-                {/* Add more members */}
-            </select>
-        </div>
-
-    );
+  return (
+    <div className="member-picker">
+      <select
+        value={info.assignedTo?._id || "Unassigned"}
+        onChange={handleChange}
+        style={{
+          padding: "5px 10px",
+          borderRadius: "4px",
+          border: "none",
+          appearance: "none",
+        }}
+      >
+        <option value="Unassigned">Unassigned</option>
+        {members.map((member) => (
+          <option key={member._id} value={member._id}>
+            {member.fullname}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
 }

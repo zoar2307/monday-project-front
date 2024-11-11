@@ -3,17 +3,16 @@ import React from 'react'
 import { DynamicCmp } from './DynamicCmp'
 
 export function TaskPreview({ key, task, labels, members }) {
-    console.log(labels);
 
 
-    // Define the order of components to display for each task
-    const cmpsOrder = ['StatusPicker', 'MemberPicker', 'DatePicker', 'PriorityPicker']
+    const cmpsOrder = ['StatusPicker', 'MemberPicker', 'PriorityPicker']
+    // 'DatePicker' Add
 
     return (
         <>
             <td><input type="checkbox" /></td>
-            <td>
-                <span>{task.title}</span>
+            <td className='task-title'>
+                <span >{task.title}</span>
                 <i className="fa-solid fa-comment-medical"></i>
             </td>
 
@@ -24,6 +23,8 @@ export function TaskPreview({ key, task, labels, members }) {
                             cmp={cmp}
                             key={idx}
                             info={task}
+                            labels = {labels}
+                            members = {members}
                             onUpdate={data => {
                                 console.log('Updating: ', cmp, 'with data:', data)
                                 // make a copy, update the task, create an action
