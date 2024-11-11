@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { PickerModal } from './DynamicCmp'
-
+import { PickerModal } from './PickerModal'
 export function StatusPicker({ info, onUpdate, labels }) {
   const [isModalOpen, setModalOpen] = useState(false)
   const statusLabels = labels.filter((label) => label.type === "status")
@@ -10,7 +9,6 @@ export function StatusPicker({ info, onUpdate, labels }) {
     setModalOpen(false)
   }
 
-  // Function to get the label color based on the status
   const getLabelColor = (type, value) => {
     const label = labels.find((label) => label.type === type && label.title === value)
     return label ? label.color : "#ddd"
@@ -18,19 +16,15 @@ export function StatusPicker({ info, onUpdate, labels }) {
 
   return (
     <div>
-      {/* Display the selected status with background color */}
       <div
         onClick={() => setModalOpen(true)}
-        className="picker-display"
+        className="status label"
         style={{
           backgroundColor: getLabelColor("status", info.status),
           color: "#fff",
           border: "none",
-          padding: "9px",
-          width: "100%",
           appearance: "none",
           textAlign: "center",
-          borderRadius: "4px",
           cursor: "pointer",
         }}
       >

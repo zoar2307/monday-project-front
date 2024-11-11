@@ -86,13 +86,13 @@ async function _createBoards() {
       labels: [
         { id: "l101", title: "Done", color: "#01c875", type: "status" },
         { id: "l102", title: "Stuck", color: "#e02f4b", type: "status" },
-        { id: "l103", title: "Working on it", color: "#fdbb63", type: "status" },
+        { id: "l103", title: "Working on it", color: "#fdab3d", type: "status" },
         { id: "l104", title: "Bonus", color: "#b57ce3", type: "status" },
         { id: "l105", title: "Coming soon", color: "#7aaffd", type: "status" },
-        { id: "l106", title: "High", color: "#6545a9", type: "priority" },
-        { id: "l107", title: "Medium", color: "#777ae5", type: "priority" },
-        { id: "l108", title: "Low", color: "#7aaffd", type: "priority" },
-        { id: "l109", title: "Critical", color: "#5c5c5c", type: "priority" }
+        { id: "l106", title: "High", color: "#401694", type: "priority" },
+        { id: "l107", title: "Medium", color: "#5559df", type: "priority" },
+        { id: "l108", title: "Low", color: "#579bfc", type: "priority" },
+        { id: "l109", title: "Critical", color: "#333333", type: "priority" }
       ],
       members: [
         {
@@ -320,19 +320,19 @@ async function _createBoards() {
       ],
       groups: [
         {
-          id: "g201",
+          id: makeId(),
           title: "Phase 1 - Research",
           color: "#ff6347",
           tasks: [
             {
-              id: "c201",
+              id: makeId(),
               title: "Literature Review",
               assignedTo: { _id: "u102", fullname: "Alice Smith" },
               status: "Done",
               priority: "Medium"
             },
             {
-              id: "c202",
+              id: makeId(),
               title: "Develop Hypothesis",
               assignedTo: { _id: "u103", fullname: "Bob Johnson" },
               status: "Working on it",

@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
-import { loadBoards, removeBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions";
+import { useEffect, useRef, useState } from "react"
+import { useSelector } from "react-redux"
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
+import { loadBoards, removeBoard, saveBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions"
+import { BoardOptionsModal } from "./BoardOptionsModal"
 
 
-export function SideBar() {
+export function SideBar({ onSidebarToggle }) {
+    let boards = useSelector(storeState => storeState.boardModule.boards)
 
     const navigate = useNavigate()
 
@@ -23,15 +25,27 @@ export function SideBar() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [modalBoardId, setModalBoardId] = useState(null)
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 })
+    const [isStarred, setIsStarred] = useState(false)
+    const [renameMode, setRenameMode] = useState(null) 
+    const [boardTitles, setBoardTitles] = useState(
+        boards.reduce((acc, board) => {
+            acc[board._id] = board.title
+            return acc
+        }, {})
+    )
+
 
     const { pathname } = useLocation()
 
-    let boards = useSelector(storeState => storeState.boardModule.boards)
     const [filteredBoards, setFilteredBoards] = useState(boards)
 
+    useEffect(() => {
+        removeNavigateActive()
+    }, [pathname])
 
     useEffect(() => {
         setSidebarBounds(sideBarRef.current.getBoundingClientRect())
+        setFilteredBoards(boards.filter((board) => board.isStarred))
     }, [boards])
 
     useEffect(() => {
@@ -39,13 +53,6 @@ export function SideBar() {
             sideBarRef.current.style.width = sidebarWidth + 'px'
         }
     }, [sidebarWidth])
-
-    useEffect(() => {
-    }, [filteredBoards])
-
-    useEffect(() => {
-        setFilteredBoards(boards.filter((board) => board.isStarred))
-    }, [boards])
 
     useEffect(() => {
         if (filterByToEdit.name) filterIconRef.current.style.display = 'inherit'
@@ -88,17 +95,25 @@ export function SideBar() {
         navigate('/board/' + id)
     }
 
+    function removeNavigateActive() {
+        if (pathname !== '/board') homeRef.current.classList.remove('active')
+        if (pathname !== '/my-work') myWorkRef.current.classList.remove('active')
+    }
+
     function onCloseNav() {
         if (sideBarIsClose) {
             sideBarRef.current.classList.remove('close')
             sideBarRef.current.style.width = sidebarWidth + 'px'
-            setSideBarIsClose('')
+            setSideBarIsClose(false)
+            onSidebarToggle(false)
         } else {
             sideBarRef.current.classList.add('close')
-            sideBarRef.current.style.width = 30 + 'px'
-            setSideBarIsClose('close')
+            sideBarRef.current.style.width = '30px'
+            setSideBarIsClose(true)
+            onSidebarToggle(true)
         }
     }
+
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
@@ -146,35 +161,15 @@ export function SideBar() {
         setIsAddBoardModal(true)
     }
 
-    function BoardOptionsModal({ onClose, boardId, onAddToFavorites }) {
-        return (
-            <div className="modal-overlay" onClick={(e) => {
-                if (e.target === e.currentTarget) onClose();
-            }}>
-                <div
-                    ref={modalRef}
-                    className="modal-content"
-                    style={{ top: modalPosition.top, left: modalPosition.left }}
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    <button onClick={() => { console.log('Rename clicked for:', boardId); onRename(boardId); }}>Rename</button>
-                    <button onClick={() => onDelete(boardId)}>Delete</button>
-                    <button onClick={() => { console.log('Add to Favorites clicked for:', boardId); onAddToFavorites(boardId); }}>Add to Favorites</button>
-                </div>
-            </div>
-        )
-    }
 
-    // Updated onDelete function to receive boardId
+
+
+
     async function onDelete(boardId) {
-        console.log('Deleting board...', boardId)
         try {
             if (boardId) {
-                // Remove board immediately
                 await removeBoard(boardId)
-                console.log('Board removed successfully.')
 
-                // Optional: Reload board list after deletion
                 await loadBoards()
                 closeModal()
                 navigate('/board')
@@ -184,33 +179,42 @@ export function SideBar() {
         }
     }
 
-    // Updated onRename function to receive boardId
-    async function onRename(boardId) {
-        console.log('Renaming board...', boardId)
-        const newTitle = prompt("Enter the new board name:")
-        if (newTitle) {
-            try {
-                await updateBoard(boardId, { title: newTitle })
+
+
+
+    async function onAddToFavorites(boardId) {
+        console.log("Adding to favorites:", boardId)
+        try {
+            const board = boards.find(b => b._id === boardId)
+            if (board) {
+                const updatedBoard = { ...board, isStarred: !board.isStarred }
+
+                await saveBoard(updatedBoard)
                 await loadBoards()
                 closeModal()
-            } catch (err) {
-                console.error("Error renaming board:", err)
             }
+        } catch (err) {
+            console.error("Error updating favorites:", err)
         }
     }
 
-    // Function to open the modal
-    const openModal = (boardId, event) => {
-        setModalBoardId(boardId)
+
+
+    function openModal(board, event) {
+        setModalBoardId(board._id)
+        setIsStarred(board.isStarred)
         const { top, left, height } = event.currentTarget.getBoundingClientRect()
         setModalPosition({
-            top: top + height + window.scrollY,
-            left: left + window.scrollX
+            top: top + height + 10 + window.scrollY,
+            left: left + window.scrollX,
         })
         setIsModalOpen(true)
     }
 
-    // Function to close the modal
+
+
+
+
     const closeModal = () => {
         setIsModalOpen(false)
         setModalBoardId(null)
@@ -218,7 +222,6 @@ export function SideBar() {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            console.log('Click target:', event);
             if (modalRef.current && !modalRef.current.contains(event.target)) {
                 closeModal()
             }
@@ -232,6 +235,30 @@ export function SideBar() {
             window.removeEventListener("mousedown", handleClickOutside)
         }
     }, [isModalOpen])
+    
+
+    const handleTitleChange = (boardId, newTitle) => {
+        setBoardTitles((prevTitles) => ({
+            ...prevTitles,
+            [boardId]: newTitle
+        }))
+    }
+
+    const handleTitleSave = async (boardId) => {
+        try {
+            const updatedTitle = boardTitles[boardId]
+            if (updatedTitle) {
+                const updatedBoardData = { ...boards.find(b => b._id === boardId), title: updatedTitle }
+                await saveBoard(updatedBoardData) // Save the board with the new title
+                setRenameMode(null) // Exit rename mode
+            }
+        } catch (err) {
+            console.error("Error updating title:", err)
+        }
+    }
+    
+
+
 
     const hiddenClass = favoritesIsOpen ? 'hidden' : ''
 
@@ -239,7 +266,7 @@ export function SideBar() {
         <section
             onMouseDown={handleMouseDown}
             ref={sideBarRef}
-            className={`sidebar `}>
+            className={`sidebar ${sideBarIsClose ? 'close' : ''}`}>
             <div className="navigation">
                 <div className="nav">
                     <NavLink onClick={() => onNav('home')} ref={homeRef} to='/board'>
@@ -321,7 +348,7 @@ export function SideBar() {
                 <div className="search-bar">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" data-testid="icon" ><path d="M8.65191 2.37299C6.9706 2.37299 5.35814 3.04089 4.16927 4.22976C2.9804 5.41863 2.3125 7.03108 2.3125 8.7124C2.3125 10.3937 2.9804 12.0062 4.16927 13.195C5.35814 14.3839 6.9706 15.0518 8.65191 15.0518C10.0813 15.0518 11.4609 14.5691 12.5728 13.6939L16.4086 17.5303C16.7014 17.8232 17.1763 17.8232 17.4692 17.5303C17.7621 17.2375 17.7622 16.7626 17.4693 16.4697L13.6334 12.6333C14.5086 11.5214 14.9913 10.1418 14.9913 8.7124C14.9913 7.03108 14.3234 5.41863 13.1346 4.22976C11.9457 3.04089 10.3332 2.37299 8.65191 2.37299ZM12.091 12.1172C12.9878 11.2113 13.4913 9.98783 13.4913 8.7124C13.4913 7.42891 12.9815 6.19798 12.0739 5.29042C11.1663 4.38285 9.9354 3.87299 8.65191 3.87299C7.36842 3.87299 6.1375 4.38285 5.22993 5.29042C4.32237 6.19798 3.8125 7.42891 3.8125 8.7124C3.8125 9.99589 4.32237 11.2268 5.22993 12.1344C6.1375 13.0419 7.36842 13.5518 8.65191 13.5518C9.92736 13.5518 11.1509 13.0483 12.0568 12.1514C12.0623 12.1455 12.0679 12.1397 12.0737 12.134C12.0794 12.1283 12.0851 12.1227 12.091 12.1172Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
                     <input type="text" name="title" placeholder="Search" onChange={handleChange} value={filterByToEdit.name} />
-                    {filterByToEdit.name && <svg className="clear" onClick={onCleanSearch} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" role="button" tabIndex="0" aria-hidden="false" data-testid="icon"><path d="M6.53033 5.46967C6.23744 5.17678 5.76256 5.17678 5.46967 5.46967C5.17678 5.76256 5.17678 6.23744 5.46967 6.53033L8.62562 9.68628L5.47045 12.8415C5.17756 13.1343 5.17756 13.6092 5.47045 13.9021C5.76334 14.195 6.23822 14.195 6.53111 13.9021L9.68628 10.7469L12.8415 13.9021C13.1343 14.195 13.6092 14.195 13.9021 13.9021C14.195 13.6092 14.195 13.1343 13.9021 12.8415L10.7469 9.68628L13.9029 6.53033C14.1958 6.23744 14.1958 5.76256 13.9029 5.46967C13.61 5.17678 13.1351 5.17678 12.8422 5.46967L9.68628 8.62562L6.53033 5.46967Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>}
+                    {filterByToEdit.title && <svg className="clear" onClick={onCleanSearch} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" role="button" tabIndex="0" aria-hidden="false" data-testid="icon"><path d="M6.53033 5.46967C6.23744 5.17678 5.76256 5.17678 5.46967 5.46967C5.17678 5.76256 5.17678 6.23744 5.46967 6.53033L8.62562 9.68628L5.47045 12.8415C5.17756 13.1343 5.17756 13.6092 5.47045 13.9021C5.76334 14.195 6.23822 14.195 6.53111 13.9021L9.68628 10.7469L12.8415 13.9021C13.1343 14.195 13.6092 14.195 13.9021 13.9021C14.195 13.6092 14.195 13.1343 13.9021 12.8415L10.7469 9.68628L13.9029 6.53033C14.1958 6.23744 14.1958 5.76256 13.9029 5.46967C13.61 5.17678 13.1351 5.17678 12.8422 5.46967L9.68628 8.62562L6.53033 5.46967Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>}
                     <svg ref={filterIconRef} className="filter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" role="img" aria-hidden="true"><path d="M17.8571 2.87669C18.107 3.41157 18.0246 4.04275 17.6457 4.49555L12.4892 10.6589V15.3856C12.4892 16.0185 12.097 16.5852 11.5048 16.8082L9.56669 17.5381C9.09976 17.7139 8.57627 17.6494 8.16598 17.3655C7.75569 17.0816 7.51084 16.6144 7.51084 16.1155V10.6589L2.35425 4.49555C1.97542 4.04275 1.89302 3.41157 2.14291 2.87669C2.39279 2.34182 2.92977 2 3.52013 2H16.4799C17.0702 2 17.6072 2.34182 17.8571 2.87669ZM16.4799 3.52012H3.52013L8.91611 9.96964C8.99036 10.0584 9.03096 10.1698 9.03096 10.2848V16.1155L10.969 15.3856V10.2848C10.969 10.1698 11.0096 10.0584 11.0839 9.96964L16.4799 3.52012Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
 
                 </div>
@@ -330,40 +357,72 @@ export function SideBar() {
                 </button>
             </div>
 
-            {boards && <div className={`boards ${hiddenClass}`}>
-                {filterByToEdit.title ?
-                    filteredBoards.map(board => {
-                        return <div onClick={() => onBoardClick(board._id)} key={board._id} className={`board-wrapper ${pathname === `/board/${board._id}` ? 'board active' : 'board'}`} >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="19" height="19" aria-hidden="true" data-testid="icon"><path d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
-                            <p>{board.title}</p>
-                            <div className="dots" onClick={(e) => { e.stopPropagation(); openModal(board._id, e) }}>
-                                <button>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
-                                </button>
-                            </div>
-                        </div>
-                    })
-                    :
-                    boards.map(board => {
-                        return <div onClick={() => onBoardClick(board._id)} key={board._id} className={`board-wrapper ${pathname === `/board/${board._id}` ? 'board active' : 'board'}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="19" height="19" aria-hidden="true" data-testid="icon"><path d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
-                            <p>{board.title}</p>
-                            <div className="dots" onClick={(e) => { e.stopPropagation(); openModal(board._id, e) }}>
-                                <button>
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
-                                </button>
-                            </div>
-                        </div>
-                    })
-                }
+            {boards && (
+                <div className={`boards ${hiddenClass}`}>
+                    {filterByToEdit.title
+                        ? filteredBoards.map((board) => (
+                            <div
+                                onClick={() => onBoardClick(board._id)}
+                                key={board._id}
+                                className={`board-wrapper ${pathname === `/board/${board._id}` ? 'board active' : 'board'}`}
+                            >
 
-            </div>
-            }
+                                {renameMode === board._id ? (
+                                    <input
+                                        type="text"
+                                        value={boardTitles[board._id]}
+                                        onChange={(e) => handleTitleChange(board._id, e.target.value)}
+                                        onBlur={() => handleTitleSave(board._id)}
+                                        autoFocus
+                                    />
+                                ) : (
+                                    <p>{board.title}</p>
+                                )}
+                                <div className="dots" onClick={(e) => { e.stopPropagation(); openModal(board, e) }}>
+                                    <button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                        : boards.map((board) => (
+                            <div
+                                onClick={() => onBoardClick(board._id)}
+                                key={board._id}
+                                className={`board-wrapper ${pathname === `/board/${board._id}` ? 'board active' : 'board'}`}
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="19" height="19" aria-hidden="true" className="icon_1360dfb99d" data-testid="icon"><path d="M7.5 4.5H16C16.2761 4.5 16.5 4.72386 16.5 5V15C16.5 15.2761 16.2761 15.5 16 15.5H7.5L7.5 4.5ZM6 4.5H4C3.72386 4.5 3.5 4.72386 3.5 5V15C3.5 15.2761 3.72386 15.5 4 15.5H6L6 4.5ZM2 5C2 3.89543 2.89543 3 4 3H16C17.1046 3 18 3.89543 18 5V15C18 16.1046 17.1046 17 16 17H4C2.89543 17 2 16.1046 2 15V5Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
+                                {renameMode === board._id ? (
+                                    <input
+                                        type="text"
+                                        value={boardTitles[board._id]}
+                                        onChange={(e) => handleTitleChange(board._id, e.target.value)}
+                                        onBlur={() => handleTitleSave(board._id)}  // Save title on blur
+                                        autoFocus
+                                    />
+                                ) : (
+                                    <p>{board.title}</p>
+                                )}
+                                <div className="dots" onClick={(e) => { e.stopPropagation(); openModal(board, e) }}>
+                                    <button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                </div>
+            )}
             {isModalOpen && (
                 <BoardOptionsModal
-                    onClose={closeModal}
-                    boardId={modalBoardId} // Pass boardId to the modal
-                    onAddToFavorites={() => console.log("Add to Favorites", modalBoardId)}
+                    onClose={() => setIsModalOpen(false)}
+                    boardId={modalBoardId}
+                    onDelete={onDelete}
+                    modalPosition={modalPosition}
+                    onAddToFavorites={onAddToFavorites}
+                    onRename={() => setRenameMode(modalBoardId)}
+                    handleTitleChange={handleTitleChange}
+                    handleTitleSave={handleTitleSave}
+                    isStarred={isStarred}
                 />
             )}
 

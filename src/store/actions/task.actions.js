@@ -1,6 +1,7 @@
 import { store } from '../store'
 import { ADD_TASK, UPDATE_TASK_PRIORITY, UPDATE_TASK_MEMBER, UPDATE_TASK_STATUS, SET_TASKS } from '../reducers/task.reducer'
 import { boardService } from '../../services/board/board.service.local'
+import { makeId } from '../../services/util.service'
 
 export async function loadTasks(boardId, groupId) {
   try {
@@ -21,6 +22,8 @@ export async function addTask(boardId, groupId, task) {
   try {
     const board = await boardService.getById(boardId)
     const group = board.groups.find((grp) => grp.id === groupId)
+    task.id = makeId()
+    console.log(task)
     group.tasks.push(task)
     await boardService.save(board)
     store.dispatch({ type: ADD_TASK, task, groupId })

@@ -6,7 +6,7 @@ import { useEffect } from "react"
 import { BoardDetails } from "./BoardDetails"
 import { MyWork } from "../cmps/MyWork"
 
-export function BoardPage() {
+export function BoardPage({onSidebarToggle}) {
 
   const { boardId } = useParams()
 
@@ -20,7 +20,7 @@ export function BoardPage() {
     <>
       <section className="board-page main-layout app">
         {/* <main className="main-content"> */}
-        <SideBar />
+        <SideBar onSidebarToggle={onSidebarToggle} />
         {isBoardPage && <BoardIndex />}
         {boardId && <BoardDetails />}
         {isMyWorkPage && <MyWork />}

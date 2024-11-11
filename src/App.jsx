@@ -13,13 +13,17 @@ import { MyWork } from "./cmps/MyWork.jsx"
 import { SideBar } from "./cmps/SideBar.jsx"
 import { BackDrop } from "./cmps/BackDrop.jsx"
 import { AddBoardModal } from "./cmps/AddBoardModal.jsx"
+import { useState } from "react"
+
 
 function App() {
+  const [isSidebarClosed, setIsSidebarClosed] = useState(false)
+
   return (
     <Provider store={store}>
       <Router>
         <section className="app">
-          <DynamicHeader />
+          <DynamicHeader isSidebarClosed={isSidebarClosed} />
           <main className="main-layout">
             <AddBoardModal />
             <BackDrop />
@@ -27,8 +31,8 @@ function App() {
               <Route element={<HomePage />} path="/" />
               <Route element={<AboutUs />} path="/about" />
               <Route element={<Signup />} path="/auth/signup" />
-              <Route element={<BoardPage />} path="/board/" />
-              <Route element={<BoardPage />} path="/board/:boardId" />
+              <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board/" />
+              <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board/:boardId" />
               <Route element={<BoardPage />} path="/my-work" />
             </Routes>
           </main>

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { TaskPreview } from './TaskPreview';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
+import { addTaskToGroup } from '../store/actions/group.actions';
+import { addTask } from '../store/actions/task.actions';
 import { loadTasks } from '../store/actions/task.actions';
 
-export function TaskList({ tasks, labels, members, boardId, groupId }) {
+export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
   const boards = useSelector((state) => state.boardModule.boards)
   // const tasks = useSelector((state) => state.taskModule.tasks)
   const [boardArr, setBoardArr] = useState(boards.filter(board => board._id === boardId))
@@ -20,34 +22,62 @@ export function TaskList({ tasks, labels, members, boardId, groupId }) {
 
   }, [boards])
 
+  function onSubmitTask(ev) {
+    ev.preventDefault()
+    if (newTask.title.length === 0) return
+    addTask(boardId, groupId, newTask)
+    setNewTask({ title: '' })
+  }
+
+  function handleChange({ target }) {
+    let { value, name: field, type } = target
+    switch (type) {
+      case 'number':
+      case 'range':
+        value = +value
+        break;
+
+      case 'checkbox':
+        value = target.checked
+        break
+    }
+    setNewTask(prevFilter => ({ ...prevFilter, title: value }))
+  }
+
+
   return (
     <>
-      <table className="task-list">
-        <thead>
+      <div className="task-list"
+        style={{
+          borderColor: group.color
+        }}
+      >
+        <div className='group-header-container'>
 
           {boardArr.map((board, idx) => (
-            <tr key={idx}>
-              <th><input type="checkbox" /></th>
-              <th>Task</th>
-              {board.cmpsOrder?.includes('StatusPicker') && <th>Status</th>}
-              {board.cmpsOrder?.includes('MemberPicker') && <th>Person</th>}
-              {/* {board.cmpsOrder?.includes('DatePicker') && <th>Date</th>} ADD LATER*/}
-              {board.cmpsOrder?.includes('PriorityPicker') && <th>Priority</th>}
-              <th>+</th>
-            </tr>
+            <div className='group-header ' key={idx}>
+              <div className='check-label'><input type="checkbox" /></div >
+              <div className='task-title header'>Task</div>
+              {board.cmpsOrder?.includes('StatusPicker') && <div className='label status'>Status</div>}
+              {board.cmpsOrder?.includes('MemberPicker') && <div className='label members'>Person</div>}
+              {/* {board.cmpsOrder?.includes('DatePicker') && <div className='label date'>Date</div>} ADD LATER*/}
+              {board.cmpsOrder?.includes('PriorityPicker') && <div className='label priority'>Priority</div>}
+              <div className='add-label'>+</div>
+            </div  >
           ))}
-        </thead>
+        </div >
         <Droppable
           droppableId={groupId}
           direction='vertical'
           type="task"
         >
-          {(provided) => (
-            <tbody
+          {(provided, snapshot) => (
+            <div
+              className='group-body'
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {tasks.map((task, idx) => (
+              {tasks.map((task, idx) => {
                 // <Draggable
                 //   draggableId={task.id}
                 //   index={idx}
@@ -60,12 +90,21 @@ export function TaskList({ tasks, labels, members, boardId, groupId }) {
                 // </tr>
                 //     )}
                 // </Draggable>
-              ))}
+              })}
               {provided.placeholder}
-            </tbody>
+              <div className='add-task task-row '>
+                <div className='check-label '><input type="checkbox" disabled /></div >
+                <div className='task-title '>
+                  <form onSubmit={onSubmitTask}>
+                    <input type="text" placeholder='+ Add item' onBlur={onSubmitTask} onChange={handleChange} value={newTask.title} />
+                  </form>
+                </div>
+              </div>
+
+            </div>
           )}
         </Droppable>
-      </table >
+      </div >
     </>
   )
 }

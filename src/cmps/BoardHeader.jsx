@@ -1,9 +1,12 @@
 import logo from '../assets/img/logo.png'
 
-export function BoardHeader() {
+export function BoardHeader({ isSidebarClosed }) {
   return (
     <>
-      <header className="board-header flex justify-between align-center">
+      <header className="board-header flex justify-between align-center" style={{
+        marginLeft: isSidebarClosed ? '40px' : '0',
+        transition: 'margin-left 0.7s ease', // Adding a smooth transition
+      }}>
         <div className="flex align-center">
           <img src={logo} alt="Logo" />
           <h1 className="logo-home-nav">Sundae</h1>
@@ -19,13 +22,17 @@ export function BoardHeader() {
             <button>
               <i className="fa-solid fa-user-plus"></i>
             </button>
-          </div>
-          <hr />
-          <div>
             <button>
               <i className="fa-solid fa-magnifying-glass"></i>
             </button>
-            <button>LOGO USER_IMG</button>
+          </div>
+          <div>
+            <button>
+              <div class="right-logo-container">
+                <img class="right-logo" src={logo} alt="Logo" />
+              </div>
+            </button>
+
           </div>
         </div>
       </header>

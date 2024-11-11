@@ -33,6 +33,7 @@ export function BoardDetails() {
       <section className="board-details">
         <BoardDetailsHeader board={board} />
         <GroupList
+          board={board}
           groups={board.groups || []}
           members={board.members || []}
           boardId={board._id}
