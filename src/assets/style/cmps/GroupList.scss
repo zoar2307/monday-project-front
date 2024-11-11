@@ -1,6 +1,6 @@
 .group-list {
     padding-left: rem(40px);
-    overflow: scroll;
+    overflow: auto;
     height: 100%;
 
     display: flex;
@@ -20,6 +20,7 @@
         height: 30px;
         gap: 10px;
         padding: 5px;
+        cursor: pointer;
 
         i {
             font-size: 18px;

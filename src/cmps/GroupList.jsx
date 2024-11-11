@@ -10,12 +10,12 @@ import {
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import { useDispatch } from "react-redux"
 import { SET_GROUPS, UPDATE_GROUP } from "../store/reducers/group.reducer"
-import { saveBoard } from "../store/actions/board.actions"
+import { loadBoard, saveBoard } from "../store/actions/board.actions"
 import { store } from "../store/store"
 
-export function GroupList({ boardId, members, labels }) {
-  const groups = useSelector((state) => state.groupModule.groups)
-  const { boards } = store.getState().boardModule
+export function GroupList() {
+  const board = useSelector(storeState => storeState.boardModule.currBoard)
+  const { groups, _id: boardId } = board
 
   const dispatch = useDispatch()
 
@@ -23,18 +23,20 @@ export function GroupList({ boardId, members, labels }) {
     loadGroups(boardId)
   }, [boardId])
 
-  useEffect(() => {
-    console.log(groups)
-  }, [groups])
-
-  const handleAddGroup = () => addGroup(boardId)
+  const handleAddGroup = async () => {
+    try {
+      await addGroup(boardId)
+      await loadBoard(boardId)
+    } catch (err) {
+      console.log(err)
+    }
+  }
   const handleRemoveGroup = (groupId) => removeGroup(boardId, groupId)
 
   if (!groups || !groups.length) return null
 
   async function handleDragEnd(result) {
     const { destination, source, draggableId, type } = result
-    const board = boards.filter(board => board._id === boardId)[0]
     if (!destination) return
 
     if (destination.droppableId === source.droppableId && destination.index === source.index) return
@@ -49,8 +51,14 @@ export function GroupList({ boardId, members, labels }) {
         ...board,
         groups: newGroupOrder
       }
-      saveBoard(newBoard)
-      dispatch({ type: SET_GROUPS, groups: newGroupOrder })
+      try {
+        // dispatch({ type: SET_GROUPS, groups: newGroupOrder })
+        await saveBoard(newBoard)
+        await loadBoard(boardId)
+      } catch (err) {
+        console.log(err)
+      }
+
       return
     }
 
@@ -72,8 +80,18 @@ export function GroupList({ boardId, members, labels }) {
         tasks: newTasks
       }
 
-      dispatch({ type: UPDATE_GROUP, group: newGroup })
-      updateGroup(boardId, newGroup)
+
+      try {
+        await updateGroup(boardId, newGroup)
+        dispatch({ type: UPDATE_GROUP, group: newGroup })
+        await loadBoard(boardId)
+
+      } catch (err) {
+        console.log(err)
+      }
+
+
+
       return
     }
 
@@ -99,7 +117,8 @@ export function GroupList({ boardId, members, labels }) {
     // dispatch({ type: UPDATE_GROUP, group: newFinish })
     try {
       await updateGroup(boardId, newStart)
-      updateGroup(boardId, newFinish)
+      await updateGroup(boardId, newFinish)
+      await loadBoard(boardId)
 
     } catch (err) {
       console.log(err)
@@ -122,9 +141,6 @@ export function GroupList({ boardId, members, labels }) {
                   <div key={group.id} className="group-list-item">
                     <GroupPreview
                       group={group}
-                      members={members}
-                      boardId={boardId}
-                      labels={labels}
                       index={index}
                       onRemoveGroup={() => handleRemoveGroup(group.id)}
                     />

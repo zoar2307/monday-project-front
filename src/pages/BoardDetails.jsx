@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { loadBoards } from "../store/actions/board.actions"
+import { loadBoard, loadBoards } from "../store/actions/board.actions"
 import { BoardDetailsHeader } from "../cmps/BoardDetailsHeader"
 import { GroupList } from "../cmps/GroupList"
-import { boardService } from "../services/board/board.service.local"
 
 export function BoardDetails() {
   const { boardId } = useParams()
@@ -18,14 +16,13 @@ export function BoardDetails() {
 
 
   useEffect(() => {
-    if (boardId) loadBoard(filterBy)
+    if (boardId) initBoards()
   }, [boardId])
 
-  async function loadBoard(filterBy) {
+  async function initBoards() {
     try {
-      await loadBoards(filterBy)
-      const board = await boardService.getById(boardId)
-      setBoard(board)
+      const returnedBoard = await loadBoard(boardId)
+      setBoard(returnedBoard)
     } catch (err) {
       console.log('Had issues in board details', err)
       navigate('/board')
@@ -35,16 +32,10 @@ export function BoardDetails() {
   if (!board) return <div>Loading...</div>
 
   return (
-    board ? (
+    boardId ? (
       <section className="board-details">
-        <BoardDetailsHeader board={board} filterBy={filterBy} />
-        <GroupList
-          board={board}
-          groups={board.groups || []}
-          members={board.members || []}
-          boardId={board._id}
-          labels={board.labels || []}
-        />
+        <BoardDetailsHeader board={board} />
+        <GroupList />
       </section>
     ) : (
       <div>Board not found.</div>

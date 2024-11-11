@@ -3,9 +3,11 @@ import React from 'react'
 import { StatusPicker } from './StatusPicker.jsx'
 import { MemberPicker } from './MemberPicker.jsx'
 import { PriorityPicker } from './PriorityPicker.jsx'
+import { PriorityPicker } from './PriorityPicker.jsx'
 
 
 export function DynamicCmp({ cmp, info, onUpdate, labels, members }) {
+
   switch (cmp) {
     case 'StatusPicker':
       return <StatusPicker info={info} onUpdate={onUpdate} labels={labels} />

@@ -1,36 +1,34 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { TaskList } from "../cmps/TaskList"
-import { updateGroup, addTaskToGroup } from "../store/actions/group.actions"
+import { updateGroup } from "../store/actions/group.actions"
 import { Draggable } from "react-beautiful-dnd"
+import { useSelector } from "react-redux"
+import { loadBoard } from "../store/actions/board.actions"
 
 export function GroupPreview({
   group,
-  members,
-  labels,
-  boardId,
   onRemoveGroup,
   index
 }) {
-  const [groupTitle, setGroupTitle] = useState(group.title)
-  const [tasks, setTasks] = useState(group.tasks)
+  const board = useSelector(storeState => storeState.boardModule.currBoard)
+  const { _id: boardId } = board
+  const { title, tasks } = group
+
+
+  const [groupTitle, setGroupTitle] = useState(title)
   const [isEditGroupTitle, setIsEditGroupTitle] = useState(false)
-
-
-  useEffect(() => {
-    setTasks(group.tasks)
-  }, [group])
 
   const handleTitleChange = (e) => setGroupTitle(e.target.value)
 
-  const saveTitle = () => {
-    const updatedGroup = { ...group, title: groupTitle }
-    updateGroup(boardId, updatedGroup)
-    setIsEditGroupTitle(false)
-  }
-
-  const handleAddTask = (newTask) => {
-    setTasks([...tasks, newTask])
-    addTaskToGroup(boardId, group.id, newTask)
+  const saveTitle = async () => {
+    try {
+      const updatedGroup = { ...group, title: groupTitle }
+      await updateGroup(boardId, updatedGroup)
+      await loadBoard(boardId)
+      setIsEditGroupTitle(false)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -56,10 +54,10 @@ export function GroupPreview({
                 >
                   <i class="fa-solid fa-trash"></i>
                 </button>
-                <p style={{
-                  color: group.color,
-
-                }}>
+                <p
+                  style={{
+                    color: group.color,
+                  }}>
                   <i className="fa-solid fa-chevron-down"></i>
                 </p>
 
@@ -86,7 +84,9 @@ export function GroupPreview({
                 }
 
 
-                <span className="tasks-count">{tasks.length} items</span>
+                {tasks.length === 1 && <span className="tasks-count">{tasks.length} Task</span>}
+                {tasks.length > 1 && <span className="tasks-count">{tasks.length} Tasks</span>}
+                {tasks.length === 0 && <span className="tasks-count">No tasks</span>}
 
               </header>
               <main className="flex">
@@ -95,12 +95,6 @@ export function GroupPreview({
                   }
                 ></div> */}
                 <TaskList
-                  tasks={tasks}
-                  members={members}
-                  labels={labels}
-                  boardId={boardId}
-                  groupId={group.id}
-                  onAddTask={handleAddTask}
                   group={group}
                 />
               </main>

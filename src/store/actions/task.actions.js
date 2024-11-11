@@ -2,6 +2,7 @@ import { store } from '../store'
 import { ADD_TASK, UPDATE_TASK_PRIORITY, UPDATE_TASK_MEMBER, UPDATE_TASK_STATUS, SET_TASKS } from '../reducers/task.reducer'
 import { boardService } from '../../services/board/board.service.local'
 import { makeId } from '../../services/util.service'
+import { loadBoard, loadBoards } from './board.actions'
 
 export async function loadTasks(filterBy, boardId, groupId) {
   try {
@@ -30,6 +31,7 @@ export async function addTask(boardId, groupId, task) {
     group.tasks.push(task)
     await boardService.save(board)
     store.dispatch({ type: ADD_TASK, task, groupId })
+    await loadBoard(boardId)
   } catch (err) {
     console.error('Cannot add task:', err)
   }
@@ -56,6 +58,7 @@ export async function updateTaskStatus(boardId, groupId, taskId, status) {
     task.status = status
     await boardService.save(board)
     store.dispatch({ type: UPDATE_TASK_STATUS, task, groupId })
+    await loadBoard(boardId)
   } catch (err) {
     console.error('Cannot update task priority:', err)
   }
@@ -69,6 +72,7 @@ export async function updateTaskPriority(boardId, groupId, taskId, priority) {
     task.priority = priority
     await boardService.save(board)
     store.dispatch({ type: UPDATE_TASK_PRIORITY, task, groupId })
+    await loadBoard(boardId)
   } catch (err) {
     console.error('Cannot update task priority:', err)
   }
@@ -88,6 +92,7 @@ export async function updateTaskMember(boardId, groupId, taskId, member) {
     await boardService.save(board)
 
     store.dispatch({ type: UPDATE_TASK_MEMBER, task, groupId })
+    await loadBoard(boardId)
   } catch (err) {
     console.error("Failed to update task member:", err)
   }

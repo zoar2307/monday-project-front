@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { PickerModal } from './PickerModal'
+import { loadBoards } from '../store/actions/board.actions'
 export function StatusPicker({ info, onUpdate, labels }) {
   const [isModalOpen, setModalOpen] = useState(false)
   const statusLabels = labels.filter((label) => label.type === "status")
@@ -15,17 +16,12 @@ export function StatusPicker({ info, onUpdate, labels }) {
   }
 
   return (
-    <div>
+    <div className='label-container'>
       <div
         onClick={() => setModalOpen(true)}
-        className="status label"
+        className="status label not-header table"
         style={{
           backgroundColor: getLabelColor("status", info.status),
-          color: "#fff",
-          border: "none",
-          appearance: "none",
-          textAlign: "center",
-          cursor: "pointer",
         }}
       >
         {info.status}
