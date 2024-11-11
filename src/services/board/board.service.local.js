@@ -98,12 +98,12 @@ async function _createBoards() {
         {
           _id: "u101",
           fullname: "Tal Taltal",
-          imgUrl: "https://www.google.com",
+          imgUrl: "https://robohash.org/35",
         },
         {
           _id: "u102",
           fullname: "Josh Ga",
-          imgUrl: "https://www.google.com",
+          imgUrl: "https://robohash.org/4",
         },
       ],
       "groups": [
@@ -351,10 +351,6 @@ async function _createBoards() {
     })
   }
 }
-
-
-
-
 
 function loadBoardsFromStorage() {
   const data = localStorage.getItem(STORAGE_KEY)
