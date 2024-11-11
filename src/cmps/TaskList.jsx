@@ -4,22 +4,14 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { addTaskToGroup } from '../store/actions/group.actions';
 import { addTask } from '../store/actions/task.actions';
-import { loadTasks } from '../store/actions/task.actions';
 
 export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
   const boards = useSelector((state) => state.boardModule.boards)
-  // const tasks = useSelector((state) => state.taskModule.tasks)
   const [boardArr, setBoardArr] = useState(boards.filter(board => board._id === boardId))
+  const [newTask, setNewTask] = useState({ title: '' })
 
   useEffect(() => {
-
-    try {
-      loadTasks(boardId, groupId)
-      setBoardArr(boards.filter(board => board._id === boardId))
-    } catch (error) {
-
-    }
-
+    setBoardArr(boards.filter(board => board._id === boardId))
   }, [boards])
 
   function onSubmitTask(ev) {
@@ -47,7 +39,7 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
 
   return (
     <>
-      <div className="task-list"
+      <div className="task-list close"
         style={{
           borderColor: group.color
         }}
@@ -85,7 +77,7 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
                 // >
 
 
-                <TaskPreview boardId={boardId} groupId={groupId} key={task.id} task={task} labels={labels} members={members} idx={idx} />
+                return <TaskPreview key={task.id} task={task} labels={labels} members={members} idx={idx} />
 
                 // </tr>
                 //     )}
@@ -96,7 +88,7 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
                 <div className='check-label '><input type="checkbox" disabled /></div >
                 <div className='task-title '>
                   <form onSubmit={onSubmitTask}>
-                    <input type="text" placeholder='+ Add item' onBlur={onSubmitTask} onChange={handleChange} value={newTask.title} />
+                    <input type="text" placeholder='+ Add task' onBlur={onSubmitTask} onChange={handleChange} value={newTask.title} />
                   </form>
                 </div>
               </div>
