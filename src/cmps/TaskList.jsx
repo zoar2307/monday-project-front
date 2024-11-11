@@ -12,6 +12,7 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
 
   useEffect(() => {
     setBoardArr(boards.filter(board => board._id === boardId))
+    loadTasks()
   }, [boards])
 
   function onSubmitTask(ev) {

@@ -3,18 +3,21 @@ import { ADD_TASK, UPDATE_TASK_PRIORITY, UPDATE_TASK_MEMBER, UPDATE_TASK_STATUS,
 import { boardService } from '../../services/board/board.service.local'
 import { makeId } from '../../services/util.service'
 
-export async function loadTasks(boardId, groupId) {
+export async function loadTasks(filterBy, boardId, groupId) {
   try {
     const board = await boardService.getById(boardId)
 
     const group = board.groups.find((grp) => grp.id === groupId)
     const tasks = group.tasks
-    console.log(tasks);
-    store.dispatch({ type: SET_TASKS, tasks })
+    const filteredTasks = await boardService.queryTasks(tasks, filterBy)
+    console.log(filteredTasks)
+
+    store.dispatch({ type: SET_TASKS, filteredTasks })
   } catch (err) {
-    console.log('board action -> Cannot load boards')
+    console.log('Tasks action -> Cannot load Tasks')
     throw err
   } finally {
+
   }
 }
 

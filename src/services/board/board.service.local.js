@@ -11,6 +11,7 @@ export const boardService = {
   remove,
   getDefaultFilter,
   getEmptyBoard,
+  queryTasks
 }
 window.cs = boardService
 
@@ -25,6 +26,26 @@ async function query(filterBy = { title: "" }) {
 
   return boards
 }
+
+async function queryTasks(tasks, filterBy = { title: "", status: '', priority: "", person: '' }) {
+  const { title, status, priority, person } = filterBy
+  if (title) {
+    const regex = new RegExp(title, "i")
+    tasks = tasks.filter((task) => regex.test(task.title))
+  }
+  if (status) {
+    tasks = tasks.filter((task) => task.status === status)
+  }
+  if (priority) {
+    tasks = tasks.filter((task) => task.priority === priority)
+  }
+  // if (person) {
+  //   tasks = tasks.filter((task) => task.assignedTo === person)
+  // }
+  console.log(tasks)
+  return tasks
+}
+
 
 function getById(boardId) {
   return storageService.get(STORAGE_KEY, boardId)
@@ -358,7 +379,7 @@ function loadBoardsFromStorage() {
 }
 
 function getDefaultFilter() {
-  return { title: "" }
+  return { title: "", status: '', priority: "", person: '' }
 }
 
 function getEmptyBoard() {

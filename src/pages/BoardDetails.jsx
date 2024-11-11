@@ -10,14 +10,20 @@ export function BoardDetails() {
   const { boardId } = useParams()
   const [board, setBoard] = useState(null)
   const navigate = useNavigate()
+  const filterBy = useSelector(storeState => storeState.boardModule.filterBy)
 
   useEffect(() => {
-    if (boardId) loadBoard()
+    console.log(filterBy);
+  }, [filterBy])
+
+
+  useEffect(() => {
+    if (boardId) loadBoard(filterBy)
   }, [boardId])
 
-  async function loadBoard() {
+  async function loadBoard(filterBy) {
     try {
-      await loadBoards({})
+      await loadBoards(filterBy)
       const board = await boardService.getById(boardId)
       setBoard(board)
     } catch (err) {
@@ -31,7 +37,7 @@ export function BoardDetails() {
   return (
     board ? (
       <section className="board-details">
-        <BoardDetailsHeader board={board} />
+        <BoardDetailsHeader board={board} filterBy={filterBy} />
         <GroupList
           board={board}
           groups={board.groups || []}

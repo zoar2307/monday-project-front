@@ -1,6 +1,6 @@
 import { BoardDetailsFilter } from "./BoardDetailsFilter"
 
-export function BoardDetailsHeader({ board }) {
+export function BoardDetailsHeader({ board, filterBy, setFilterBy }) {
 
     return (
         <div className="board-details-header">
@@ -77,7 +77,9 @@ export function BoardDetailsHeader({ board }) {
 
             </div>
 
-            <BoardDetailsFilter />
+            <BoardDetailsFilter
+                filterBy={filterBy}
+            />
         </div>
     )
 }

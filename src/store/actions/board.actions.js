@@ -11,7 +11,9 @@ import {
 import { store } from '../store'
 import { addGroup } from "./group.actions";
 
-export async function loadBoards(filterBy) {
+const { filterBy } = store.getState().boardModule
+
+export async function loadBoards() {
     try {
         console.log('load boards')
         const boards = await boardService.query(filterBy)
