@@ -8,7 +8,6 @@
     font-family: "Figtree", sans-serif;
     vertical-align: baseline;
     line-height: 1.5;
-    min-width: 100%;
     color: rgb(50, 51, 56);
     width: 100%;
 
@@ -75,15 +74,15 @@
 
 .boards-body {
     font-size: 15px;
-
     width: 100%;
+
 
     .main-panel-container {
         margin: 16px;
         padding: 24px;
         border-radius: 8px;
         box-shadow: 0px 3px 12px rgb(230, 233, 239);
-        width: 75%;
+        width: calc(100% - 300px - 24px);
 
         .category-container {
             display: flex;
