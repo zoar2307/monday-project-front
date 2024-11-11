@@ -13,9 +13,7 @@ import { addGroup } from "./group.actions";
 
 export async function loadBoards(filterBy) {
     try {
-        console.log('load boards')
         const boards = await boardService.query(filterBy)
-        console.log(boards)
         store.dispatch({ type: SET_BOARDS, boards })
         // store.dispatch({ type: SET_MAX_PAGE, maxPage })
     } catch (err) {

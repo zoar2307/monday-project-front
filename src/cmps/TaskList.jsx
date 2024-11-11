@@ -11,10 +11,6 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
   const [newTask, setNewTask] = useState({ title: '' })
 
   useEffect(() => {
-    console.log(newTask)
-  }, [newTask])
-
-  useEffect(() => {
     setBoardArr(boards.filter(board => board._id === boardId))
   }, [boards])
 
@@ -43,7 +39,7 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
 
   return (
     <>
-      <div className="task-list"
+      <div className="task-list close"
         style={{
           borderColor: group.color
         }}
@@ -92,7 +88,7 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
                 <div className='check-label '><input type="checkbox" disabled /></div >
                 <div className='task-title '>
                   <form onSubmit={onSubmitTask}>
-                    <input type="text" placeholder='+ Add item' onBlur={onSubmitTask} onChange={handleChange} value={newTask.title} />
+                    <input type="text" placeholder='+ Add task' onBlur={onSubmitTask} onChange={handleChange} value={newTask.title} />
                   </form>
                 </div>
               </div>

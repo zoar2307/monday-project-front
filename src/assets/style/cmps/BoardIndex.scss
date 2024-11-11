@@ -11,11 +11,16 @@
     color: rgb(50, 51, 56);
     width: 100%;
 
+
     .second-header {
         justify-content: space-between;
         align-items: center;
         height: 63px;
         box-shadow: 0px 3px 12px rgb(230, 233, 239);
+
+        @media (width > 1500px) {
+            padding: 0 80px;
+        }
 
         .header-container {
             display: flex;
@@ -23,6 +28,7 @@
 
             gap: 12px;
             padding-left: 14px;
+
 
 
             height: 100%;
@@ -76,6 +82,9 @@
     font-size: 15px;
     width: 100%;
 
+    @media (width > 1500px) {
+        padding: 0 80px;
+    }
 
     .main-panel-container {
         margin: 16px;

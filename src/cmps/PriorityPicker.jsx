@@ -21,7 +21,7 @@ export function PriorityPicker({ info, onUpdate, labels }) {
       {/* Display the selected priority with background color */}
       <div
         onClick={() => setModalOpen(true)}
-        className="label priority"
+        className="label priority table"
         style={{
           backgroundColor: getLabelColor("priority", info.priority),
           color: "#fff",

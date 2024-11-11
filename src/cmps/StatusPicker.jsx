@@ -21,7 +21,7 @@ export function StatusPicker({ info, onUpdate, labels }) {
       {/* Display the selected status with background color */}
       <div
         onClick={() => setModalOpen(true)}
-        className="status label"
+        className="status label table"
         style={{
           backgroundColor: getLabelColor("status", info.status),
           color: "#fff",

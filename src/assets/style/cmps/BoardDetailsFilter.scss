@@ -35,7 +35,7 @@
 
         .new-item-btn {
             font-size: rem(14px);
-            border-radius: em(4px, 14px) 0px 0px em(4px, 14px);
+            border-radius: em(4px, 14px);
             border-right: 1px solid $light-board-details-filter-clr3;
             padding: em(4px, 14px) em(8px, 14px);
             font-weight: 300;
@@ -60,6 +60,23 @@
         gap: em(8px, 16px);
     }
 
+    input {
+        width: 58px;
+        transition: .3s;
+        background-color: transparent;
+        border: none;
+        height: 100%;
+        // width: 100%;
+        border-radius: 4px;
+        outline: none;
+
+        &::placeholder {
+            color: $light-board-details-filter-clr4;
+        }
+
+
+    }
+
     .filter {
         display: flex;
         justify-content: center;
@@ -68,6 +85,7 @@
         font-family: Figtree;
         font-size: rem(14px);
         color: $light-board-details-filter-clr4;
+
 
         height: 100%;
         border-radius: em(4px, 14px);
@@ -87,6 +105,30 @@
 
         &:hover {
             background-color: rgba($color: $light-board-details-filter-clr1, $alpha: 0.1);
+
+
+        }
+    }
+
+    .name {
+        &.open {
+            input {
+                &::placeholder {
+                    color: $light-board-details-filter-clr1;
+                }
+
+                padding: 1px 0;
+                padding-left: 5px;
+                width: 143px;
+            }
+
+            border: 1px blue solid;
+
+            &:hover {
+                background-color: transparent;
+
+
+            }
         }
     }
 }
