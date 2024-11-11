@@ -1,34 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { TaskPreview } from './TaskPreview'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { Droppable } from 'react-beautiful-dnd'
 import { useSelector } from 'react-redux'
-import { addTaskToGroup } from '../store/actions/group.actions'
 import { addTask } from '../store/actions/task.actions'
 
-export function TaskList({ group, labels, members, boardId, groupId }) {
-  const boards = useSelector(storeState => storeState.boardModule.boards)
-  const [boardArr, setBoardArr] = useState(boards.filter(board => board._id === boardId))
+export function TaskList({ group }) {
+  const board = useSelector(storeState => storeState.boardModule.currBoard)
+  const { _id: boardId } = board
+  const { id: groupId, tasks } = group
+
   const [newTask, setNewTask] = useState({ title: '' })
-  const [myBoard, setMyBoard] = useState({})
-  const [myTasks, setMyTasks] = useState([])
 
-
-
-  useEffect(() => {
-    setBoardArr(boards.filter(board => board._id === boardId))
-    const ourBoard = boards.filter(ourB => ourB._id === boardId)[0]
-    setMyBoard(ourBoard)
-    const ourGroup = ourBoard.groups.filter(outG => outG.id === groupId)[0]
-    console.log(ourGroup)
-    setMyTasks(ourGroup.tasks)
-  }, [boards])
-
-
-  function onSubmitTask(ev) {
+  async function onSubmitTask(ev) {
     ev.preventDefault()
     if (newTask.title.length === 0) return
-    addTask(boardId, groupId, newTask)
-    setNewTask({ title: '' })
+    try {
+      await addTask(boardId, groupId, newTask)
+      setNewTask({ title: '' })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   function handleChange({ target }) {
@@ -46,7 +37,6 @@ export function TaskList({ group, labels, members, boardId, groupId }) {
     setNewTask(prevFilter => ({ ...prevFilter, title: value }))
   }
 
-
   return (
     <>
       <div className="task-list "
@@ -56,7 +46,7 @@ export function TaskList({ group, labels, members, boardId, groupId }) {
       >
         <div className='group-header-container'>
 
-          {boardArr.map((board, idx) => (
+          {[board].map((board, idx) => (
             <div className='group-header ' key={idx}>
               <div className='check-label'><input type="checkbox" /></div >
               <div className='task-title header'>Task</div>
@@ -79,19 +69,10 @@ export function TaskList({ group, labels, members, boardId, groupId }) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {myTasks.map((task, idx) => {
-                // <Draggable
-                //   draggableId={task.id}
-                //   index={idx}
-                //   key={task.id}
-                // >
+              {tasks.map((task, idx) => {
 
+                return <TaskPreview key={task.id} task={task} idx={idx} group={group} />
 
-                return <TaskPreview group={group} groupId={groupId} boardId={boardId} key={task.id} task={task} labels={labels} members={members} idx={idx} />
-
-                // </tr>
-                //     )}
-                // </Draggable>
               })}
               {provided.placeholder}
               <div className='add-task task-row '>

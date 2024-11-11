@@ -6,7 +6,8 @@ import {
     UPDATE_BOARD,
     SET_FILTER_BY,
     SET_BACKDROP,
-    SET_IS_ADD_BOARD_MODAL
+    SET_IS_ADD_BOARD_MODAL,
+    SET_BOARD
 } from '../reducers/board.reducer'
 import { store } from '../store'
 import { addGroup } from "./group.actions";
@@ -15,12 +16,25 @@ export async function loadBoards(filterBy) {
     try {
         const boards = await boardService.query(filterBy)
         store.dispatch({ type: SET_BOARDS, boards })
-        console.log(boards)
         // store.dispatch({ type: SET_MAX_PAGE, maxPage })
     } catch (err) {
         console.log('board action -> Cannot load boards')
         throw err
     } finally {
+    }
+}
+
+export async function loadBoard(boardId) {
+    try {
+        const board = await boardService.getById(boardId)
+        store.dispatch({ type: SET_BOARD, board })
+        console.log(board)
+        loadBoards()
+        return board
+    }
+    catch (err) {
+        console.log('board action -> Cannot load board' + err)
+        throw err
     }
 }
 

@@ -2,6 +2,7 @@ import { boardService } from '../../services/board/board.service.local'
 
 
 export const SET_BOARDS = 'SET_BOARDS'
+export const SET_BOARD = 'SET_BOARD'
 export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
 export const UPDATE_BOARD = 'UPDATE_BOARD'
@@ -12,6 +13,7 @@ export const SET_IS_ADD_BOARD_MODAL = 'SET_IS_ADD_BOARD_MODAL'
 
 const initialState = {
     boards: [],
+    currBoard: {},
     filterBy: boardService.getDefaultFilter(),
     backdrop: false,
     isAddBoardModal: false
@@ -23,6 +25,9 @@ export function boardReducer(state = initialState, action = {}) {
         // Boards
         case SET_BOARDS:
             return { ...state, boards: action.boards }
+
+        case SET_BOARD:
+            return { ...state, currBoard: action.board }
 
         case REMOVE_BOARD:
             boards = state.boards.filter(board => board._id !== action.boardId)

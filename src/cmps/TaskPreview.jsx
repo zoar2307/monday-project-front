@@ -4,9 +4,13 @@ import { DynamicCmp } from './DynamicCmp'
 import { Draggable } from 'react-beautiful-dnd'
 import { updateTask } from '../store/actions/task.actions'
 import { updateGroup } from '../store/actions/group.actions'
-import { loadBoards } from '../store/actions/board.actions'
+import { loadBoard } from '../store/actions/board.actions'
+import { useSelector } from 'react-redux'
 
-export function TaskPreview({ group, boardId, groupId, task, labels, members, idx }) {
+export function TaskPreview({ idx, task, group }) {
+    const board = useSelector(storeState => storeState.boardModule.currBoard)
+    const { _id: boardId, labels, members } = board
+    const { id: groupId } = group
     const [isDragOn, setIsDragOn] = useState(false)
 
     const dragClass = isDragOn ? 'drag' : ''
@@ -30,17 +34,21 @@ export function TaskPreview({ group, boardId, groupId, task, labels, members, id
         setUpdateSelectedTask(prevFilter => ({ ...prevFilter, title: value }))
     }
 
-    function saveTitle() {
-        setIsEditTaskTitle(false)
-        const newTasks = group.tasks.filter(groupTask => groupTask.id !== task.id)
-        const updatedGroup = {
-            ...group,
-            tasks: [...newTasks, updateSelectedTask]
+    async function saveTitle() {
+        try {
+            setIsEditTaskTitle(false)
+            const newTasks = group.tasks.filter(groupTask => groupTask.id !== task.id)
+            const updatedGroup = {
+                ...group,
+                tasks: [...newTasks, updateSelectedTask]
+            }
+
+            await updateGroup(boardId, updatedGroup)
+            await loadBoard(boardId)
+        } catch (err) {
+            console.log(err)
         }
-        updateGroup(boardId, updatedGroup)
     }
-
-
 
     return (
 

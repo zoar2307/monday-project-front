@@ -5,8 +5,13 @@ import { SideBar } from "../cmps/SideBar"
 import { useEffect } from "react"
 import { BoardDetails } from "./BoardDetails"
 import { MyWork } from "../cmps/MyWork"
+import { loadBoards } from "../store/actions/board.actions"
 
-export function BoardPage({onSidebarToggle}) {
+export function BoardPage({ onSidebarToggle }) {
+
+  useEffect(() => {
+    loadBoards()
+  }, [])
 
   const { boardId } = useParams()
 
