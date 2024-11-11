@@ -13,6 +13,7 @@ export function GroupPreview({
 }) {
   const [groupTitle, setGroupTitle] = useState(group.title)
   const [tasks, setTasks] = useState(group.tasks)
+  const [isEditGroupTitle, setIsEditGroupTitle] = useState(false)
 
   const priorities = labels.filter((label) =>
     ["High", "Medium", "Low"].includes(label.title)
@@ -20,7 +21,6 @@ export function GroupPreview({
 
   useEffect(() => {
     setTasks(group.tasks)
-    console.log('updated')
   }, [group])
 
   const handleTitleChange = (e) => setGroupTitle(e.target.value)
@@ -28,6 +28,7 @@ export function GroupPreview({
   const saveTitle = () => {
     const updatedGroup = { ...group, title: groupTitle }
     updateGroup(boardId, updatedGroup)
+    setIsEditGroupTitle(false)
   }
 
   const handleAddTask = (newTask) => {
@@ -40,6 +41,7 @@ export function GroupPreview({
       <Draggable
         draggableId={group.id}
         index={index}
+        key={group.id}
       >
         {(provided) => (
           <div
@@ -51,29 +53,50 @@ export function GroupPreview({
                 className="flex align-center"
                 {...provided.dragHandleProps}
               >
-                <p style={{ color: group.color }}>
-                  <i className="fa-solid fa-chevron-down"></i>
-                </p>
-                <input
-                  type="text"
-                  value={groupTitle}
-                  onChange={handleTitleChange}
-                  onBlur={saveTitle}
-                  style={{ color: group.color }}
-                  className="group-title-input"
-                />
                 <button
                   onClick={() => onRemoveGroup(group.id)}
                   className="delete-group-btn"
                 >
-                  Delete Group
+                  <i class="fa-solid fa-trash"></i>
                 </button>
+                <p style={{
+                  color: group.color,
+
+                }}>
+                  <i className="fa-solid fa-chevron-down"></i>
+                </p>
+
+                {isEditGroupTitle ?
+                  <input
+                    type="text"
+                    value={groupTitle}
+                    onChange={handleTitleChange}
+                    onBlur={saveTitle}
+                    style={{
+                      color: group.color,
+                      width: '500px',
+                      maxWidth: '500px',
+                    }}
+                    className="group-title"
+                  />
+
+                  :
+                  <h4
+                    className="group-title"
+                    onClick={() => setIsEditGroupTitle(true)}
+                    style={{ color: group.color, borderColor: group.color }}
+                  >{groupTitle}</h4>
+                }
+
+
+                <span className="tasks-count">{tasks.length} items</span>
+
               </header>
               <main className="flex">
-                <div
+                {/* <div
                   className="side-group-color"
-                  style={{ backgroundColor: group.color }}
-                ></div>
+                  }
+                ></div> */}
                 <TaskList
                   tasks={tasks}
                   members={members}
@@ -82,13 +105,14 @@ export function GroupPreview({
                   groupId={group.id}
                   priorities={priorities}
                   onAddTask={handleAddTask}
+                  group={group}
                 />
               </main>
             </div>
           </div>
         )}
 
-      </Draggable>
+      </Draggable >
     </>
   )
 }

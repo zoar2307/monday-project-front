@@ -2,37 +2,37 @@
 import React from 'react'
 import { StatusPicker } from './StatusPicker.jsx'
 import { MemberPicker } from './MemberPicker.jsx'
-import { PriorityPicker } from './PriorityPicker.jsx';
-export function DynamicCmp({ cmp, info, onUpdate , labels , members}) {
-    console.log(cmp);
+import { PriorityPicker } from './PriorityPicker.jsx'
 
-    switch (cmp) {
-        case 'StatusPicker':
-            return <StatusPicker info={info} onUpdate={onUpdate} labels={labels} />
-        case 'MemberPicker':
 
-            return <MemberPicker info={info} onUpdate={onUpdate} members={members} />
-        case 'PriorityPicker':
+export function DynamicCmp({ cmp, info, onUpdate, labels, members }) {
 
-            return <PriorityPicker info={info} onUpdate={onUpdate} labels={labels} />
-        default:
+  switch (cmp) {
+    case 'StatusPicker':
+      return <StatusPicker info={info} onUpdate={onUpdate} labels={labels} />
+    case 'MemberPicker':
 
-            return <p>UNKNOWN {cmp}</p>
-    }
+      return <MemberPicker info={info} onUpdate={onUpdate} members={members} />
+    case 'PriorityPicker':
+
+      return <PriorityPicker info={info} onUpdate={onUpdate} labels={labels} />
+    default:
+
+      return <p>UNKNOWN {cmp}</p>
+  }
 }
 
 
 export function PickerModal({ options, onSelect, closeModal, modalType }) {
   return (
-      <div className="picker-modal" onClick={(e) => e.stopPropagation()}>
+    <div className="picker-modal-overlay" onClick={closeModal}>
+      <div className="status" onClick={(e) => e.stopPropagation()}>
         <ul className="picker-options">
           {options.map((option) => (
             <li
               key={option.title || option._id}
               onClick={() => onSelect(option)}
               style={{
-                position:"relative",
-                top:"0",
                 backgroundColor: modalType !== "member" ? option.color : "transparent",
                 cursor: "pointer",
                 padding: "8px",
@@ -57,6 +57,7 @@ export function PickerModal({ options, onSelect, closeModal, modalType }) {
           ))}
         </ul>
       </div>
+    </div >
   )
 }
 

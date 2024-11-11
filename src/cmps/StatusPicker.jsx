@@ -21,16 +21,13 @@ export function StatusPicker({ info, onUpdate, labels }) {
       {/* Display the selected status with background color */}
       <div
         onClick={() => setModalOpen(true)}
-        className="picker-display"
+        className="status label"
         style={{
           backgroundColor: getLabelColor("status", info.status),
           color: "#fff",
           border: "none",
-          padding: "9px",
-          width: "100%",
           appearance: "none",
           textAlign: "center",
-          borderRadius: "4px",
           cursor: "pointer",
         }}
       >

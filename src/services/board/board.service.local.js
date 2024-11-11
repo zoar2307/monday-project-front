@@ -320,19 +320,19 @@ async function _createBoards() {
       ],
       groups: [
         {
-          id: "g201",
+          id: makeId(),
           title: "Phase 1 - Research",
           color: "#ff6347",
           tasks: [
             {
-              id: "c201",
+              id: makeId(),
               title: "Literature Review",
               assignedTo: { _id: "u102", fullname: "Alice Smith" },
               status: "Done",
               priority: "Medium"
             },
             {
-              id: "c202",
+              id: makeId(),
               title: "Develop Hypothesis",
               assignedTo: { _id: "u103", fullname: "Bob Johnson" },
               status: "Working on it",
