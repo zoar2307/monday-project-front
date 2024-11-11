@@ -10,24 +10,18 @@ export function PriorityPicker({ info, onUpdate, labels }) {
     setModalOpen(false)
   }
 
-  // Function to get the label color based on the priority
   const getLabelColor = (type, value) => {
     const label = labels.find((label) => label.type === type && label.title === value)
     return label ? label.color : "#ddd"
   }
 
   return (
-    <div>
-      {/* Display the selected priority with background color */}
+    <div className='label-container'>
       <div
         onClick={() => setModalOpen(true)}
-        className="label priority table"
+        className="priority label not-header table"
         style={{
           backgroundColor: getLabelColor("priority", info.priority),
-          color: "#fff",
-          border: "none",
-          appearance: "none",
-          cursor: "pointer",
         }}
       >
         {info.priority}

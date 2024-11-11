@@ -722,6 +722,7 @@
     pointer-events: auto;
     display: flex;
     flex-direction: column;
+    width: 264px;
 }
 
 
@@ -732,15 +733,32 @@
 
 .modal-content button {
     font-family: Figtree;
-
     background: none;
     border: none;
-    padding: 4px;
+    border-radius: 4px;
+    padding: 4px 8px;
     font-size: 14px;
-    text-align: left;
+    text-align: start;
     cursor: pointer;
+    line-height: 24px;
+    color: #323338;
+    font-weight: 400;
+    letter-spacing: 0px;
+    text-decoration: none;
+    i{
+        padding-right: 16px;
+    }
 }
 
 .modal-content button:hover {
     background-color: #f0f0f0;
+}
+
+.board-wrapper{
+    input{
+        width: 140px;
+        background-color: transparent;
+        outline: transparent;
+        border: none;
+    }
 }
