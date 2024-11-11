@@ -5,10 +5,11 @@ import {
   addGroup,
   removeGroup,
   loadGroups,
+  updateGroup,
 } from "../store/actions/group.actions"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import { useDispatch } from "react-redux"
-import { SET_GROUPS } from "../store/reducers/group.reducer"
+import { SET_GROUPS, UPDATE_GROUP } from "../store/reducers/group.reducer"
 import { saveBoard } from "../store/actions/board.actions"
 import { store } from "../store/store"
 
@@ -30,6 +31,7 @@ export function GroupList({ boardId, members, labels }) {
 
   function handleDragEnd(result) {
     const { destination, source, draggableId, type } = result
+    const board = boards.filter(board => board._id === boardId)[0]
     if (!destination) return
 
     if (destination.droppableId === source.droppableId && destination.index === source.index) return
@@ -40,69 +42,60 @@ export function GroupList({ boardId, members, labels }) {
       const movedGroup = groups.filter(group => group.id === draggableId)[0]
       newGroupOrder.splice(destination.index, 0, movedGroup)
 
-      let board = boards.filter(board => board._id === boardId)[0]
       const newBoard = {
         ...board,
         groups: newGroupOrder
       }
-      saveBoard(board)
+      saveBoard(newBoard)
       dispatch({ type: SET_GROUPS, groups: newGroupOrder })
       return
     }
 
-    // const start = state.columns[source.droppableId]
-    // const finish = state.columns[destination.droppableId]
+    const start = groups.filter(group => group.id === source.droppableId)[0]
+    const finish = groups.filter(group => group.id === destination.droppableId)[0]
 
     // // start column and finish column are the same
-    // if (start === finish) {
-    //   const newTaskIds = Array.from(start.taskIds)
+    if (start === finish) {
 
-    //   newTaskIds.splice(source.index, 1)
-    //   newTaskIds.splice(destination.index, 0, draggableId)
+      const newTasks = Array.from(start.tasks)
 
-    //   const newColumn = {
-    //     ...start,
-    //     taskIds: newTaskIds
-    //   }
+      const draggedTask = newTasks.filter(task => task.id === draggableId)[0]
 
-    //   const newState = {
-    //     ...state,
-    //     columns: {
-    //       ...state.columns,
-    //       [newColumn.id]: newColumn
-    //     },
+      newTasks.splice(source.index, 1)
+      newTasks.splice(destination.index, 0, draggedTask)
 
-    //   }
+      const newGroup = {
+        ...start,
+        tasks: newTasks
+      }
 
-    //   setState(newState)
-    //   return
-    // }
+      dispatch({ type: UPDATE_GROUP, group: newGroup })
+      updateGroup(boardId, newGroup)
+      return
+    }
 
     // // Moving from one list to another
-    // const startTaskIds = Array.from(start.taskIds)
-    // startTaskIds.splice(source.index, 1)
-    // const newStart = {
-    //   ...start,
-    //   taskIds: startTaskIds
-    // }
+    const startTasks = Array.from(start.tasks)
+    const draggedTask = startTasks.filter(task => task.id === draggableId)[0]
+    startTasks.splice(source.index, 1)
 
-    // const finishTaskIds = Array.from(finish.taskIds)
-    // finishTaskIds.splice(destination.index, 0, draggableId)
-    // const newFinish = {
-    //   ...finish,
-    //   taskIds: finishTaskIds
-    // }
+    const newStart = {
+      ...start,
+      tasks: startTasks
+    }
+    dispatch({ type: UPDATE_GROUP, group: newStart })
 
-    // const newState = {
-    //   ...state,
-    //   columns: {
-    //     ...state.columns,
-    //     [newStart.id]: newStart,
-    //     [newFinish.id]: newFinish,
-    //   }
-    // }
-    // setState(newState)
+    const finishTasks = Array.from(finish.tasks)
+    finishTasks.splice(destination.index, 0, draggedTask)
 
+    const newFinish = {
+      ...finish,
+      tasks: finishTasks
+    }
+
+    dispatch({ type: UPDATE_GROUP, group: newFinish })
+    updateGroup(boardId, newStart)
+    updateGroup(boardId, newFinish)
   }
 
   return (
@@ -132,17 +125,7 @@ export function GroupList({ boardId, members, labels }) {
                 {provided.placeholder}
               </div>
             )}
-            {/* {groups.map((group) => (
-              <div key={group.id} className="group-list-item">
-                <GroupPreview
-                  group={group}
-                  members={members}
-                  boardId={boardId}
-                  labels={labels}
-                  onRemoveGroup={() => handleRemoveGroup(group.id)}
-                />
-              </div>
-            ))} */}
+
           </Droppable>
           <button onClick={handleAddGroup} className="add-group-btn flex align-center">
             <i className="fa-solid fa-plus"></i>

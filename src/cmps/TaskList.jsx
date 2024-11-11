@@ -1,11 +1,20 @@
 // TaskList.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TaskPreview } from './TaskPreview';
 import { store } from '../store/store';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 export function TaskList({ tasks, labels, members, boardId, groupId }) {
   const { boards } = store.getState().boardModule
   const boardArr = boards.filter(board => board._id === boardId)
+
+  const [isTaskDragging, setIsTaskDragging] = useState(false)
+
+  useEffect(() => {
+    console.log(isTaskDragging)
+  }, [isTaskDragging])
+
+  const dargClass = isTaskDragging ? 'drag' : ''
 
   return (
     <>
@@ -24,15 +33,39 @@ export function TaskList({ tasks, labels, members, boardId, groupId }) {
             </tr>
           ))}
         </thead>
-        <tbody>
-          {tasks.map((task) => (
-            <tr key={task.id}>
+        <Droppable
+          droppableId={groupId}
+          direction='vertical'
+          type="task"
+        >
+          {(provided) => (
+            <tbody
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              {tasks.map((task, idx) => (
+                <Draggable
+                  draggableId={task.id}
+                  index={idx}
+                  key={task.id}
+                >
+                  {(provided, snapshot) => (
+                    <tr key={task.id}
+                      className={dargClass}
+                      {...provided.draggableProps}
+                      ref={provided.innerRef}
+                      {...provided.dragHandleProps}>
 
-              <TaskPreview key={task.id} task={task} labels={labels} members={members} />
+                      <TaskPreview key={task.id} task={task} labels={labels} members={members} />
 
-            </tr>
-          ))}
-        </tbody>
+                    </tr>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </tbody>
+          )}
+        </Droppable>
       </table>
     </>
   );

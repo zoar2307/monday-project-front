@@ -26,7 +26,7 @@ export async function addGroup(boardId) {
     if (!board) throw new Error('Board not found')
 
     board.groups.push(newGroup)
-    await boardService.save(board) 
+    await boardService.save(board)
 
     store.dispatch({ type: ADD_GROUP, group: newGroup })
   } catch (err) {

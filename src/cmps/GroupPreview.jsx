@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { TaskList } from "../cmps/TaskList"
 import { updateGroup, addTaskToGroup } from "../store/actions/group.actions"
 import { Draggable } from "react-beautiful-dnd"
@@ -17,6 +17,11 @@ export function GroupPreview({
   const priorities = labels.filter((label) =>
     ["High", "Medium", "Low"].includes(label.title)
   )
+
+  useEffect(() => {
+    setTasks(group.tasks)
+    console.log('updated')
+  }, [group])
 
   const handleTitleChange = (e) => setGroupTitle(e.target.value)
 
