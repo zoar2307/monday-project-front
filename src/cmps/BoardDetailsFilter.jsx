@@ -1,20 +1,38 @@
+import { useState } from "react"
+import { useSelector } from "react-redux"
+import { useParams } from "react-router"
+import { addTask } from "../store/actions/task.actions"
+
 export function BoardDetailsFilter() {
+    const [isSearch, setIsSearch] = useState(false)
+    const { boardId } = useParams()
+    const groups = useSelector((state) => state.groupModule.groups)
+
+
+    function onAddTaskClick() {
+        addTask(boardId, groups[0].id, { title: 'New task' })
+    }
 
     return (
         <section className="board-details-filter">
             <div className="new-item">
-                <button className="new-item-btn">
-                    New item
+                <button className="new-item-btn"
+                    onClick={onAddTaskClick}
+                >
+                    New task
                 </button>
-                <button className="more-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true" data-testid="icon"><path d="M10.5303 12.5303L10 12L9.46967 12.5303C9.76256 12.8232 10.2374 12.8232 10.5303 12.5303ZM10 10.9393L6.53033 7.46967C6.23744 7.17678 5.76256 7.17678 5.46967 7.46967C5.17678 7.76256 5.17678 8.23744 5.46967 8.53033L9.46967 12.5303L10 12L10.5303 12.5303L14.5303 8.53033C14.8232 8.23744 14.8232 7.76256 14.5303 7.46967C14.2374 7.17678 13.7626 7.17678 13.4697 7.46967L10 10.9393Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
-                </button>
+
             </div>
 
             <div className="filters">
-                <div className="name filter">
+                <div className={`name filter ${isSearch && 'open'}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" data-testid="icon" ><path d="M8.65191 2.37299C6.9706 2.37299 5.35814 3.04089 4.16927 4.22976C2.9804 5.41863 2.3125 7.03108 2.3125 8.7124C2.3125 10.3937 2.9804 12.0062 4.16927 13.195C5.35814 14.3839 6.9706 15.0518 8.65191 15.0518C10.0813 15.0518 11.4609 14.5691 12.5728 13.6939L16.4086 17.5303C16.7014 17.8232 17.1763 17.8232 17.4692 17.5303C17.7621 17.2375 17.7622 16.7626 17.4693 16.4697L13.6334 12.6333C14.5086 11.5214 14.9913 10.1418 14.9913 8.7124C14.9913 7.03108 14.3234 5.41863 13.1346 4.22976C11.9457 3.04089 10.3332 2.37299 8.65191 2.37299ZM12.091 12.1172C12.9878 11.2113 13.4913 9.98783 13.4913 8.7124C13.4913 7.42891 12.9815 6.19798 12.0739 5.29042C11.1663 4.38285 9.9354 3.87299 8.65191 3.87299C7.36842 3.87299 6.1375 4.38285 5.22993 5.29042C4.32237 6.19798 3.8125 7.42891 3.8125 8.7124C3.8125 9.99589 4.32237 11.2268 5.22993 12.1344C6.1375 13.0419 7.36842 13.5518 8.65191 13.5518C9.92736 13.5518 11.1509 13.0483 12.0568 12.1514C12.0623 12.1455 12.0679 12.1397 12.0737 12.134C12.0794 12.1283 12.0851 12.1227 12.091 12.1172Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></svg>
-                    <input type="text" placeholder="Search" />
+                    <input type="text"
+                        placeholder={isSearch ? "Search this board" : "Search"}
+
+                        onClick={() => setIsSearch(true)}
+                        onBlur={() => setIsSearch(false)} />
+
                 </div>
 
                 <div className="member filter">

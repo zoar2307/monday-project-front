@@ -18,7 +18,7 @@ export function StatusPicker({ info, onUpdate, labels }) {
     <div className='label-container'>
       <div
         onClick={() => setModalOpen(true)}
-        className="status label not-header"
+        className="status label not-header table"
         style={{
           backgroundColor: getLabelColor("status", info.status),
         }}

@@ -86,7 +86,9 @@ export function GroupPreview({
                 }
 
 
-                <span className="tasks-count">{tasks.length} items</span>
+                {tasks.length === 1 && <span className="tasks-count">{tasks.length} Task</span>}
+                {tasks.length > 1 && <span className="tasks-count">{tasks.length} Tasks</span>}
+                {tasks.length === 0 && <span className="tasks-count">No tasks</span>}
 
               </header>
               <main className="flex">

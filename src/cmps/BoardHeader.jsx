@@ -8,8 +8,11 @@ export function BoardHeader({ isSidebarClosed }) {
         transition: 'margin-left 0.7s ease', // Adding a smooth transition
       }}>
         <div className="flex align-center">
-          <img src={logo} alt="Logo" />
-          <h1 className="logo-home-nav">Sundae</h1>
+          <div className='logo-container'>
+            <img src={logo} alt="Logo" />
+            <h1 className="logo-home-nav">Sundae</h1>
+            <h2 className="logo-home-nav2">Work management</h2>
+          </div>
         </div>
         <div className="board-header-btns flex  align-center">
           <div>

@@ -39,7 +39,7 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
 
   return (
     <>
-      <div className="task-list close"
+      <div className="task-list "
         style={{
           borderColor: group.color
         }}

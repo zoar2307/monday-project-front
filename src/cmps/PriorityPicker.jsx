@@ -19,7 +19,7 @@ export function PriorityPicker({ info, onUpdate, labels }) {
     <div className='label-container'>
       <div
         onClick={() => setModalOpen(true)}
-        className="priority label not-header"
+        className="priority label not-header table"
         style={{
           backgroundColor: getLabelColor("priority", info.priority),
         }}
