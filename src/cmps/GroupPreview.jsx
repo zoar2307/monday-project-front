@@ -20,7 +20,8 @@ export function GroupPreview({
 
   const handleTitleChange = (e) => setGroupTitle(e.target.value)
 
-  const saveTitle = async () => {
+  const saveTitle = async (ev) => {
+    ev.preventDefault()
     try {
       const updatedGroup = { ...group, title: groupTitle }
       await updateGroup(boardId, updatedGroup)
@@ -62,18 +63,21 @@ export function GroupPreview({
                 </p>
 
                 {isEditGroupTitle ?
-                  <input
-                    type="text"
-                    value={groupTitle}
-                    onChange={handleTitleChange}
-                    onBlur={saveTitle}
-                    style={{
-                      color: group.color,
-                      width: '500px',
-                      maxWidth: '500px',
-                    }}
-                    className="group-title"
-                  />
+                  <form onSubmit={saveTitle}>
+                    <input
+                      type="text"
+                      value={groupTitle}
+                      onChange={handleTitleChange}
+                      onBlur={saveTitle}
+                      style={{
+                        color: group.color,
+                        width: '500px',
+                        maxWidth: '500px',
+                      }}
+                      className="group-title"
+                      autoFocus
+                    />
+                  </form>
 
                   :
                   <h4

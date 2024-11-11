@@ -1,5 +1,5 @@
 // TaskPreview.js
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { DynamicCmp } from './DynamicCmp'
 import { Draggable } from 'react-beautiful-dnd'
 import { updateGroup } from '../store/actions/group.actions'
@@ -13,6 +13,8 @@ export function TaskPreview({ idx, task, group }) {
     const { _id: boardId, labels, members } = board
     const { id: groupId } = group
     const [isDragOn, setIsDragOn] = useState(false)
+
+    const inputRef = useRef()
 
     const dragClass = isDragOn ? 'drag' : ''
     const cmpsOrder = ['StatusPicker', 'MemberPicker', 'PriorityPicker']
@@ -35,7 +37,8 @@ export function TaskPreview({ idx, task, group }) {
         setUpdateSelectedTask(prevFilter => ({ ...prevFilter, title: value }))
     }
 
-    async function saveTitle() {
+    async function saveTitle(ev) {
+        ev.preventDefault()
         try {
             setIsEditTaskTitle(false)
             const newTasks = group.tasks.map(groupTask => {
@@ -83,17 +86,24 @@ export function TaskPreview({ idx, task, group }) {
                         <div className='task-title-txt'>
 
                             {isEditTaskTitle ?
-                                <input
-                                    type="text"
-                                    value={updateSelectedTask.title}
-                                    onChange={handleChange}
-                                    onBlur={saveTitle}
-                                    className="task-title-input"
-                                />
+                                <form onSubmit={saveTitle}>
+                                    <input
+                                        ref={inputRef}
+                                        type="text"
+                                        value={updateSelectedTask.title}
+                                        onChange={handleChange}
+                                        onBlur={saveTitle}
+                                        className="task-title-input"
+                                        autoFocus
+                                    />
+                                </form>
                                 :
                                 <span
                                     className="task-title-input"
-                                    onClick={() => setIsEditTaskTitle(true)}
+                                    onClick={() => {
+                                        setIsEditTaskTitle(true)
+                                        inputRef.current.focus()
+                                    }}
                                 >{updateSelectedTask.title}</span>
                             }
                             <div className='handle' {...provided.dragHandleProps}></div>
