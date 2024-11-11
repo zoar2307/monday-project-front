@@ -34,7 +34,6 @@ export function SideBar({ onSidebarToggle }) {
         }, {})
     )
 
-
     const { pathname } = useLocation()
 
     const [filteredBoards, setFilteredBoards] = useState(boards)
@@ -179,9 +178,6 @@ export function SideBar({ onSidebarToggle }) {
         }
     }
 
-
-
-
     async function onAddToFavorites(boardId) {
         console.log("Adding to favorites:", boardId)
         try {
@@ -249,8 +245,8 @@ export function SideBar({ onSidebarToggle }) {
             const updatedTitle = boardTitles[boardId]
             if (updatedTitle) {
                 const updatedBoardData = { ...boards.find(b => b._id === boardId), title: updatedTitle }
-                await saveBoard(updatedBoardData) 
-                setRenameMode(null) 
+                await saveBoard(updatedBoardData)
+                setRenameMode(null)
             }
         } catch (err) {
             console.error("Error updating title:", err)
@@ -370,9 +366,9 @@ export function SideBar({ onSidebarToggle }) {
                                 key={board._id}
                                 className={`board-wrapper ${pathname === `/board/${board._id}` ? 'board active' : 'board'}`}
                             >
-    
+
                                 {renameMode === board._id ? (
-                                    
+
                                     <input
                                         type="text"
                                         value={boardTitles[board._id]}
@@ -403,7 +399,7 @@ export function SideBar({ onSidebarToggle }) {
                                         type="text"
                                         value={boardTitles[board._id]}
                                         onChange={(e) => handleTitleChange(board._id, e.target.value)}
-                                        onBlur={() => handleTitleSave(board._id)}  
+                                        onBlur={() => handleTitleSave(board._id)}
                                         autoFocus
                                     />
                                 ) : (

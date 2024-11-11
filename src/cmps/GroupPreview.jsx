@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { TaskList } from "../cmps/TaskList"
 import { updateGroup, addTaskToGroup } from "../store/actions/group.actions"
 import { Draggable } from "react-beautiful-dnd"
+import { useSelector } from "react-redux"
 
 export function GroupPreview({
   group,
@@ -15,9 +16,12 @@ export function GroupPreview({
   const [tasks, setTasks] = useState(group.tasks)
   const [isEditGroupTitle, setIsEditGroupTitle] = useState(false)
 
+
+
   useEffect(() => {
     setTasks(group.tasks)
   }, [group])
+
 
   const handleTitleChange = (e) => setGroupTitle(e.target.value)
 

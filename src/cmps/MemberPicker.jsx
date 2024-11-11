@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { PickerModal } from './PickerModal'
+import { loadBoards } from '../store/actions/board.actions'
 
 export function MemberPicker({ info, onUpdate, members }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -10,12 +11,13 @@ export function MemberPicker({ info, onUpdate, members }) {
     .map(memberId => members.find(member => member._id === memberId))
     .filter(Boolean)
 
-  const handleSelect = (member) => {
+  const handleSelect = async (member) => {
     const updatedAssignedTo = assignedToArray.includes(member._id)
       ? assignedToArray.filter(id => id !== member._id)
       : [...assignedToArray, member._id]
 
     onUpdate({ assignedTo: updatedAssignedTo })
+
     setIsModalOpen(false)
   }
 

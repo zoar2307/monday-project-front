@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { PickerModal } from './PickerModal'
+import { loadBoards } from '../store/actions/board.actions'
 export function StatusPicker({ info, onUpdate, labels }) {
   const [isModalOpen, setModalOpen] = useState(false)
   const statusLabels = labels.filter((label) => label.type === "status")

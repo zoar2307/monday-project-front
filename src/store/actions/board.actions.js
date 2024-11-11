@@ -15,6 +15,7 @@ export async function loadBoards(filterBy) {
     try {
         const boards = await boardService.query(filterBy)
         store.dispatch({ type: SET_BOARDS, boards })
+        console.log(boards)
         // store.dispatch({ type: SET_MAX_PAGE, maxPage })
     } catch (err) {
         console.log('board action -> Cannot load boards')

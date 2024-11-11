@@ -4,6 +4,7 @@ import { DynamicCmp } from './DynamicCmp'
 import { Draggable } from 'react-beautiful-dnd'
 import { updateTask } from '../store/actions/task.actions'
 import { updateGroup } from '../store/actions/group.actions'
+import { loadBoards } from '../store/actions/board.actions'
 
 export function TaskPreview({ group, boardId, groupId, task, labels, members, idx }) {
     const [isDragOn, setIsDragOn] = useState(false)
@@ -11,7 +12,7 @@ export function TaskPreview({ group, boardId, groupId, task, labels, members, id
     const dragClass = isDragOn ? 'drag' : ''
     const cmpsOrder = ['StatusPicker', 'MemberPicker', 'PriorityPicker']
     const [isEditTaskTitle, setIsEditTaskTitle] = useState(false)
-    const [updateTask, setUpdateTask] = useState(task)
+    const [updateSelectedTask, setUpdateSelectedTask] = useState(task)
     // 'DatePicker' Add
 
     function handleChange({ target }) {
@@ -26,7 +27,7 @@ export function TaskPreview({ group, boardId, groupId, task, labels, members, id
                 value = target.checked
                 break
         }
-        setUpdateTask(prevFilter => ({ ...prevFilter, title: value }))
+        setUpdateSelectedTask(prevFilter => ({ ...prevFilter, title: value }))
     }
 
     function saveTitle() {
@@ -34,7 +35,7 @@ export function TaskPreview({ group, boardId, groupId, task, labels, members, id
         const newTasks = group.tasks.filter(groupTask => groupTask.id !== task.id)
         const updatedGroup = {
             ...group,
-            tasks: [...newTasks, updateTask]
+            tasks: [...newTasks, updateSelectedTask]
         }
         updateGroup(boardId, updatedGroup)
     }
@@ -57,15 +58,22 @@ export function TaskPreview({ group, boardId, groupId, task, labels, members, id
                     {...provided.draggableProps}
                     ref={provided.innerRef}
                 >
+                    <button
+                        onClick={() => onRemoveGroup(group.id)}
+                        className="delete-group-btn"
+                    >
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
 
                     <div className='check-label'><input type="checkbox" /></div>
                     <div className='task-title body'>
+
                         <div className='task-title-txt'>
 
                             {isEditTaskTitle ?
                                 <input
                                     type="text"
-                                    value={updateTask.title}
+                                    value={updateSelectedTask.title}
                                     onChange={handleChange}
                                     onBlur={saveTitle}
                                     className="task-title-input"
@@ -74,7 +82,7 @@ export function TaskPreview({ group, boardId, groupId, task, labels, members, id
                                 <span
                                     className="task-title-input"
                                     onClick={() => setIsEditTaskTitle(true)}
-                                >{updateTask.title}</span>
+                                >{updateSelectedTask.title}</span>
                             }
                             <div className='handle' {...provided.dragHandleProps}></div>
                         </div>
@@ -93,7 +101,7 @@ export function TaskPreview({ group, boardId, groupId, task, labels, members, id
                                     info={task}
                                     labels={labels}
                                     members={members}
-                                    onUpdate={data => {
+                                    onUpdate={(data) => {
                                         console.log('Updating: ', cmp, 'with data:', data)
                                         updateTask(boardId, groupId, task.id, data)
 

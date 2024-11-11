@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { PickerModal } from './PickerModal'
+import { loadBoards } from '../store/actions/board.actions'
 
 export function PriorityPicker({ info, onUpdate, labels }) {
   const [isModalOpen, setModalOpen] = useState(false)
@@ -7,6 +8,7 @@ export function PriorityPicker({ info, onUpdate, labels }) {
 
   const handleSelect = (priority) => {
     onUpdate({ priority: priority.title })
+
     setModalOpen(false)
   }
 

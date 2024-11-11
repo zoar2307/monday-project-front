@@ -5,14 +5,24 @@ import { useSelector } from 'react-redux'
 import { addTaskToGroup } from '../store/actions/group.actions'
 import { addTask } from '../store/actions/task.actions'
 
-export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
-  const boards = useSelector((state) => state.boardModule.boards)
+export function TaskList({ group, labels, members, boardId, groupId }) {
+  const boards = useSelector(storeState => storeState.boardModule.boards)
   const [boardArr, setBoardArr] = useState(boards.filter(board => board._id === boardId))
   const [newTask, setNewTask] = useState({ title: '' })
+  const [myBoard, setMyBoard] = useState({})
+  const [myTasks, setMyTasks] = useState([])
+
+
 
   useEffect(() => {
     setBoardArr(boards.filter(board => board._id === boardId))
+    const ourBoard = boards.filter(ourB => ourB._id === boardId)[0]
+    setMyBoard(ourBoard)
+    const ourGroup = ourBoard.groups.filter(outG => outG.id === groupId)[0]
+    console.log(ourGroup)
+    setMyTasks(ourGroup.tasks)
   }, [boards])
+
 
   function onSubmitTask(ev) {
     ev.preventDefault()
@@ -69,7 +79,7 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
-              {tasks.map((task, idx) => {
+              {myTasks.map((task, idx) => {
                 // <Draggable
                 //   draggableId={task.id}
                 //   index={idx}

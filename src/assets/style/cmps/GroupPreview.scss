@@ -16,6 +16,7 @@
             position: absolute;
             left: -25px;
             transition: .3s;
+            width: 0;
 
             background-color: transparent;
             border: none;
@@ -62,6 +63,7 @@
 
             .delete-group-btn {
                 opacity: 1;
+                width: 20px;
             }
 
         }

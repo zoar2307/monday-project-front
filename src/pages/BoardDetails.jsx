@@ -17,7 +17,7 @@ export function BoardDetails() {
 
   async function loadBoard() {
     try {
-      await loadBoards({})
+      await loadBoards()
       const board = await boardService.getById(boardId)
       setBoard(board)
     } catch (err) {
