@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { loadBoard, loadBoards } from "../store/actions/board.actions"
 import { BoardDetailsHeader } from "../cmps/BoardDetailsHeader"
 import { GroupList } from "../cmps/GroupList"
+import { useSelector } from "react-redux"
 
 export function BoardDetails() {
   const { boardId } = useParams()
