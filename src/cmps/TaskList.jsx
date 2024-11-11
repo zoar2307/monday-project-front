@@ -22,7 +22,7 @@ export function TaskList({ tasks, labels, members, boardId, groupId }) {
               <th>Task</th>
               {board.cmpsOrder?.includes('StatusPicker') && <th>Status</th>}
               {board.cmpsOrder?.includes('MemberPicker') && <th>Person</th>}
-              {/* {board.cmpsOrder?.includes('DatePicker') && <th>Date</th>} ADD LATER*/} 
+              {/* {board.cmpsOrder?.includes('DatePicker') && <th>Date</th>} ADD LATER*/}
               {board.cmpsOrder?.includes('PriorityPicker') && <th>Priority</th>}
               <th>+</th>
             </tr>
@@ -39,28 +39,24 @@ export function TaskList({ tasks, labels, members, boardId, groupId }) {
               {...provided.droppableProps}
             >
               {tasks.map((task, idx) => (
-                <Draggable
-                  draggableId={task.id}
-                  index={idx}
-                  key={task.id}
-                >
-                  {(provided, snapshot) => (
-                    <tr key={task.id}
-                      {...provided.draggableProps}
-                      ref={provided.innerRef}
-                      {...provided.dragHandleProps}>
+                // <Draggable
+                //   draggableId={task.id}
+                //   index={idx}
+                //   key={task.id}
+                // >
 
-                      <TaskPreview key={task.id} task={task} labels={labels} members={members} />
 
-                    </tr>
-                  )}
-                </Draggable>
+                <TaskPreview key={task.id} task={task} labels={labels} members={members} idx={idx} />
+
+                // </tr>
+                //     )}
+                // </Draggable>
               ))}
               {provided.placeholder}
             </tbody>
           )}
         </Droppable>
-      </table>
+      </table >
     </>
   )
 }
