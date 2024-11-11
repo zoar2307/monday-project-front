@@ -1,7 +1,22 @@
 import { store } from '../store'
-import { UPDATE_TASK, ADD_TASK, UPDATE_TASK_PRIORITY, UPDATE_TASK_MEMBER } from '../reducers/task.reducer'
+import { ADD_TASK, UPDATE_TASK_PRIORITY, UPDATE_TASK_MEMBER, UPDATE_TASK_STATUS, SET_TASKS } from '../reducers/task.reducer'
 import { boardService } from '../../services/board/board.service.local'
 import { makeId } from '../../services/util.service'
+
+export async function loadTasks(boardId, groupId) {
+  try {
+    const board = await boardService.getById(boardId)
+
+    const group = board.groups.find((grp) => grp.id === groupId)
+    const tasks = group.tasks
+    console.log(tasks);
+    store.dispatch({ type: SET_TASKS, tasks })
+  } catch (err) {
+    console.log('board action -> Cannot load boards')
+    throw err
+  } finally {
+  }
+}
 
 export async function addTask(boardId, groupId, task) {
   try {
@@ -17,16 +32,32 @@ export async function addTask(boardId, groupId, task) {
   }
 }
 
-export async function updateGroup(taskId, updatedGroup) {
-  try {
-    const board = await boardService.getById(boardId)
-    board.groups = board.groups.map((group) => group.id === updatedGroup.id ? updatedGroup : group)
-    await boardService.save(board)
-    store.dispatch({ type: UPDATE_GROUP, group: updatedGroup })
-  } catch (err) {
-    console.error("Cannot update group:", err)
+export async function updateTask(boardId, groupId, taskId, data) {
+
+  if (data.status) {
+    updateTaskStatus(boardId, groupId, taskId, data.status)
+  }
+  else if (data.priority) {
+    updateTaskPriority(boardId, groupId, taskId, data.priority)
+  }
+  else if (data.assignedTo) {
+    updateTaskMember(boardId, groupId, taskId, data.assignedTo)
   }
 }
+
+export async function updateTaskStatus(boardId, groupId, taskId, status) {
+  try {
+    const board = await boardService.getById(boardId)
+    const group = board.groups.find((grp) => grp.id === groupId)
+    const task = group.tasks.find((tsk) => tsk.id === taskId)
+    task.status = status
+    await boardService.save(board)
+    store.dispatch({ type: UPDATE_TASK_STATUS, task, groupId })
+  } catch (err) {
+    console.error('Cannot update task priority:', err)
+  }
+}
+
 export async function updateTaskPriority(boardId, groupId, taskId, priority) {
   try {
     const board = await boardService.getById(boardId)
@@ -53,11 +84,7 @@ export async function updateTaskMember(boardId, groupId, taskId, member) {
     task.assignedTo = member
     await boardService.save(board)
 
-    store.dispatch({
-      type: UPDATE_TASK_MEMBER,
-      task,
-      groupId,
-    })
+    store.dispatch({ type: UPDATE_TASK_MEMBER, task, groupId })
   } catch (err) {
     console.error("Failed to update task member:", err)
   }

@@ -1,7 +1,9 @@
+export const SET_TASKS = 'SET_TASKS'
 export const ADD_TASK = 'ADD_TASK'
 export const UPDATE_TASK = 'UPDATE_TASK'
 export const UPDATE_TASK_PRIORITY = 'UPDATE_TASK_PRIORITY'
 export const UPDATE_TASK_MEMBER = 'UPDATE_TASK_MEMBER'
+export const UPDATE_TASK_STATUS = 'UPDATE_TASK_STATUS'
 
 const initialState = {
   tasks: [],
@@ -10,6 +12,10 @@ const initialState = {
 export function taskReducer(state = initialState, action = {}) {
   let tasks
   switch (action.type) {
+    // Tasks
+    case SET_TASKS:
+      return { ...state, tasks: action.tasks }
+
     case ADD_TASK:
       return {
         ...state,
@@ -19,6 +25,12 @@ export function taskReducer(state = initialState, action = {}) {
     case UPDATE_TASK:
       tasks = state.tasks.map((task) =>
         task.id === action.task.id ? { ...task, ...action.task } : task
+      )
+      return { ...state, tasks }
+
+    case UPDATE_TASK_STATUS:
+      tasks = state.tasks.map((task) =>
+        task.id === action.task.id ? { ...task, status: action.task.status } : task
       )
       return { ...state, tasks }
 
