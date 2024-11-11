@@ -2,8 +2,9 @@
 import React, { useState } from 'react'
 import { DynamicCmp } from './DynamicCmp'
 import { Draggable } from 'react-beautiful-dnd'
-import { updateTask } from '../store/actions/task.actions'
 import { updateGroup } from '../store/actions/group.actions'
+import { updateTask } from '../store/actions/task.actions'
+
 
 export function TaskPreview({ group, boardId, groupId, task, labels, members, idx }) {
     const [isDragOn, setIsDragOn] = useState(false)
