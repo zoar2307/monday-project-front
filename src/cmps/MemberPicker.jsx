@@ -1,19 +1,23 @@
 import React, { useState } from 'react'
 import { PickerModal } from './PickerModal'
-import { loadBoards } from '../store/actions/board.actions'
+import userEmpty from '../assets/img/user-empty.svg'
 
 export function MemberPicker({ info, onUpdate, members }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const assignedToArray = Array.isArray(info.assignedTo) ? info.assignedTo : info.assignedTo ? [info.assignedTo] : []
+  // Ensure assignedTo is an array
+  const assignedToArray = Array.isArray(info.assignedTo)
+    ? info.assignedTo
+    : info.assignedTo ? [info.assignedTo] : []
 
+  // Get assigned member objects from IDs
   const assignedMembers = assignedToArray
-    .map(memberId => members.find(member => member._id === memberId))
+    .map((memberId) => members.find((member) => member._id === memberId))
     .filter(Boolean)
 
   const handleSelect = async (member) => {
     const updatedAssignedTo = assignedToArray.includes(member._id)
-      ? assignedToArray.filter(id => id !== member._id)
+      ? assignedToArray.filter((id) => id !== member._id)
       : [...assignedToArray, member._id]
 
     onUpdate({ assignedTo: updatedAssignedTo })
@@ -35,11 +39,17 @@ export function MemberPicker({ info, onUpdate, members }) {
             <img
               key={member._id}
               src={member.imgUrl}
+              alt={member.fullname}
               title={member.fullname}
+              style={{ width: '24px', height: '24px', borderRadius: '50%', marginRight: '4px' }}
             />
           ))
         ) : (
-          'Unassigned'
+          <img
+            src={userEmpty}
+            alt="Unassigned"
+            style={{ width: '24px', height: '24px', borderRadius: '50%' }}
+          />
         )}
       </div>
 

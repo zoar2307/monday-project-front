@@ -2,8 +2,9 @@
 import React, { useState } from 'react'
 import { DynamicCmp } from './DynamicCmp'
 import { Draggable } from 'react-beautiful-dnd'
-import { updateTask } from '../store/actions/task.actions'
 import { updateGroup } from '../store/actions/group.actions'
+import { updateTask } from '../store/actions/task.actions'
+
 import { loadBoard } from '../store/actions/board.actions'
 import { useSelector } from 'react-redux'
 
