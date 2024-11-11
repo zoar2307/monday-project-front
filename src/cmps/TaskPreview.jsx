@@ -38,10 +38,13 @@ export function TaskPreview({ idx, task, group }) {
     async function saveTitle() {
         try {
             setIsEditTaskTitle(false)
-            const newTasks = group.tasks.filter(groupTask => groupTask.id !== task.id)
+            const newTasks = group.tasks.map(groupTask => {
+                if (groupTask.id === updateSelectedTask.id) return updateSelectedTask
+                else return groupTask
+            })
             const updatedGroup = {
                 ...group,
-                tasks: [...newTasks, updateSelectedTask]
+                tasks: [...newTasks]
             }
 
             await updateGroup(boardId, updatedGroup)
