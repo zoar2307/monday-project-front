@@ -1,6 +1,11 @@
 .group-list {
     margin-left: rem(40px);
-    .add-group-btn{
+    overflow: scroll;
+    height: 100%;
+
+    padding-bottom: em(200px, 40px);
+
+    .add-group-btn {
         margin-top: 70px;
         font-family: Figtree;
         font-size: 14px;
@@ -12,7 +17,8 @@
         height: 30px;
         gap: 10px;
         padding: 5px;
-        i{
+
+        i {
             font-size: 18px;
             font-weight: 100;
             padding-left: 5px;
