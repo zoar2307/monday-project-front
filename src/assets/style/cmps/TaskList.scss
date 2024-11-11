@@ -1,104 +1,266 @@
 .task-list {
   width: 100%;
-  border-collapse: collapse;
   font-family: "Figtree", sans-serif;
   /* Ensure fallback if "Figtree" is unavailable */
   font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  outline: 1px solid #d3d4dd;
+  border-left: em(5px, 14px) solid;
+  border-radius: em(4px, 14px);
 
-  td {
-    border: 1px solid #d3d4dd;
-    text-align: center;
+  color: #323338;
 
-    p {
-      margin: 0;
-    }
+  .group-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d3d4dd;
+    border-left: none;
+    height: 36px;
+    width: 100%;
   }
 
-  tr {
-    border: 1px solid #d3d4dd;
-
-  }
-
-  th {
-    border: 1px solid #d3d4dd;
-    height: 33px;
-    padding: 5px;
-    text-align: center;
-    vertical-align: middle;
-    font-weight: 400;
-
-    input {
-      padding: 0;
-    }
-  }
-
-  th:first-child {
-    padding-top: 10px;
-    width: 33px;
-  }
-
-  th:nth-child(2) {
-    width: 360px;
-  }
-
-  td:first-child {
-    padding-top: 12px;
-    padding-bottom: 1px;
-    height: 30px;
-  }
-
-  td:nth-child(2) {
-    text-align: left;
-  }
-
-  input[type='checkbox'] {
-    width: 16px;
-    height: 17px;
-    margin: 0;
-  }
-}
-
-.task-label {
-  color: white;
-  border: none;
-  padding: 9px;
-  cursor: pointer;
-}
-
-.task-modal {
-  background-color: white;
-  border-radius: 5px;
-  position: absolute;
-  transform: translateX(-50%);
-  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.7);
-
-  ul {
+  .group-body {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    margin: 0;
-    padding: 5px;
-    width: 150px;
   }
 
-  &.member-modal ul {
-    flex-direction: row;
-    width: fit-content;
+  .task-row {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d3d4dd;
+    width: 100%;
+
+    &.drag {
+      opacity: 0.5;
+      rotate: 2deg;
+    }
+
+    &.add-task {
+      border-bottom: none;
+    }
   }
 
-  li {
-    list-style-type: none;
-    cursor: pointer;
-    color: white;
-    padding: 10px;
-    text-align: center;
+  .check-label {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    border-right: 1px solid #d3d4dd;
+    color: #d3d4dd;
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+    }
   }
 
-  /* Style for member-option images within li elements */
-  li .member-option {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 8px;
+  .task-title {
+    display: flex;
+    align-items: center;
+    width: 355px;
+    height: 100%;
+    border-right: 1px solid #d3d4dd;
+
+    &.header {
+      justify-content: center;
+      padding-left: 0;
+      margin-left: 0;
+    }
+
+    &.body {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .task-title-txt {
+        display: flex;
+        align-items: center;
+        border-right: 1px solid #d3d4dd;
+        height: 100%;
+        width: 100%;
+      }
+
+      .task-title-chat {
+        height: 100%;
+      }
+
+      i {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 65px;
+        padding: 0 16px;
+      }
+    }
   }
+
+  .label {
+    border-radius: 0;
+    height: em(36px, 14px);
+    border-right: 1px solid #d3d4dd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.status {
+      width: 100px;
+    }
+
+    &.members {
+      width: 100px;
+    }
+
+    &.priority {
+      width: 100px;
+    }
+
+    &.header {
+      justify-content: center;
+    }
+  }
+
+  .add-label {
+    display: flex;
+    align-items: center;
+    margin-left: em(10px, 16px);
+    height: 100%;
+    border: none;
+  }
+
+  .add-task {
+
+    .task-title {
+      padding-left: 0;
+      border: none;
+    }
+
+    input {
+      color: #323338;
+      align-items: center;
+      height: 24px;
+      margin: 6px 10px;
+      padding: 3px 0;
+      padding-left: 16px;
+      width: 100%;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      outline: none;
+
+      &:hover {
+        border: 1px solid blue;
+      }
+
+      &:focus {
+        border: 1px solid blue;
+      }
+    }
+
+
+
+
+  }
+
+
+
+
+
+  //   td {
+  //     border: 1px solid #d3d4dd;
+  //     text-align: center;
+
+  //     p {
+  //       margin: 0;
+  //     }
+  //   }
+
+  //   tr {
+  //     border: 1px solid #d3d4dd;
+
+  //   }
+
+  //   th {
+  //     border: 1px solid #d3d4dd;
+  //     height: 33px;
+  //     padding: 5px;
+  //     text-align: center;
+  //     vertical-align: middle;
+  //     font-weight: 400;
+
+  //     input {
+  //       padding: 0;
+  //     }
+  //   }
+
+  //   th:first-child {
+  //     padding-top: 10px;
+  //     width: 33px;
+  //   }
+
+  //   th:nth-child(2) {
+  //     width: 360px;
+  //   }
+
+  //   td:first-child {
+  //     padding-top: 12px;
+  //     padding-bottom: 1px;
+  //     height: 30px;
+  //   }
+
+  //   td:nth-child(2) {
+  //     text-align: left;
+  //   }
+
+  //   input[type='checkbox'] {
+  //     width: 16px;
+  //     height: 17px;
+  //     margin: 0;
+  //   }
+  // }
+
+  // .task-label {
+  //   color: white;
+  //   border: none;
+  //   padding: 9px;
+  //   cursor: pointer;
+  // }
+
+  // .task-modal {
+  //   background-color: white;
+  //   border-radius: 5px;
+  //   position: absolute;
+  //   transform: translateX(-50%);
+  //   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.7);
+
+  //   ul {
+  //     display: flex;
+  //     flex-direction: column;
+  //     gap: 5px;
+  //     margin: 0;
+  //     padding: 5px;
+  //     width: 150px;
+  //   }
+
+  //   &.member-modal ul {
+  //     flex-direction: row;
+  //     width: fit-content;
+  //   }
+
+  //   li {
+  //     list-style-type: none;
+  //     cursor: pointer;
+  //     color: white;
+  //     padding: 10px;
+  //     text-align: center;
+  //   }
+
+  //   /* Style for member-option images within li elements */
+  //   li .member-option {
+  //     width: 50px;
+  //     height: 50px;
+  //     border-radius: 50%;
+  //     margin-right: 8px;
+  //   }
 }

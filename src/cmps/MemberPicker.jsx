@@ -3,17 +3,15 @@ import React from 'react'
 export function MemberPicker({ info, onUpdate, members }) {
   const handleChange = (e) => {
     const selectedMemberId = e.target.value
-    onUpdate({ assignedTo: selectedMemberId }) 
+    onUpdate({ assignedTo: selectedMemberId })
   }
 
   return (
-    <div className="member-picker">
+    <div className="members label">
       <select
         value={info.assignedTo?._id || "Unassigned"}
         onChange={handleChange}
         style={{
-          padding: "5px 10px",
-          borderRadius: "4px",
           border: "none",
           appearance: "none",
         }}
