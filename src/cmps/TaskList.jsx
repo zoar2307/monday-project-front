@@ -3,6 +3,7 @@ import { TaskPreview } from './TaskPreview';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 import { addTaskToGroup } from '../store/actions/group.actions';
+import { addTask } from '../store/actions/task.actions';
 
 export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
   const boards = useSelector((state) => state.boardModule.boards)
@@ -19,7 +20,8 @@ export function TaskList({ group, tasks, labels, members, boardId, groupId }) {
 
   function onSubmitTask(ev) {
     ev.preventDefault()
-    addTaskToGroup(boardId, groupId, newTask)
+    if (newTask.title.length === 0) return
+    addTask(boardId, groupId, newTask)
     setNewTask({ title: '' })
   }
 
