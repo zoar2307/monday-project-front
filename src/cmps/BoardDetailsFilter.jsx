@@ -1,19 +1,19 @@
 import { useSelector } from "react-redux"
 import { useParams } from "react-router"
-import { addTask } from "../store/actions/task.actions"
 import { useEffect, useState } from "react"
-import { setFilterBy } from "../store/actions/board.actions"
+import { addTask, setFilterBy } from "../store/actions/board.actions"
 
 
 
-export function BoardDetailsFilter({ filterBy }) {
+export function BoardDetailsFilter({ board, filterBy }) {
     const [isSearch, setIsSearch] = useState(false)
     const { boardId } = useParams()
-    const groups = useSelector((state) => state.groupModule.groups)
+    // const groups = useSelector((state) => state.groupModule.groups)
+    const { groups } = board
 
 
-    function onAddTaskClick() {
-        addTask(boardId, groups[0].id, { title: 'New task' })
+    async function onAddTaskClick() {
+        await addTask(groups[0].id, { title: 'New task' })
     }
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })

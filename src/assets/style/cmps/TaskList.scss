@@ -53,47 +53,47 @@
     width: 100%;
 
     .dots-button {
-        content: '•••';
-        font-size: 18px;
-        color: #d3d4dd;
-        position: absolute;
-        left: -38px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        cursor: pointer;
-        opacity: 0; 
-        transition: opacity 0.3s ease; 
+      content: '•••';
+      font-size: 18px;
+      color: #d3d4dd;
+      position: absolute;
+      left: -38px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
     &:hover .dots-button {
-        opacity: 1;
+      opacity: 1;
     }
 
     &.drag {
-        animation: shake 2s infinite;
-        border: 1px dashed #d3d4dd;
+      animation: shake 2s infinite;
+      border: 1px dashed #d3d4dd;
     }
 
     &.add-task {
-        border-bottom: none;
+      border-bottom: none;
     }
 
     &.checked .delete-group-btn {
-        opacity: 1;
-        left: -35px;
+      opacity: 1;
+      left: -35px;
     }
 
     &:not(.add-task):hover {
-        background-color: #f5f6f8;
-        box-shadow: 4px 3px 6px -3px #c3c6d4;
+      background-color: #f5f6f8;
+      box-shadow: 4px 3px 6px -3px #c3c6d4;
 
-        .text-title-input {
-            background-color: #f5f6f8;
-        }
+      .text-title-input {
+        background-color: #f5f6f8;
+      }
     }
-}
+  }
 
 
   .check-label {
@@ -214,10 +214,6 @@
       border-right: 0 solid white;
     }
 
-
-
-
-
     &.status {
       min-width: 200px;
 
@@ -226,7 +222,7 @@
 
           &::after {
 
-            border-bottom: 8px solid black;
+            border-bottom: 8px solid gray;
             border-right: 8px solid white;
           }
         }
@@ -244,7 +240,7 @@
         &:hover {
 
           &::after {
-            border-bottom: 8px solid black;
+            border-bottom: 8px solid gray;
             border-right: 8px solid white;
           }
         }
@@ -362,9 +358,11 @@
     z-index: 1;
     pointer-events: auto;
     top: 0;
+
     .option-task-modal-content {
       position: absolute;
-      left: -220px; /* Adjust left offset to place modal left of the task */
+      left: -220px;
+      /* Adjust left offset to place modal left of the task */
 
       background: white;
       padding: 16px;
@@ -372,8 +370,8 @@
       border-radius: 4px;
       box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
       z-index: 2000;
+    }
   }
-}
 
 
 

@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom" // Import useNavigate from react-router-dom
-import { saveBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions"
+import { addGroup, saveBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions"
 import { useSelector } from "react-redux"
 
 export function AddBoardModal() {
     const isAddBoardModal = useSelector((state) => state.boardModule.isAddBoardModal)
+    const board = useSelector(storeState => storeState.boardModule.currBoard)
+
     const navigate = useNavigate() // Initialize the navigate function
 
     const [newBoard, setNewBoard] = useState({ title: 'New Board' })
@@ -14,11 +16,13 @@ export function AddBoardModal() {
 
         try {
             const savedBoard = await saveBoard(newBoard) // Save the board and get the response
-            onClose()
+            await addGroup(board._id)
 
             if (savedBoard && savedBoard._id) {
                 navigate(`/board/${savedBoard._id}`) // Navigate to the new board's page using its ID
             }
+
+            onClose()
         } catch (err) {
             console.log(err)
         }

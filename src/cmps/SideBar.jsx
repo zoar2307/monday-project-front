@@ -71,7 +71,6 @@ export function SideBar({ onSidebarToggle }) {
         } else {
             setFilteredBoards([])
         }
-
     }
 
     function onOpenBoards() {
@@ -141,7 +140,6 @@ export function SideBar({ onSidebarToggle }) {
                 setSidebarBounds(sideBarRef.current.getBoundingClientRect())
                 sideBarRef.current.classList.remove('resize')
                 document.body.style.cursor = 'default'
-
             })
         }
     }
@@ -159,10 +157,6 @@ export function SideBar({ onSidebarToggle }) {
         setBackdrop(true)
         setIsAddBoardModal(true)
     }
-
-
-
-
 
     async function onDelete(boardId) {
         try {

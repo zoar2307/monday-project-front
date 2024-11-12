@@ -1,17 +1,13 @@
 import { useState } from "react"
 import { TaskList } from "../cmps/TaskList"
-import { updateGroup } from "../store/actions/group.actions"
 import { Draggable } from "react-beautiful-dnd"
-import { useSelector } from "react-redux"
-import { loadBoard } from "../store/actions/board.actions"
+import { updateGroup } from "../store/actions/board.actions"
 
 export function GroupPreview({
   group,
   onRemoveGroup,
-  index
+  index,
 }) {
-  const board = useSelector(storeState => storeState.boardModule.currBoard)
-  const { _id: boardId } = board
   const { title, tasks } = group
 
 
@@ -24,8 +20,7 @@ export function GroupPreview({
     ev.preventDefault()
     try {
       const updatedGroup = { ...group, title: groupTitle }
-      await updateGroup(boardId, updatedGroup)
-      await loadBoard(boardId)
+      await updateGroup(updatedGroup)
       setIsEditGroupTitle(false)
     } catch (err) {
       console.log(err)

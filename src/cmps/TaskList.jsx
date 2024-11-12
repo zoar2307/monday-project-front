@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import { TaskPreview } from './TaskPreview'
 import { Droppable } from 'react-beautiful-dnd'
 import { useSelector } from 'react-redux'
-import { addTask } from '../store/actions/task.actions'
+import { addTask } from '../store/actions/board.actions'
 
 export function TaskList({ group }) {
   const board = useSelector(storeState => storeState.boardModule.currBoard)
-  const { _id: boardId } = board
   const { id: groupId, tasks } = group
 
   const [newTask, setNewTask] = useState({ title: '' })
@@ -15,7 +14,7 @@ export function TaskList({ group }) {
     ev.preventDefault()
     if (newTask.title.length === 0) return
     try {
-      await addTask(boardId, groupId, newTask)
+      await addTask(groupId, newTask)
       setNewTask({ title: '' })
     } catch (err) {
       console.log(err)
@@ -71,7 +70,7 @@ export function TaskList({ group }) {
             >
               {tasks.map((task, idx) => {
 
-                return <TaskPreview key={task.id} task={task} idx={idx} group={group} />
+                return <TaskPreview key={task.id} task={task} idx={idx} group={group} board={board} />
 
               })}
               {provided.placeholder}
