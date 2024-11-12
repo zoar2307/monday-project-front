@@ -9,6 +9,7 @@ import {
     SET_IS_ADD_BOARD_MODAL,
     SET_BOARD
 } from '../reducers/board.reducer'
+import { SET_GROUPS } from "../reducers/group.reducer";
 import { store } from '../store'
 import { addGroup } from "./group.actions";
 
@@ -28,7 +29,7 @@ export async function loadBoard(boardId) {
     try {
         const board = await boardService.getById(boardId)
         store.dispatch({ type: SET_BOARD, board })
-        console.log(board)
+        store.dispatch({ type: SET_GROUPS, groups: board.groups })
         // loadBoards()
         return board
     }

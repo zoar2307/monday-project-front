@@ -15,13 +15,16 @@ import { store } from "../store/store"
 
 export function GroupList() {
   const board = useSelector(storeState => storeState.boardModule.currBoard)
-  const { groups, _id: boardId } = board
+  const groups = useSelector(storeState => storeState.groupModule.groups)
+  // const { groups, _id: boardId } = board
+  const { _id: boardId } = board
+
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    loadGroups(boardId)
-  }, [boardId])
+  // useEffect(() => {
+  //   loadGroups(boardId)
+  // }, [boardId])
 
   const handleAddGroup = async () => {
     try {
@@ -52,7 +55,7 @@ export function GroupList() {
         groups: newGroupOrder
       }
       try {
-        // dispatch({ type: SET_GROUPS, groups: newGroupOrder })
+        dispatch({ type: SET_GROUPS, groups: newGroupOrder })
         await saveBoard(newBoard)
         await loadBoard(boardId)
       } catch (err) {
@@ -104,7 +107,6 @@ export function GroupList() {
       ...start,
       tasks: startTasks
     }
-    // dispatch({ type: UPDATE_GROUP, group: newStart })
 
     const finishTasks = Array.from(finish.tasks)
     finishTasks.splice(destination.index, 0, draggedTask)
@@ -114,8 +116,9 @@ export function GroupList() {
       tasks: finishTasks
     }
 
-    // dispatch({ type: UPDATE_GROUP, group: newFinish })
     try {
+      dispatch({ type: UPDATE_GROUP, group: newStart })
+      dispatch({ type: UPDATE_GROUP, group: newFinish })
       await updateGroup(boardId, newStart)
       await updateGroup(boardId, newFinish)
       await loadBoard(boardId)

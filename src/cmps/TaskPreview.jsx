@@ -14,15 +14,16 @@ export function TaskPreview({ idx, task, group }) {
     const board = useSelector(storeState => storeState.boardModule.currBoard)
     const { _id: boardId, labels, members } = board
     const { id: groupId } = group
-    const [isDragOn, setIsDragOn] = useState(false)
 
-    const inputRef = useRef()
+    const [isDragOn, setIsDragOn] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false) // State for modal visibility
 
+    const inputRef = useRef()
     const dragClass = isDragOn ? 'drag' : ''
     const cmpsOrder = ['StatusPicker', 'MemberPicker', 'PriorityPicker']
     const [isEditTaskTitle, setIsEditTaskTitle] = useState(false)
     const [updateSelectedTask, setUpdateSelectedTask] = useState(task)
+
 
     const toggleModal = () => setIsModalOpen(!isModalOpen)
 
