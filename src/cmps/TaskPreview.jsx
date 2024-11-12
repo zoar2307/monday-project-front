@@ -7,6 +7,8 @@ import { updateTask } from '../store/actions/task.actions'
 import { loadBoard } from '../store/actions/board.actions'
 import { useSelector } from 'react-redux'
 import { OptionTaskModal } from './OptionTaskModal'
+import dots from '../assets/img/dots.svg'
+
 
 
 
@@ -16,7 +18,8 @@ export function TaskPreview({ idx, task, group }) {
     const { id: groupId } = group
 
     const [isDragOn, setIsDragOn] = useState(false)
-    const [isModalOpen, setIsModalOpen] = useState(false) // State for modal visibility
+    const [isModalOpen, setModalOpen] = useState(false)
+
 
     const inputRef = useRef()
     const dragClass = isDragOn ? 'drag' : ''
@@ -25,7 +28,7 @@ export function TaskPreview({ idx, task, group }) {
     const [updateSelectedTask, setUpdateSelectedTask] = useState(task)
 
 
-    const toggleModal = () => setIsModalOpen(!isModalOpen)
+    const toggleModal = () => setModalOpen(!isModalOpen)
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
@@ -76,9 +79,8 @@ export function TaskPreview({ idx, task, group }) {
                         <i className="fa-solid fa-trash"></i>
                     </button>
 
-                    {/* Dots button to open modal */}
-                    <button className="dots-button" onClick={toggleModal}>
-                        •••
+                    <button className={`dots-button ${isModalOpen ? 'active' : ''}`} onClick={toggleModal}>
+                        <img src={dots} alt="do" />
                     </button>
 
                     <div className='check-label'><input type="checkbox" /></div>
@@ -127,8 +129,8 @@ export function TaskPreview({ idx, task, group }) {
                         </div>
                     ))}
 
-                    {/* Render OptionsModal when isModalOpen is true */}
-                    {isModalOpen && <OptionTaskModal onClose={toggleModal} />}
+                    {isModalOpen &&
+                        <OptionTaskModal closeModal={() => setModalOpen(false)} />}
                 </div>
             )}
         </Draggable>

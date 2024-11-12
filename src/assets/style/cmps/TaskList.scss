@@ -53,47 +53,56 @@
     width: 100%;
 
     .dots-button {
-        content: '•••';
-        font-size: 18px;
-        color: #d3d4dd;
-        position: absolute;
-        left: -38px;
-        top: 50%;
-        transform: translateY(-50%);
-        background: none;
-        border: none;
-        cursor: pointer;
-        opacity: 0; 
-        transition: opacity 0.3s ease; 
+      content: '';
+    color: #d3d4dd;
+    position: absolute;
+    width:30px;
+    height: 30px;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 5px;
+      &.active{
+        opacity: 1;
+        background-color: #cbe5fe;
+      }
     }
 
     &:hover .dots-button {
-        opacity: 1;
+      opacity: 1;
+
     }
 
+  
+
     &.drag {
-        animation: shake 2s infinite;
-        border: 1px dashed #d3d4dd;
+      animation: shake 2s infinite;
+      border: 1px dashed #d3d4dd;
     }
 
     &.add-task {
-        border-bottom: none;
+      border-bottom: none;
     }
 
     &.checked .delete-group-btn {
-        opacity: 1;
-        left: -35px;
+      opacity: 1;
+      left: -35px;
     }
 
     &:not(.add-task):hover {
-        background-color: #f5f6f8;
-        box-shadow: 4px 3px 6px -3px #c3c6d4;
+      background-color: #f5f6f8;
+      box-shadow: 4px 3px 6px -3px #c3c6d4;
 
-        .text-title-input {
-            background-color: #f5f6f8;
-        }
+      .text-title-input {
+        background-color: #f5f6f8;
+      }
     }
-}
+  }
 
 
   .check-label {
@@ -362,19 +371,55 @@
     z-index: 1;
     pointer-events: auto;
     top: 0;
+
     .option-task-modal-content {
       position: absolute;
-      left: -220px; /* Adjust left offset to place modal left of the task */
+      top: 35px;
+      left: -38px;
 
       background: white;
-      padding: 16px;
       border: 1px solid #d3d4dd;
-      border-radius: 4px;
-      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-      z-index: 2000;
-  }
-}
+      z-index: 1001;
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      pointer-events: auto;
+      display: flex;
+      flex-direction: column;
+      width: 238px;
 
+      button {
+        font-family: Figtree;
+        background: none;
+        border: none;
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 14px;
+        text-align: start;
+        cursor: pointer;
+        line-height: 24px;
+        color: #323338;
+        font-weight: 400;
+        letter-spacing: 0px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        img{
+          padding-right: 9px;
+          opacity: 0.6;
+        }
+      }
+
+      
+    }
+  }
+
+  .divider{
+    height: 1px;
+    width: 100%;
+    margin: 8px 0;
+    background-color: #d0d4e4;
+  }
 
 
   //   td {
