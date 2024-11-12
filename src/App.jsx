@@ -5,12 +5,9 @@ import { HomePage } from "./pages/HomePage.jsx"
 import { AboutUs } from "./pages/AboutUs.jsx"
 import { Signup } from "./pages/Signup.jsx"
 import { BoardPage } from "./pages/BoardPage.jsx"
-import { BoardDetails } from "./pages/BoardDetails.jsx"
 import { store } from "./store/store.js"
 import { Provider } from "react-redux"
 import { DynamicHeader } from "./cmps/DynamicHeader.jsx"
-import { MyWork } from "./cmps/MyWork.jsx"
-import { SideBar } from "./cmps/SideBar.jsx"
 import { BackDrop } from "./cmps/BackDrop.jsx"
 import { AddBoardModal } from "./cmps/AddBoardModal.jsx"
 import { useState } from "react"
@@ -31,9 +28,11 @@ function App() {
               <Route element={<HomePage />} path="/" />
               <Route element={<AboutUs />} path="/about" />
               <Route element={<Signup />} path="/auth/signup" />
-              <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board/" />
+              <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board" />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board/:boardId" />
-              <Route element={<BoardPage />} path="/my-work" />
+              <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board/:boardId/:taskId" />
+              <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/my-work" />
+
             </Routes>
           </main>
           {/* <AppFooter /> */}

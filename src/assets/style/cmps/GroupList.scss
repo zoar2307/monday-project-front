@@ -7,6 +7,8 @@
     flex-direction: column;
 
     padding-bottom: em(440px, 40px);
+    min-width: max-content;
+
 
     .add-group-btn {
         margin-top: 70px;

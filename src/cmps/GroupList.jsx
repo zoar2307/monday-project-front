@@ -1,26 +1,13 @@
-import { useEffect } from "react"
-import { useSelector } from "react-redux"
 import { GroupPreview } from "../cmps/GroupPreview"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
-import { useDispatch } from "react-redux"
 import { addGroup, loadBoard, removeGroup, saveBoard, updateGroup, updateGroups } from "../store/actions/board.actions"
 
 export function GroupList({ board }) {
-  // const board = useSelector(storeState => storeState.boardModule.currBoard)
-  // const groups = useSelector(storeState => storeState.groupModule.groups)
-  // const { groups, _id: boardId } = board
   const { _id: boardId, groups } = board
-
-  const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   loadGroups(boardId)
-  // }, [boardId])
 
   const handleAddGroup = async () => {
     try {
       await addGroup(boardId)
-      // await loadBoard(boardId)
     } catch (err) {
       console.log(err)
     }
@@ -120,6 +107,7 @@ export function GroupList({ board }) {
                       group={group}
                       index={index}
                       onRemoveGroup={() => handleRemoveGroup(group.id)}
+                      groupsLength={groups.length}
                     />
                   </div>
                 ))}

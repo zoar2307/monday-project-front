@@ -5,8 +5,18 @@ import { updateGroup } from "../store/actions/board.actions"
 import { OptionGroupModal } from "./OptionGroupModal"
 import dots from '../assets/img/dots.svg'
 
-export function GroupPreview({ group, onRemoveGroup, index }) {
+export function GroupPreview({
+  group,
+  onRemoveGroup,
+  index,
+  groupsLength
+}) {
   const { title, tasks } = group
+
+  let taskStrCount = ''
+  if (tasks.length === 1) taskStrCount = `${tasks.length} Task`
+  if (tasks.length > 1) taskStrCount = `${tasks.length} Tasks`
+  if (tasks.length === 0) taskStrCount = `No tasks`
 
   const [groupTitle, setGroupTitle] = useState(title)
   const [isEditGroupTitle, setIsEditGroupTitle] = useState(false)

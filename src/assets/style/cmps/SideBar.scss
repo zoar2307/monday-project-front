@@ -512,6 +512,8 @@
                 &:hover {
                     background-color: $light-sidebar-clr2;
                 }
+
+
             }
 
             .filter {
@@ -552,6 +554,10 @@
 
                 &:active+.filter {
                     display: inherit;
+                }
+
+                &:focus+.search-bar {
+                    border-color: $light-board-details-filter-clr3 ;
                 }
             }
 
@@ -625,12 +631,13 @@
             justify-content: center;
             align-items: center;
             border-radius: em(4px, 16px);
-            transition: opacity 0.3s ease-in-out; /* Smooth transition for visibility */
+            transition: opacity 0.3s ease-in-out;
+            /* Smooth transition for visibility */
 
-            &.active{
-                visibility: visible; 
+            &.active {
+                visibility: visible;
                 background-color: #cbe5fe;
-             }
+            }
 
             button {
                 display: flex;
@@ -639,7 +646,7 @@
 
                 background-color: transparent;
                 border: none;
-               
+
                 svg {
                     height: em(16px, 16px);
                     width: em(16px, 16px);
@@ -720,7 +727,7 @@
 
 .modal-content {
     position: absolute;
- 
+
 
       background: white;
       border: 1px solid #d3d4dd;
@@ -747,7 +754,10 @@
         text-decoration: none;
         display: flex;
         align-items: center;
-        img,svg{
+        width: 100%;
+
+        img,
+        svg {
             margin-right: 9px;
         }
     }
@@ -757,12 +767,11 @@
     background-color: #f0f0f0;
 }
 
-.board-wrapper{
-    input{
+.board-wrapper {
+    input {
         width: 140px;
         background-color: transparent;
         outline: transparent;
         border: none;
     }
 }
-

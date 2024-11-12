@@ -11,7 +11,7 @@ export const boardService = {
   remove,
   getDefaultFilter,
   getEmptyBoard,
-  queryTasks
+  filterBoard
 }
 window.cs = boardService
 
@@ -27,25 +27,49 @@ async function query(filterBy = { title: "" }) {
   return boards
 }
 
-async function queryTasks(tasks, filterBy = { title: "", status: '', priority: "", person: '' }) {
-  const { title, status, priority, person } = filterBy
-  if (title) {
-    const regex = new RegExp(title, "i")
-    tasks = tasks.filter((task) => regex.test(task.title))
-  }
-  if (status) {
-    tasks = tasks.filter((task) => task.status === status)
-  }
-  if (priority) {
-    tasks = tasks.filter((task) => task.priority === priority)
-  }
-  // if (person) {
-  //   tasks = tasks.filter((task) => task.assignedTo === person)
-  // }
-  console.log(tasks)
-  return tasks
+function filterBoard(board, filters) {
+  const filteredGroups = filterGroupsByTasks(board.groups, filters);
+  return {
+    ...board,
+    groups: filteredGroups,
+  };
 }
 
+function filterGroupsByTasks(groups, filters) {
+  return groups
+    .map(group => {
+      // Filter tasks within the group based on task-level filters
+      const filteredTasks = filterEntities(group.tasks, filters);
+
+      // Check if the group matches group-level filters
+      const groupMatches = (!filters.title || new RegExp(filters.title, "i").test(group.title));
+
+      // Only return the group if it matches group-level filters or contains matching tasks
+      if (groupMatches || filteredTasks.length > 0) {
+        return { ...group, tasks: filteredTasks };
+      }
+
+      return null; // Exclude groups that don't match and have no matching tasks
+    })
+    .filter(group => group); // Exclude null groups
+}
+
+function filterEntities(entities, filters) {
+  let filtered = entities
+
+  if (filters.title) {
+    const regex = new RegExp(filters.title, "i")
+    filtered = filtered.filter(entity => regex.test(entity.title))
+  }
+  if (filters.status) {
+    filtered = filtered.filter(entity => entity.status === filters.status)
+  }
+  if (filters.priority) {
+    filtered = filtered.filter(entity => entity.priority === filters.priority)
+  }
+
+  return filtered
+}
 
 function getById(boardId) {
   return storageService.get(STORAGE_KEY, boardId)
@@ -96,6 +120,7 @@ async function _createBoards() {
   let boards = await storageService.query(STORAGE_KEY)
   if (!boards || !boards.length) {
     await storageService.post(STORAGE_KEY, {
+
       "title": "Project Alpha",
       "isStarred": false,
       "archivedAt": 1589983468418,
@@ -164,12 +189,12 @@ async function _createBoards() {
         {
           "_id": "u101",
           "fullname": "Tal Taltal",
-          "imgUrl": "https://robohash.org/35"
+          "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
         },
         {
           "_id": "u102",
           "fullname": "Josh Ga",
-          "imgUrl": "https://robohash.org/4"
+          "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
         }
       ],
       "groups": [
@@ -183,108 +208,152 @@ async function _createBoards() {
               "title": "Define Project Scope",
               "assignedTo": [
                 {
-                  "_id": "u101"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 },
-                "u101",
-                "u102"
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                }
               ],
               "status": "Working on it",
-              "priority": "High"
+              "priority": "High",
+              "conversation": []
             },
             {
               "id": "c102",
               "title": "Create Wireframes",
               "assignedTo": [
                 {
-                  "_id": "u102"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 },
-                "u101"
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                }
               ],
               "status": "Done",
-              "priority": "Medium"
+              "priority": "Medium",
+              "conversation": []
             },
             {
               "id": "c103",
               "title": "Design Homepage Mockup",
               "assignedTo": [
                 {
-                  "_id": "u103"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 },
-                "u102"
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                }
               ],
               "status": "Stuck",
-              "priority": "Critical"
+              "priority": "Critical",
+              "conversation": []
             },
             {
               "id": "c104",
               "title": "Develop Landing Page",
               "assignedTo": [
                 {
-                  "_id": "u104"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 },
-                "u101"
+
               ],
               "status": "Done",
-              "priority": "Low"
+              "priority": "Low",
+              "conversation": []
             },
             {
               "id": "c105",
               "title": "Review Competitor Websites",
               "assignedTo": [
                 {
-                  "_id": "u101"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 }
               ],
               "status": "Working on it",
-              "priority": "Low"
+              "priority": "Low",
+              "conversation": []
             },
             {
               "id": "c106",
               "title": "Conduct Usability Testing",
               "assignedTo": [
                 {
-                  "_id": "u102"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 },
-                "u102",
-                "u101"
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                }
               ],
               "status": "Working on it",
-              "priority": "Medium"
+              "priority": "Medium",
+              "conversation": []
             },
             {
               "id": "c107",
               "title": "Implement SEO Best Practices",
               "assignedTo": [
                 {
-                  "_id": "u105"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 }
               ],
               "status": "Done",
-              "priority": "Finished"
+              "priority": "Finished",
+              "conversation": []
             },
             {
               "id": "c108",
               "title": "Create Mobile Layout",
               "assignedTo": [
                 {
-                  "_id": "u103"
-                },
-                "u101"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                }
               ],
               "status": "Working on it",
-              "priority": "High"
+              "priority": "High",
+              "conversation": []
             },
             {
               "id": "c109",
               "title": "Test Cross-Browser Compatibility",
               "assignedTo": [
                 {
-                  "_id": "u101"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 },
-                "u102"
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                }
               ],
               "status": "Stuck",
-              "priority": "Critical"
+              "priority": "Critical",
+              "conversation": []
             }
           ]
         },
@@ -298,84 +367,103 @@ async function _createBoards() {
               "title": "Define Target Audience",
               "assignedTo": [
                 {
-                  "_id": "u101"
-                },
-                "u101"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                }
               ],
               "status": "Stuck",
-              "priority": "Critical"
+              "priority": "Critical",
+              "conversation": []
             },
             {
               "id": "c202",
               "title": "Create Social Media Content Calendar",
               "assignedTo": [
                 {
-                  "_id": "u102"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 },
-                "u101",
-                "u102"
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                }
               ],
               "status": "Working on it",
-              "priority": "Low"
+              "priority": "Low",
+              "conversation": []
             },
             {
               "id": "c203",
               "title": "Set Up Email Campaign",
               "assignedTo": [
                 {
-                  "_id": "u103"
-                },
-                "u101"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                }
               ],
               "status": "Working on it",
-              "priority": "Medium"
+              "priority": "Medium",
+              "conversation": []
             },
             {
               "id": "c204",
               "title": "Track Campaign Performance",
               "assignedTo": [
                 {
-                  "_id": "u104"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 }
               ],
               "status": "Done",
-              "priority": "Finished"
+              "priority": "Finished",
+              "conversation": []
             },
             {
               "id": "c205",
               "title": "Design Ad Creatives",
               "assignedTo": [
                 {
-                  "_id": "u101"
-                },
-                "u101"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                }
               ],
               "status": "Working on it",
-              "priority": "High"
+              "priority": "High",
+              "conversation": []
             },
             {
               "id": "c206",
               "title": "Schedule Social Media Posts",
               "assignedTo": [
                 {
-                  "_id": "u102"
-                },
-                "u102",
-                "u101"
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                }
               ],
               "status": "Stuck",
-              "priority": "Critical"
+              "priority": "Critical",
+              "conversation": []
             },
             {
               "id": "c207",
               "title": "Launch Google Ads Campaign",
               "assignedTo": [
                 {
-                  "_id": "u103"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 }
               ],
               "status": "Done",
-              "priority": "Finished"
+              "priority": "Finished",
+              "conversation": []
             }
           ]
         },
@@ -389,97 +477,113 @@ async function _createBoards() {
               "title": "Conduct Market Research",
               "assignedTo": [
                 {
-                  "_id": "u101"
-                },
-                "u101"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                }
               ],
               "status": "Working on it",
-              "priority": "High"
+              "priority": "High",
+              "conversation": []
             },
             {
               "id": "c302",
               "title": "Finalize Product Features",
               "assignedTo": [
                 {
-                  "_id": "u102"
-                },
-                "u101"
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                }
               ],
               "status": "Stuck",
-              "priority": "Critical"
+              "priority": "Critical",
+              "conversation": []
             },
             {
               "id": "c303",
               "title": "Prepare Press Release",
               "assignedTo": [
                 {
-                  "_id": "u103"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 }
               ],
               "status": "Stuck",
-              "priority": "Medium"
+              "priority": "Medium",
+              "conversation": []
             },
             {
               "id": "c304",
               "title": "Organize Launch Event",
               "assignedTo": [
                 {
-                  "_id": "u104"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 }
               ],
               "status": "Done",
-              "priority": "Finished"
+              "priority": "Finished",
+              "conversation": []
             },
             {
               "id": "c305",
               "title": "Develop Product Training Materials",
               "assignedTo": [
                 {
-                  "_id": "u101"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 },
-                "u101",
-                "u102"
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                }
               ],
               "status": "Working on it",
-              "priority": "High"
+              "priority": "High",
+              "conversation": []
             },
             {
               "id": "c306",
               "title": "Arrange Media Coverage",
               "assignedTo": [
                 {
-                  "_id": "u102"
-                },
-                "u101",
-                "u102"
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                }
               ],
               "status": "Done",
-              "priority": "Finished"
+              "priority": "Finished",
+              "conversation": []
             },
             {
               "id": "c307",
               "title": "Launch Product Website",
               "assignedTo": [
                 {
-                  "_id": "u104"
-                },
-                "u101"
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                }
               ],
               "status": "Done",
-              "priority": "Finished"
+              "priority": "Finished",
+              "conversation": []
             },
             {
               "id": "c308",
               "title": "Plan Product Demos",
               "assignedTo": [
-                {
-                  "_id": "u103"
-                },
-                "u101",
-                "u102"
+
               ],
               "status": "Working on it",
-              "priority": "Medium"
+              "priority": "Medium",
+              "conversation": []
             }
           ]
         }
@@ -494,6 +598,7 @@ async function _createBoards() {
       "_id": "9sOst",
       "updatedAt": 1731371110061
     })
+
 
     await storageService.post(STORAGE_KEY, {
       "title": "AI Research Project",
@@ -713,7 +818,7 @@ function loadBoardsFromStorage() {
 }
 
 function getDefaultFilter() {
-  return { title: "", status: '', priority: "", person: '' }
+  return { title: "", status: "", priority: "", person: "" }
 }
 
 function getEmptyBoard() {
