@@ -75,36 +75,81 @@ async function _createBoards() {
   let boards = await storageService.query(STORAGE_KEY)
   if (!boards || !boards.length) {
     await storageService.post(STORAGE_KEY, {
-      title: "Robot dev proj",
-      isStarred: false,
-      archivedAt: 1589983468418,
-      createdBy: {
-        _id: "u101",
-        fullname: "Abi Abambi",
-        imgUrl: "http://some-img",
+      "title": "Project Alpha",
+      "isStarred": false,
+      "archivedAt": 1589983468418,
+      "createdBy": {
+        "_id": "u101",
+        "fullname": "Abi Abambi",
+        "imgUrl": "http://some-img"
       },
-      labels: [
-        { id: "l101", title: "Done", color: "#01c875", type: "status" },
-        { id: "l102", title: "Stuck", color: "#e02f4b", type: "status" },
-        { id: "l103", title: "Working on it", color: "#fdab3d", type: "status" },
-        { id: "l104", title: "Bonus", color: "#b57ce3", type: "status" },
-        { id: "l105", title: "Coming soon", color: "#7aaffd", type: "status" },
-        { id: "l106", title: "High", color: "#401694", type: "priority" },
-        { id: "l107", title: "Medium", color: "#5559df", type: "priority" },
-        { id: "l108", title: "Low", color: "#579bfc", type: "priority" },
-        { id: "l109", title: "Critical", color: "#333333", type: "priority" }
+      "labels": [
+        {
+          "id": "l101",
+          "title": "Done",
+          "color": "#01c875",
+          "type": "status"
+        },
+        {
+          "id": "l102",
+          "title": "Stuck",
+          "color": "#e02f4b",
+          "type": "status"
+        },
+        {
+          "id": "l103",
+          "title": "Working on it",
+          "color": "#fdab3d",
+          "type": "status"
+        },
+        {
+          "id": "l104",
+          "title": "Bonus",
+          "color": "#b57ce3",
+          "type": "status"
+        },
+        {
+          "id": "l105",
+          "title": "Coming soon",
+          "color": "#7aaffd",
+          "type": "status"
+        },
+        {
+          "id": "l106",
+          "title": "High",
+          "color": "#401694",
+          "type": "priority"
+        },
+        {
+          "id": "l107",
+          "title": "Medium",
+          "color": "#5559df",
+          "type": "priority"
+        },
+        {
+          "id": "l108",
+          "title": "Low",
+          "color": "#579bfc",
+          "type": "priority"
+        },
+        {
+          "id": "l109",
+          "title": "Critical",
+          "color": "#333333",
+          "type": "priority"
+        }
       ],
-      members: [
+      "members": [
         {
-          _id: "u101",
-          fullname: "Tal Taltal",
-          imgUrl: "https://robohash.org/35",
+          "_id": "u101",
+          "fullname": "Tal Taltal",
+          "imgUrl": "https://robohash.org/35"
         },
         {
-          _id: "u102",
-          fullname: "Josh Ga",
-          imgUrl: "https://robohash.org/4",
-        },
+          "_id": "u102",
+          "fullname": "Josh Ga",
+          "imgUrl": "https://robohash.org/4"
+        }
       ],
       "groups": [
         {
@@ -115,51 +160,110 @@ async function _createBoards() {
             {
               "id": "c101",
               "title": "Define Project Scope",
-              "assignedTo": { "_id": "u101", "fullname": "Tal Taltal" },
+              "assignedTo": [
+                {
+                  "_id": "u101"
+                },
+                "u101",
+                "u102"
+              ],
               "status": "Working on it",
               "priority": "High"
             },
             {
               "id": "c102",
               "title": "Create Wireframes",
-              "assignedTo": { "_id": "u102", "fullname": "Josh Ga" },
+              "assignedTo": [
+                {
+                  "_id": "u102"
+                },
+                "u101"
+              ],
               "status": "Done",
               "priority": "Medium"
             },
             {
               "id": "c103",
               "title": "Design Homepage Mockup",
-              "assignedTo": { "_id": "u103", "fullname": "Sam Lee" },
+              "assignedTo": [
+                {
+                  "_id": "u103"
+                },
+                "u102"
+              ],
               "status": "Stuck",
               "priority": "Critical"
             },
             {
               "id": "c104",
               "title": "Develop Landing Page",
-              "assignedTo": { "_id": "u104", "fullname": "Lily Chen" },
+              "assignedTo": [
+                {
+                  "_id": "u104"
+                },
+                "u101"
+              ],
               "status": "Done",
               "priority": "Low"
             },
             {
               "id": "c105",
               "title": "Review Competitor Websites",
-              "assignedTo": { "_id": "u101", "fullname": "Tal Taltal" },
+              "assignedTo": [
+                {
+                  "_id": "u101"
+                }
+              ],
               "status": "Working on it",
               "priority": "Low"
             },
             {
               "id": "c106",
               "title": "Conduct Usability Testing",
-              "assignedTo": { "_id": "u102", "fullname": "Josh Ga" },
+              "assignedTo": [
+                {
+                  "_id": "u102"
+                },
+                "u102",
+                "u101"
+              ],
               "status": "Working on it",
               "priority": "Medium"
             },
             {
               "id": "c107",
               "title": "Implement SEO Best Practices",
-              "assignedTo": { "_id": "u105", "fullname": "Lily Chen" },
+              "assignedTo": [
+                {
+                  "_id": "u105"
+                }
+              ],
               "status": "Done",
               "priority": "Finished"
+            },
+            {
+              "id": "c108",
+              "title": "Create Mobile Layout",
+              "assignedTo": [
+                {
+                  "_id": "u103"
+                },
+                "u101"
+              ],
+              "status": "Working on it",
+              "priority": "High"
+            },
+            {
+              "id": "c109",
+              "title": "Test Cross-Browser Compatibility",
+              "assignedTo": [
+                {
+                  "_id": "u101"
+                },
+                "u102"
+              ],
+              "status": "Stuck",
+              "priority": "Critical"
             }
           ]
         },
@@ -171,49 +275,84 @@ async function _createBoards() {
             {
               "id": "c201",
               "title": "Define Target Audience",
-              "assignedTo": { "_id": "u101", "fullname": "Tal Taltal" },
+              "assignedTo": [
+                {
+                  "_id": "u101"
+                },
+                "u101"
+              ],
               "status": "Stuck",
               "priority": "Critical"
             },
             {
               "id": "c202",
               "title": "Create Social Media Content Calendar",
-              "assignedTo": { "_id": "u102", "fullname": "Josh Ga" },
+              "assignedTo": [
+                {
+                  "_id": "u102"
+                },
+                "u101",
+                "u102"
+              ],
               "status": "Working on it",
               "priority": "Low"
             },
             {
               "id": "c203",
               "title": "Set Up Email Campaign",
-              "assignedTo": { "_id": "u103", "fullname": "Sam Lee" },
+              "assignedTo": [
+                {
+                  "_id": "u103"
+                },
+                "u101"
+              ],
               "status": "Working on it",
               "priority": "Medium"
             },
             {
               "id": "c204",
               "title": "Track Campaign Performance",
-              "assignedTo": { "_id": "u104", "fullname": "Lily Chen" },
+              "assignedTo": [
+                {
+                  "_id": "u104"
+                }
+              ],
               "status": "Done",
               "priority": "Finished"
             },
             {
               "id": "c205",
               "title": "Design Ad Creatives",
-              "assignedTo": { "_id": "u101", "fullname": "Tal Taltal" },
+              "assignedTo": [
+                {
+                  "_id": "u101"
+                },
+                "u101"
+              ],
               "status": "Working on it",
               "priority": "High"
             },
             {
               "id": "c206",
               "title": "Schedule Social Media Posts",
-              "assignedTo": { "_id": "u102", "fullname": "Josh Ga" },
+              "assignedTo": [
+                {
+                  "_id": "u102"
+                },
+                "u102",
+                "u101"
+              ],
               "status": "Stuck",
               "priority": "Critical"
             },
             {
               "id": "c207",
               "title": "Launch Google Ads Campaign",
-              "assignedTo": { "_id": "u103", "fullname": "Sam Lee" },
+              "assignedTo": [
+                {
+                  "_id": "u103"
+                }
+              ],
               "status": "Done",
               "priority": "Finished"
             }
@@ -227,130 +366,325 @@ async function _createBoards() {
             {
               "id": "c301",
               "title": "Conduct Market Research",
-              "assignedTo": { "_id": "u101", "fullname": "Tal Taltal" },
+              "assignedTo": [
+                {
+                  "_id": "u101"
+                },
+                "u101"
+              ],
               "status": "Working on it",
               "priority": "High"
             },
             {
               "id": "c302",
               "title": "Finalize Product Features",
-              "assignedTo": { "_id": "u102", "fullname": "Josh Ga" },
+              "assignedTo": [
+                {
+                  "_id": "u102"
+                },
+                "u101"
+              ],
               "status": "Stuck",
               "priority": "Critical"
             },
             {
               "id": "c303",
               "title": "Prepare Press Release",
-              "assignedTo": { "_id": "u103", "fullname": "Sam Lee" },
+              "assignedTo": [
+                {
+                  "_id": "u103"
+                }
+              ],
               "status": "Stuck",
               "priority": "Medium"
             },
             {
               "id": "c304",
               "title": "Organize Launch Event",
-              "assignedTo": { "_id": "u104", "fullname": "Lily Chen" },
+              "assignedTo": [
+                {
+                  "_id": "u104"
+                }
+              ],
               "status": "Done",
               "priority": "Finished"
             },
             {
               "id": "c305",
               "title": "Develop Product Training Materials",
-              "assignedTo": { "_id": "u101", "fullname": "Tal Taltal" },
+              "assignedTo": [
+                {
+                  "_id": "u101"
+                },
+                "u101",
+                "u102"
+              ],
               "status": "Working on it",
               "priority": "High"
             },
             {
               "id": "c306",
               "title": "Arrange Media Coverage",
-              "assignedTo": { "_id": "u102", "fullname": "Josh Ga" },
+              "assignedTo": [
+                {
+                  "_id": "u102"
+                },
+                "u101",
+                "u102"
+              ],
               "status": "Done",
               "priority": "Finished"
             },
             {
               "id": "c307",
               "title": "Launch Product Website",
-              "assignedTo": { "_id": "u104", "fullname": "Lily Chen" },
+              "assignedTo": [
+                {
+                  "_id": "u104"
+                },
+                "u101"
+              ],
               "status": "Done",
               "priority": "Finished"
+            },
+            {
+              "id": "c308",
+              "title": "Plan Product Demos",
+              "assignedTo": [
+                {
+                  "_id": "u103"
+                },
+                "u101",
+                "u102"
+              ],
+              "status": "Working on it",
+              "priority": "Medium"
             }
           ]
         }
       ],
-      activities: [],
-
-      cmpsOrder: ['StatusPicker', 'MemberPicker', 'DatePicker', "PriorityPicker"],
-    })
-
-    await storageService.post(STORAGE_KEY, {
-      title: "AI Research Project",
-      isStarred: true,
-      archivedAt: null,
-      createdBy: {
-        _id: "u102",
-        fullname: "Jane Doe",
-        imgUrl: "http://some-other-img",
-      },
-      labels: [
-        { id: "l101", title: "Done", color: "#01c875", type: "status" },
-        { id: "l102", title: "Stuck", color: "#e02f4b", type: "status" },
-        { id: "l103", title: "Working on it", color: "#fdbb63", type: "status" },
-        { id: "l104", title: "Bonus", color: "#b57ce3", type: "status" },
-        { id: "l105", title: "Coming soon", color: "#7aaffd", type: "status" },
-        { id: "l106", title: "High", color: "#6545a9", type: "priority" },
-        { id: "l107", title: "Medium", color: "#777ae5", type: "priority" },
-        { id: "l108", title: "Low", color: "#7aaffd", type: "priority" },
-        { id: "l109", title: "Critical", color: "#5c5c5c", type: "priority" }
-      ],
-      members: [
-        {
-          _id: "u102",
-          fullname: "Alice Smith",
-          imgUrl: "https://robohash.org/1",
-        },
-        {
-          _id: "u103",
-          fullname: "Bob Johnson",
-          imgUrl: "https://robohash.org/2",
-        },
-        {
-          _id: "u104",
-          fullname: "Ron Johnson",
-          imgUrl: "https://robohash.org/3",
-        },
-      ],
-      groups: [
-        {
-          id: makeId(),
-          title: "Phase 1 - Research",
-          color: "#ff6347",
-          tasks: [
-            {
-              id: makeId(),
-              title: "Literature Review",
-              assignedTo: { _id: "u102", fullname: "Alice Smith" },
-              status: "Done",
-              priority: "Medium"
-            },
-            {
-              id: makeId(),
-              title: "Develop Hypothesis",
-              assignedTo: { _id: "u103", fullname: "Bob Johnson" },
-              status: "Working on it",
-              priority: "High"
-            },
-          ],
-        },
-      ],
-      activities: [],
-      cmpsOrder: [
+      "activities": [],
+      "cmpsOrder": [
         "StatusPicker",
         "MemberPicker",
         "DatePicker",
         "PriorityPicker"
-      ]
+      ],
+      "_id": "9sOst",
+      "updatedAt": 1731371110061
+    })
+
+    await storageService.post(STORAGE_KEY, {
+      "title": "AI Research Project",
+      "isStarred": true,
+      "archivedAt": null,
+      "createdBy": {
+        "_id": "u102",
+        "fullname": "Jane Doe",
+        "imgUrl": "http://some-other-img"
+      },
+      "labels": [
+        {
+          "id": "l101",
+          "title": "Done",
+          "color": "#01c875",
+          "type": "status"
+        },
+        {
+          "id": "l102",
+          "title": "Stuck",
+          "color": "#e02f4b",
+          "type": "status"
+        },
+        {
+          "id": "l103",
+          "title": "Working on it",
+          "color": "#fdab3d",
+          "type": "status"
+        },
+        {
+          "id": "l104",
+          "title": "Bonus",
+          "color": "#b57ce3",
+          "type": "status"
+        },
+        {
+          "id": "l105",
+          "title": "Coming soon",
+          "color": "#7aaffd",
+          "type": "status"
+        },
+        {
+          "id": "l106",
+          "title": "High",
+          "color": "#401694",
+          "type": "priority"
+        },
+        {
+          "id": "l107",
+          "title": "Medium",
+          "color": "#5559df",
+          "type": "priority"
+        },
+        {
+          "id": "l108",
+          "title": "Low",
+          "color": "#579bfc",
+          "type": "priority"
+        },
+        {
+          "id": "l109",
+          "title": "Critical",
+          "color": "#333333",
+          "type": "priority"
+        }
+      ],
+      "members": [
+        {
+          "_id": "u102",
+          "fullname": "Alice Smith",
+          "imgUrl": "https://robohash.org/1"
+        },
+        {
+          "_id": "u103",
+          "fullname": "Bob Johnson",
+          "imgUrl": "https://robohash.org/2"
+        },
+        {
+          "_id": "u104",
+          "fullname": "Ron Johnson",
+          "imgUrl": "https://robohash.org/3"
+        }
+      ],
+      "groups": [
+        {
+          "id": "g0gwnB",
+          "title": "Phase 1 - Research",
+          "color": "#ff6347",
+          "tasks": [
+            {
+              "id": "lEP7NF",
+              "title": "Literature Review",
+              "assignedTo": [
+                {
+                  "_id": "u102"
+                },
+                "u102",
+                "u103",
+                "u104"
+              ],
+              "status": "Done",
+              "priority": "Medium"
+            },
+            {
+              "id": "JS0oQP",
+              "title": "Develop Hypothesis",
+              "assignedTo": [
+                {
+                  "_id": "u103"
+                },
+                "u102"
+              ],
+              "status": "Working on it",
+              "priority": "High"
+            },
+            {
+              "id": "c305",
+              "title": "Analyze Previous Studies",
+              "assignedTo": [
+                {
+                  "_id": "u104"
+                }
+              ],
+              "status": "Stuck",
+              "priority": "Low"
+            },
+            {
+              "id": "c306",
+              "title": "Prepare Research Materials",
+              "assignedTo": [
+                {
+                  "_id": "u102"
+                },
+                "u103"
+              ],
+              "status": "Done",
+              "priority": "Medium"
+            }
+          ]
+        },
+        {
+          "id": "g1xyzB",
+          "title": "Phase 2 - Development",
+          "color": "#007bff",
+          "tasks": [
+            {
+              "id": "c401",
+              "title": "Set Up Lab Equipment",
+              "assignedTo": [
+                {
+                  "_id": "u102"
+                }
+              ],
+              "status": "Working on it",
+              "priority": "High"
+            },
+            {
+              "id": "c402",
+              "title": "Conduct Initial Experiments",
+              "assignedTo": [
+                {
+                  "_id": "u103"
+                },
+                "u104",
+                "u103"
+              ],
+              "status": "Stuck",
+              "priority": "Critical"
+            },
+            {
+              "id": "c403",
+              "title": "Gather Results",
+              "assignedTo": [
+                {
+                  "_id": "u104"
+                },
+                "u104",
+                "u102",
+                "u103"
+              ],
+              "status": "Stuck",
+              "priority": "Low"
+            },
+            {
+              "id": "c404",
+              "title": "Analyze Data",
+              "assignedTo": [
+                {
+                  "_id": "u102"
+                },
+                "u102"
+              ],
+              "status": "Working on it",
+              "priority": "Medium"
+            }
+          ]
+        }
+      ],
+      "activities": [],
+      "cmpsOrder": [
+        "StatusPicker",
+        "MemberPicker",
+        "DatePicker",
+        "PriorityPicker"
+      ],
+      "_id": "hX7O6",
+      "updatedAt": 1731371128062
     })
   }
 }
+
+
 
 function loadBoardsFromStorage() {
   const data = localStorage.getItem(STORAGE_KEY)
