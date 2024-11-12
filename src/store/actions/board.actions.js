@@ -15,13 +15,13 @@ export async function loadBoards(filterBy) {
     }
 }
 
-export async function loadBoard(boardId, filterBy) {
+export async function loadBoard(boardId) {
     try {
         const board = await boardService.getById(boardId)
-        const filteredBoard = boardService.filterBoard(board, filterBy);
+        // const filteredBoard = boardService.filterBoard(board, filterBy);
         store.dispatch({ type: SET_BOARD, board })
-        filteredBoard._id = boardId
-        return filteredBoard
+        // filteredBoard._id = boardId
+        // return filteredBoard
     }
     catch (err) {
         console.log('board action -> Cannot load board', err)
@@ -123,6 +123,7 @@ export async function addTask(groupId, task) {
     try {
         // store.dispatch({ type: ADD_TASK, task, groupId })
         task.id = makeId()
+        task.conversation = []
         currBoard.groups = currBoard.groups.map((group) =>
             group.id === groupId ? { ...group, tasks: [...group.tasks, task] } : group
         )

@@ -21,7 +21,7 @@ export function BoardDetails() {
 
   async function initBoard() {
     try {
-      setFilteredBoard(await loadBoard(boardId, filterBy))
+      loadBoard(boardId)
     } catch (err) {
       console.log('Had issues in board details', err)
       navigate('/board')
@@ -34,7 +34,7 @@ export function BoardDetails() {
     boardId ? (
       <section className="board-details">
         <BoardDetailsHeader board={board} />
-        <GroupList board={filteredBoard} />
+        <GroupList board={board} />
         <TaskConversation />
       </section>
     ) : (
