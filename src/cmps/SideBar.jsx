@@ -33,6 +33,8 @@ export function SideBar({ onSidebarToggle }) {
             return acc
         }, {})
     )
+    const [activeBoardId, setActiveBoardId] = useState(null)
+
 
     const { pathname } = useLocation()
 
@@ -193,6 +195,7 @@ export function SideBar({ onSidebarToggle }) {
 
 
     function openModal(board, event) {
+        setActiveBoardId(board._id)
         setModalBoardId(board._id)
         setIsStarred(board.isStarred)
         const { top, left, height } = event.currentTarget.getBoundingClientRect()
@@ -204,6 +207,7 @@ export function SideBar({ onSidebarToggle }) {
     }
 
     const closeModal = () => {
+        setActiveBoardId(null)
         setIsModalOpen(false)
         setModalBoardId(null)
     }
@@ -370,7 +374,7 @@ export function SideBar({ onSidebarToggle }) {
                                 ) : (
                                     <p>{board.title}</p>
                                 )}
-                                <div className="dots" onClick={(e) => { e.stopPropagation(); openModal(board, e) }}>
+                                <div className={`dots ${activeBoardId === board._id && isModalOpen ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); openModal(board, e) }}>
                                     <button>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
                                     </button>
@@ -396,8 +400,8 @@ export function SideBar({ onSidebarToggle }) {
                                 ) : (
                                     <p>{board.title}</p>
                                 )}
-                                <div className="dots" onClick={(e) => { e.stopPropagation(); openModal(board, e) }}>
-                                    <button>
+                                <div className={`dots ${activeBoardId === board._id && isModalOpen ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); openModal(board, e) }}>
+                                    <button className={`${isModalOpen ? 'active' : ''}`}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
                                     </button>
                                 </div>

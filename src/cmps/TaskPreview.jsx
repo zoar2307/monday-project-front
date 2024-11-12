@@ -7,6 +7,8 @@ import { OptionTaskModal } from './OptionTaskModal'
 import { useNavigate, useParams } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { SET_CONVERSATION_STATUS } from '../store/reducers/system.reducer'
+import dots from '../assets/img/dots.svg'
+
 
 
 
@@ -19,13 +21,15 @@ export function TaskPreview({ idx, task, group, board }) {
     const dispatch = useDispatch()
 
     const [isDragOn, setIsDragOn] = useState(false)
-    const [isModalOpen, setIsModalOpen] = useState(false) // State for modal visibility
+    const [isModalOpen, setModalOpen] = useState(false)
+
 
     const inputRef = useRef()
     const dragClass = isDragOn ? 'drag' : ''
     const cmpsOrder = ['StatusPicker', 'MemberPicker', 'PriorityPicker']
     const [isEditTaskTitle, setIsEditTaskTitle] = useState(false)
     const [updateSelectedTask, setUpdateSelectedTask] = useState(task)
+
 
     const toggleModal = () => setIsModalOpen(!isModalOpen)
 
@@ -90,9 +94,8 @@ export function TaskPreview({ idx, task, group, board }) {
                         <i className="fa-solid fa-trash"></i>
                     </button>
 
-                    {/* Dots button to open modal */}
-                    <button className="dots-button" onClick={toggleModal}>
-                        •••
+                    <button className={`dots-button ${isModalOpen ? 'active' : ''}`} onClick={toggleModal}>
+                        <img src={dots} alt="do" />
                     </button>
 
                     <div className='check-label'><input type="checkbox" /></div>
@@ -151,11 +154,10 @@ export function TaskPreview({ idx, task, group, board }) {
                         ))
                     }
 
-                    {/* Render OptionsModal when isModalOpen is true */}
-                    {isModalOpen && <OptionTaskModal onClose={toggleModal} />}
-                </div >
-            )
-            }
-        </Draggable >
+                    {isModalOpen &&
+                        <OptionTaskModal closeModal={() => setModalOpen(false)} groupId={group.id} taskId={task.id} />}
+                </div>
+            )}
+        </Draggable>
     )
 }
