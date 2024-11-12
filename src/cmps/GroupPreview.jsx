@@ -1,18 +1,19 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { TaskList } from "../cmps/TaskList"
 import { Draggable } from "react-beautiful-dnd"
 import { updateGroup } from "../store/actions/board.actions"
+import { OptionGroupModal } from "./OptionGroupModal"
+import dots from '../assets/img/dots.svg'
 
-export function GroupPreview({
-  group,
-  onRemoveGroup,
-  index,
-}) {
+export function GroupPreview({ group, onRemoveGroup, index }) {
   const { title, tasks } = group
-
 
   const [groupTitle, setGroupTitle] = useState(title)
   const [isEditGroupTitle, setIsEditGroupTitle] = useState(false)
+  const [isModalOpen, setModalOpen] = useState(false)
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen)
+  }
 
   const handleTitleChange = (e) => setGroupTitle(e.target.value)
 
@@ -29,79 +30,59 @@ export function GroupPreview({
 
   return (
     <>
-      <Draggable
-        draggableId={group.id}
-        index={index}
-        key={group.id}
-      >
+      <Draggable draggableId={group.id} index={index} key={group.id}>
         {(provided) => (
-          <div
-            {...provided.draggableProps}
-            ref={provided.innerRef}
-          >
+          <div {...provided.draggableProps} ref={provided.innerRef}>
             <div className="group-preview">
-              <header
-                className="flex align-center"
-                {...provided.dragHandleProps}
-              >
-                <button
-                  onClick={() => onRemoveGroup(group.id)}
-                  className="delete-group-btn"
+              <header className="flex align-center" {...provided.dragHandleProps}>
+              <button
+                  className={`dots-button ${isModalOpen ? 'active' : ''}`}
+                  onClick={toggleModal}
                 >
-                  <i class="fa-solid fa-trash"></i>
+                  <img src={dots} alt="dots" />
+
                 </button>
-                <p
-                  style={{
-                    color: group.color,
-                  }}>
+                <p style={{ color: group.color }}>
                   <i className="fa-solid fa-chevron-down"></i>
                 </p>
 
-                {isEditGroupTitle ?
+                {isEditGroupTitle ? (
                   <form onSubmit={saveTitle}>
                     <input
                       type="text"
                       value={groupTitle}
                       onChange={handleTitleChange}
                       onBlur={saveTitle}
-                      style={{
-                        color: group.color,
-                        width: '500px',
-                        maxWidth: '500px',
-                      }}
+                      style={{ color: group.color, width: '500px', maxWidth: '500px' }}
                       className="group-title"
                       autoFocus
                     />
                   </form>
-
-                  :
+                ) : (
                   <h4
                     className="group-title"
                     onClick={() => setIsEditGroupTitle(true)}
                     style={{ color: group.color, borderColor: group.color }}
-                  >{groupTitle}</h4>
-                }
+                  >
+                    {groupTitle}
+                  </h4>
+                )}
 
-
-                {tasks.length === 1 && <span className="tasks-count">{tasks.length} Task</span>}
-                {tasks.length > 1 && <span className="tasks-count">{tasks.length} Tasks</span>}
-                {tasks.length === 0 && <span className="tasks-count">No tasks</span>}
-
+                <span className="tasks-count">{tasks.length} Task{tasks.length !== 1 && 's'}</span>
               </header>
               <main className="flex">
-                {/* <div
-                  className="side-group-color"
-                  }
-                ></div> */}
-                <TaskList
-                  group={group}
-                />
+                <TaskList group={group} />
               </main>
             </div>
+            {isModalOpen && (
+              <OptionGroupModal
+                closeModal={() => setModalOpen(false)}
+                groupId={group.id}
+              />
+            )}
           </div>
         )}
-
-      </Draggable >
+      </Draggable>
     </>
   )
 }

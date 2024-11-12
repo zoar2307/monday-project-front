@@ -1,5 +1,68 @@
 .task-title {
     padding-left: 33px;
 
-
 }
+
+.task-row{
+    .option-task-modal-overlay {
+        display: relative;
+        justify-content: center;
+        align-items: flex-start;
+        z-index: 1;
+        pointer-events: auto;
+        top: 0;
+    
+    
+        .option-task-modal-content {
+            position: absolute;
+          top: 35px;
+          left: -38px;
+    
+          background: white;
+          border: 1px solid #d3d4dd;
+          z-index: 1001;
+          padding: 8px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          pointer-events: auto;
+          display: flex;
+          flex-direction: column;
+          width: 238px;
+    
+          button {
+            width: 100%;
+            font-family: Figtree;
+            background: none;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-size: 14px;
+            text-align: start;
+            cursor: pointer;
+            line-height: 24px;
+            color: #323338;
+            font-weight: 400;
+            letter-spacing: 0px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            img{
+              padding-right: 9px;
+              opacity: 0.6;
+            }
+            &:hover{
+              background-color: #f0f0f0;
+            }
+          }
+          
+          
+        }
+      }
+}
+
+.divider{
+    height: 1px;
+    width: 100%;
+    margin: 8px 0;
+    background-color: #d0d4e4;
+  }

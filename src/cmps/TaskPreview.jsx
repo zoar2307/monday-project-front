@@ -68,13 +68,6 @@ export function TaskPreview({ idx, task, group, board }) {
                     {...provided.draggableProps}
                     ref={provided.innerRef}
                 >
-                    <button
-                        onClick={() => console.log('Delete group')}
-                        className="delete-group-btn"
-                    >
-                        <i className="fa-solid fa-trash"></i>
-                    </button>
-
                     <button className={`dots-button ${isModalOpen ? 'active' : ''}`} onClick={toggleModal}>
                         <img src={dots} alt="do" />
                     </button>
@@ -126,7 +119,7 @@ export function TaskPreview({ idx, task, group, board }) {
                     ))}
 
                     {isModalOpen &&
-                        <OptionTaskModal closeModal={() => setModalOpen(false)} groupId={group.id} taskId={task.id}/>}
+                        <OptionTaskModal closeModal={() => setModalOpen(false)} groupId={group.id} taskId={task.id} />}
                 </div>
             )}
         </Draggable>

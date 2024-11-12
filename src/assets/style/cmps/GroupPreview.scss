@@ -10,17 +10,28 @@
         height: rem(41px);
         padding-bottom: 5px;
 
-        .delete-group-btn {
+        
+        .dots-button {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            left: -35px;
+            top: 5px;
+            background: none;
+            border: none;
             cursor: pointer;
             opacity: 0;
-            position: absolute;
-            left: -25px;
-            transition: .3s;
-            width: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 5px;
+          }
+        
+          &:hover {
+            .dots-button {
+              opacity: 1;
+              background-color: #f0f0f0;
 
-            background-color: transparent;
-            border: none;
-        }
+            }
+          }
 
         p {
             font-size: rem(12px);
@@ -67,7 +78,66 @@
             }
 
         }
+        .option-group-modal-overlay {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            z-index: 1;
+            pointer-events: auto;
+            top: 0;
+        
+          
+        
+            .option-group-modal-content {
+              position: absolute;
+              top: 219px;
+              left: 295px;
+        
+              background: white;
+              border: 1px solid #d3d4dd;
+              z-index: 1001;
+              padding: 8px;
+              border-radius: 8px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+              pointer-events: auto;
+              display: flex;
+              flex-direction: column;
+              width: 238px;
+        
+              button {
+                width: 100%;
+                font-family: Figtree;
+                background: none;
+                border: none;
+                border-radius: 4px;
+                padding: 4px 8px;
+                font-size: 14px;
+                text-align: start;
+                cursor: pointer;
+                line-height: 24px;
+                color: #323338;
+                font-weight: 400;
+                letter-spacing: 0px;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+                img{
+                  padding-right: 9px;
+                  opacity: 0.6;
+                }
+                &:hover{
+                  background-color: #f0f0f0;
+                }
+              }
+        
+              
+            }
+          }
+        
     }
-
-
+    
 }
+
+ 
+
+
