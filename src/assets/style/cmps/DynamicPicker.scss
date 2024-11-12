@@ -1,16 +1,17 @@
-.label-container{
+.label-container {
     position: relative;
 }
-.header{
-    
-}
-.not-header{
+
+.header {}
+
+.not-header {
     color: white;
     border: none;
     appearance: none;
     text-align: center;
     cursor: pointer;
-    img{
+
+    img {
         width: 30px;
         border-radius: 50%;
         border: 1px gray solid;

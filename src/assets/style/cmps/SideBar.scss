@@ -512,6 +512,8 @@
                 &:hover {
                     background-color: $light-sidebar-clr2;
                 }
+
+
             }
 
             .filter {
@@ -552,6 +554,10 @@
 
                 &:active+.filter {
                     display: inherit;
+                }
+
+                &:focus+.search-bar {
+                    border-color: $light-board-details-filter-clr3 ;
                 }
             }
 
@@ -745,7 +751,8 @@
     font-weight: 400;
     letter-spacing: 0px;
     text-decoration: none;
-    i{
+
+    i {
         padding-right: 16px;
     }
 }
@@ -754,8 +761,8 @@
     background-color: #f0f0f0;
 }
 
-.board-wrapper{
-    input{
+.board-wrapper {
+    input {
         width: 140px;
         background-color: transparent;
         outline: transparent;

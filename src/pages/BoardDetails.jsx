@@ -4,12 +4,13 @@ import { loadBoard, loadBoards } from "../store/actions/board.actions"
 import { BoardDetailsHeader } from "../cmps/BoardDetailsHeader"
 import { GroupList } from "../cmps/GroupList"
 import { useSelector } from "react-redux"
+import { TaskConversation } from "../cmps/TaskConversation"
 
 export function BoardDetails() {
   const filterBy = useSelector(storeState => storeState.boardModule.filterBy)
   const board = useSelector(storeState => storeState.boardModule.currBoard)
 
-  const { boardId } = useParams()
+  const { boardId, taskId } = useParams()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -18,7 +19,7 @@ export function BoardDetails() {
 
   async function initBoard() {
     try {
-      const returnedBoard = await loadBoard(boardId)
+      await loadBoard(boardId)
     } catch (err) {
       console.log('Had issues in board details', err)
       navigate('/board')
@@ -33,6 +34,7 @@ export function BoardDetails() {
         <BoardDetailsHeader board={board} />
         <GroupList
           board={board} />
+        <TaskConversation />
       </section>
     ) : (
       <div>Board not found.</div>

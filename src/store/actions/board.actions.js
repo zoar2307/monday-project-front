@@ -152,14 +152,12 @@ export async function updateTaskStatus(groupId, taskId, status) {
     const { currBoard } = store.getState().boardModule
 
     try {
-        // const board = await boardService.getById(boardId)
         const group = currBoard.groups.find((grp) => grp.id === groupId)
         const task = group.tasks.find((tsk) => tsk.id === taskId)
         task.status = status
         store.dispatch({ type: UPDATE_GROUP, group: group })
         await boardService.save(currBoard)
-        // store.dispatch({ type: UPDATE_TASK_STATUS, task, groupId })
-        // await loadBoard(boardId)
+
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })
         console.error('Cannot update task priority:', err)
@@ -170,15 +168,13 @@ export async function updateTaskPriority(groupId, taskId, priority) {
     const { currBoard } = store.getState().boardModule
 
     try {
-        // const board = await boardService.getById(boardId)
         const group = currBoard.groups.find((grp) => grp.id === groupId)
         const task = group.tasks.find((tsk) => tsk.id === taskId)
         task.priority = priority
         store.dispatch({ type: UPDATE_GROUP, group: group })
 
         await boardService.save(currBoard)
-        // store.dispatch({ type: UPDATE_TASK_PRIORITY, task, groupId })
-        // await loadBoard(boardId)
+
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })
         console.error('Cannot update task priority:', err)
@@ -188,8 +184,9 @@ export async function updateTaskPriority(groupId, taskId, priority) {
 export async function updateTaskMember(groupId, taskId, member) {
     const { currBoard } = store.getState().boardModule
 
+    console.log(member)
+
     try {
-        // const board = await boardService.getById(boardId)
         if (!currBoard) return
 
         const group = currBoard.groups.find((grp) => grp.id === groupId)
@@ -203,11 +200,39 @@ export async function updateTaskMember(groupId, taskId, member) {
 
         await boardService.save(currBoard)
 
-        // store.dispatch({ type: UPDATE_TASK_MEMBER, task, groupId })
-        // await loadBoard(boardId)
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })
         console.error("Failed to update task member:", err)
+    }
+}
+
+export async function addTaskConversationUpdate(groupId, taskId, update) {
+    const { currBoard } = store.getState().boardModule
+
+    update.createdAt = Date.now()
+    // will be user
+    update.member = {
+        _id: 'u101',
+        fullname: 'Avivit Nehamia',
+        imgUrl: 'https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg'
+    }
+    update.id = makeId()
+    update.likes = []
+
+    console.log(update)
+
+    try {
+        const group = currBoard.groups.find((grp) => grp.id === groupId)
+        const task = group.tasks.find((tsk) => tsk.id === taskId)
+        task.conversation.push(update)
+        console.log(task)
+        console.log(group)
+        store.dispatch({ type: UPDATE_GROUP, group: group })
+        await boardService.save(currBoard)
+
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.error('Cannot update task priority:', err)
     }
 }
 

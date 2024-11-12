@@ -1,5 +1,5 @@
 .task-list {
-  width: 100%;
+  min-width: 100%;
   font-family: "Figtree", sans-serif;
   /* Ensure fallback if "Figtree" is unavailable */
   font-size: 14px;
@@ -136,12 +136,15 @@
         align-items: center;
         border-right: 1px solid #d3d4dd;
         height: 100%;
-        width: 100%;
+        width: 355px;
         overflow: hidden;
 
+        form {
+          width: 80%;
+        }
 
         .task-title-input {
-          width: 80%;
+          width: 100%;
           color: #323338;
           font-family: Figtree;
           text-overflow: ellipsis;
@@ -155,42 +158,50 @@
 
           &:hover {
             border: 1px solid #d3d4dd;
-            width: 65%;
             color: #323338;
           }
 
           &:focus {
             border: 1px solid blue;
-            width: 80%;
             color: #323338;
           }
-
-
         }
 
         .handle {
           width: 20%;
           height: 100%;
         }
-
-
-
-      }
-
-      .task-title-chat {
-        height: 100%;
-        padding: 0 16px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-width: 65px;
       }
 
       svg {
         color: $light-board-details-filter-clr1;
         height: 22px;
         width: 22px;
+        transition: .3s;
+
+
       }
+
+      .chat {
+        height: 100%;
+        padding: 0 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 65px;
+        border-left: 1px solid #d3d4dd;
+
+        cursor: pointer;
+
+        svg {
+          &:hover {
+            color: $light-signup-clr6;
+          }
+        }
+
+      }
+
+
     }
   }
 
@@ -231,6 +242,38 @@
 
     &.members {
       min-width: 200px;
+      position: relative;
+
+      &.not-header {
+        display: flex;
+        justify-content: center;
+
+        img {
+          position: relative;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          margin-right: 4px;
+          object-fit: cover;
+
+          border: 2px solid #f5f6f8;
+        }
+
+        &.not-solo {
+          img {
+            &:nth-child(even) {
+              left: -4px;
+            }
+
+            &:nth-child(odd) {
+              right: -4px;
+            }
+          }
+
+        }
+      }
+
+
     }
 
     &.priority {

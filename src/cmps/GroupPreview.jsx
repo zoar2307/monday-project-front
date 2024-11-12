@@ -7,9 +7,14 @@ export function GroupPreview({
   group,
   onRemoveGroup,
   index,
+  groupsLength
 }) {
   const { title, tasks } = group
 
+  let taskStrCount = ''
+  if (tasks.length === 1) taskStrCount = `${tasks.length} Task`
+  if (tasks.length > 1) taskStrCount = `${tasks.length} Tasks`
+  if (tasks.length === 0) taskStrCount = `No tasks`
 
   const [groupTitle, setGroupTitle] = useState(title)
   const [isEditGroupTitle, setIsEditGroupTitle] = useState(false)
@@ -44,12 +49,12 @@ export function GroupPreview({
                 className="flex align-center"
                 {...provided.dragHandleProps}
               >
-                <button
+                {groupsLength > 1 && < button
                   onClick={() => onRemoveGroup(group.id)}
                   className="delete-group-btn"
                 >
                   <i class="fa-solid fa-trash"></i>
-                </button>
+                </button>}
                 <p
                   style={{
                     color: group.color,
@@ -82,10 +87,7 @@ export function GroupPreview({
                   >{groupTitle}</h4>
                 }
 
-
-                {tasks.length === 1 && <span className="tasks-count">{tasks.length} Task</span>}
-                {tasks.length > 1 && <span className="tasks-count">{tasks.length} Tasks</span>}
-                {tasks.length === 0 && <span className="tasks-count">No tasks</span>}
+                <span className="tasks-count">{taskStrCount}</span>
 
               </header>
               <main className="flex">
