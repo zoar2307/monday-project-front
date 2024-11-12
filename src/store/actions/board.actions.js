@@ -31,7 +31,7 @@ export async function loadBoard(boardId) {
         const board = await boardService.getById(boardId)
         store.dispatch({ type: SET_BOARD, board })
         console.log(board)
-        loadBoards()
+        // loadBoards()
         return board
     }
     catch (err) {
