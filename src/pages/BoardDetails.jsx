@@ -3,11 +3,18 @@ import { useParams, useNavigate } from "react-router-dom"
 import { loadBoard, loadBoards } from "../store/actions/board.actions"
 import { BoardDetailsHeader } from "../cmps/BoardDetailsHeader"
 import { GroupList } from "../cmps/GroupList"
+import { useSelector } from "react-redux"
 
 export function BoardDetails() {
   const { boardId } = useParams()
   const [board, setBoard] = useState(null)
   const navigate = useNavigate()
+  const filterBy = useSelector(storeState => storeState.boardModule.filterBy)
+
+  useEffect(() => {
+    console.log(filterBy);
+  }, [filterBy])
+
 
   useEffect(() => {
     if (boardId) initBoards()

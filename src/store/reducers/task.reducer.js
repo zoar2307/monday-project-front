@@ -1,9 +1,13 @@
+import { boardService } from "../../services/board/board.service.local"
+
 export const SET_TASKS = 'SET_TASKS'
 export const ADD_TASK = 'ADD_TASK'
 export const UPDATE_TASK = 'UPDATE_TASK'
 export const UPDATE_TASK_PRIORITY = 'UPDATE_TASK_PRIORITY'
 export const UPDATE_TASK_MEMBER = 'UPDATE_TASK_MEMBER'
 export const UPDATE_TASK_STATUS = 'UPDATE_TASK_STATUS'
+
+
 
 const initialState = {
   tasks: [],

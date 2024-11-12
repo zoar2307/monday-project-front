@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { BoardDetailsFilter } from "./BoardDetailsFilter"
 import { useEffect, useState } from "react"
 
-export function BoardDetailsHeader({ board }) {
+export function BoardDetailsHeader({ board, filterBy }) {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const [myBoard, setMyBoard] = useState({})
 
@@ -87,7 +87,9 @@ export function BoardDetailsHeader({ board }) {
 
             </div>
 
-            <BoardDetailsFilter />
+            <BoardDetailsFilter
+                filterBy={filterBy}
+            />
         </div>
     )
 }
