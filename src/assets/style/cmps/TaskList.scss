@@ -52,37 +52,49 @@
     border-bottom: 1px solid #d3d4dd;
     width: 100%;
 
+    .dots-button {
+        content: '•••';
+        font-size: 18px;
+        color: #d3d4dd;
+        position: absolute;
+        left: -38px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+        opacity: 0; 
+        transition: opacity 0.3s ease; 
+    }
+
+    &:hover .dots-button {
+        opacity: 1;
+    }
+
     &.drag {
-      // rotate: 2deg;
-      animation: shake 2s infinite;
-      border: 1px dashed #d3d4dd;
+        animation: shake 2s infinite;
+        border: 1px dashed #d3d4dd;
     }
 
     &.add-task {
-      border-bottom: none;
+        border-bottom: none;
     }
 
-    &.checked {
-
-      .delete-group-btn {
+    &.checked .delete-group-btn {
         opacity: 1;
         left: -35px;
-      }
     }
 
-    &:not(.add-task) {
-      &:hover {
+    &:not(.add-task):hover {
         background-color: #f5f6f8;
         box-shadow: 4px 3px 6px -3px #c3c6d4;
 
         .text-title-input {
-          background-color: #f5f6f8;
-
+            background-color: #f5f6f8;
         }
-
-      }
     }
-  }
+}
+
 
   .check-label {
     height: 100%;
@@ -342,6 +354,26 @@
 
     }
   }
+
+  .option-task-modal-overlay {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 1;
+    pointer-events: auto;
+    top: 0;
+    .option-task-modal-content {
+      position: absolute;
+      left: -220px; /* Adjust left offset to place modal left of the task */
+
+      background: white;
+      padding: 16px;
+      border: 1px solid #d3d4dd;
+      border-radius: 4px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+      z-index: 2000;
+  }
+}
 
 
 
