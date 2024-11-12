@@ -1,3 +1,6 @@
+import { useEffect, useRef } from 'react'
+import { removeGroup } from '../store/actions/board.actions'
+import { useSelector } from 'react-redux'
 import expand from '../assets/img/expand-icon.svg'
 import trash from '../assets/img/trash-icon.svg'
 import newTab from '../assets/img/open-in-new-tab-icon.svg'
@@ -8,11 +11,8 @@ import plus from '../assets/img/plus-modal-icon.svg'
 import addSubitem from '../assets/img/add-subitem-icon.svg'
 import convertSubitem from '../assets/img/convert-subitem-icon.svg'
 import archive from '../assets/img/archive-icon.svg'
-import { useEffect, useRef } from 'react'
-import { removeGroup } from '../store/actions/board.actions'
-import { useSelector } from 'react-redux'
 
-export function OptionGroupModal({ closeModal, groupId }) {
+export function OptionGroupModal({ closeModal, groupId, modalPosition }) {
     const board = useSelector(storeState => storeState.boardModule.currBoard)
     const boardId = board._id
     const modalRef = useRef(null)
@@ -43,6 +43,7 @@ export function OptionGroupModal({ closeModal, groupId }) {
             <div
                 ref={modalRef}
                 className="option-group-modal-content"
+               
                 onClick={(e) => e.stopPropagation()}
             >
                 <button onClick={() => console.log('Option 1 clicked')}><img src={expand} alt="expand" />Open item</button>

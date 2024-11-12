@@ -11,7 +11,10 @@ export function GroupPreview({ group, onRemoveGroup, index }) {
   const [groupTitle, setGroupTitle] = useState(title)
   const [isEditGroupTitle, setIsEditGroupTitle] = useState(false)
   const [isModalOpen, setModalOpen] = useState(false)
+  const buttonRef = useRef(null)
+
   const toggleModal = () => {
+
     setModalOpen(!isModalOpen)
   }
 
@@ -35,12 +38,12 @@ export function GroupPreview({ group, onRemoveGroup, index }) {
           <div {...provided.draggableProps} ref={provided.innerRef}>
             <div className="group-preview">
               <header className="flex align-center" {...provided.dragHandleProps}>
-              <button
+                <button
+                  ref={buttonRef}
                   className={`dots-button ${isModalOpen ? 'active' : ''}`}
                   onClick={toggleModal}
                 >
                   <img src={dots} alt="dots" />
-
                 </button>
                 <p style={{ color: group.color }}>
                   <i className="fa-solid fa-chevron-down"></i>
