@@ -9,8 +9,9 @@ import addSubitem from '../assets/img/add-subitem-icon.svg'
 import convertSubitem from '../assets/img/convert-subitem-icon.svg'
 import archive from '../assets/img/archive-icon.svg'
 import { useEffect, useRef } from 'react'
+import { removeTask } from '../store/actions/board.actions'
 
-export function OptionTaskModal({ closeModal }) {
+export function OptionTaskModal({ closeModal , groupId , taskId}) {
     const modalRef = useRef(null)
 
 
@@ -26,6 +27,15 @@ export function OptionTaskModal({ closeModal }) {
           document.removeEventListener('mousedown', handleClickOutside)
         }
       }, [closeModal])
+
+      const deleteTask = async () => {
+        try {
+            await removeTask(groupId, taskId)
+            closeModal() 
+        } catch (error) {
+            console.error('Failed to delete task:', error)
+        }
+    }
     return (
         <div className="option-task-modal-overlay" onClick={closeModal}>
             <div ref={modalRef} className="option-task-modal-content" onClick={(e) => e.stopPropagation()}>
@@ -41,7 +51,7 @@ export function OptionTaskModal({ closeModal }) {
                 <button onClick={() => console.log('Option 1 clicked')}><img src={convertSubitem} alt="expand" />Convert to subitem</button>
                 <div className='divider'></div>
                 <button onClick={() => console.log('Option 2 clicked')}><img src={archive} alt="archive" />Archive</button>
-                <button onClick={() => console.log('Option 2 clicked')}><img src={trash} alt="trash" />Delete</button>
+                <button onClick={deleteTask}><img src={trash} alt="trash" />Delete</button>
             </div>
         </div>
     )

@@ -126,7 +126,7 @@ export function TaskPreview({ idx, task, group, board }) {
                     ))}
 
                     {isModalOpen &&
-                        <OptionTaskModal closeModal={() => setModalOpen(false)} />}
+                        <OptionTaskModal closeModal={() => setModalOpen(false)} groupId={group.id} taskId={task.id}/>}
                 </div>
             )}
         </Draggable>

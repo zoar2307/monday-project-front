@@ -134,6 +134,23 @@ export async function addTask(groupId, task) {
     }
 }
 
+export async function removeTask(groupId, taskId) {
+    const { currBoard } = store.getState().boardModule
+
+    try {
+        const group = currBoard.groups.find((group) => group.id === groupId)
+        if (!group) throw new Error("Group not found")
+        group.tasks = group.tasks.filter((task) => task.id !== taskId)
+        store.dispatch({ type: UPDATE_GROUP, group: group })
+        await boardService.save(currBoard)
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.error("Cannot remove task:", err)
+        throw err
+    }
+}
+
+
 
 export async function updateTask(groupId, taskId, data) {
 
