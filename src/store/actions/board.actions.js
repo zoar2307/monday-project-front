@@ -4,9 +4,7 @@ import { ADD_BOARD, ADD_GROUP, BOARD_UNDO, REMOVE_BOARD, REMOVE_GROUP, SET_BACKD
 
 import { store } from '../store'
 
-const { filterBy } = store.getState().boardModule
-
-export async function loadBoards() {
+export async function loadBoards(filterBy) {
     try {
         const boards = await boardService.query(filterBy)
         store.dispatch({ type: SET_BOARDS, boards })
@@ -17,11 +15,13 @@ export async function loadBoards() {
     }
 }
 
-export async function loadBoard(boardId) {
+export async function loadBoard(boardId, filterBy) {
     try {
         const board = await boardService.getById(boardId)
+        const filteredBoard = boardService.filterBoard(board, filterBy);
         store.dispatch({ type: SET_BOARD, board })
-        return board
+        filteredBoard._id = boardId
+        return filteredBoard
     }
     catch (err) {
         console.log('board action -> Cannot load board', err)

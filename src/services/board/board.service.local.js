@@ -11,7 +11,7 @@ export const boardService = {
   remove,
   getDefaultFilter,
   getEmptyBoard,
-  queryTasks
+  filterBoard
 }
 window.cs = boardService
 
@@ -27,25 +27,49 @@ async function query(filterBy = { title: "" }) {
   return boards
 }
 
-async function queryTasks(tasks, filterBy = { title: "", status: '', priority: "", person: '' }) {
-  const { title, status, priority, person } = filterBy
-  if (title) {
-    const regex = new RegExp(title, "i")
-    tasks = tasks.filter((task) => regex.test(task.title))
-  }
-  if (status) {
-    tasks = tasks.filter((task) => task.status === status)
-  }
-  if (priority) {
-    tasks = tasks.filter((task) => task.priority === priority)
-  }
-  // if (person) {
-  //   tasks = tasks.filter((task) => task.assignedTo === person)
-  // }
-  console.log(tasks)
-  return tasks
+function filterBoard(board, filters) {
+  const filteredGroups = filterGroupsByTasks(board.groups, filters);
+  return {
+    ...board,
+    groups: filteredGroups,
+  };
 }
 
+function filterGroupsByTasks(groups, filters) {
+  return groups
+    .map(group => {
+      // Filter tasks within the group based on task-level filters
+      const filteredTasks = filterEntities(group.tasks, filters);
+
+      // Check if the group matches group-level filters
+      const groupMatches = (!filters.title || new RegExp(filters.title, "i").test(group.title));
+
+      // Only return the group if it matches group-level filters or contains matching tasks
+      if (groupMatches || filteredTasks.length > 0) {
+        return { ...group, tasks: filteredTasks };
+      }
+
+      return null; // Exclude groups that don't match and have no matching tasks
+    })
+    .filter(group => group); // Exclude null groups
+}
+
+function filterEntities(entities, filters) {
+  let filtered = entities
+
+  if (filters.title) {
+    const regex = new RegExp(filters.title, "i")
+    filtered = filtered.filter(entity => regex.test(entity.title))
+  }
+  if (filters.status) {
+    filtered = filtered.filter(entity => entity.status === filters.status)
+  }
+  if (filters.priority) {
+    filtered = filtered.filter(entity => entity.priority === filters.priority)
+  }
+
+  return filtered
+}
 
 function getById(boardId) {
   return storageService.get(STORAGE_KEY, boardId)
@@ -713,7 +737,7 @@ function loadBoardsFromStorage() {
 }
 
 function getDefaultFilter() {
-  return { title: "", status: '', priority: "", person: '' }
+  return { title: "", status: "", priority: "", person: "" }
 }
 
 function getEmptyBoard() {
