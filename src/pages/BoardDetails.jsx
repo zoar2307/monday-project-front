@@ -6,24 +6,19 @@ import { GroupList } from "../cmps/GroupList"
 import { useSelector } from "react-redux"
 
 export function BoardDetails() {
-  const { boardId } = useParams()
-  const [board, setBoard] = useState(null)
-  const navigate = useNavigate()
   const filterBy = useSelector(storeState => storeState.boardModule.filterBy)
+  const board = useSelector(storeState => storeState.boardModule.currBoard)
+
+  const { boardId } = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    console.log(filterBy);
-  }, [filterBy])
-
-
-  useEffect(() => {
-    if (boardId) initBoards()
+    if (boardId) initBoard()
   }, [boardId])
 
-  async function initBoards() {
+  async function initBoard() {
     try {
       const returnedBoard = await loadBoard(boardId)
-      setBoard(returnedBoard)
     } catch (err) {
       console.log('Had issues in board details', err)
       navigate('/board')
@@ -36,7 +31,8 @@ export function BoardDetails() {
     boardId ? (
       <section className="board-details">
         <BoardDetailsHeader board={board} />
-        <GroupList />
+        <GroupList
+          board={board} />
       </section>
     ) : (
       <div>Board not found.</div>

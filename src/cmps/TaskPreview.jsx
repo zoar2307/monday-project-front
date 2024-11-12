@@ -2,9 +2,7 @@
 import React, { useRef, useState } from 'react'
 import { DynamicCmp } from './DynamicCmp'
 import { Draggable } from 'react-beautiful-dnd'
-import { updateGroup } from '../store/actions/group.actions'
-import { updateTask } from '../store/actions/task.actions'
-import { loadBoard } from '../store/actions/board.actions'
+import { loadBoard, updateGroup, updateTask } from '../store/actions/board.actions'
 import { useSelector } from 'react-redux'
 import { OptionTaskModal } from './OptionTaskModal'
 import dots from '../assets/img/dots.svg'
@@ -12,9 +10,8 @@ import dots from '../assets/img/dots.svg'
 
 
 
-export function TaskPreview({ idx, task, group }) {
-    const board = useSelector(storeState => storeState.boardModule.currBoard)
-    const { _id: boardId, labels, members } = board
+export function TaskPreview({ idx, task, group, board }) {
+    const { labels, members } = board
     const { id: groupId } = group
 
     const [isDragOn, setIsDragOn] = useState(false)
@@ -57,8 +54,7 @@ export function TaskPreview({ idx, task, group }) {
                 tasks: [...newTasks]
             }
 
-            await updateGroup(boardId, updatedGroup)
-            await loadBoard(boardId)
+            await updateGroup(updatedGroup)
         } catch (err) {
             console.log(err)
         }
@@ -123,7 +119,7 @@ export function TaskPreview({ idx, task, group }) {
                                 members={members}
                                 onUpdate={(data) => {
                                     console.log('Updating: ', cmp, 'with data:', data)
-                                    updateTask(boardId, groupId, task.id, data)
+                                    updateTask(groupId, task.id, data)
                                 }}
                             />
                         </div>

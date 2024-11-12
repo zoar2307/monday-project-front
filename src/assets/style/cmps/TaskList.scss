@@ -83,13 +83,18 @@
     &.drag {
       animation: shake 2s infinite;
       border: 1px dashed #d3d4dd;
+      animation: shake 2s infinite;
+      border: 1px dashed #d3d4dd;
     }
 
     &.add-task {
       border-bottom: none;
+      border-bottom: none;
     }
 
     &.checked .delete-group-btn {
+      opacity: 1;
+      left: -35px;
       opacity: 1;
       left: -35px;
     }
@@ -97,11 +102,17 @@
     &:not(.add-task):hover {
       background-color: #f5f6f8;
       box-shadow: 4px 3px 6px -3px #c3c6d4;
+      background-color: #f5f6f8;
+      box-shadow: 4px 3px 6px -3px #c3c6d4;
 
       .text-title-input {
         background-color: #f5f6f8;
       }
+      .text-title-input {
+        background-color: #f5f6f8;
+      }
     }
+  }
   }
 
 
@@ -223,10 +234,6 @@
       border-right: 0 solid white;
     }
 
-
-
-
-
     &.status {
       min-width: 200px;
 
@@ -235,7 +242,7 @@
 
           &::after {
 
-            border-bottom: 8px solid black;
+            border-bottom: 8px solid gray;
             border-right: 8px solid white;
           }
         }
@@ -253,7 +260,7 @@
         &:hover {
 
           &::after {
-            border-bottom: 8px solid black;
+            border-bottom: 8px solid gray;
             border-right: 8px solid white;
           }
         }
@@ -371,6 +378,7 @@
     z-index: 1;
     pointer-events: auto;
     top: 0;
+
 
     .option-task-modal-content {
       position: absolute;

@@ -1,24 +1,15 @@
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { GroupPreview } from "../cmps/GroupPreview"
-import {
-  addGroup,
-  removeGroup,
-  loadGroups,
-  updateGroup,
-} from "../store/actions/group.actions"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import { useDispatch } from "react-redux"
-import { SET_GROUPS, UPDATE_GROUP } from "../store/reducers/group.reducer"
-import { loadBoard, saveBoard } from "../store/actions/board.actions"
-import { store } from "../store/store"
+import { addGroup, loadBoard, removeGroup, saveBoard, updateGroup, updateGroups } from "../store/actions/board.actions"
 
-export function GroupList() {
-  const board = useSelector(storeState => storeState.boardModule.currBoard)
-  const groups = useSelector(storeState => storeState.groupModule.groups)
+export function GroupList({ board }) {
+  // const board = useSelector(storeState => storeState.boardModule.currBoard)
+  // const groups = useSelector(storeState => storeState.groupModule.groups)
   // const { groups, _id: boardId } = board
-  const { _id: boardId } = board
-
+  const { _id: boardId, groups } = board
 
   const dispatch = useDispatch()
 
@@ -29,7 +20,7 @@ export function GroupList() {
   const handleAddGroup = async () => {
     try {
       await addGroup(boardId)
-      await loadBoard(boardId)
+      // await loadBoard(boardId)
     } catch (err) {
       console.log(err)
     }
@@ -45,19 +36,13 @@ export function GroupList() {
     if (destination.droppableId === source.droppableId && destination.index === source.index) return
 
     if (type === 'column') {
-      const newGroupOrder = Array.from(groups)
+      const newGroupOrder = [...groups]
       newGroupOrder.splice(source.index, 1)
-      const movedGroup = groups.filter(group => group.id === draggableId)[0]
+      const movedGroup = groups.find(group => group.id === draggableId)
       newGroupOrder.splice(destination.index, 0, movedGroup)
 
-      const newBoard = {
-        ...board,
-        groups: newGroupOrder
-      }
       try {
-        dispatch({ type: SET_GROUPS, groups: newGroupOrder })
-        await saveBoard(newBoard)
-        await loadBoard(boardId)
+        await updateGroups(newGroupOrder)
       } catch (err) {
         console.log(err)
       }
@@ -65,15 +50,15 @@ export function GroupList() {
       return
     }
 
-    const start = groups.filter(group => group.id === source.droppableId)[0]
-    const finish = groups.filter(group => group.id === destination.droppableId)[0]
+    const start = groups.find(group => group.id === source.droppableId)
+    const finish = groups.find(group => group.id === destination.droppableId)
 
     // // start column and finish column are the same
     if (start === finish) {
 
-      const newTasks = Array.from(start.tasks)
+      const newTasks = [...start.tasks]
 
-      const draggedTask = newTasks.filter(task => task.id === draggableId)[0]
+      const draggedTask = newTasks.find(task => task.id === draggableId)
 
       newTasks.splice(source.index, 1)
       newTasks.splice(destination.index, 0, draggedTask)
@@ -83,24 +68,17 @@ export function GroupList() {
         tasks: newTasks
       }
 
-
       try {
-        await updateGroup(boardId, newGroup)
-        dispatch({ type: UPDATE_GROUP, group: newGroup })
-        await loadBoard(boardId)
-
+        await updateGroup(newGroup)
       } catch (err) {
         console.log(err)
       }
-
-
-
       return
     }
 
     // // Moving from one list to another
-    const startTasks = Array.from(start.tasks)
-    const draggedTask = startTasks.filter(task => task.id === draggableId)[0]
+    const startTasks = [...start.tasks]
+    const draggedTask = startTasks.find(task => task.id === draggableId)
     startTasks.splice(source.index, 1)
 
     const newStart = {
@@ -108,7 +86,7 @@ export function GroupList() {
       tasks: startTasks
     }
 
-    const finishTasks = Array.from(finish.tasks)
+    const finishTasks = [...finish.tasks]
     finishTasks.splice(destination.index, 0, draggedTask)
 
     const newFinish = {
@@ -117,12 +95,8 @@ export function GroupList() {
     }
 
     try {
-      dispatch({ type: UPDATE_GROUP, group: newStart })
-      dispatch({ type: UPDATE_GROUP, group: newFinish })
-      await updateGroup(boardId, newStart)
-      await updateGroup(boardId, newFinish)
-      await loadBoard(boardId)
-
+      updateGroup(newFinish)
+      updateGroup(newStart)
     } catch (err) {
       console.log(err)
     }

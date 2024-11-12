@@ -89,6 +89,7 @@ export function BoardDetailsHeader({ board, filterBy }) {
 
             <BoardDetailsFilter
                 filterBy={filterBy}
+                board={board}
             />
         </div>
     )
