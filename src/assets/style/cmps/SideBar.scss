@@ -111,6 +111,7 @@
         background-color: $light-sidebar-clr5;
         height: 1px;
         width: 100%;
+        margin: 8px 0
     }
 
     .favorites-container {
@@ -190,7 +191,6 @@
                 justify-content: center;
                 align-items: center;
 
-                background-color: transparent;
                 border: none;
 
                 svg {
@@ -625,6 +625,12 @@
             justify-content: center;
             align-items: center;
             border-radius: em(4px, 16px);
+            transition: opacity 0.3s ease-in-out; /* Smooth transition for visibility */
+
+            &.active{
+                visibility: visible; 
+                background-color: #cbe5fe;
+             }
 
             button {
                 display: flex;
@@ -633,7 +639,7 @@
 
                 background-color: transparent;
                 border: none;
-
+               
                 svg {
                     height: em(16px, 16px);
                     width: em(16px, 16px);
@@ -714,39 +720,35 @@
 
 .modal-content {
     position: absolute;
-    z-index: 1001;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    pointer-events: auto;
-    display: flex;
-    flex-direction: column;
-    width: 264px;
-}
+ 
 
-
-
-
-
-
-
-.modal-content button {
-    font-family: Figtree;
-    background: none;
-    border: none;
-    border-radius: 4px;
-    padding: 4px 8px;
-    font-size: 14px;
-    text-align: start;
-    cursor: pointer;
-    line-height: 24px;
-    color: #323338;
-    font-weight: 400;
-    letter-spacing: 0px;
-    text-decoration: none;
-    i{
-        padding-right: 16px;
+      background: white;
+      border: 1px solid #d3d4dd;
+      z-index: 1001;
+      padding: 8px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      pointer-events: auto;
+      width: 260px;
+      button {
+        font-family: Figtree;
+        background: none;
+        border: none;
+        border-radius: 4px;
+        padding: 4px 8px;
+        font-size: 14px;
+        text-align: start;
+        cursor: pointer;
+        line-height: 24px;
+        color: #323338;
+        font-weight: 400;
+        letter-spacing: 0px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        img,svg{
+            margin-right: 9px;
+        }
     }
 }
 
@@ -762,3 +764,4 @@
         border: none;
     }
 }
+
