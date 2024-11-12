@@ -53,6 +53,12 @@ export function GroupPreview({
                   className={`dots-button ${isModalOpen ? 'active' : ''}`}
                   onClick={toggleModal}
                 >
+                  {isModalOpen && (
+                    <OptionGroupModal
+                      closeModal={() => setModalOpen(false)}
+                      groupId={group.id}
+                    />
+                  )}
                   <img src={dots} alt="dots" />
                 </button>
                 <p style={{ color: group.color }}>
@@ -87,12 +93,6 @@ export function GroupPreview({
                 <TaskList group={group} />
               </main>
             </div>
-            {isModalOpen && (
-              <OptionGroupModal
-                closeModal={() => setModalOpen(false)}
-                groupId={group.id}
-              />
-            )}
           </div>
         )}
       </Draggable>

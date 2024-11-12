@@ -31,7 +31,7 @@ export function TaskPreview({ idx, task, group, board }) {
     const [updateSelectedTask, setUpdateSelectedTask] = useState(task)
 
 
-    const toggleModal = () => setIsModalOpen(!isModalOpen)
+    const toggleModal = () => setModalOpen(!isModalOpen)
 
     function handleChange({ target }) {
         let { value, name: field, type } = target

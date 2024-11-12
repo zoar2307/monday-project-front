@@ -90,8 +90,8 @@
         
             .option-group-modal-content {
               position: absolute;
-              top: 219px;
-              left: 295px;
+              top: -5px;
+              left: 25px;
         
               background: white;
               border: 1px solid #d3d4dd;
@@ -103,6 +103,7 @@
               display: flex;
               flex-direction: column;
               width: 238px;
+              height: fit-content;
         
               button {
                 width: 100%;

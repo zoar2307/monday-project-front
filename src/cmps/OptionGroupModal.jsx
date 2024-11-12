@@ -12,7 +12,7 @@ import addSubitem from '../assets/img/add-subitem-icon.svg'
 import convertSubitem from '../assets/img/convert-subitem-icon.svg'
 import archive from '../assets/img/archive-icon.svg'
 
-export function OptionGroupModal({ closeModal, groupId, modalPosition }) {
+export function OptionGroupModal({ closeModal, groupId }) {
     const board = useSelector(storeState => storeState.boardModule.currBoard)
     const boardId = board._id
     const modalRef = useRef(null)
