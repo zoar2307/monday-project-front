@@ -1,24 +1,109 @@
 .label-modal {
     position: absolute;
-    z-index: 10000;
-    top: 100%;
-    right: 100%;
+    z-index: 10000000000;
+
     background-color: white;
-    padding: 16px;
+
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .32);
-
-
     border-radius: 8px;
+    overflow: hidden;
+
+    transition: scale 0.3s;
+    color: #323338;
+    font-size: 14px;
+    font-family: Figtree;
 
     .add-label-modal {
+        padding: 16px;
         width: 100%;
+
+        .label-type {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 4px 8px;
+            padding-right: 20px;
+            line-height: 24px;
+            font-size: Figtree;
+            cursor: pointer;
+            border-radius: 4px;
+
+            span {
+                min-width: 97px;
+            }
+
+            .img-container {
+                width: 20px;
+                height: 20px;
+                border-radius: 4px;
+                margin-right: 8px;
+
+                &.status {
+                    background-color: rgb(17, 221, 128);
+                }
+
+                &.member {
+                    background-color: rgb(0, 207, 244);
+                }
+
+                &.priority {
+                    background-color: rgb(255, 203, 0);
+                }
+
+                &.date {
+                    background-color: rgb(17, 221, 128);
+                }
+            }
+
+            img {
+                width: 20px;
+                height: 20px;
+            }
+
+
+
+            &.disabled {
+                opacity: .3;
+                cursor: not-allowed;
+            }
+
+            &:hover {
+                background-color: rgba($color: #676879, $alpha: 0.1);
+
+            }
+        }
     }
 
-    .label-type {
-        width: 100%;
-        padding: 4px 8px;
-        line-height: 24px;
-        font-size: Figtree;
-        cursor: pointer;
+    .remove-label-modal {
+        padding: 8px;
+        position: relative;
+
+        .modal-line {
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
+            padding-right: 20px;
+            line-height: 24px;
+            font-size: Figtree;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 238px;
+
+
+            span {
+                min-width: 97px;
+            }
+
+            &:hover {
+                background-color: rgba($color: #676879, $alpha: 0.1);
+
+            }
+
+            svg {
+                margin-right: 8px;
+            }
+        }
     }
+
+
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PickerModal } from './PickerModal'
+import { MemberModal } from './MemberModal'
 import userEmpty from '../assets/img/user-empty.svg'
 
 export function MemberPicker({ info, onUpdate, members }) {
@@ -13,7 +13,7 @@ export function MemberPicker({ info, onUpdate, members }) {
     .map((assignedMember) => members.find((member) => member._id === assignedMember._id))
     .filter(Boolean)
 
-  const handleSelect = async (member) => {
+  const handleSelect = async (member, close = false) => {
     let updatedAssignedTo
     // const updatedAssignedTo = assignedToArray.includes(member._id)
     //   ? assignedToArray.filter((id) => id !== member._id)
@@ -24,14 +24,19 @@ export function MemberPicker({ info, onUpdate, members }) {
     else updatedAssignedTo = [...assignedToArray, member]
 
     onUpdate({ assignedTo: updatedAssignedTo })
-    setIsModalOpen(false)
+
+    if (close) setIsModalOpen(false)
   }
   const closeModal = () => setIsModalOpen(false)
+
+  let membersClass
+
+
   return (
     <div className="label-container">
       <div
         onClick={() => setIsModalOpen(true)}
-        className={`members label not-header ${assignedToArray.length > 1 && 'not-solo'}`}
+        className={`members label not-header `}
 
       >
         {assignedMembers.length > 0 ? (
@@ -41,24 +46,24 @@ export function MemberPicker({ info, onUpdate, members }) {
               src={member.imgUrl}
               alt={member.fullname}
               title={member.fullname}
-              style={{ width: '24px', height: '24px', borderRadius: '50%', marginRight: '4px' }}
+              style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '4px' }}
             />
           ))
         ) : (
           <img
             src={userEmpty}
             alt="Unassigned"
-            style={{ width: '24px', height: '24px', borderRadius: '50%' }}
+            style={{ width: '30px', height: '30px', borderRadius: '50%' }}
           />
         )}
       </div>
       {isModalOpen && (
-        <PickerModal
+        <MemberModal
           options={members}
           onSelect={handleSelect}
           closeModal={closeModal}
           modalType="member"
-          assignedIds={assignedToArray}
+          assignedMembers={assignedToArray}
         />
       )}
     </div>

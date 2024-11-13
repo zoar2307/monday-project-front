@@ -122,7 +122,6 @@ async function _createBoards() {
   let boards = await storageService.query(STORAGE_KEY)
   if (!boards || !boards.length) {
     await storageService.post(STORAGE_KEY, {
-
       "title": "Project Alpha",
       "isStarred": false,
       "archivedAt": 1589983468418,
@@ -160,8 +159,7 @@ async function _createBoards() {
           "id": "l105",
           "title": "Coming soon",
           "color": "#7aaffd",
-          "type": "status",
-
+          "type": "status"
         },
         {
           "id": "l106",
@@ -200,9 +198,34 @@ async function _createBoards() {
           "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
         },
         {
-          "_id": "u104",
+          "_id": "u105",
           "fullname": "Ron Johnson",
-          "imgUrl": "https://robohash.org/3"
+          "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762539/samples/smile.jpg"
+        },
+        {
+          "_id": "u106",
+          "fullname": "Itzhka Tshuva",
+          "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
+        },
+        {
+          "_id": "u107",
+          "fullname": "Haim Nahmias",
+          "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762531/samples/people/kitchen-bar.jpg"
+        },
+        {
+          "_id": "u108",
+          "fullname": "Efrat Hanage",
+          "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762536/samples/two-ladies.jpg"
+        },
+        {
+          "_id": "u110",
+          "fullname": "Meir Pis",
+          "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762532/samples/people/boy-snow-hoodie.jpg"
+        },
+        {
+          "_id": "u109",
+          "fullname": "Hader Nafuah",
+          "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762531/samples/people/smiling-man.jpg"
         }
       ],
       "groups": [
@@ -224,6 +247,16 @@ async function _createBoards() {
                   "_id": "u102",
                   "fullname": "Josh Ga",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                },
+                {
+                  "_id": "u105",
+                  "fullname": "Ron Johnson",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762539/samples/smile.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
                 }
               ],
               "status": "Working on it",
@@ -244,6 +277,16 @@ async function _createBoards() {
                   "_id": "u102",
                   "fullname": "Josh Ga",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
+                },
+                {
+                  "_id": "u108",
+                  "fullname": "Efrat Hanage",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762536/samples/two-ladies.jpg"
                 }
               ],
               "status": "Done",
@@ -280,7 +323,11 @@ async function _createBoards() {
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 },
-
+                {
+                  "_id": "u110",
+                  "fullname": "Meir Pis",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762532/samples/people/boy-snow-hoodie.jpg"
+                }
               ],
               "status": "Done",
               "priority": "Low",
@@ -294,6 +341,11 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
                 }
               ],
               "status": "Working on it",
@@ -313,6 +365,11 @@ async function _createBoards() {
                   "_id": "u102",
                   "fullname": "Josh Ga",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
                 }
               ],
               "status": "Working on it",
@@ -327,6 +384,21 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
+                },
+                {
+                  "_id": "u110",
+                  "fullname": "Meir Pis",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762532/samples/people/boy-snow-hoodie.jpg"
                 }
               ],
               "status": "Done",
@@ -341,6 +413,11 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
                 }
               ],
               "status": "Working on it",
@@ -360,6 +437,11 @@ async function _createBoards() {
                   "_id": "u102",
                   "fullname": "Josh Ga",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                },
+                {
+                  "_id": "u105",
+                  "fullname": "Ron Johnson",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762539/samples/smile.jpg"
                 }
               ],
               "status": "Stuck",
@@ -381,6 +463,16 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
+                },
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
                 }
               ],
               "status": "Stuck",
@@ -400,6 +492,11 @@ async function _createBoards() {
                   "_id": "u102",
                   "fullname": "Josh Ga",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                },
+                {
+                  "_id": "u105",
+                  "fullname": "Ron Johnson",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762539/samples/smile.jpg"
                 }
               ],
               "status": "Working on it",
@@ -414,6 +511,11 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
                 }
               ],
               "status": "Working on it",
@@ -442,6 +544,11 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
                 }
               ],
               "status": "Working on it",
@@ -470,6 +577,16 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u105",
+                  "fullname": "Ron Johnson",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762539/samples/smile.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
                 }
               ],
               "status": "Done",
@@ -491,6 +608,31 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
+                },
+                {
+                  "_id": "u108",
+                  "fullname": "Efrat Hanage",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762536/samples/two-ladies.jpg"
+                },
+                {
+                  "_id": "u110",
+                  "fullname": "Meir Pis",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762532/samples/people/boy-snow-hoodie.jpg"
+                },
+                {
+                  "_id": "u107",
+                  "fullname": "Haim Nahmias",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762531/samples/people/kitchen-bar.jpg"
+                },
+                {
+                  "_id": "u102",
+                  "fullname": "Josh Ga",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
                 }
               ],
               "status": "Working on it",
@@ -505,6 +647,16 @@ async function _createBoards() {
                   "_id": "u102",
                   "fullname": "Josh Ga",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                },
+                {
+                  "_id": "u105",
+                  "fullname": "Ron Johnson",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762539/samples/smile.jpg"
+                },
+                {
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 }
               ],
               "status": "Stuck",
@@ -519,6 +671,11 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
                 }
               ],
               "status": "Stuck",
@@ -533,6 +690,11 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
                 }
               ],
               "status": "Done",
@@ -552,6 +714,11 @@ async function _createBoards() {
                   "_id": "u102",
                   "fullname": "Josh Ga",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                },
+                {
+                  "_id": "u106",
+                  "fullname": "Itzhka Tshuva",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/cld-sample-3.jpg"
                 }
               ],
               "status": "Working on it",
@@ -566,6 +733,11 @@ async function _createBoards() {
                   "_id": "u102",
                   "fullname": "Josh Ga",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+                },
+                {
+                  "_id": "u101",
+                  "fullname": "Tal Taltal",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
                 }
               ],
               "status": "Done",
@@ -580,6 +752,11 @@ async function _createBoards() {
                   "_id": "u101",
                   "fullname": "Tal Taltal",
                   "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg"
+                },
+                {
+                  "_id": "u107",
+                  "fullname": "Haim Nahmias",
+                  "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762531/samples/people/kitchen-bar.jpg"
                 }
               ],
               "status": "Done",
@@ -589,9 +766,7 @@ async function _createBoards() {
             {
               "id": "c308",
               "title": "Plan Product Demos",
-              "assignedTo": [
-
-              ],
+              "assignedTo": [],
               "status": "Working on it",
               "priority": "Medium",
               "date": "2024-11-01T00:00:00Z",
@@ -613,8 +788,8 @@ async function _createBoards() {
         // "DatePicker",
         // "PriorityPicker"
       ],
-      "_id": "9sOst",
-      "updatedAt": 1731371110061
+      "_id": "INeBH",
+      "updatedAt": 1731516123598
     })
 
 
