@@ -18,6 +18,10 @@
   display: flex;
   flex-direction: column;
 
+  max-height: 180px;
+
+  overflow-y: auto;
+
   li {
     color: white;
     width: 100%;
@@ -33,13 +37,6 @@
 
   }
 
-  img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 1px gray solid;
-    object-fit: cover;
-  }
 }
 
 
@@ -150,6 +147,8 @@
     height: 40px;
     cursor: pointer;
 
+
+
     &:hover {
       background-color: rgba(103, 104, 121, 0.1);
 
@@ -158,13 +157,15 @@
     .member-img {
       display: flex;
       align-items: center;
-      width: 26px;
+      min-width: 26px;
       height: 26px;
+      max-width: 26px;
 
       img {
         height: 100%;
         width: 100%;
         border-radius: 50%;
+        object-fit: cover;
       }
     }
 
@@ -180,4 +181,45 @@
       width: 100%;
     }
   }
+
+  .input-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 4px 4px 4px 16px;
+    border-radius: 4px;
+    color: #323338;
+    border: 1px solid #c3c6d4;
+    height: 32px;
+
+    transition: 0.3s;
+
+    margin-bottom: 10px;
+
+    svg {
+      margin-right: 4px;
+      color: $light-sidebar-clr7;
+      height: 16px;
+      width: 16px;
+    }
+
+    input {
+      border: none;
+      outline: none;
+      font-size: 14px;
+      font-family: Figtree;
+      height: 100%;
+
+      &::placeholder {
+        font-weight: 400;
+      }
+    }
+
+    &:has(input:focus) {
+      border-color: $light-sidebar-clr9;
+
+    }
+  }
+
+
 }

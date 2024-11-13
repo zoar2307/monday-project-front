@@ -356,20 +356,10 @@
           object-fit: cover;
 
           border: 2px solid #f5f6f8;
+          margin: 0 -8px;
         }
 
-        &.not-solo {
-          img {
-            &:nth-child(even) {
-              left: -4px;
-            }
 
-            &:nth-child(odd) {
-              right: -4px;
-            }
-          }
-
-        }
       }
 
 

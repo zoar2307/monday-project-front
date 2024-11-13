@@ -28,11 +28,15 @@ export function MemberPicker({ info, onUpdate, members }) {
     if (close) setIsModalOpen(false)
   }
   const closeModal = () => setIsModalOpen(false)
+
+  let membersClass
+
+
   return (
     <div className="label-container">
       <div
         onClick={() => setIsModalOpen(true)}
-        className={`members label not-header ${assignedToArray.length > 1 && 'not-solo'}`}
+        className={`members label not-header `}
 
       >
         {assignedMembers.length > 0 ? (
@@ -42,14 +46,14 @@ export function MemberPicker({ info, onUpdate, members }) {
               src={member.imgUrl}
               alt={member.fullname}
               title={member.fullname}
-              style={{ width: '24px', height: '24px', borderRadius: '50%', marginRight: '4px' }}
+              style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '4px' }}
             />
           ))
         ) : (
           <img
             src={userEmpty}
             alt="Unassigned"
-            style={{ width: '24px', height: '24px', borderRadius: '50%' }}
+            style={{ width: '30px', height: '30px', borderRadius: '50%' }}
           />
         )}
       </div>

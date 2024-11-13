@@ -33,7 +33,7 @@ export function BoardDetailsHeader({ board }) {
                                 </div>
                             )
                         })}
-                        {board.members.length > 2 && <div className="plus-member">+1</div>}
+                        {board.members.length > 2 && <div className="plus-member">+{board.members.length - 2}</div>}
 
                     </button>
                 </div>
