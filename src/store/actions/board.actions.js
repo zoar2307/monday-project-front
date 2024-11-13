@@ -4,9 +4,9 @@ import { ADD_BOARD, ADD_GROUP, BOARD_UNDO, REMOVE_BOARD, REMOVE_GROUP, SET_BACKD
 
 import { store } from '../store'
 
-export async function loadBoards(filterBy) {
+export async function loadBoards() {
     try {
-        const boards = await boardService.query(filterBy)
+        const boards = await boardService.query()
         store.dispatch({ type: SET_BOARDS, boards })
     } catch (err) {
         console.log('board action -> Cannot load boards', err)
@@ -15,13 +15,13 @@ export async function loadBoards(filterBy) {
     }
 }
 
-export async function loadBoard(boardId) {
+export async function loadBoard(boardId, filterBy) {
     try {
         const board = await boardService.getById(boardId)
-        // const filteredBoard = boardService.filterBoard(board, filterBy);
-        store.dispatch({ type: SET_BOARD, board })
-        // filteredBoard._id = boardId
-        // return filteredBoard
+        const filteredBoard = boardService.filterBoard(board, filterBy)
+        filteredBoard._id = boardId
+        store.dispatch({ type: SET_BOARD, board: filteredBoard })
+        return filteredBoard
     }
     catch (err) {
         console.log('board action -> Cannot load board', err)
@@ -255,6 +255,10 @@ export async function addTaskConversationUpdate(groupId, taskId, update) {
 }
 
 export function setFilterBy(filterBy = boardService.getDefaultFilter()) {
+    store.dispatch({ type: SET_FILTER_BY, filterBy: filterBy })
+}
+
+export function resetFilterBy(filterBy = boardService.getDefaultFilter()) {
     store.dispatch({ type: SET_FILTER_BY, filterBy: filterBy })
 }
 

@@ -1,6 +1,5 @@
 import { boardService } from '../../services/board/board.service.local'
 
-
 export const SET_BOARDS = 'SET_BOARDS'
 export const SET_BOARD = 'SET_BOARD'
 export const REMOVE_BOARD = 'REMOVE_BOARD'
@@ -20,7 +19,7 @@ export const SET_IS_ADD_BOARD_MODAL = 'SET_IS_ADD_BOARD_MODAL'
 const initialState = {
     boards: [],
     currBoard: null,
-    lastCurrBoard: {},
+    lastCurrBoard: null,
     filterBy: boardService.getDefaultFilter(),
     backdrop: false,
     isAddBoardModal: false
@@ -36,11 +35,15 @@ export function boardReducer(state = initialState, action = {}) {
             return { ...state, boards: action.boards }
 
         case SET_BOARD:
-            return { ...state, currBoard: action.board, lastCurrBoard: action.board }
+            return {
+
+                ...state,
+                currBoard: action.board,
+                lastCurrBoard: JSON.parse(JSON.stringify(action.board)) // Deep copy
+            }
 
         case BOARD_UNDO:
-            board = state.lastCurrBoard
-            return { ...state, currBoard: board }
+            return { ...state, currBoard: state.lastCurrBoard }
 
         case REMOVE_BOARD:
             boards = state.boards.filter(board => board._id !== action.boardId)
@@ -54,23 +57,28 @@ export function boardReducer(state = initialState, action = {}) {
             boards = state.boards.map(board =>
                 board._id === action.board._id ? action.board : board
             )
-            return { ...state, boards, board: action.board }
+            return { ...state, boards, currBoard: action.board } // Ensure currBoard updated correctly
 
         // Groups
-
         case SET_GROUPS:
-            return { ...state, currBoard: { ...state.currBoard, groups: action.groups } }
+            return {
+                ...state,
+                currBoard: { ...state.currBoard, groups: action.groups }
+            }
 
         case REMOVE_GROUP:
-            groups = state.currBoard.groups.filter((group) => group.id !== action.groupId)
-            return { ...state, currBoard: { ...state.currBoard, groups: groups } }
+            if (!state.currBoard) return state // Safeguard
+            groups = state.currBoard.groups.filter(group => group.id !== action.groupId)
+            return { ...state, currBoard: { ...state.currBoard, groups } }
 
         case ADD_GROUP:
+            if (!state.currBoard) return state // Safeguard
             groups = [...state.currBoard.groups, action.group]
-            return { ...state, currBoard: { ...state.currBoard, groups: groups } }
+            return { ...state, currBoard: { ...state.currBoard, groups } }
 
         case UPDATE_GROUP:
-            groups = state.currBoard.groups.map((group) =>
+            if (!state.currBoard) return state // Safeguard
+            groups = state.currBoard.groups.map(group =>
                 group.id === action.group.id ? { ...group, ...action.group } : group
             )
             return { ...state, currBoard: { ...state.currBoard, groups } }
