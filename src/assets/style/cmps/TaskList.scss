@@ -374,9 +374,16 @@
       &.not-header {
         // background-color: white;
         cursor: pointer;
-        color: black;
+        color: #323338;
         border-right: 1px solid #d3d4dd;
 
+      }
+    }
+    &.file{
+      min-width: 200px;
+      &.not-header{
+        color: #323338;
+        border-right: 1px solid #d3d4dd;
       }
     }
   }

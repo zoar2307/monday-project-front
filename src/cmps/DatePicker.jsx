@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 export function DatePickerModal({ info, onUpdate }) {
     const [isCalendarOpen, setCalendarOpen] = useState(false)
     const [selectedDate, setSelectedDate] = useState(info.date ? new Date(info.date) : null)
-    const calendarRef = useRef(null)
+    const calendarRef = useRef()
 
     const handleSelect = (date) => {
         setSelectedDate(date)
