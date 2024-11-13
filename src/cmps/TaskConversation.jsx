@@ -140,7 +140,7 @@ export function TaskConversation() {
                                 {selectedTask.assignedTo && selectedTask.assignedTo.map((member, idx) => {
                                     return (
                                         <img key={member._id} src={member.imgUrl} alt="" style={{
-                                            right: idx !== 0 ? '8px' : '0'
+
                                         }} />
                                     )
                                 })}
