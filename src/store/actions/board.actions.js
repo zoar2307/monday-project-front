@@ -108,6 +108,10 @@ export async function addLabel(name) {
             labelClass = 'date'
             labelType = 'DatePicker'
             break;
+            case 'File':
+                labelClass = 'file'
+                labelType = 'FilePicker'
+                break;
 
         default:
             break;
@@ -248,6 +252,9 @@ export async function updateTask(groupId, taskId, data) {
     else if (data.date){
         updateTaskDate(groupId , taskId , data.date)
     }
+    else if (data.file){
+        updateTaskFile(groupId , taskId , data.file)
+    }
 }
 
 export async function updateTaskStatus(groupId, taskId, status) {
@@ -331,6 +338,30 @@ export async function updateTaskDate(groupId, taskId, date) {
         console.error("Failed to update task member:", err)
     }
 }
+export async function updateTaskFile(groupId, taskId, fileUrl) {
+    const { currBoard } = store.getState().boardModule;
+
+    try {
+        if (!currBoard) return;
+
+        const group = currBoard.groups.find((grp) => grp.id === groupId);
+        if (!group) return;
+
+        const task = group.tasks.find((tsk) => tsk.id === taskId);
+        if (!task) return;
+
+        // Store only the Cloudinary URL in the task file field
+        task.file = fileUrl;
+
+        store.dispatch({ type: UPDATE_GROUP, group });
+        await boardService.save(currBoard);
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO });
+        console.error("Failed to update task file:", err);
+    }
+}
+
+
 
 export async function addTaskConversationUpdate(groupId, taskId, update) {
     const { currBoard } = store.getState().boardModule

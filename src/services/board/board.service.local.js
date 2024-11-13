@@ -777,30 +777,16 @@ async function _createBoards() {
       ],
       "activities": [],
       "cmpsLabels": [
-        {
-          "type": "StatusPicker",
-          "title": "Status",
-          "id": "dl101",
-          "class": "status"
-        },
-        {
-          "type": "MemberPicker",
-          "title": "Person",
-          "id": "dl102",
-          "class": "members"
-        },
-        {
-          "type": "PriorityPicker",
-          "title": "Priority",
-          "id": "dl103",
-          "class": "priority"
-        },
-        {
-          "type": "DatePicker",
-          "title": "Date",
-          "id": "dl104",
-          "class": "date"
-        }
+        { "type": "StatusPicker", "title": "Status", "id": "dl101", "class": "status" },
+        { "type": "MemberPicker", "title": "Person", "id": "dl102", "class": "members" },
+        { "type": "PriorityPicker", "title": "Priority", "id": "dl103", "class": "priority" },
+        { "type": "DatePicker", "title": "Date", "id": "dl104", "class": "date" },
+        { "type": "FilePicker", "title": "File", "id": "dl105", "class": "file" },
+
+        // "StatusPicker",
+        // "MemberPicker",
+        // "DatePicker",
+        // "PriorityPicker"
       ],
       "_id": "INeBH",
       "updatedAt": 1731516123598

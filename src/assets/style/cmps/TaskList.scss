@@ -178,8 +178,7 @@
     &:not(.add-task):hover {
       background-color: #f5f6f8;
       box-shadow: 4px 3px 6px -3px #c3c6d4;
-      background-color: #f5f6f8;
-      box-shadow: 4px 3px 6px -3px #c3c6d4;
+      
 
       .text-title-input {
         background-color: #f5f6f8;
@@ -389,9 +388,16 @@
       &.not-header {
         // background-color: white;
         cursor: pointer;
-        color: black;
+        color: #323338;
         border-right: 1px solid #d3d4dd;
 
+      }
+    }
+    &.file{
+      min-width: 200px;
+      &.not-header{
+        color: #323338;
+        border-right: 1px solid #d3d4dd;
       }
     }
   }

@@ -4,6 +4,7 @@ import { StatusPicker } from './StatusPicker.jsx'
 import { MemberPicker } from './MemberPicker.jsx'
 import { PriorityPicker } from './PriorityPicker.jsx'
 import { DatePickerModal } from './DatePicker.jsx'
+import { FilePicker } from './FilePicker.jsx'
 
 
 
@@ -22,6 +23,9 @@ export function DynamicCmp({ cmp, info, onUpdate, labels, members }) {
 
     case 'DatePicker':
       return <DatePickerModal info={info} onUpdate={onUpdate} />
+
+      case 'FilePicker':
+        return <FilePicker info={info} onUpdate={onUpdate} />
     default:
 
 

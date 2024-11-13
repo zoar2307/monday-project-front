@@ -18,8 +18,8 @@ export function PickerModal({ options, onSelect, closeModal, modalType, assigned
 
     return (
         <div className="picker-modal-overlay" onClick={closeModal}>
-            <div
-                className="picker-modal"
+            <div className='white-block'></div>
+            <div className="picker-modal"
                 ref={modalRef}
                 onClick={(e) => e.stopPropagation()}
             >
