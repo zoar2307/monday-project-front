@@ -3,8 +3,8 @@ import React from 'react';
 
 export function DatePicker({ info, onUpdate }) {
     const handleChange = (e) => {
-        const newDate = e.target.value;
-        onUpdate({ dueDate: newDate });  // Pass the updated due date
+        const newDate = e.target.value
+        onUpdate({ dueDate: newDate })  // Pass the updated due date
     }
 
     return (
