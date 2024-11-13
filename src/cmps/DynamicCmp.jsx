@@ -11,12 +11,17 @@ export function DynamicCmp({ cmp, info, onUpdate, labels, members }) {
   switch (cmp) {
     case 'StatusPicker':
       return <StatusPicker info={info} onUpdate={onUpdate} labels={labels} />
+
     case 'MemberPicker':
-
       return <MemberPicker info={info} onUpdate={onUpdate} members={members} />
-    case 'PriorityPicker':
 
+    case 'PriorityPicker':
       return <PriorityPicker info={info} onUpdate={onUpdate} labels={labels} />
+
+    case 'PriorityPicker':
+      return <PriorityPicker info={info} onUpdate={onUpdate} labels={labels} />
+
+
     default:
 
       return <p>UNKNOWN {cmp}</p>

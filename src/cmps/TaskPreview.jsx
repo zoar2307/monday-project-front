@@ -26,7 +26,7 @@ export function TaskPreview({ idx, task, group, board }) {
 
     const inputRef = useRef()
     const dragClass = isDragOn ? 'drag' : ''
-    const cmpsOrder = ['StatusPicker', 'MemberPicker', 'PriorityPicker']
+    const cmpsOrder = board.cmpsLabels.map(label => label.type)
     const [isEditTaskTitle, setIsEditTaskTitle] = useState(false)
     const [updateSelectedTask, setUpdateSelectedTask] = useState(task)
 
@@ -84,6 +84,7 @@ export function TaskPreview({ idx, task, group, board }) {
             {(provided, snapshot) => (
                 <div
                     className={`task-row ${dragClass}`}
+
                     {...provided.draggableProps}
                     ref={provided.innerRef}
                 >
@@ -91,7 +92,11 @@ export function TaskPreview({ idx, task, group, board }) {
                         <img src={dots} alt="do" />
                     </button>
 
-                    <div className='check-label'><input type="checkbox" /></div>
+                    <div className='check-label'
+                        style={{
+                            borderLeft: `5px solid ${group.color}`
+                        }}
+                    ><input type="checkbox" /></div>
                     <div className='task-title body'>
                         <div className='task-title-txt'>
 

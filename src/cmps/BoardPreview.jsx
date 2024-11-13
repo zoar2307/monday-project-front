@@ -16,8 +16,6 @@ export function BoardPreview({ board }) {
         setIsStarred(board.isStarred);
     }, [board.isStarred]);
 
-
-
     function handleClick(event) {
         event.preventDefault()
         try {

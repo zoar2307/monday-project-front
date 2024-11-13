@@ -158,7 +158,8 @@ async function _createBoards() {
           "id": "l105",
           "title": "Coming soon",
           "color": "#7aaffd",
-          "type": "status"
+          "type": "status",
+
         },
         {
           "id": "l106",
@@ -195,6 +196,11 @@ async function _createBoards() {
           "_id": "u102",
           "fullname": "Josh Ga",
           "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762540/samples/man-portrait.jpg"
+        },
+        {
+          "_id": "u104",
+          "fullname": "Ron Johnson",
+          "imgUrl": "https://robohash.org/3"
         }
       ],
       "groups": [
@@ -589,224 +595,228 @@ async function _createBoards() {
         }
       ],
       "activities": [],
-      "cmpsOrder": [
-        "StatusPicker",
-        "MemberPicker",
-        "DatePicker",
-        "PriorityPicker"
+      "cmpsLabels": [
+        { "type": "StatusPicker", "title": "Status", "isDisplay": true, "id": "dl101", "class": "status" },
+        { "type": "MemberPicker", "title": "Person", "isDisplay": true, "id": "dl102", "class": "members" },
+        { "type": "PriorityPicker", "title": "Priority", "isDisplay": true, "id": "dl103", "class": "priority" },
+        { "type": "DatePicker", "title": "Date", "isDisplay": true, "id": "dl104", "class": "date" },
+        // "StatusPicker",
+        // "MemberPicker",
+        // "DatePicker",
+        // "PriorityPicker"
       ],
       "_id": "9sOst",
       "updatedAt": 1731371110061
     })
 
 
-    await storageService.post(STORAGE_KEY, {
-      "title": "AI Research Project",
-      "isStarred": true,
-      "archivedAt": null,
-      "createdBy": {
-        "_id": "u102",
-        "fullname": "Jane Doe",
-        "imgUrl": "http://some-other-img"
-      },
-      "labels": [
-        {
-          "id": "l101",
-          "title": "Done",
-          "color": "#01c875",
-          "type": "status"
-        },
-        {
-          "id": "l102",
-          "title": "Stuck",
-          "color": "#e02f4b",
-          "type": "status"
-        },
-        {
-          "id": "l103",
-          "title": "Working on it",
-          "color": "#fdab3d",
-          "type": "status"
-        },
-        {
-          "id": "l104",
-          "title": "Bonus",
-          "color": "#b57ce3",
-          "type": "status"
-        },
-        {
-          "id": "l105",
-          "title": "Coming soon",
-          "color": "#7aaffd",
-          "type": "status"
-        },
-        {
-          "id": "l106",
-          "title": "High",
-          "color": "#401694",
-          "type": "priority"
-        },
-        {
-          "id": "l107",
-          "title": "Medium",
-          "color": "#5559df",
-          "type": "priority"
-        },
-        {
-          "id": "l108",
-          "title": "Low",
-          "color": "#579bfc",
-          "type": "priority"
-        },
-        {
-          "id": "l109",
-          "title": "Critical",
-          "color": "#333333",
-          "type": "priority"
-        }
-      ],
-      "members": [
-        {
-          "_id": "u102",
-          "fullname": "Alice Smith",
-          "imgUrl": "https://robohash.org/1"
-        },
-        {
-          "_id": "u103",
-          "fullname": "Bob Johnson",
-          "imgUrl": "https://robohash.org/2"
-        },
-        {
-          "_id": "u104",
-          "fullname": "Ron Johnson",
-          "imgUrl": "https://robohash.org/3"
-        }
-      ],
-      "groups": [
-        {
-          "id": "g0gwnB",
-          "title": "Phase 1 - Research",
-          "color": "#ff6347",
-          "tasks": [
-            {
-              "id": "lEP7NF",
-              "title": "Literature Review",
-              "assignedTo": [
-                {
-                  "_id": "u102"
-                },
-                "u102",
-                "u103",
-                "u104"
-              ],
-              "status": "Done",
-              "priority": "Medium"
-            },
-            {
-              "id": "JS0oQP",
-              "title": "Develop Hypothesis",
-              "assignedTo": [
-                {
-                  "_id": "u103"
-                },
-                "u102"
-              ],
-              "status": "Working on it",
-              "priority": "High"
-            },
-            {
-              "id": "c305",
-              "title": "Analyze Previous Studies",
-              "assignedTo": [
-                {
-                  "_id": "u104"
-                }
-              ],
-              "status": "Stuck",
-              "priority": "Low"
-            },
-            {
-              "id": "c306",
-              "title": "Prepare Research Materials",
-              "assignedTo": [
-                {
-                  "_id": "u102"
-                },
-                "u103"
-              ],
-              "status": "Done",
-              "priority": "Medium"
-            }
-          ]
-        },
-        {
-          "id": "g1xyzB",
-          "title": "Phase 2 - Development",
-          "color": "#007bff",
-          "tasks": [
-            {
-              "id": "c401",
-              "title": "Set Up Lab Equipment",
-              "assignedTo": [
-                {
-                  "_id": "u102"
-                }
-              ],
-              "status": "Working on it",
-              "priority": "High"
-            },
-            {
-              "id": "c402",
-              "title": "Conduct Initial Experiments",
-              "assignedTo": [
-                {
-                  "_id": "u103"
-                },
-                "u104",
-                "u103"
-              ],
-              "status": "Stuck",
-              "priority": "Critical"
-            },
-            {
-              "id": "c403",
-              "title": "Gather Results",
-              "assignedTo": [
-                {
-                  "_id": "u104"
-                },
-                "u104",
-                "u102",
-                "u103"
-              ],
-              "status": "Stuck",
-              "priority": "Low"
-            },
-            {
-              "id": "c404",
-              "title": "Analyze Data",
-              "assignedTo": [
-                {
-                  "_id": "u102"
-                },
-                "u102"
-              ],
-              "status": "Working on it",
-              "priority": "Medium"
-            }
-          ]
-        }
-      ],
-      "activities": [],
-      "cmpsOrder": [
-        "StatusPicker",
-        "MemberPicker",
-        "DatePicker",
-        "PriorityPicker"
-      ],
-      "_id": "hX7O6",
-      "updatedAt": 1731371128062
-    })
+    //   await storageService.post(STORAGE_KEY, {
+    //     "title": "AI Research Project",
+    //     "isStarred": true,
+    //     "archivedAt": null,
+    //     "createdBy": {
+    //       "_id": "u102",
+    //       "fullname": "Jane Doe",
+    //       "imgUrl": "http://some-other-img"
+    //     },
+    //     "labels": [
+    //       {
+    //         "id": "l101",
+    //         "title": "Done",
+    //         "color": "#01c875",
+    //         "type": "status"
+    //       },
+    //       {
+    //         "id": "l102",
+    //         "title": "Stuck",
+    //         "color": "#e02f4b",
+    //         "type": "status"
+    //       },
+    //       {
+    //         "id": "l103",
+    //         "title": "Working on it",
+    //         "color": "#fdab3d",
+    //         "type": "status"
+    //       },
+    //       {
+    //         "id": "l104",
+    //         "title": "Bonus",
+    //         "color": "#b57ce3",
+    //         "type": "status"
+    //       },
+    //       {
+    //         "id": "l105",
+    //         "title": "Coming soon",
+    //         "color": "#7aaffd",
+    //         "type": "status"
+    //       },
+    //       {
+    //         "id": "l106",
+    //         "title": "High",
+    //         "color": "#401694",
+    //         "type": "priority"
+    //       },
+    //       {
+    //         "id": "l107",
+    //         "title": "Medium",
+    //         "color": "#5559df",
+    //         "type": "priority"
+    //       },
+    //       {
+    //         "id": "l108",
+    //         "title": "Low",
+    //         "color": "#579bfc",
+    //         "type": "priority"
+    //       },
+    //       {
+    //         "id": "l109",
+    //         "title": "Critical",
+    //         "color": "#333333",
+    //         "type": "priority"
+    //       }
+    //     ],
+    //     "members": [
+    //       {
+    //         "_id": "u102",
+    //         "fullname": "Alice Smith",
+    //         "imgUrl": "https://robohash.org/1"
+    //       },
+    //       {
+    //         "_id": "u103",
+    //         "fullname": "Bob Johnson",
+    //         "imgUrl": "https://robohash.org/2"
+    //       },
+    //       {
+    //         "_id": "u104",
+    //         "fullname": "Ron Johnson",
+    //         "imgUrl": "https://robohash.org/3"
+    //       }
+    //     ],
+    //     "groups": [
+    //       {
+    //         "id": "g0gwnB",
+    //         "title": "Phase 1 - Research",
+    //         "color": "#ff6347",
+    //         "tasks": [
+    //           {
+    //             "id": "lEP7NF",
+    //             "title": "Literature Review",
+    //             "assignedTo": [
+    //               {
+    //                 "_id": "u102"
+    //               },
+    //               "u102",
+    //               "u103",
+    //               "u104"
+    //             ],
+    //             "status": "Done",
+    //             "priority": "Medium"
+    //           },
+    //           {
+    //             "id": "JS0oQP",
+    //             "title": "Develop Hypothesis",
+    //             "assignedTo": [
+    //               {
+    //                 "_id": "u103"
+    //               },
+    //               "u102"
+    //             ],
+    //             "status": "Working on it",
+    //             "priority": "High"
+    //           },
+    //           {
+    //             "id": "c305",
+    //             "title": "Analyze Previous Studies",
+    //             "assignedTo": [
+    //               {
+    //                 "_id": "u104"
+    //               }
+    //             ],
+    //             "status": "Stuck",
+    //             "priority": "Low"
+    //           },
+    //           {
+    //             "id": "c306",
+    //             "title": "Prepare Research Materials",
+    //             "assignedTo": [
+    //               {
+    //                 "_id": "u102"
+    //               },
+    //               "u103"
+    //             ],
+    //             "status": "Done",
+    //             "priority": "Medium"
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "id": "g1xyzB",
+    //         "title": "Phase 2 - Development",
+    //         "color": "#007bff",
+    //         "tasks": [
+    //           {
+    //             "id": "c401",
+    //             "title": "Set Up Lab Equipment",
+    //             "assignedTo": [
+    //               {
+    //                 "_id": "u102"
+    //               }
+    //             ],
+    //             "status": "Working on it",
+    //             "priority": "High"
+    //           },
+    //           {
+    //             "id": "c402",
+    //             "title": "Conduct Initial Experiments",
+    //             "assignedTo": [
+    //               {
+    //                 "_id": "u103"
+    //               },
+    //               "u104",
+    //               "u103"
+    //             ],
+    //             "status": "Stuck",
+    //             "priority": "Critical"
+    //           },
+    //           {
+    //             "id": "c403",
+    //             "title": "Gather Results",
+    //             "assignedTo": [
+    //               {
+    //                 "_id": "u104"
+    //               },
+    //               "u104",
+    //               "u102",
+    //               "u103"
+    //             ],
+    //             "status": "Stuck",
+    //             "priority": "Low"
+    //           },
+    //           {
+    //             "id": "c404",
+    //             "title": "Analyze Data",
+    //             "assignedTo": [
+    //               {
+    //                 "_id": "u102"
+    //               },
+    //               "u102"
+    //             ],
+    //             "status": "Working on it",
+    //             "priority": "Medium"
+    //           }
+    //         ]
+    //       }
+    //     ],
+    //     "activities": [],
+    //     "cmpsOrder": [
+    //       "StatusPicker",
+    //       "MemberPicker",
+    //       "DatePicker",
+    //       "PriorityPicker"
+    //     ],
+    //     "_id": "hX7O6",
+    //     "updatedAt": 1731371128062
+    //   })
   }
 }
 

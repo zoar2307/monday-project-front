@@ -1,6 +1,6 @@
 import { GroupPreview } from "../cmps/GroupPreview"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
-import { addGroup, loadBoard, removeGroup, saveBoard, updateGroup, updateGroups } from "../store/actions/board.actions"
+import { addGroup, loadBoard, removeGroup, saveBoard, updateGroup, updateGroups, updateLabelsOrder } from "../store/actions/board.actions"
 
 export function GroupList({ board }) {
   const { _id: boardId, groups } = board
@@ -22,7 +22,27 @@ export function GroupList({ board }) {
 
     if (destination.droppableId === source.droppableId && destination.index === source.index) return
 
-    if (type === 'column') {
+    if (type === 'labels') {
+      console.log(source)
+      console.log(destination)
+      const newLabelsOrder = [...board.cmpsLabels]
+      console.log(newLabelsOrder)
+      newLabelsOrder.splice(source.index, 1)
+      const movedLabel = board.cmpsLabels.find(label => draggableId.includes(label.id))
+      newLabelsOrder.splice(destination.index, 0, movedLabel)
+
+
+      try {
+        await updateLabelsOrder(newLabelsOrder)
+      } catch (err) {
+        console.log(err)
+      }
+
+      return
+    }
+
+    if (type === 'groups') {
+
       const newGroupOrder = [...groups]
       newGroupOrder.splice(source.index, 1)
       const movedGroup = groups.find(group => group.id === draggableId)
@@ -95,7 +115,7 @@ export function GroupList({ board }) {
         onDragEnd={handleDragEnd}
       >
         <div className="group-list">
-          <Droppable droppableId={boardId} direction="vertical" type="column" >
+          <Droppable droppableId={boardId} direction="vertical" type="groups" >
             {(provided) => (
               <div className="fff"
                 ref={provided.innerRef}

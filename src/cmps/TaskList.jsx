@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { TaskPreview } from './TaskPreview'
-import { Droppable } from 'react-beautiful-dnd'
+import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useSelector } from 'react-redux'
 import { addTask } from '../store/actions/board.actions'
 
 export function TaskList({ group }) {
   const board = useSelector(storeState => storeState.boardModule.currBoard)
   const { id: groupId, tasks } = group
+  const [isDragOn, setIsDragOn] = useState(false)
 
   const [newTask, setNewTask] = useState({ title: '' })
 
@@ -36,26 +37,61 @@ export function TaskList({ group }) {
     setNewTask(prevFilter => ({ ...prevFilter, title: value }))
   }
 
+  const dragClass = isDragOn ? 'drag' : ''
+
   return (
     <>
-      <div className="task-list "
-        style={{
-          borderColor: group.color
-        }}
-      >
+      <div className="task-list ">
         <div className='group-header-container'>
 
-          {[board].map((board, idx) => (
-            <div className='group-header ' key={idx}>
-              <div className='check-label'><input type="checkbox" /></div >
-              <div className='task-title header'>Task</div>
-              {board.cmpsOrder?.includes('StatusPicker') && <div className='status label header'>Status</div>}
-              {board.cmpsOrder?.includes('MemberPicker') && <div className='members label header'>Person</div>}
-              {/* {board.cmpsOrder?.includes('DatePicker') && <div className='label date'>Date</div>} ADD LATER*/}
-              {board.cmpsOrder?.includes('PriorityPicker') && <div className='label priority'>Priority</div>}
-              <div className='add-label'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" aria-hidden="true" className="icon_e7210c37bd noFocusStyle_26dd7872ca" data-testid="icon"><g id="Icon / Basic / Add"><path id="Union" d="M10 2.25C10.4142 2.25 10.75 2.58579 10.75 3V9.25H17C17.4142 9.25 17.75 9.58579 17.75 10C17.75 10.4142 17.4142 10.75 17 10.75H10.75V17C10.75 17.4142 10.4142 17.75 10 17.75C9.58579 17.75 9.25 17.4142 9.25 17V10.75H3C2.58579 10.75 2.25 10.4142 2.25 10C2.25 9.58579 2.58579 9.25 3 9.25H9.25V3C9.25 2.58579 9.58579 2.25 10 2.25Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></g></svg></div>
-            </div  >
-          ))}
+
+          <div className='group-header ' >
+            <div className='check-label'
+              style={{
+                borderLeft: `5px solid ${group.color}`
+              }}><input type="checkbox" /></div >
+            <div className='task-title header'>Task</div>
+            <Droppable
+              droppableId={groupId + 'label'}
+              direction='horizontal'
+              type="labels"
+            >
+              {(provided, snapshot) => (
+                <div
+                  className={`labels`}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+
+                  {board.cmpsLabels.map((label, idx) => {
+                    if (label.isDisplay) return (
+                      <Draggable draggableId={label.id + groupId} index={idx} key={label.type}>
+                        {(provided, snapshot) => (
+                          <div key={idx} className={`label header ${label.class} ${dragClass}`}
+                            {...provided.draggableProps}
+                            ref={provided.innerRef}
+                            {...provided.dragHandleProps}
+                          >
+                            {label.title}
+                            <button className='dots'>
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" role="img" aria-hidden="true"><path d="M6 10.5C6 11.3284 5.32843 12 4.5 12 3.67157 12 3 11.3284 3 10.5 3 9.67157 3.67157 9 4.5 9 5.32843 9 6 9.67157 6 10.5zM11.8333 10.5C11.8333 11.3284 11.1618 12 10.3333 12 9.50492 12 8.83334 11.3284 8.83334 10.5 8.83334 9.67157 9.50492 9 10.3333 9 11.1618 9 11.8333 9.67157 11.8333 10.5zM17.6667 10.5C17.6667 11.3284 16.9951 12 16.1667 12 15.3383 12 14.6667 11.3284 14.6667 10.5 14.6667 9.67157 15.3383 9 16.1667 9 16.9951 9 17.6667 9.67157 17.6667 10.5z" fill="currentColor" /></svg>
+                            </button>
+                          </div>
+
+                        )}
+                      </Draggable>
+                    )
+
+                  })}
+                  {provided.placeholder}
+
+                </div>
+              )}
+            </Droppable>
+
+            < div className='add-label' > <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" aria-hidden="true" className="icon_e7210c37bd noFocusStyle_26dd7872ca" data-testid="icon"><g id="Icon / Basic / Add"><path id="Union" d="M10 2.25C10.4142 2.25 10.75 2.58579 10.75 3V9.25H17C17.4142 9.25 17.75 9.58579 17.75 10C17.75 10.4142 17.4142 10.75 17 10.75H10.75V17C10.75 17.4142 10.4142 17.75 10 17.75C9.58579 17.75 9.25 17.4142 9.25 17V10.75H3C2.58579 10.75 2.25 10.4142 2.25 10C2.25 9.58579 2.58579 9.25 3 9.25H9.25V3C9.25 2.58579 9.58579 2.25 10 2.25Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></g></svg></div>
+          </div  >
+
         </div >
         <Droppable
           droppableId={groupId}
@@ -70,18 +106,25 @@ export function TaskList({ group }) {
             >
               {tasks.map((task, idx) => {
 
+
                 return <TaskPreview key={task.id} task={task} idx={idx} group={group} board={board} />
 
               })}
               {provided.placeholder}
               <div className='add-task task-row '>
-                <div className='check-label '><input type="checkbox" disabled /></div >
+                <div className='check-label '
+                  style={{
+                    borderLeft: `5px solid ${group.color}`
+                  }}
+                ><input type="checkbox" disabled /></div >
                 <div className='task-title '>
-                  <form onSubmit={onSubmitTask}>
-                    <input type="text" placeholder='+ Add task' onBlur={onSubmitTask} onChange={handleChange} value={newTask.title} />
+                  <form onSubmit={onSubmitTask} className='task-title'>
+                    <input className='add-task-input' type="text" placeholder='+ Add task' onBlur={onSubmitTask} onChange={handleChange} value={newTask.title} />
                   </form>
                 </div>
               </div>
+
+
 
             </div>
           )}

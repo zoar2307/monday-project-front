@@ -7,7 +7,7 @@
     flex-direction: column;
 
     padding-bottom: em(440px, 40px);
-    min-width: max-content;
+    // min-width: max-content;
 
 
     .add-group-btn {
@@ -24,6 +24,7 @@
         padding: 5px;
         cursor: pointer;
         margin-bottom: 100px;
+
         i {
             font-size: 18px;
             font-weight: 100;
