@@ -317,7 +317,18 @@
   &.header {
     justify-content: center;
   }
+  &.date{
+    min-width: 200px;
+    &.not-header{
+      background-color: white;
+      cursor: pointer;
+      color: black;
+      border-right: 1px solid #d3d4dd;
+
+    }
+  }
 }
+
 
 .add-label {
   display: flex;

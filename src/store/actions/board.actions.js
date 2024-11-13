@@ -164,6 +164,9 @@ export async function updateTask(groupId, taskId, data) {
     else if (data.assignedTo) {
         updateTaskMember(groupId, taskId, data.assignedTo)
     }
+    else if (data.date){
+        updateTaskDate(groupId , taskId , data.date)
+    }
 }
 
 export async function updateTaskStatus(groupId, taskId, status) {
@@ -223,12 +226,35 @@ export async function updateTaskMember(groupId, taskId, member) {
         console.error("Failed to update task member:", err)
     }
 }
+export async function updateTaskDate(groupId, taskId, date) {
+    const { currBoard } = store.getState().boardModule
+
+    console.log(date)
+
+    try {
+        if (!currBoard) return
+
+        const group = currBoard.groups.find((grp) => grp.id === groupId)
+        if (!group) return
+
+        const task = group.tasks.find((tsk) => tsk.id === taskId)
+        if (!task) return
+
+        task.date = date
+        store.dispatch({ type: UPDATE_GROUP, group: group })
+
+        await boardService.save(currBoard)
+
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.error("Failed to update task member:", err)
+    }
+}
 
 export async function addTaskConversationUpdate(groupId, taskId, update) {
     const { currBoard } = store.getState().boardModule
 
     update.createdAt = Date.now()
-    // will be user
     update.member = {
         _id: 'u101',
         fullname: 'Avivit Nehamia',

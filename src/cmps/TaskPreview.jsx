@@ -26,7 +26,7 @@ export function TaskPreview({ idx, task, group, board }) {
 
     const inputRef = useRef()
     const dragClass = isDragOn ? 'drag' : ''
-    const cmpsOrder = ['StatusPicker', 'MemberPicker', 'PriorityPicker']
+    const cmpsOrder = ['StatusPicker', 'MemberPicker', 'PriorityPicker' , 'DatePicker']
     const [isEditTaskTitle, setIsEditTaskTitle] = useState(false)
     const [updateSelectedTask, setUpdateSelectedTask] = useState(task)
 
@@ -140,6 +140,7 @@ export function TaskPreview({ idx, task, group, board }) {
                                     members={members}
                                     onUpdate={(data) => {
                                         console.log('Updating: ', cmp, 'with data:', data)
+                                        console.log('Updating with data:', data)
                                         updateTask(groupId, task.id, data)
                                     }}
                                 />

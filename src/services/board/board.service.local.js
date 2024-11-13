@@ -220,6 +220,7 @@ async function _createBoards() {
               ],
               "status": "Working on it",
               "priority": "High",
+              "date": "2024-11-01T00:00:00Z",
               "conversation": []
             },
             {
@@ -239,6 +240,7 @@ async function _createBoards() {
               ],
               "status": "Done",
               "priority": "Medium",
+              "date": "2024-11-01T00:00:00Z",
               "conversation": []
             },
             {
@@ -258,6 +260,7 @@ async function _createBoards() {
               ],
               "status": "Stuck",
               "priority": "Critical",
+              "date": "2024-11-01T00:00:00Z",
               "conversation": []
             },
             {
@@ -583,6 +586,7 @@ async function _createBoards() {
               ],
               "status": "Working on it",
               "priority": "Medium",
+              "date": "2024-11-01T00:00:00Z",
               "conversation": []
             }
           ]
@@ -851,7 +855,8 @@ function getEmptyBoard() {
     cmpsOrder: [
       "StatusPicker",
       "MemberPicker",
-      "PriorityPicker"
+      "PriorityPicker",
+      "DatePicker"
     ]
   }
 }
