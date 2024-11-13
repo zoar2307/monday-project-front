@@ -34,7 +34,7 @@ export function TaskConversation() {
         if (taskId) {
             let allTasks = groups.map(group => {
                 return group.tasks.map(task => task)
-            });
+            })
 
             allTasks = allTasks.reduce((acc, tasks) => {
                 acc.push(...tasks)
@@ -67,7 +67,7 @@ export function TaskConversation() {
             case 'number':
             case 'range':
                 value = +value
-                break;
+                break
 
             case 'checkbox':
                 value = target.checked
@@ -91,30 +91,30 @@ export function TaskConversation() {
 
     function formatTimeDifference(startDate, endDate) {
         // Calculate the time difference in milliseconds
-        const timeDifference = endDate - startDate;
+        const timeDifference = endDate - startDate
 
         // If the time difference is less than a minute (60,000 milliseconds)
         if (timeDifference < 60000) {
-            const seconds = Math.floor(timeDifference / 1000);
-            return `${seconds}s`;
+            const seconds = Math.floor(timeDifference / 1000)
+            return `${seconds}s`
         }
 
         // If the time difference is less than an hour (3,600,000 milliseconds)
         else if (timeDifference < 3600000) {
-            const minutes = Math.floor(timeDifference / 60000);
-            return `${minutes}m`;
+            const minutes = Math.floor(timeDifference / 60000)
+            return `${minutes}m`
         }
 
         // If the time difference is less than a day (86,400,000 milliseconds)
         else if (timeDifference < 86400000) {
-            const hours = Math.floor(timeDifference / 3600000);
-            return `${hours}h`;
+            const hours = Math.floor(timeDifference / 3600000)
+            return `${hours}h`
         }
 
         // If the time difference is over a day
         else {
-            const days = Math.floor(timeDifference / 86400000);
-            return `${days}d`;
+            const days = Math.floor(timeDifference / 86400000)
+            return `${days}d`
         }
     }
 
