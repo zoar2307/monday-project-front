@@ -1,6 +1,6 @@
 import { GroupPreview } from "../cmps/GroupPreview"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
-import { addGroup, loadBoard, removeGroup, saveBoard, updateGroup, updateGroups, updateLabelsOrder } from "../store/actions/board.actions"
+import { addGroup, loadBoard, removeGroup, saveBoard, updateGroup, updateGroups, updateLabels } from "../store/actions/board.actions"
 
 export function GroupList({ board }) {
   const { _id: boardId, groups } = board
@@ -33,7 +33,7 @@ export function GroupList({ board }) {
 
 
       try {
-        await updateLabelsOrder(newLabelsOrder)
+        await updateLabels(newLabelsOrder)
       } catch (err) {
         console.log(err)
       }

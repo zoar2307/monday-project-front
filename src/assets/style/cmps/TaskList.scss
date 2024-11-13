@@ -43,9 +43,6 @@
     .check-label {
       border-top-left-radius: 4px;
     }
-
-
-
   }
 
   .labels {
@@ -81,7 +78,6 @@
         }
 
         &:hover {
-
           background-color: rgba($color: #676879, $alpha: 0.1);
 
           .dots {
@@ -94,10 +90,7 @@
         }
       }
     }
-
-
   }
-
 
   .group-body {
     display: flex;
@@ -137,8 +130,6 @@
       opacity: 1;
 
     }
-
-
 
     &.drag {
       animation: shake 2s infinite;
@@ -283,8 +274,6 @@
         }
 
       }
-
-
     }
   }
 
@@ -381,6 +370,7 @@
   }
 
   .add-label {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -390,6 +380,9 @@
     border: none;
     border-radius: em(4px, 16px);
 
+
+    cursor: pointer;
+
     &:hover {
       background-color: rgba($color: #676879, $alpha: 0.1);
     }
@@ -398,11 +391,19 @@
       color: #323338;
       height: em(18px, 16px);
       width: em(18px, 16px);
+
+      transition: .3s;
+
+      &.opened-modal {
+        rotate: 45deg;
+      }
+
     }
   }
 
   .add-task {
     width: 100%;
+
 
     .task-title {
       padding-left: 0;
@@ -514,8 +515,6 @@
   pointer-events: auto;
   top: 0;
 
-
-
   .option-group-modal-content {
     position: absolute;
     left: 0;
@@ -559,109 +558,5 @@
         background-color: #f0f0f0;
       }
     }
-
-
   }
 }
-
-
-
-
-
-
-//   td {
-//     border: 1px solid #d3d4dd;
-//     text-align: center;
-
-//     p {
-//       margin: 0;
-//     }
-//   }
-
-//   tr {
-//     border: 1px solid #d3d4dd;
-
-//   }
-
-//   th {
-//     border: 1px solid #d3d4dd;
-//     height: 33px;
-//     padding: 5px;
-//     text-align: center;
-//     vertical-align: middle;
-//     font-weight: 400;
-
-//     input {
-//       padding: 0;
-//     }
-//   }
-
-//   th:first-child {
-//     padding-top: 10px;
-//     width: 33px;
-//   }
-
-//   th:nth-child(2) {
-//     width: 360px;
-//   }
-
-//   td:first-child {
-//     padding-top: 12px;
-//     padding-bottom: 1px;
-//     height: 30px;
-//   }
-
-//   td:nth-child(2) {
-//     text-align: left;
-//   }
-
-//   input[type='checkbox'] {
-//     width: 16px;
-//     height: 17px;
-//     margin: 0;
-//   }
-// }
-
-// .task-label {
-//   color: white;
-//   border: none;
-//   padding: 9px;
-//   cursor: pointer;
-// }
-
-// .task-modal {
-//   background-color: white;
-//   border-radius: 5px;
-//   position: absolute;
-//   transform: translateX(-50%);
-//   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.7);
-
-//   ul {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 5px;
-//     margin: 0;
-//     padding: 5px;
-//     width: 150px;
-//   }
-
-//   &.member-modal ul {
-//     flex-direction: row;
-//     width: fit-content;
-//   }
-
-//   li {
-//     list-style-type: none;
-//     cursor: pointer;
-//     color: white;
-//     padding: 10px;
-//     text-align: center;
-//   }
-
-//   /* Style for member-option images within li elements */
-//   li .member-option {
-//     width: 50px;
-//     height: 50px;
-//     border-radius: 50%;
-//     margin-right: 8px;
-//   }

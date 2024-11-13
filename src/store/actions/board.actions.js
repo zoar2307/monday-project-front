@@ -1,6 +1,6 @@
 import { boardService } from "../../services/board/board.service.local";
 import { getRandomColor, makeId } from "../../services/util.service";
-import { ADD_BOARD, ADD_GROUP, BOARD_UNDO, REMOVE_BOARD, REMOVE_GROUP, SET_BACKDROP, SET_BOARD, SET_BOARDS, SET_FILTER_BY, SET_GROUPS, SET_IS_ADD_BOARD_MODAL, UPDATE_BOARD, UPDATE_BOARD_LABEL_ORDER, UPDATE_GROUP } from '../reducers/board.reducer'
+import { ADD_BOARD, ADD_GROUP, BOARD_UNDO, REMOVE_BOARD, REMOVE_GROUP, SET_BACKDROP, SET_BOARD, SET_BOARDS, SET_FILTER_BY, SET_GROUPS, SET_IS_ADD_BOARD_MODAL, UPDATE_BOARD, UPDATE_BOARD_LABELS, UPDATE_GROUP } from '../reducers/board.reducer'
 
 import { store } from '../store'
 
@@ -56,10 +56,75 @@ export async function saveBoard(board) {
 
 // Labels
 
-export async function updateLabelsOrder(newLabelOrder) {
+export async function updateLabels(newLabels) {
     const { currBoard } = store.getState().boardModule
     try {
-        store.dispatch({ type: UPDATE_BOARD_LABEL_ORDER, newLabels: newLabelOrder })
+        store.dispatch({ type: UPDATE_BOARD_LABELS, newLabels: newLabels })
+        currBoard.cmpsLabels = newLabels
+        const savedBoard = await boardService.save(currBoard)
+
+        return savedBoard
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.log('board action -> Cannot save board', err)
+        throw err
+    }
+}
+
+export async function removeLabel(labelId) {
+    const { currBoard } = store.getState().boardModule
+    try {
+        const newLabels = currBoard.cmpsLabels.filter(label => label.id !== labelId)
+        store.dispatch({ type: UPDATE_BOARD_LABELS, newLabels: newLabels })
+        currBoard.cmpsLabels = newLabels
+        const savedBoard = await boardService.save(currBoard)
+
+        return savedBoard
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.log('board action -> Cannot save board', err)
+        throw err
+    }
+}
+
+export async function addLabel(name) {
+    const { currBoard } = store.getState().boardModule
+    let labelType
+    let labelClass
+    switch (name) {
+        case 'Status':
+            labelClass = 'status'
+            labelType = 'StatusPicker'
+            break;
+        case 'Member':
+            labelClass = 'members'
+            labelType = 'MemberPicker'
+            break;
+        case 'Priority':
+            labelClass = 'priority'
+            labelType = 'PriorityPicker'
+            break;
+        case 'Date':
+            labelClass = 'date'
+            labelType = 'DatePicker'
+            break;
+
+        default:
+            break;
+    }
+    console.log(labelClass)
+    console.log(labelType)
+
+    const newLabel = {
+        type: labelType,
+        class: labelClass,
+        title: name,
+        id: makeId()
+    }
+    try {
+        const newLabels = [...currBoard.cmpsLabels, newLabel]
+        store.dispatch({ type: UPDATE_BOARD_LABELS, newLabels: newLabels })
+        currBoard.cmpsLabels = newLabels
         const savedBoard = await boardService.save(currBoard)
 
         return savedBoard

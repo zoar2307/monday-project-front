@@ -7,7 +7,7 @@ export const REMOVE_BOARD = 'REMOVE_BOARD'
 export const ADD_BOARD = 'ADD_BOARD'
 export const UPDATE_BOARD = 'UPDATE_BOARD'
 export const BOARD_UNDO = 'BOARD_UNDO'
-export const UPDATE_BOARD_LABEL_ORDER = 'UPDATE_BOARD_LABEL_ORDER'
+export const UPDATE_BOARD_LABELS = 'UPDATE_BOARD_LABELS'
 
 export const SET_GROUPS = 'SET_GROUPS'
 export const REMOVE_GROUP = 'REMOVE_GROUP'
@@ -57,7 +57,7 @@ export function boardReducer(state = initialState, action = {}) {
             )
             return { ...state, boards, board: action.board }
 
-        case UPDATE_BOARD_LABEL_ORDER:
+        case UPDATE_BOARD_LABELS:
             return { ...state, currBoard: { ...state.currBoard, cmpsLabels: action.newLabels } }
 
 
