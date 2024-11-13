@@ -50,6 +50,16 @@
 
     .label {
       &.header {
+        .dots-container {
+          position: absolute;
+          top: 50%;
+          translate: 0 -50%;
+          right: 6px;
+          z-index: 100;
+          width: 24px;
+          height: 24px;
+        }
+
         .dots {
           display: flex;
           justify-content: center;
@@ -70,6 +80,8 @@
           &:hover {
             background-color: rgba($color: #676879, $alpha: 0.1);
           }
+
+
         }
 
         svg {
@@ -82,6 +94,19 @@
 
           .dots {
             visibility: unset;
+          }
+        }
+
+
+        &:has(.dots.opened-modal) {
+          background-color: rgba($color: #676879, $alpha: 0.1);
+
+          .dots {
+            &.opened-modal {
+              visibility: unset;
+              background-color: #cce5ff;
+
+            }
           }
         }
 
@@ -381,6 +406,10 @@
     }
   }
 
+  .add-task-container {
+    position: relative;
+  }
+
 
   .add-label {
     position: relative;
@@ -392,6 +421,7 @@
     width: em(22px, 16px);
     border: none;
     border-radius: em(4px, 16px);
+    padding: 0;
 
 
     cursor: pointer;
@@ -408,6 +438,7 @@
       transition: .3s;
 
       &.opened-modal {
+        color: $light-sidebar-clr9;
         rotate: 45deg;
       }
 
