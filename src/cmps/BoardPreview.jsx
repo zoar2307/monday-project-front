@@ -13,13 +13,13 @@ export function BoardPreview({ board }) {
     const defaultColor = 'rgb(103, 104, 121)'
 
     useEffect(() => {
-        setIsStarred(board.isStarred);
-    }, [board.isStarred]);
+        setIsStarred(board.isStarred)
+    }, [board.isStarred])
 
     function handleClick(event) {
         event.preventDefault()
         try {
-            const updatedBoard = { ...board, isStarred: !isStarred };
+            const updatedBoard = { ...board, isStarred: !isStarred }
             saveBoard(updatedBoard)
             dispatch({ type: UPDATE_BOARD, board: updatedBoard })
             setIsStarred(isStarred => !isStarred)

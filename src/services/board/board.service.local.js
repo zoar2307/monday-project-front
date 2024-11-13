@@ -28,7 +28,8 @@ async function query(filterBy = { title: "" }) {
 }
 
 function filterBoard(board, filters) {
-  const filteredGroups = filterGroupsByTasks(board.groups, filters);
+  const filteredGroups = filterGroupsByTasks(board.groups, filters)
+
   return {
     ...board,
     groups: filteredGroups,
@@ -38,20 +39,21 @@ function filterBoard(board, filters) {
 function filterGroupsByTasks(groups, filters) {
   return groups
     .map(group => {
-      // Filter tasks within the group based on task-level filters
-      const filteredTasks = filterEntities(group.tasks, filters);
 
       // Check if the group matches group-level filters
-      const groupMatches = (!filters.title || new RegExp(filters.title, "i").test(group.title));
+      const groupMatches = (!filters.title || new RegExp(filters.title, "i").test(group.title))
+
+      // Filter tasks within the group based on task-level filters only if the group does not match
+      const filteredTasks = groupMatches ? group.tasks : filterEntities(group.tasks, filters)
 
       // Only return the group if it matches group-level filters or contains matching tasks
       if (groupMatches || filteredTasks.length > 0) {
-        return { ...group, tasks: filteredTasks };
+        return { ...group, tasks: filteredTasks }
       }
 
-      return null; // Exclude groups that don't match and have no matching tasks
+      return null // Exclude groups that don't match and have no matching tasks
     })
-    .filter(group => group); // Exclude null groups
+    .filter(group => group) // Exclude null groups
 }
 
 function filterEntities(entities, filters) {
@@ -226,6 +228,7 @@ async function _createBoards() {
               ],
               "status": "Working on it",
               "priority": "High",
+              "date": "2024-11-01T00:00:00Z",
               "conversation": []
             },
             {
@@ -245,6 +248,7 @@ async function _createBoards() {
               ],
               "status": "Done",
               "priority": "Medium",
+              "date": "2024-11-01T00:00:00Z",
               "conversation": []
             },
             {
@@ -264,6 +268,7 @@ async function _createBoards() {
               ],
               "status": "Stuck",
               "priority": "Critical",
+              "date": "2024-11-01T00:00:00Z",
               "conversation": []
             },
             {
@@ -589,6 +594,7 @@ async function _createBoards() {
               ],
               "status": "Working on it",
               "priority": "Medium",
+              "date": "2024-11-01T00:00:00Z",
               "conversation": []
             }
           ]
@@ -861,7 +867,8 @@ function getEmptyBoard() {
     cmpsOrder: [
       "StatusPicker",
       "MemberPicker",
-      "PriorityPicker"
+      "PriorityPicker",
+      "DatePicker"
     ]
   }
 }

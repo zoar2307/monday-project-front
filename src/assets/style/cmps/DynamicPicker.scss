@@ -1,5 +1,112 @@
 .label-container {
     position: relative;
+
+    .react-datepicker {
+        font-family: Figtree, helvetica, arial, sans-serif;
+        font-size: 1rem;
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #aeaeae;
+        border-radius: 0.3rem;
+        display: inline-block;
+        position: relative;
+        line-height: initial;
+        width: 310px;
+        height: 310px;
+    }
+
+    .react-datepicker__header {
+        text-align: center;
+        background-color: #f0f0f0;
+        border-top-left-radius: 0.3rem;
+        border-bottom: 0;
+        padding: 0;
+        position: relative;
+    }
+
+    .react-datepicker__day-names {
+        white-space: nowrap;
+        margin-bottom: 0;
+        background-color: white;
+        height: 31px;
+    }
+
+    .react-datepicker__month {
+        margin: 0.3rem;
+        text-align: center;
+    }
+
+    .react-datepicker__month-container {
+        float: left;
+        width: 100%;
+        padding: 8px;
+    }
+
+    .react-datepicker__week {
+        white-space: nowrap;
+        margin-top: 10px;
+    }
+
+    .react-datepicker__day-name,
+    .react-datepicker__day,
+    .react-datepicker__time-name {
+        color: #000;
+        display: inline-block;
+        width: 2.2rem;
+        line-height: 30px;
+        text-align: center;
+        margin: 3px;
+        padding-right: 5px;
+    }
+
+    .group-preview h2 {
+        font-size: 22px;
+        background-color: white;
+    }
+
+    h2.react-datepicker__current-month {
+        padding: 5px;
+        margin: 0;
+    }
+
+    .react-datepicker__current-month,
+    .react-datepicker-time__header,
+    .react-datepicker-year-header {
+        color: #414040;
+        font-weight: 500;
+        background-color: white;
+        text-align: center;
+    }
+
+    .react-datepicker__day--selected,
+    .react-datepicker__day--keyboard-selected {
+        border-radius: 30%;
+        background-color: #0372e6;
+        color: white;
+        font-weight: 300;
+        width: 30px;
+        padding-left: 5px;
+        border-right: 1px white solid;
+    }
+
+    .react-datepicker__navigation {
+        align-items: center;
+        background: none;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        cursor: pointer;
+        position: absolute;
+        top: 7px;
+        padding: 0px;
+        border: none;
+        z-index: 1;
+        height: 32px;
+        width: 32px;
+        text-indent: -999em;
+        overflow: hidden;
+    }
+
 }
 
 .header {}

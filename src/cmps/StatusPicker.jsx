@@ -27,7 +27,6 @@ export function StatusPicker({ info, onUpdate, labels }) {
         {info.status}
       </div>
 
-      {/* Modal for selecting status */}
       {isModalOpen && (
         <PickerModal
           options={statusLabels}

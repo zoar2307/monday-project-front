@@ -58,7 +58,7 @@ export function OptionGroupModal({ closeModal, groupId }) {
                 <button onClick={() => console.log('Option 1 clicked')}><img src={convertSubitem} alt="expand" />Convert to subitem</button>
                 <div className='divider'></div>
                 <button onClick={() => console.log('Option 2 clicked')}><img src={archive} alt="archive" />Archive</button>
-                <button onClick={deleteGroup}><img src={trash} alt="trash" />Delete</button>
+                <button onClick={deleteGroup}><img src={trash} alt="trash" />Delete Group</button>
             </div>
         </div>
     )

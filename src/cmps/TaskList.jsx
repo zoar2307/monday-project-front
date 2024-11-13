@@ -32,7 +32,7 @@ export function TaskList({ group }) {
       case 'number':
       case 'range':
         value = +value
-        break;
+        break
 
       case 'checkbox':
         value = target.checked

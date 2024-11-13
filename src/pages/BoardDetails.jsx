@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { loadBoard, loadBoards } from "../store/actions/board.actions"
+import { loadBoard, resetFilterBy } from "../store/actions/board.actions"
 import { BoardDetailsHeader } from "../cmps/BoardDetailsHeader"
 import { GroupList } from "../cmps/GroupList"
 import { useSelector } from "react-redux"
@@ -8,9 +8,8 @@ import { boardService } from "../services/board/board.service.local"
 import { TaskConversation } from "../cmps/TaskConversation"
 
 export function BoardDetails() {
-  const filterBy = useSelector(storeState => storeState.boardModule.filterBy)
   const board = useSelector(storeState => storeState.boardModule.currBoard)
-  const [filteredBoard, setFilteredBoard] = useState(boardService.getEmptyBoard())
+  const filterBy = useSelector(storeState => storeState.boardModule.filterBy)
 
   const { boardId, taskId } = useParams()
   const navigate = useNavigate()
@@ -19,9 +18,13 @@ export function BoardDetails() {
     if (boardId) initBoard()
   }, [boardId, filterBy])
 
+  useEffect(() => {
+    resetFilterBy()
+  }, [])
+
   async function initBoard() {
     try {
-      loadBoard(boardId)
+      await loadBoard(boardId, filterBy)
     } catch (err) {
       console.log('Had issues in board details', err)
       navigate('/board')

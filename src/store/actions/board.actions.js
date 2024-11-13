@@ -4,9 +4,9 @@ import { ADD_BOARD, ADD_GROUP, BOARD_UNDO, REMOVE_BOARD, REMOVE_GROUP, SET_BACKD
 
 import { store } from '../store'
 
-export async function loadBoards(filterBy) {
+export async function loadBoards() {
     try {
-        const boards = await boardService.query(filterBy)
+        const boards = await boardService.query()
         store.dispatch({ type: SET_BOARDS, boards })
     } catch (err) {
         console.log('board action -> Cannot load boards', err)
@@ -15,13 +15,13 @@ export async function loadBoards(filterBy) {
     }
 }
 
-export async function loadBoard(boardId) {
+export async function loadBoard(boardId, filterBy) {
     try {
         const board = await boardService.getById(boardId)
-        // const filteredBoard = boardService.filterBoard(board, filterBy);
-        store.dispatch({ type: SET_BOARD, board })
-        // filteredBoard._id = boardId
-        // return filteredBoard
+        const filteredBoard = boardService.filterBoard(board, filterBy)
+        filteredBoard._id = boardId
+        store.dispatch({ type: SET_BOARD, board: filteredBoard })
+        return filteredBoard
     }
     catch (err) {
         console.log('board action -> Cannot load board', err)
@@ -245,6 +245,9 @@ export async function updateTask(groupId, taskId, data) {
     else if (data.assignedTo) {
         updateTaskMember(groupId, taskId, data.assignedTo)
     }
+    else if (data.date){
+        updateTaskDate(groupId , taskId , data.date)
+    }
 }
 
 export async function updateTaskStatus(groupId, taskId, status) {
@@ -304,12 +307,35 @@ export async function updateTaskMember(groupId, taskId, member) {
         console.error("Failed to update task member:", err)
     }
 }
+export async function updateTaskDate(groupId, taskId, date) {
+    const { currBoard } = store.getState().boardModule
+
+    console.log(date)
+
+    try {
+        if (!currBoard) return
+
+        const group = currBoard.groups.find((grp) => grp.id === groupId)
+        if (!group) return
+
+        const task = group.tasks.find((tsk) => tsk.id === taskId)
+        if (!task) return
+
+        task.date = date
+        store.dispatch({ type: UPDATE_GROUP, group: group })
+
+        await boardService.save(currBoard)
+
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.error("Failed to update task member:", err)
+    }
+}
 
 export async function addTaskConversationUpdate(groupId, taskId, update) {
     const { currBoard } = store.getState().boardModule
 
     update.createdAt = Date.now()
-    // will be user
     update.member = {
         _id: 'u101',
         fullname: 'Avivit Nehamia',
@@ -336,6 +362,10 @@ export async function addTaskConversationUpdate(groupId, taskId, update) {
 }
 
 export function setFilterBy(filterBy = boardService.getDefaultFilter()) {
+    store.dispatch({ type: SET_FILTER_BY, filterBy: filterBy })
+}
+
+export function resetFilterBy(filterBy = boardService.getDefaultFilter()) {
     store.dispatch({ type: SET_FILTER_BY, filterBy: filterBy })
 }
 
