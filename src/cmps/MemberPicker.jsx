@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PickerModal } from './PickerModal'
+import { MemberModal } from './MemberModal'
 import userEmpty from '../assets/img/user-empty.svg'
 
 export function MemberPicker({ info, onUpdate, members }) {
@@ -13,7 +13,7 @@ export function MemberPicker({ info, onUpdate, members }) {
     .map((assignedMember) => members.find((member) => member._id === assignedMember._id))
     .filter(Boolean)
 
-  const handleSelect = async (member) => {
+  const handleSelect = async (member, close = false) => {
     let updatedAssignedTo
     // const updatedAssignedTo = assignedToArray.includes(member._id)
     //   ? assignedToArray.filter((id) => id !== member._id)
@@ -24,7 +24,8 @@ export function MemberPicker({ info, onUpdate, members }) {
     else updatedAssignedTo = [...assignedToArray, member]
 
     onUpdate({ assignedTo: updatedAssignedTo })
-    setIsModalOpen(false)
+
+    if (close) setIsModalOpen(false)
   }
   const closeModal = () => setIsModalOpen(false)
   return (
@@ -53,12 +54,12 @@ export function MemberPicker({ info, onUpdate, members }) {
         )}
       </div>
       {isModalOpen && (
-        <PickerModal
+        <MemberModal
           options={members}
           onSelect={handleSelect}
           closeModal={closeModal}
           modalType="member"
-          assignedIds={assignedToArray}
+          assignedMembers={assignedToArray}
         />
       )}
     </div>
