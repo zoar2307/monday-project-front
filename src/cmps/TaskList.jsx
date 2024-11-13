@@ -11,7 +11,8 @@ export function TaskList({ group }) {
   const [isDragOn, setIsDragOn] = useState(false)
   const [labelModal, setLabelModal] = useState({ type: 'add', isDisplay: false, gId: '', lId: '' })
   const [newTask, setNewTask] = useState({ title: '' })
-  const modalBtnRef = useRef()
+  const modalAddBtnRef = useRef()
+  const modalRemoveBtnRef = useRef()
 
 
   async function onSubmitTask(ev) {
@@ -90,7 +91,7 @@ export function TaskList({ group }) {
                           >
                             {label.title}
                             <div className='dots-container'>
-                              <button onClick={() => onModal('open-remove', label.id, groupId)}
+                              <button ref={modalRemoveBtnRef} onClick={() => onModal('open-remove', label.id, groupId)}
                                 className={`dots 
                                   ${labelModal.isDisplay
                                   && labelModal.gId === groupId
@@ -102,7 +103,7 @@ export function TaskList({ group }) {
                                 && labelModal.isDisplay
                                 && labelModal.gId === groupId
                                 && labelModal.lId === label.id
-                                && < LabelModal board={board} type={'remove'} labelId={label.id} setLabelModal={setLabelModal} labelModal={labelModal} modalBtnRef={modalBtnRef} />}
+                                && < LabelModal modalRemoveBtnRef={modalRemoveBtnRef} board={board} type={'remove'} labelId={label.id} setLabelModal={setLabelModal} labelModal={labelModal} />}
                             </div>
 
                           </div>
@@ -119,10 +120,10 @@ export function TaskList({ group }) {
             </Droppable>
 
             <div className='add-task-container'>
-              <button ref={modalBtnRef} onClick={() => onModal('open-add')} className='add-label'>
+              <button ref={modalAddBtnRef} onClick={() => onModal('open-add')} className='add-label'>
                 <svg className={`${labelModal.type === 'add' && labelModal.isDisplay && 'opened-modal'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" aria-hidden="true" data-testid="icon"><g id="Icon / Basic / Add"><path id="Union" d="M10 2.25C10.4142 2.25 10.75 2.58579 10.75 3V9.25H17C17.4142 9.25 17.75 9.58579 17.75 10C17.75 10.4142 17.4142 10.75 17 10.75H10.75V17C10.75 17.4142 10.4142 17.75 10 17.75C9.58579 17.75 9.25 17.4142 9.25 17V10.75H3C2.58579 10.75 2.25 10.4142 2.25 10C2.25 9.58579 2.58579 9.25 3 9.25H9.25V3C9.25 2.58579 9.58579 2.25 10 2.25Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></g></svg>
               </button>
-              {labelModal.type === 'add' && labelModal.isDisplay && <LabelModal board={board} type={'add'} setLabelModal={setLabelModal} labelModal={labelModal} modalBtnRef={modalBtnRef} />}
+              {labelModal.type === 'add' && labelModal.isDisplay && <LabelModal board={board} type={'add'} setLabelModal={setLabelModal} labelModal={labelModal} modalAddBtnRef={modalAddBtnRef} />}
             </div>
           </div  >
 

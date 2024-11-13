@@ -1,6 +1,6 @@
 .main-layout {
   // margin: 0 auto;
-  height: calc(100vh - 48px);
+  // height: calc(100vh - 48px);
   display: flex;
   gap: em(10px, 16px);
   user-select: none;
@@ -9,14 +9,14 @@
 
 .homepage {
   display: grid;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr auto 1fr;
 }
 
-.container {
-  max-width: 800px;
-  padding: 1em;
-  margin: auto;
-}
+// .container {
+//   max-width: 800px;
+//   padding: 1em;
+//   margin: auto;
+// }
 
 footer {
   background-color: var(--clr1);

@@ -1,18 +1,36 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { addLabel, removeLabel } from "../store/actions/board.actions"
 
 export function LabelModal({ type,
     setLabelModal,
     labelModal,
-    modalBtnRef,
+    modalAddBtnRef,
     board,
-    labelId }) {
+    labelId,
+    modalRemoveBtnRef }) {
     const modalRef = useRef()
+    const [clickPos, setClickPos] = useState({})
 
     const handleClickOutside = (event) => {
-        if (modalRef.current && !modalRef.current.contains(event.target) && modalBtnRef.current && !modalBtnRef.current.contains(event.target)) {
-            setLabelModal(prev => ({ ...prev, isDisplay: false }))
+        if (!modalAddBtnRef) {
+            if (modalRef.current &&
+                !modalRef.current.contains(event.target) &&
+                modalRemoveBtnRef.current &&
+                !modalRemoveBtnRef.current.contains(event.target)) {
+                setLabelModal(prev => ({ ...prev, isDisplay: false }))
+            }
         }
+        if (!modalRemoveBtnRef) {
+            if (modalRef.current &&
+                !modalRef.current.contains(event.target) &&
+                modalAddBtnRef.current &&
+                !modalAddBtnRef.current.contains(event.target)
+            ) {
+                setLabelModal(prev => ({ ...prev, isDisplay: false }))
+            }
+        }
+        // const bounds = document.body.getBoundingClientRect()
+        // console.log('y', bounds.right - event.clientX)
     }
 
     useEffect(() => {
@@ -47,7 +65,8 @@ export function LabelModal({ type,
     return (
         <section ref={modalRef} className="label-modal" style={{
             top: type === 'add' ? '-20%' : '-20%',
-            left: type === 'add' ? '80%' : '100%',
+            right: type === 'add' ? '80%' : '',
+            left: type === 'add' ? '' : '100%'
         }}>
             {type === 'add' ?
                 <div className="add-label-modal">
