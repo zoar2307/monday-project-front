@@ -242,7 +242,7 @@ export async function addTaskConversationUpdate(groupId, taskId, update) {
     try {
         const group = currBoard.groups.find((grp) => grp.id === groupId)
         const task = group.tasks.find((tsk) => tsk.id === taskId)
-        task.conversation.push(update)
+        task.conversation.unshift(update)
         console.log(task)
         console.log(group)
         store.dispatch({ type: UPDATE_GROUP, group: group })
