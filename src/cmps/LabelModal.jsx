@@ -65,7 +65,7 @@ export function LabelModal({ type,
     return (
         <section ref={modalRef} className="label-modal" style={{
             top: type === 'add' ? '-20%' : '-20%',
-            right: type === 'add' ? '80%' : '',
+            right: type === 'add' ? '100%' : '',
             left: type === 'add' ? '' : '100%'
         }}>
             {type === 'add' ?
@@ -138,6 +138,25 @@ export function LabelModal({ type,
                             </div>
 
                             <span>Date</span>
+                        </div>
+                    }
+
+                    {board.cmpsLabels.find(lable => lable.type === 'ProgressBars') ?
+                        <div className="label-type disabled">
+                            <div className="img-container progress">
+                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/date-column-icon.svg" alt=""></img>
+                            </div>
+
+                            <span>Progress</span>
+                        </div>
+                        :
+                        <div onClick={() => onAddLabel('Progress')} className="label-type">
+                            <div className="img-container progress">
+                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/date-column-icon.svg" alt=""></img>
+
+                            </div>
+
+                            <span>Progress</span>
                         </div>
                     }
 

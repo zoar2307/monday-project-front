@@ -7,9 +7,13 @@
     display: flex;
     flex-direction: column;
 
-    padding-bottom: 111em;
     // min-width: max-content;
 
+    .btn-container {
+        height: 200px;
+        display: flex;
+        align-items: center;
+    }
 
     .add-group-btn {
         margin-top: 70px;

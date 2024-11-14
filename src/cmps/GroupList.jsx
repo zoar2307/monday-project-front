@@ -136,10 +136,13 @@ export function GroupList({ board }) {
             )}
 
           </Droppable>
-          <button onClick={handleAddGroup} className="add-group-btn flex align-center">
-            <i className="fa-solid fa-plus"></i>
-            Add new group
-          </button>
+          <div className="btn-container">
+
+            <button onClick={handleAddGroup} className="add-group-btn flex align-center">
+              <i className="fa-solid fa-plus"></i>
+              Add new group
+            </button>
+          </div>
         </div>
       </DragDropContext>
     </>

@@ -108,10 +108,14 @@ export async function addLabel(name) {
             labelClass = 'date'
             labelType = 'DatePicker'
             break;
-            case 'File':
-                labelClass = 'file'
-                labelType = 'FilePicker'
-                break;
+        case 'File':
+            labelClass = 'file'
+            labelType = 'FilePicker'
+            break;
+        case 'Progress':
+            labelClass = 'progress'
+            labelType = 'ProgressBar'
+            break;
 
         default:
             break;
@@ -249,11 +253,11 @@ export async function updateTask(groupId, taskId, data) {
     else if (data.assignedTo) {
         updateTaskMember(groupId, taskId, data.assignedTo)
     }
-    else if (data.date){
-        updateTaskDate(groupId , taskId , data.date)
+    else if (data.date) {
+        updateTaskDate(groupId, taskId, data.date)
     }
-    else if (data.file){
-        updateTaskFile(groupId , taskId , data.file)
+    else if (data.file) {
+        updateTaskFile(groupId, taskId, data.file)
     }
 }
 

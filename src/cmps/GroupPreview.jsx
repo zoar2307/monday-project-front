@@ -86,6 +86,15 @@ export function GroupPreview({
 
 
   const dragClass = isDragOn ? 'drag' : ''
+  const groupProgress = group.tasks.reduce((acc, task) => {
+    if (!task.status) return acc
+    if (!acc[task.status]) acc[task.status] = 0
+    acc[task.status]++
+    acc.count++
+    return acc
+  }, { count: 0 })
+
+
 
   return (
     <>
@@ -239,7 +248,7 @@ export function GroupPreview({
                               return acc
                             }, { count: 0 })
 
-                            const labelWidth = 200 / labelStats.count * labelStats[label.title]
+                            const labelWidth = 220 / labelStats.count * labelStats[label.title]
                             if (label.type === 'status' && labelStats[label.title]) return (
                               <div key={label.id}
                                 style={{
@@ -269,7 +278,7 @@ export function GroupPreview({
                             }, { count: 0 })
                             console.log(labelStats)
 
-                            const labelWidth = 200 / labelStats.count * labelStats[label.title]
+                            const labelWidth = 220 / labelStats.count * labelStats[label.title]
                             if (label.type === 'priority' && labelStats[label.title]) return (
                               <div key={label.id}
                                 style={{
@@ -287,8 +296,57 @@ export function GroupPreview({
                       if (cmp === 'FilePicker') return (
                         < div key={cmp}></div>
                       )
+                      if (cmp === 'ProgressBar') return (
 
+                        < div key={cmp} className="priority-stats"
+                          style={{
+                            height: '36px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: '9px',
+                            gap: '5px'
+                          }}
+                        >
+                          <div style={{
+                            border: '2px solid #00854d',
+                            width: '80%',
+                            height: '100%',
+                            borderRadius: '2px',
+                            display: 'flex',
+                            alignItems: 'center'
+                          }}>
+                            <div className="green"
+                              style={{
+                                background: '#00854d',
+                                width: 176 / groupProgress.count * groupProgress.Done + 'px',
+                                height: '100%'
 
+                              }}></div>
+                            <div className="white"
+                              style={{
+                                background: '#fff',
+                                height: '100%',
+
+                                width: (176 - (176 / groupProgress.count * groupProgress.Done)) + 'px'
+                              }}
+                            ></div>
+                          </div>
+
+                          <div
+                            style={{
+                              justifyContent: 'end',
+                              width: '30px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              fontSize: '13px',
+                              fontFamily: 'Figtree',
+                              fontWeight: 200,
+                              color: '#323338'
+                            }}
+                          >{Math.round(100 * groupProgress.Done / groupProgress.count) || 0}%</div>
+                        </div>
+                      )
 
 
                     })}

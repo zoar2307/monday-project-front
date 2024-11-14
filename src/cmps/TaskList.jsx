@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { TaskPreview } from './TaskPreview'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
 import { useSelector } from 'react-redux'
-import { addTask, removeLabel } from '../store/actions/board.actions'
-import { LabelModal } from './LabelModal'
+import { Droppable } from 'react-beautiful-dnd'
 
 export function TaskList({ group }) {
   const board = useSelector(storeState => storeState.boardModule.currBoard)
   const { id: groupId, tasks } = group
 
-
+  const [isDragOver, setIsDragOver] = useState(false)
 
   return (
     <>
@@ -22,9 +20,12 @@ export function TaskList({ group }) {
         >
           {(provided, snapshot) => (
             <div
-              className='group-body'
+              className={`group-body ${isDragOver && 'drag-over'}`}
               ref={provided.innerRef}
               {...provided.droppableProps}
+              style={{
+                '--background': group.color
+              }}
             >
               {tasks.map((task, idx) => {
 
@@ -32,6 +33,7 @@ export function TaskList({ group }) {
                 return <TaskPreview key={task.id} task={task} idx={idx} group={group} board={board} />
 
               })}
+              {setIsDragOver(snapshot.isDraggingOver)}
               {provided.placeholder}
 
 

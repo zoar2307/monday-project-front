@@ -782,6 +782,7 @@ async function _createBoards() {
         { "type": "PriorityPicker", "title": "Priority", "id": "dl103", "class": "priority" },
         { "type": "DatePicker", "title": "Date", "id": "dl104", "class": "date" },
         { "type": "FilePicker", "title": "File", "id": "dl105", "class": "file" },
+        { "type": "ProgressBar", "title": "progress", "id": "dl105", "class": "progress" },
 
         // "StatusPicker",
         // "MemberPicker",
