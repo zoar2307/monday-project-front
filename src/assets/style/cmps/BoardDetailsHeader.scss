@@ -1,6 +1,10 @@
 .board-details-header {
     padding: em(18px, 16px) em(30px, 16px) em(10px, 16px) em(38px, 16px);
-
+    position: sticky;
+    left: 0;
+    top: 0;
+    z-index: 10000;
+    background-color: #fff;
     column-gap: 16px;
     display: grid;
     grid-template-areas:

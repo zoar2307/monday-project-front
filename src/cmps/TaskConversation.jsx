@@ -16,7 +16,7 @@ export function TaskConversation() {
 
 
 
-    const { boardId, taskId } = useParams()
+    const { boardId, taskId, groupId } = useParams()
     const { groups } = board
 
     const dispatch = useDispatch()
@@ -32,29 +32,15 @@ export function TaskConversation() {
 
     useEffect(() => {
         if (taskId) {
-            let allTasks = groups.map(group => {
-                return group.tasks.map(task => task)
-            })
-
-            allTasks = allTasks.reduce((acc, tasks) => {
-                acc.push(...tasks)
-                return acc
-            }, [])
-
-            const task = allTasks.find(task => task.id === taskId)
+            let group = groups.find(group => group.id === groupId)
+            console.log(group)
+            const task = group.tasks.find(task => task.id === taskId)
+            console.log(task)
             setSelectedTask(task)
-
-            let group = groups.filter(group => group.find)
         }
     }, [taskId])
 
-    useEffect(() => {
-        if (selectedTask) {
-            let group = groups.filter(group => group.tasks.find(task => task.id === selectedTask.id))[0]
-            setSelectedGroup(group)
-            console.log(group)
-        }
-    }, [selectedTask])
+
 
     function onCloseConversation() {
         navigate(`/board/${boardId}`)
@@ -80,7 +66,7 @@ export function TaskConversation() {
         ev.preventDefault()
         if (!newUpdate.txt) return
         try {
-            await addTaskConversationUpdate(selectedGroup.id, selectedTask.id, newUpdate)
+            await addTaskConversationUpdate(groupId, selectedTask.id, newUpdate)
             setIsWriting(false)
             setNewUpdate({ txt: '' })
         }

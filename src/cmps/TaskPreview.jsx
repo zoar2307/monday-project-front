@@ -71,10 +71,10 @@ export function TaskPreview({ idx, task, group, board }) {
             navigate(`/board/${board._id}`)
             dispatch({ type: SET_CONVERSATION_STATUS, status: false })
         } else if (taskId && taskId !== task.di) {
-            navigate(`/board/${board._id}/${task.id}`)
+            navigate(`/board/${board._id}/${groupId}/${task.id}`)
             dispatch({ type: SET_CONVERSATION_STATUS, status: true })
         } else {
-            navigate(`/board/${board._id}/${task.id}`)
+            navigate(`/board/${board._id}/${groupId}/${task.id}`)
             dispatch({ type: SET_CONVERSATION_STATUS, status: true })
         }
     }
@@ -93,11 +93,9 @@ export function TaskPreview({ idx, task, group, board }) {
                     </button>
 
                     <div className='check-label'
-                        style={{
-                            borderLeft: `5px solid ${group.color}`
-                        }}
+                        style={{ '--before-color': group.color }}
                     ><input type="checkbox" /></div>
-                    <div className='task-title body'>
+                    <div className='task-title'>
                         <div className='task-title-txt'>
 
                             {isEditTaskTitle ?
@@ -134,11 +132,12 @@ export function TaskPreview({ idx, task, group, board }) {
                     </div>
 
                     {setIsDragOn(snapshot.isDragging)}
-
-                    {
-                        cmpsOrder.map((cmp, idx) => (
-                            <div key={idx} className='task-label'>
+                    <div className='labels'>
+                        {
+                            cmpsOrder.map((cmp, idx) => (
+                                // <div  className='task-label'>
                                 <DynamicCmp
+                                    key={idx}
                                     cmp={cmp}
                                     info={task}
                                     labels={labels}
@@ -149,9 +148,10 @@ export function TaskPreview({ idx, task, group, board }) {
                                         updateTask(groupId, task.id, data)
                                     }}
                                 />
-                            </div>
-                        ))
-                    }
+                                // </div>
+                            ))
+                        }
+                    </div>
 
                     {isModalOpen &&
                         <OptionTaskModal closeModal={() => setModalOpen(false)} groupId={group.id} taskId={task.id} />}

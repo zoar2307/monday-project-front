@@ -46,7 +46,6 @@ export function MemberPicker({ info, onUpdate, members }) {
               src={member.imgUrl}
               alt={member.fullname}
               title={member.fullname}
-              style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '4px' }}
             />
           ))
         ) : (
