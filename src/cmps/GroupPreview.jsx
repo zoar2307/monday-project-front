@@ -164,6 +164,9 @@ export function GroupPreview({
                         className={`labels`}
                         ref={provided.innerRef}
                         {...provided.droppableProps}
+                        style={{
+                          '--labels': board.cmpsLabels.length
+                        }}
                       >
 
                         {board.cmpsLabels.map((label, idx) => {
@@ -276,7 +279,6 @@ export function GroupPreview({
                               acc.count++
                               return acc
                             }, { count: 0 })
-                            console.log(labelStats)
 
                             const labelWidth = 220 / labelStats.count * labelStats[label.title]
                             if (label.type === 'priority' && labelStats[label.title]) return (

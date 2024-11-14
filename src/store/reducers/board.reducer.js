@@ -8,6 +8,7 @@ export const UPDATE_BOARD = 'UPDATE_BOARD'
 export const BOARD_UNDO = 'BOARD_UNDO'
 export const UPDATE_BOARD_LABELS = 'UPDATE_BOARD_LABELS'
 
+export const SET_GROUPS_FOR_FILTER = 'SET_GROUPS_FOR_FILTER'
 export const SET_GROUPS = 'SET_GROUPS'
 export const REMOVE_GROUP = 'REMOVE_GROUP'
 export const UPDATE_GROUP = 'UPDATE_GROUP'
@@ -19,6 +20,7 @@ export const SET_IS_ADD_BOARD_MODAL = 'SET_IS_ADD_BOARD_MODAL'
 
 const initialState = {
     boards: [],
+    groupsForFilter: [],
     currBoard: null,
     lastCurrBoard: null,
     filterBy: boardService.getDefaultFilter(),
@@ -69,6 +71,11 @@ export function boardReducer(state = initialState, action = {}) {
             return {
                 ...state,
                 currBoard: { ...state.currBoard, groups: action.groups }
+            }
+        case SET_GROUPS_FOR_FILTER:
+            return {
+                ...state,
+                currBoard: { groupsForFilter: action.groups }
             }
 
         case REMOVE_GROUP:

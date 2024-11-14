@@ -36,7 +36,13 @@ export function Signup() {
 
                         <form onSubmit={onSubmitEmail}>
                             <div className="input-container">
+                                <input className='btn' type="text" placeholder="Fullname" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                            </div>
+                            <div className="input-container">
                                 <input className='btn' type="text" placeholder="name@compamy.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                            </div>
+                            <div className="input-container">
+                                <input className='btn' type="text" placeholder="Password" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
                             </div>
 
                             <div className="continue-container">

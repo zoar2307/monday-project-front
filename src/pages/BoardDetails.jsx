@@ -6,6 +6,7 @@ import { GroupList } from "../cmps/GroupList"
 import { useSelector } from "react-redux"
 import { boardService } from "../services/board/board.service.local"
 import { TaskConversation } from "../cmps/TaskConversation"
+import { store } from "../store/store"
 
 export function BoardDetails() {
   const board = useSelector(storeState => storeState.boardModule.currBoard)
