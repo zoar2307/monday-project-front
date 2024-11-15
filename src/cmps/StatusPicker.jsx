@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { PickerModal } from './PickerModal'
 import { loadBoards } from '../store/actions/board.actions'
 export function StatusPicker({ info, onUpdate, labels }) {
   const [isModalOpen, setModalOpen] = useState(false)
   const statusLabels = labels.filter((label) => label.type === "status")
+  const labelRef = useRef()
 
   const handleSelect = (status) => {
     onUpdate({ status: status.title })
@@ -18,7 +19,8 @@ export function StatusPicker({ info, onUpdate, labels }) {
   return (
     <div className='label-container'>
       <div
-        onClick={() => setModalOpen(true)}
+        ref={labelRef}
+        onClick={() => setModalOpen(prev => !prev)}
         className="status label not-header table"
         style={{
           backgroundColor: getLabelColor("status", info.status),
@@ -29,6 +31,7 @@ export function StatusPicker({ info, onUpdate, labels }) {
 
       {isModalOpen && (
         <PickerModal
+          labelRef={labelRef}
           options={statusLabels}
           onSelect={handleSelect}
           closeModal={() => setModalOpen(false)}
