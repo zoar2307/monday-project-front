@@ -30,6 +30,8 @@ export function GroupPreview({
   const toggleModal = () => {
     setModalOpen(!isModalOpen)
   }
+  const [isHovered, setIsHovered] = useState(false)
+
 
   const cmpsOrder = board.cmpsLabels.map(label => label.type)
 
@@ -83,6 +85,38 @@ export function GroupPreview({
     }
 
   }
+
+  function formatDateRange(earliestDate, latestDate) {
+    const sameYear = earliestDate.getFullYear() === latestDate.getFullYear()
+    const sameMonth = sameYear && earliestDate.getMonth() === latestDate.getMonth()
+    if (sameMonth) {
+      return `${earliestDate.getDate()}-${latestDate.getDate()} ${earliestDate.toLocaleDateString('en-US', { month: 'short' })}`
+    } else if (sameYear) {
+      return `${earliestDate.getDate()} ${earliestDate.toLocaleDateString('en-US', { month: 'short' })} - ${latestDate.getDate()} ${latestDate.toLocaleDateString('en-US', { month: 'short' })}`
+    } else {
+      return `${earliestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' })} - ${latestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' })}`
+    }
+  }
+
+  function calculateDateStats(tasks) {
+    const dates = tasks.map(task => task.date).filter(date => date).map(date => new Date(date))
+    if (dates.length === 0) return { progress: 0, dateRange: 'No Date', daysDifference: 0 }
+    const earliestDate = new Date(Math.min(...dates))
+    const latestDate = new Date(Math.max(...dates))
+    const today = new Date()
+    const totalRange = latestDate - earliestDate
+    const elapsedRange = today - earliestDate
+    const progress = Math.min(100, Math.max(0, (elapsedRange / totalRange) * 100))
+    const daysDifference = Math.ceil((latestDate - earliestDate) / (1000 * 60 * 60 * 24))
+    const dateRange = formatDateRange(earliestDate, latestDate)
+    return { progress, dateRange, daysDifference }
+  }
+
+
+  const dateStats = calculateDateStats(group.tasks)
+
+
+
 
 
   const dragClass = isDragOn ? 'drag' : ''
@@ -207,9 +241,9 @@ export function GroupPreview({
 
               </header>
 
-              {/* <main className="flex"> */}
+
               <TaskList group={group} />
-              {/* </main> */}
+
 
               <div className="group-footer">
                 <div className='add-task '>
@@ -281,9 +315,7 @@ export function GroupPreview({
                           })}
                         </div>
                       )
-                      if (cmp === 'DatePicker') return (
-                        < div key={cmp}> {cmp}</div>
-                      )
+
                       if (cmp === 'FilePicker') return (
                         < div key={cmp}></div>
                       )
@@ -292,6 +324,35 @@ export function GroupPreview({
 
 
                     })}
+                    {cmpsOrder.map((cmp, idx) => {
+                      if (cmp === 'DatePicker') {
+                        return (
+                          <div
+                            key={cmp}
+                            className="date-stats"
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                          >
+                            <div className="date-progress-bar">
+                              <div
+                                className="date-fill"
+                                style={{
+                                  width: `${dateStats.progress}%`,
+                                }}
+                              ></div>
+                              <span className="date-range">
+                                {isHovered ? `${dateStats.daysDifference} days` : dateStats.dateRange}
+                              </span>
+                            </div>
+                          </div>
+                        )
+                      }
+                    })}
+
+
+
+
+
 
 
 

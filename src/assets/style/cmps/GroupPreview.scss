@@ -538,6 +538,8 @@
         width: 100%;
 
         >* {
+          display: flex;
+          justify-content: center;
           padding: 6px;
           border-right: 1px solid #d3d4dd;
 
@@ -574,6 +576,47 @@
               scale: 1.1 1.1;
             }
           }
+        }
+
+        .date-stats {
+         
+
+
+          .date-progress-bar {
+            position: relative;
+            width: 90%;
+            background-color: #323232;
+            border-radius: 25px;
+            height: 100%;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 8px;
+          }
+
+          .date-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: #579bfc;
+            border-radius: 25px;
+            transition: width 0.3s ease;
+            height: '100%',
+
+          }
+
+          .date-range{
+            color: white;
+            font-family: Figtree;
+            position: relative;
+            
+            z-index: 1;
+            font-size: 12px;
+          }
+
+          
         }
       }
     }
