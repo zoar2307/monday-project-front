@@ -101,7 +101,7 @@ export function GroupPreview({
   function calculateDateStats(tasks) {
     const dates = tasks.map(task => task.date).filter(date => date).map(date => new Date(date))
     if (dates.length === 0) return { progress: 0, dateRange: 'No Date', daysDifference: 0 }
-    
+
     const earliestDate = new Date(Math.min(...dates))
     const latestDate = new Date(Math.max(...dates))
     const today = new Date()
@@ -113,13 +113,13 @@ export function GroupPreview({
     if (dates.length === 1) {
       return {
         progress: 100,
-        dateRange: earliestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric'}),
+        dateRange: earliestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
         daysDifference: 0,
         singleDate: true
       }
     }
     return { progress, dateRange, daysDifference }
-    
+
   }
 
 
@@ -395,9 +395,6 @@ export function GroupPreview({
                         </div>
                       )
 
-
-                    })}
-                    {cmpsOrder.map((cmp, idx) => {
                       if (cmp === 'DatePicker') {
                         return (
                           <div
@@ -420,7 +417,11 @@ export function GroupPreview({
                           </div>
                         )
                       }
+
+
                     })}
+
+
 
 
 

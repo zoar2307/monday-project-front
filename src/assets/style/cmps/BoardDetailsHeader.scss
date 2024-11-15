@@ -3,7 +3,7 @@
     position: sticky;
     left: 0;
     top: 0;
-    z-index: 10000;
+    z-index: 100;
     background-color: #fff;
     column-gap: 16px;
     display: grid;
@@ -131,24 +131,24 @@
                 position: relative;
             }
 
-            .member:nth-child(1) {
-                position: relative;
+            // .member:nth-child(1) {
+            //     position: relative;
 
-                z-index: 1;
-            }
+            //     z-index: 1;
+            // }
 
-            .member:nth-child(2) {
-                position: relative;
-                right: 8px;
-                z-index: 2;
-            }
+            // .member:nth-child(2) {
+            //     position: relative;
+            //     right: 8px;
+            //     z-index: 2;
+            // }
 
             .member-img {
                 display: flex;
                 align-items: center;
                 justify-content: center;
 
-                width: em(28px, 16px);
+                min-width: em(28px, 16px);
                 height: em(28px, 16px);
                 border-radius: 50%;
                 border: 1px solid white;
@@ -156,6 +156,7 @@
                 object-fit: cover;
 
                 background-color: pink;
+                margin: 0 -4px;
             }
 
             .plus-member {
@@ -172,7 +173,7 @@
                 line-height: lh(24px, 14px);
 
 
-                width: em(34px, 14px);
+                min-width: em(34px, 14px);
                 height: em(28px, 14px);
 
                 font-family: Figtree;
@@ -182,6 +183,8 @@
                 border-radius: em(14px, 14px);
                 // background-color: $light-board-details-clr4;
                 background-color: #dcdfec;
+                margin: 0 -4px;
+
 
                 color: $light-board-details-clr2;
             }
@@ -246,6 +249,7 @@
     }
 
     .views {
+        position: relative;
         grid-area: views;
         font-size: rem(14px);
 
@@ -257,6 +261,14 @@
         border-bottom: 2px solid rgba($color: $light-board-details-clr1, $alpha: 0.1);
 
         .view {
+            &.active {
+                .active-line {
+                    opacity: 1;
+                }
+            }
+
+            overflow: hidden;
+
             position: relative;
             display: flex;
             align-items: center;
@@ -287,7 +299,7 @@
                 width: 100%;
                 height: 2px;
                 position: absolute;
-                bottom: -2px;
+                bottom: 0px;
                 left: 0;
 
                 opacity: 0;
@@ -335,11 +347,7 @@
                 background-color: rgba($color: $light-board-details-clr1, $alpha: 0.1);
             }
 
-            &.active {
-                .active-line {
-                    opacity: 1;
-                }
-            }
+
         }
 
         .add-view {

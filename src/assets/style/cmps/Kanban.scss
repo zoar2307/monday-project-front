@@ -1,0 +1,112 @@
+.kanban {
+    height: 100%;
+    background-color: white;
+    width: 100%;
+
+    border-radius: em(8px, 16px) 0 0 0;
+    position: relative;
+    overflow-x: scroll;
+
+    overflow-y: hidden;
+    color: #323338;
+
+    >* {
+        font-family: Figtree;
+    }
+
+    .kanban-list {
+        width: max-content;
+        height: 600px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: em(30px, 16px);
+
+        padding-top: 0;
+        gap: em(20px, 16px);
+    }
+
+    .kanban-group {
+        border-radius: em(8px, 16px);
+        height: 100%;
+        min-width: 260px;
+        max-width: 260px;
+        display: flex;
+        flex-direction: column;
+        // align-items: center;
+        overflow: hidden;
+        // margin-right: 20px;
+    }
+
+    .label-title {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        height: 40px;
+        padding: em(8px, 16px);
+        background: var(--bgc);
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        color: #fff;
+    }
+
+    .task-list {
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: em(10px, 16px);
+        background-color: #f6f7fb;
+        padding: em(10px, 16px);
+        padding-bottom: em(200px, 16px);
+        height: 100%;
+    }
+
+
+
+    .task {
+        padding: em(10px, 16px);
+        border-radius: em(8px, 16px);
+        width: 100%;
+        height: max-content;
+        border: 1px solid #d0d4e4;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: em(16px, 16px);
+    }
+
+    .task-title {
+        font-size: rem(14px);
+    }
+
+    .label-title-task {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: rem(14px);
+        min-height: 21px;
+        border-left: 5px solid var(--bgc);
+        border-radius: em(4px, 14px);
+        width: max-content;
+        background-color: rgba($color: #676879, $alpha: 0.1);
+        padding: em(8px, 14px);
+    }
+
+    .member {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+
+        img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f5f6f8;
+            margin: 0 -4px;
+        }
+    }
+}

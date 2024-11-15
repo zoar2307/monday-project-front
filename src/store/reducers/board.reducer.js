@@ -14,6 +14,8 @@ export const REMOVE_GROUP = 'REMOVE_GROUP'
 export const UPDATE_GROUP = 'UPDATE_GROUP'
 export const ADD_GROUP = 'ADD_GROUP'
 
+export const SET_LABELS = 'SET_LABELS'
+
 export const SET_FILTER_BY = 'SET_FILTER_BY'
 export const SET_BACKDROP = 'SET_BACKDROP'
 export const SET_IS_ADD_BOARD_MODAL = 'SET_IS_ADD_BOARD_MODAL'
@@ -94,6 +96,12 @@ export function boardReducer(state = initialState, action = {}) {
                 group.id === action.group.id ? { ...group, ...action.group } : group
             )
             return { ...state, currBoard: { ...state.currBoard, groups } }
+
+        case SET_LABELS:
+            return {
+                ...state,
+                currBoard: { ...state.currBoard, labels: action.labels }
+            }
 
         case SET_FILTER_BY:
             return { ...state, filterBy: { ...state.filterBy, ...action.filterBy } }

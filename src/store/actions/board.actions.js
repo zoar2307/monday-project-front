@@ -1,6 +1,6 @@
 import { boardService } from "../../services/board/board.service.local";
 import { getRandomColor, makeId } from "../../services/util.service";
-import { ADD_BOARD, ADD_GROUP, BOARD_UNDO, REMOVE_BOARD, REMOVE_GROUP, SET_BACKDROP, SET_BOARD, SET_BOARDS, SET_FILTER_BY, SET_GROUPS, SET_GROUPS_FOR_FILTER, SET_IS_ADD_BOARD_MODAL, UPDATE_BOARD, UPDATE_BOARD_LABELS, UPDATE_GROUP } from '../reducers/board.reducer'
+import { ADD_BOARD, ADD_GROUP, BOARD_UNDO, REMOVE_BOARD, REMOVE_GROUP, SET_BACKDROP, SET_BOARD, SET_BOARDS, SET_FILTER_BY, SET_GROUPS, SET_GROUPS_FOR_FILTER, SET_IS_ADD_BOARD_MODAL, SET_LABELS, UPDATE_BOARD, UPDATE_BOARD_LABELS, UPDATE_GROUP } from '../reducers/board.reducer'
 
 import { store } from '../store'
 
@@ -218,7 +218,6 @@ export async function addTask(groupId, task) {
             group.id === groupId ? { ...group, tasks: [...group.tasks, task] } : group
         )
         store.dispatch({ type: SET_GROUPS, groups: currBoard.groups })
-        updateGroupsForFilter(currBoard.groups)
 
         await boardService.save(currBoard)
     } catch (err) {
@@ -397,6 +396,21 @@ export async function addTaskConversationUpdate(groupId, taskId, update) {
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })
         console.error('Cannot update task priority:', err)
+    }
+}
+
+// Labels
+
+
+export async function updateLabelsKanban(labels) {
+    const { currBoard } = store.getState().boardModule
+    try {
+        store.dispatch({ type: SET_LABELS, labels })
+        currBoard.labels = labels
+        await boardService.save(currBoard)
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.error("Cannot add group:", err)
     }
 }
 
