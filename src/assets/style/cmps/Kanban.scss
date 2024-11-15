@@ -16,7 +16,7 @@
 
     .kanban-list {
         width: max-content;
-        height: 600px;
+        height: calc(100% - 150px);
         display: flex;
         justify-content: space-evenly;
         align-items: center;
