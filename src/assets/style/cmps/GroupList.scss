@@ -13,6 +13,7 @@
         height: 200px;
         display: flex;
         align-items: center;
+
     }
 
     .add-group-btn {
@@ -29,6 +30,8 @@
         padding: 5px;
         cursor: pointer;
         margin-bottom: 100px;
+        position: sticky;
+        left: 40px;
 
         i {
             font-size: 18px;

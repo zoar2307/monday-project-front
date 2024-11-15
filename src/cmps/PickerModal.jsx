@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react'
 
-export function PickerModal({ options, onSelect, closeModal, modalType, assignedIds = [] }) {
+export function PickerModal({ options, onSelect, closeModal, modalType, assignedIds = [], labelRef }) {
     const modalRef = useRef(null)
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (modalRef.current && !modalRef.current.contains(event.target)) {
+            if (modalRef.current && !modalRef.current.contains(event.target)
+                && labelRef.current && !labelRef.current.contains(event.target)) {
                 closeModal()
             }
         }

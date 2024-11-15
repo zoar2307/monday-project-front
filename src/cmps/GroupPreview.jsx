@@ -30,6 +30,8 @@ export function GroupPreview({
   const toggleModal = () => {
     setModalOpen(!isModalOpen)
   }
+  const [isHovered, setIsHovered] = useState(false)
+
 
   const cmpsOrder = board.cmpsLabels.map(label => label.type)
 
@@ -84,8 +86,40 @@ export function GroupPreview({
 
   }
 
+  function formatDateRange(earliestDate, latestDate) {
+    const sameYear = earliestDate.getFullYear() === latestDate.getFullYear()
+    const sameMonth = sameYear && earliestDate.getMonth() === latestDate.getMonth()
+    if (sameMonth) {
+      return `${earliestDate.getDate()}-${latestDate.getDate()} ${earliestDate.toLocaleDateString('en-US', { month: 'short' })}`
+    } else if (sameYear) {
+      return `${earliestDate.getDate()} ${earliestDate.toLocaleDateString('en-US', { month: 'short' })} - ${latestDate.getDate()} ${latestDate.toLocaleDateString('en-US', { month: 'short' })}`
+    } else {
+      return `${earliestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' })} - ${latestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' })}`
+    }
+  }
 
-  const dragClass = isDragOn ? 'drag' : ''
+  function calculateDateStats(tasks) {
+    const dates = tasks.map(task => task.date).filter(date => date).map(date => new Date(date))
+    if (dates.length === 0) return { progress: 0, dateRange: 'No Date', daysDifference: 0 }
+    const earliestDate = new Date(Math.min(...dates))
+    const latestDate = new Date(Math.max(...dates))
+    const today = new Date()
+    const totalRange = latestDate - earliestDate
+    const elapsedRange = today - earliestDate
+    const progress = Math.min(100, Math.max(0, (elapsedRange / totalRange) * 100))
+    const daysDifference = Math.ceil((latestDate - earliestDate) / (1000 * 60 * 60 * 24))
+    const dateRange = formatDateRange(earliestDate, latestDate)
+    return { progress, dateRange, daysDifference }
+  }
+
+
+  const dateStats = calculateDateStats(group.tasks)
+
+
+
+
+
+
   const groupProgress = group.tasks.reduce((acc, task) => {
     if (!task.status) return acc
     if (!acc[task.status]) acc[task.status] = 0
@@ -173,11 +207,12 @@ export function GroupPreview({
                           return (
                             <Draggable draggableId={label.id + groupId} index={idx} key={label.id + groupId}>
                               {(provided, snapshot) => (
-                                <div key={label.id + groupId} className={`label   ${label.class} ${dragClass}`}
+                                <div key={label.id + groupId} className={`label ${isDragOn && 'drag'}`}
                                   {...provided.draggableProps}
                                   ref={provided.innerRef}
                                   {...provided.dragHandleProps}
                                 >
+                                  {setIsDragOn(snapshot.isDragging)}
                                   {label.title}
                                   <div className='dots-container'>
                                     <button ref={modalRemoveBtnRef} onClick={() => onModal('open-remove', label.id, groupId)}
@@ -194,7 +229,14 @@ export function GroupPreview({
                                       && labelModal.lId === label.id
                                       && < LabelModal modalRemoveBtnRef={modalRemoveBtnRef} board={board} type={'remove'} labelId={label.id} setLabelModal={setLabelModal} labelModal={labelModal} />}
                                   </div>
-
+                                  {idx === board.cmpsLabels.length - 1 &&
+                                    <div className='add-label-container'>
+                                      <button ref={modalAddBtnRef} onClick={() => onModal('open-add')} className='add-label'>
+                                        <svg className={`${labelModal.type === 'add' && labelModal.isDisplay && 'opened-modal'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" aria-hidden="true" data-testid="icon"><g id="Icon / Basic / Add"><path id="Union" d="M10 2.25C10.4142 2.25 10.75 2.58579 10.75 3V9.25H17C17.4142 9.25 17.75 9.58579 17.75 10C17.75 10.4142 17.4142 10.75 17 10.75H10.75V17C10.75 17.4142 10.4142 17.75 10 17.75C9.58579 17.75 9.25 17.4142 9.25 17V10.75H3C2.58579 10.75 2.25 10.4142 2.25 10C2.25 9.58579 2.58579 9.25 3 9.25H9.25V3C9.25 2.58579 9.58579 2.25 10 2.25Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></g></svg>
+                                      </button>
+                                      {labelModal.type === 'add' && labelModal.isDisplay && <LabelModal board={board} type={'add'} setLabelModal={setLabelModal} labelModal={labelModal} modalAddBtnRef={modalAddBtnRef} />}
+                                    </div>
+                                  }
                                 </div>
 
                               )}
@@ -208,20 +250,15 @@ export function GroupPreview({
                     )}
                   </Droppable>
 
-                  <div className='add-label-container'>
-                    <button ref={modalAddBtnRef} onClick={() => onModal('open-add')} className='add-label'>
-                      <svg className={`${labelModal.type === 'add' && labelModal.isDisplay && 'opened-modal'}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20" aria-hidden="true" data-testid="icon"><g id="Icon / Basic / Add"><path id="Union" d="M10 2.25C10.4142 2.25 10.75 2.58579 10.75 3V9.25H17C17.4142 9.25 17.75 9.58579 17.75 10C17.75 10.4142 17.4142 10.75 17 10.75H10.75V17C10.75 17.4142 10.4142 17.75 10 17.75C9.58579 17.75 9.25 17.4142 9.25 17V10.75H3C2.58579 10.75 2.25 10.4142 2.25 10C2.25 9.58579 2.58579 9.25 3 9.25H9.25V3C9.25 2.58579 9.58579 2.25 10 2.25Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></g></svg>
-                    </button>
-                    {labelModal.type === 'add' && labelModal.isDisplay && <LabelModal board={board} type={'add'} setLabelModal={setLabelModal} labelModal={labelModal} modalAddBtnRef={modalAddBtnRef} />}
-                  </div>
+
                 </div  >
 
 
               </header>
 
-              {/* <main className="flex"> */}
+
               <TaskList group={group} />
-              {/* </main> */}
+
 
               <div className="group-footer">
                 <div className='add-task '>
@@ -292,9 +329,7 @@ export function GroupPreview({
                           })}
                         </div>
                       )
-                      if (cmp === 'DatePicker') return (
-                        < div key={cmp}> {cmp}</div>
-                      )
+
                       if (cmp === 'FilePicker') return (
                         < div key={cmp}></div>
                       )
@@ -352,6 +387,35 @@ export function GroupPreview({
 
 
                     })}
+                    {cmpsOrder.map((cmp, idx) => {
+                      if (cmp === 'DatePicker') {
+                        return (
+                          <div
+                            key={cmp}
+                            className="date-stats"
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                          >
+                            <div className="date-progress-bar">
+                              <div
+                                className="date-fill"
+                                style={{
+                                  width: `${dateStats.progress}%`,
+                                }}
+                              ></div>
+                              <span className="date-range">
+                                {isHovered ? `${dateStats.daysDifference} days` : dateStats.dateRange}
+                              </span>
+                            </div>
+                          </div>
+                        )
+                      }
+                    })}
+
+
+
+
+
 
 
 

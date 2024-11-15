@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { PickerModal } from './PickerModal'
 import { loadBoards } from '../store/actions/board.actions'
 
 export function PriorityPicker({ info, onUpdate, labels }) {
   const [isModalOpen, setModalOpen] = useState(false)
   const priorityLabels = labels.filter((label) => label.type === "priority")
+  const labelRef = useRef()
 
   const handleSelect = (priority) => {
     onUpdate({ priority: priority.title })
@@ -20,7 +21,8 @@ export function PriorityPicker({ info, onUpdate, labels }) {
   return (
     <div className='label-container'>
       <div
-        onClick={() => setModalOpen(true)}
+        ref={labelRef}
+        onClick={() => setModalOpen(prev => !prev)}
         className="priority label not-header table"
         style={{
           backgroundColor: getLabelColor("priority", info.priority),
@@ -32,6 +34,7 @@ export function PriorityPicker({ info, onUpdate, labels }) {
       {/* Modal for selecting priority */}
       {isModalOpen && (
         <PickerModal
+          labelRef={labelRef}
           options={priorityLabels}
           onSelect={handleSelect}
           closeModal={() => setModalOpen(false)}

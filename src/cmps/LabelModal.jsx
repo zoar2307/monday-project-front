@@ -57,10 +57,6 @@ export function LabelModal({ type,
         setLabelModal(prev => ({ ...prev, isDisplay: false }))
     }
 
-
-
-
-
     return (
         <section ref={modalRef} className="label-modal" style={{
             top: type === 'add' ? '-20%' : '-20%',
