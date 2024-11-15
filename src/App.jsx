@@ -11,6 +11,7 @@ import { DynamicHeader } from "./cmps/DynamicHeader.jsx"
 import { BackDrop } from "./cmps/BackDrop.jsx"
 import { AddBoardModal } from "./cmps/AddBoardModal.jsx"
 import { useState } from "react"
+import { Login } from "./pages/Login.jsx"
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
               <Route element={<HomePage />} path="/" />
               <Route element={<AboutUs />} path="/about" />
               <Route element={<Signup />} path="/auth/signup" />
+              <Route element={<Login />} path="auth/log-in"  />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board" />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board/:boardId" />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board/:boardId/:groupId/:taskId" />

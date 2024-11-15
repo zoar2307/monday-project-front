@@ -115,7 +115,7 @@ export function HomePage() {
             <NavLink to="/about">
               About us
             </NavLink>
-            <NavLink to="/log-in">
+            <NavLink to="auth/log-in">
               Log in
             </NavLink >
           </div>
