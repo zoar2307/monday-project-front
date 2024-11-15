@@ -6,6 +6,7 @@ import { useEffect } from "react"
 import { BoardDetails } from "./BoardDetails"
 import { MyWork } from "../cmps/MyWork"
 import { loadBoards } from "../store/actions/board.actions"
+import { Kanban } from "../cmps/Kanban"
 
 export function BoardPage({ onSidebarToggle }) {
 
@@ -19,6 +20,7 @@ export function BoardPage({ onSidebarToggle }) {
 
   const isBoardPage = location.pathname === "/board"
   const isMyWorkPage = location.pathname === "/my-work"
+  const isKanBan = location.pathname.includes("/kanban")
 
 
   return (
@@ -27,8 +29,9 @@ export function BoardPage({ onSidebarToggle }) {
         {/* <main className="main-content"> */}
         <SideBar onSidebarToggle={onSidebarToggle} />
         {isBoardPage && <BoardIndex />}
-        {boardId && <BoardDetails />}
+        {boardId && location.pathname.includes("/board") && < BoardDetails />}
         {isMyWorkPage && <MyWork />}
+        {isKanBan && <Kanban />}
         {/* </main> */}
       </section>
     </>

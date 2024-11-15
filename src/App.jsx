@@ -31,6 +31,7 @@ function App() {
               <Route element={<Signup />} path="/auth/signup" />
               <Route element={<Login />} path="auth/log-in"  />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board" />
+              <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/kanban/:boardId" />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board/:boardId" />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board/:boardId/:groupId/:taskId" />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/my-work" />

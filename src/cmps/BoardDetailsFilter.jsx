@@ -58,14 +58,14 @@ export function BoardDetailsFilter({ board, filterBy }) {
 
     return (
         <section className="board-details-filter">
-            <div className="new-item">
+            {location.pathname.includes('/board') && <div className="new-item">
                 <button className="new-item-btn"
                     onClick={onAddTaskClick}
                 >
                     New task
                 </button>
 
-            </div>
+            </div>}
 
             <div className="filters">
                 <form onSubmit={onSubmitFilter} className="filter-form">

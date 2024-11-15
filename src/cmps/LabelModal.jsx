@@ -139,16 +139,14 @@ export function LabelModal({ type,
                     {board.cmpsLabels.find(lable => lable.type === 'ProgressBar') ?
                         <div className="label-type disabled">
                             <div className="img-container progress">
-                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/date-column-icon.svg" alt=""></img>
-                            </div>
+                                <img alt="" src="https://cdn.monday.com/images/column-store/columns/columns-battery-column-icon-v2a.png" class="TinyCard-module_logoImage__-7q6h tiny-card-logo-image" />                            </div>
 
                             <span>Progress</span>
                         </div>
                         :
                         <div onClick={() => onAddLabel('Progress')} className="label-type">
                             <div className="img-container progress">
-                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/date-column-icon.svg" alt=""></img>
-
+                                <img alt="" src="https://cdn.monday.com/images/column-store/columns/columns-battery-column-icon-v2a.png" class="TinyCard-module_logoImage__-7q6h tiny-card-logo-image" />
                             </div>
 
                             <span>Progress</span>
@@ -157,16 +155,14 @@ export function LabelModal({ type,
                     {board.cmpsLabels.find(lable => lable.type === 'FilePicker') ?
                         <div className="label-type disabled">
                             <div className="img-container file">
-                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/date-column-icon.svg" alt=""></img>
-                            </div>
+                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/file-column-icon.svg" alt="" />                            </div>
 
                             <span>File</span>
                         </div>
                         :
                         <div onClick={() => onAddLabel('File')} className="label-type">
                             <div className="img-container file">
-                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/date-column-icon.svg" alt=""></img>
-
+                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/file-column-icon.svg" alt="" />
                             </div>
 
                             <span>File</span>
