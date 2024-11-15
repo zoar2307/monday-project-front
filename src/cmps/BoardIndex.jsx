@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { BoardList } from './BoardList'
 
-import { boardService } from '../services/board/board.service.local'
+import { boardService } from '../services/board/board.service.remote'
 import { useSelector } from 'react-redux'
 import { loadBoards } from '../store/actions/board.actions'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'

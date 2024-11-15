@@ -1,4 +1,4 @@
-import { boardService } from "../../services/board/board.service.local";
+import { boardService } from "../../services/board/board.service.remote";
 import { getRandomColor, makeId } from "../../services/util.service";
 import { ADD_BOARD, ADD_GROUP, BOARD_UNDO, REMOVE_BOARD, REMOVE_GROUP, SET_BACKDROP, SET_BOARD, SET_BOARDS, SET_FILTER_BY, SET_GROUPS, SET_GROUPS_FOR_FILTER, SET_IS_ADD_BOARD_MODAL, SET_LABELS, UPDATE_BOARD, UPDATE_BOARD_LABELS, UPDATE_GROUP } from '../reducers/board.reducer'
 
@@ -19,7 +19,6 @@ export async function loadBoard(boardId, filterBy) {
     try {
         const board = await boardService.getById(boardId)
         const filteredBoard = boardService.filterBoard(board, filterBy)
-        console.log(filteredBoard)
         filteredBoard._id = boardId
         store.dispatch({ type: SET_BOARD, board: filteredBoard })
         return filteredBoard
@@ -43,10 +42,9 @@ export async function removeBoard(boardId) {
 export async function saveBoard(board) {
     const type = board._id ? UPDATE_BOARD : ADD_BOARD
     try {
-        store.dispatch({ type, board: board })
-        store.dispatch({ type: SET_BOARD, board })
         const savedBoard = await boardService.save(board)
-
+        store.dispatch({ type, board: savedBoard })
+        store.dispatch({ type: SET_BOARD, board: savedBoard })
         return savedBoard
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })
@@ -121,8 +119,6 @@ export async function addLabel(name) {
         default:
             break;
     }
-    console.log(labelClass)
-    console.log(labelType)
 
     const newLabel = {
         type: labelType,

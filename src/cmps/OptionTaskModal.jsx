@@ -11,48 +11,48 @@ import archive from '../assets/img/archive-icon.svg'
 import { useEffect, useRef } from 'react'
 import { removeTask } from '../store/actions/board.actions'
 
-export function OptionTaskModal({ closeModal , groupId , taskId}) {
-    const modalRef = useRef(null)
+export function OptionTaskModal({ closeModal, groupId, taskId }) {
+  const modalRef = useRef(null)
 
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-          if (modalRef.current && !modalRef.current.contains(event.target)) {
-            closeModal()
-          }
-        }
-    
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => {
-          document.removeEventListener('mousedown', handleClickOutside)
-        }
-      }, [closeModal])
-
-      const deleteTask = async () => {
-        try {
-            await removeTask(groupId, taskId)
-            closeModal() 
-        } catch (error) {
-            console.error('Failed to delete task:', error)
-        }
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        closeModal()
+      }
     }
-    return (
-        <div className="option-task-modal-overlay" onClick={closeModal}>
-            <div ref={modalRef} className="option-task-modal-content" onClick={(e) => e.stopPropagation()}>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={expand} alt="expand" />Open item</button>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={newTab} alt="newTab" />Open in new tab</button>
-                <div className='divider'></div>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={copyLink} alt="copyLink" />Copy item link</button>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={moveTo} alt="moveTo" />Move to</button>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={duplicate} alt="duplicate" />Duplicate</button>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={plus} alt="plus" />Create new item below</button>
-                <div className='divider'></div>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={addSubitem} alt="addSubitem" />Add subitem</button>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={convertSubitem} alt="expand" />Convert to subitem</button>
-                <div className='divider'></div>
-                <button onClick={() => console.log('Option 2 clicked')}><img src={archive} alt="archive" />Archive</button>
-                <button onClick={deleteTask}><img src={trash} alt="trash" />Delete Task</button>
-            </div>
-        </div>
-    )
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [closeModal])
+
+  const deleteTask = async () => {
+    try {
+      await removeTask(groupId, taskId)
+      closeModal()
+    } catch (error) {
+      console.error('Failed to delete task:', error)
+    }
+  }
+  return (
+    <div className="option-task-modal-overlay" onClick={closeModal}>
+      <div ref={modalRef} className="option-task-modal-content" onClick={(e) => e.stopPropagation()}>
+        <button ><img src={expand} alt="expand" />Open item</button>
+        <button ><img src={newTab} alt="newTab" />Open in new tab</button>
+        <div className='divider'></div>
+        <button ><img src={copyLink} alt="copyLink" />Copy item link</button>
+        <button ><img src={moveTo} alt="moveTo" />Move to</button>
+        <button ><img src={duplicate} alt="duplicate" />Duplicate</button>
+        <button ><img src={plus} alt="plus" />Create new item below</button>
+        <div className='divider'></div>
+        <button ><img src={addSubitem} alt="addSubitem" />Add subitem</button>
+        <button ><img src={convertSubitem} alt="expand" />Convert to subitem</button>
+        <div className='divider'></div>
+        <button ><img src={archive} alt="archive" />Archive</button>
+        <button onClick={deleteTask}><img src={trash} alt="trash" />Delete Task</button>
+      </div>
+    </div>
+  )
 }

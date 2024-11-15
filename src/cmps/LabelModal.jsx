@@ -29,7 +29,6 @@ export function LabelModal({ type,
             }
         }
         // const bounds = document.body.getBoundingClientRect()
-        // console.log('y', bounds.right - event.clientX)
     }
 
     useEffect(() => {
@@ -44,7 +43,6 @@ export function LabelModal({ type,
         }
     }, [labelModal.isDisplay])
 
-    console.log(labelModal)
 
 
     async function onAddLabel(name) {

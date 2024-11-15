@@ -7,7 +7,6 @@ import { BoardOptionsModal } from "./BoardOptionsModal"
 
 export function SideBar({ onSidebarToggle }) {
     let boards = useSelector(storeState => storeState.boardModule.boards)
-
     const navigate = useNavigate()
 
     const homeRef = useRef()
@@ -42,8 +41,6 @@ export function SideBar({ onSidebarToggle }) {
 
     useEffect(() => {
         removeNavigateActive()
-        console.log(pathname)
-        console.log(pathname.includes('9k0vJ'))
     }, [pathname])
 
     useEffect(() => {
@@ -177,7 +174,6 @@ export function SideBar({ onSidebarToggle }) {
     }
 
     async function onAddToFavorites(boardId) {
-        console.log("Adding to favorites:", boardId)
         try {
             const board = boards.find(b => b._id === boardId)
             if (board) {
@@ -191,7 +187,6 @@ export function SideBar({ onSidebarToggle }) {
             console.error("Error updating favorites:", err)
         }
     }
-
 
 
     function openModal(board, event) {

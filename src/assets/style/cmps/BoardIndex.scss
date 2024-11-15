@@ -81,6 +81,8 @@
 .boards-body {
     font-size: 15px;
     width: 100%;
+    overflow-y: auto;
+
 
     @media (width > 1500px) {
         padding: 0 80px;
@@ -105,6 +107,7 @@
             grid-gap: 20px;
             padding: 16px 16px 24px 16px;
             width: 100%;
+
 
             &> :hover {
 

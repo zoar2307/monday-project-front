@@ -16,8 +16,6 @@ export function AddBoardModal() {
 
         try {
             const savedBoard = await saveBoard(newBoard) // Save the board and get the response
-            await addGroup(board._id)
-
             if (savedBoard && savedBoard._id) {
                 navigate(`/board/${savedBoard._id}`) // Navigate to the new board's page using its ID
             }

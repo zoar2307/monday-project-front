@@ -20,7 +20,6 @@ export function KanbanList({ board }) {
         if (!destination) return
 
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
-        console.log(result)
 
 
         if (type === 'groups') {
@@ -29,7 +28,6 @@ export function KanbanList({ board }) {
             newLabelsOrder.splice(source.index, 1)
             const movedGroup = board.labels.find(label => label.id === draggableId)
             newLabelsOrder.splice(destination.index, 0, movedGroup)
-            console.log(newLabelsOrder)
             try {
                 await updateLabelsKanban(newLabelsOrder)
             } catch (err) {
@@ -47,7 +45,6 @@ export function KanbanList({ board }) {
             } catch (err) {
                 console.log(err)
             }
-            console.log(destination.droppableId.slice(0, -4))
             return
         }
 

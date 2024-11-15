@@ -43,21 +43,21 @@ export function OptionGroupModal({ closeModal, groupId }) {
             <div
                 ref={modalRef}
                 className="option-group-modal-content"
-               
+
                 onClick={(e) => e.stopPropagation()}
             >
-                <button onClick={() => console.log('Option 1 clicked')}><img src={expand} alt="expand" />Open item</button>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={newTab} alt="newTab" />Open in new tab</button>
+                <button ><img src={expand} alt="expand" />Open item</button>
+                <button ><img src={newTab} alt="newTab" />Open in new tab</button>
                 <div className='divider'></div>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={copyLink} alt="copyLink" />Copy item link</button>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={moveTo} alt="moveTo" />Move to</button>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={duplicate} alt="duplicate" />Duplicate</button>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={plus} alt="plus" />Create new item below</button>
+                <button ><img src={copyLink} alt="copyLink" />Copy item link</button>
+                <button ><img src={moveTo} alt="moveTo" />Move to</button>
+                <button ><img src={duplicate} alt="duplicate" />Duplicate</button>
+                <button ><img src={plus} alt="plus" />Create new item below</button>
                 <div className='divider'></div>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={addSubitem} alt="addSubitem" />Add subitem</button>
-                <button onClick={() => console.log('Option 1 clicked')}><img src={convertSubitem} alt="expand" />Convert to subitem</button>
+                <button ><img src={addSubitem} alt="addSubitem" />Add subitem</button>
+                <button ><img src={convertSubitem} alt="expand" />Convert to subitem</button>
                 <div className='divider'></div>
-                <button onClick={() => console.log('Option 2 clicked')}><img src={archive} alt="archive" />Archive</button>
+                <button ><img src={archive} alt="archive" />Archive</button>
                 <button onClick={deleteGroup}><img src={trash} alt="trash" />Delete Group</button>
             </div>
         </div>

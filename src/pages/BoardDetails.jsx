@@ -4,7 +4,7 @@ import { loadBoard, resetFilterBy } from "../store/actions/board.actions"
 import { BoardDetailsHeader } from "../cmps/BoardDetailsHeader"
 import { GroupList } from "../cmps/GroupList"
 import { useSelector } from "react-redux"
-import { boardService } from "../services/board/board.service.local"
+import { boardService } from "../services/board/board.service.remote"
 import { TaskConversation } from "../cmps/TaskConversation"
 import { store } from "../store/store"
 

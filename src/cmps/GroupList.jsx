@@ -1,6 +1,7 @@
 import { GroupPreview } from "../cmps/GroupPreview"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import { addGroup, loadBoard, removeGroup, saveBoard, updateGroup, updateGroups, updateLabels } from "../store/actions/board.actions"
+import { useEffect } from "react"
 
 export function GroupList({ board }) {
   const { _id: boardId, groups } = board
@@ -23,10 +24,7 @@ export function GroupList({ board }) {
     if (destination.droppableId === source.droppableId && destination.index === source.index) return
 
     if (type === 'labels') {
-      console.log(source)
-      console.log(destination)
       const newLabelsOrder = [...board.cmpsLabels]
-      console.log(newLabelsOrder)
       newLabelsOrder.splice(source.index, 1)
       const movedLabel = board.cmpsLabels.find(label => draggableId.includes(label.id))
       newLabelsOrder.splice(destination.index, 0, movedLabel)

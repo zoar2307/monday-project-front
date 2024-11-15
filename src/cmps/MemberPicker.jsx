@@ -20,7 +20,6 @@ export function MemberPicker({ info, onUpdate, members }) {
     //   ? assignedToArray.filter((id) => id !== member._id)
     //   : [...assignedToArray, member]
     const isExisting = assignedToArray.find(assignedMember => assignedMember._id === member._id)
-    console.log(assignedToArray)
     if (isExisting) updatedAssignedTo = assignedToArray.filter((assignedMember) => assignedMember._id !== member._id)
     else updatedAssignedTo = [...assignedToArray, member]
 

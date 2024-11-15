@@ -33,9 +33,7 @@ export function TaskConversation() {
     useEffect(() => {
         if (taskId) {
             let group = groups.find(group => group.id === groupId)
-            console.log(group)
             const task = group.tasks.find(task => task.id === taskId)
-            console.log(task)
             setSelectedTask(task)
         }
     }, [taskId])
@@ -188,7 +186,6 @@ export function TaskConversation() {
                         {selectedTask.conversation && selectedTask.conversation.length > 0 ?
                             <div className="chat-list">
                                 {selectedTask.conversation.map(update => {
-                                    console.log(update)
                                     return (
                                         <div className="chat-container">
                                             <div className="chat-header">

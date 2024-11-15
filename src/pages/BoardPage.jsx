@@ -9,9 +9,9 @@ import { loadBoards } from "../store/actions/board.actions"
 import { Kanban } from "../cmps/Kanban"
 
 export function BoardPage({ onSidebarToggle }) {
-
   useEffect(() => {
     loadBoards()
+
   }, [])
 
   const { boardId } = useParams()

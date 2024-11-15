@@ -144,8 +144,8 @@ export function TaskPreview({ idx, task, group, board }) {
                                     labels={labels}
                                     members={members}
                                     onUpdate={(data) => {
-                                        console.log('Updating: ', cmp, 'with data:', data)
-                                        console.log('Updating with data:', data)
+                                        // console.log('Updating: ', cmp, 'with data:', data)
+                                        // console.log('Updating with data:', data)
                                         updateTask(groupId, task.id, data)
                                     }}
                                 />

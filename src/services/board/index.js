@@ -2,16 +2,16 @@ const { DEV, VITE_LOCAL } = import.meta.env
 
 // import { getRandomIntInclusive, makeId } from '../util.service'
 
-import { boardService as local } from './board.service.local'
+import { boardService as local } from './board.service.remote'
 import { boardService as remote } from './board.service.remote'
 
 function getDefaultFilter() {
     return { title: "", status: "", priority: "", person: "" }
 }
 
+
 function getEmptyBoard() {
     return {
-        title: "",
         isStarred: false,
         archivedAt: null,
         createdBy: {
@@ -19,9 +19,7 @@ function getEmptyBoard() {
             fullname: "",
             imgUrl: "",
         },
-        style: {
-            backgroundImage: "",
-        },
+
         labels: [
             { id: "l101", title: "Done", color: "#01c875", type: "status" },
             { id: "l102", title: "Stuck", color: "#e02f4b", type: "status" },
@@ -36,12 +34,7 @@ function getEmptyBoard() {
         members: [],
         groups: [],
         activities: [],
-        cmpsOrder: [
-            "StatusPicker",
-            "MemberPicker",
-            "PriorityPicker",
-            "DatePicker"
-        ]
+        cmpsLabels: []
     }
 }
 

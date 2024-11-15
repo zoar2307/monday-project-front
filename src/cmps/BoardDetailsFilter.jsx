@@ -31,7 +31,6 @@ export function BoardDetailsFilter({ board, filterBy }) {
 
     useEffect(() => {
         debounce(setFilterBy(filterByToEdit), 1000)
-        console.log(filterByToEdit)
     }, [filterByToEdit])
 
     function handleChange({ target }) {
