@@ -1,5 +1,5 @@
 import { storageService } from "../async-storage.service.js"
-import { userService } from "../user/user.service.local.js"
+import { userService } from "../user/user.service.remote.js"
 import { makeId } from "../util.service.js"
 
 
@@ -103,7 +103,7 @@ function filterGroupsByTasks(groups, filters) {
         return { ...group, tasks: filteredTasks }
       }
 
-      return null 
+      return null
     })
     .filter(group => group)
 }
@@ -271,7 +271,7 @@ async function _createBoards() {
           "_id": "u109",
           "fullname": "Hader Nafuah",
           "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762531/samples/people/smiling-man.jpg"
-        }, 
+        },
         {
           "_id": "Luj0Z",
         }

@@ -2,6 +2,7 @@ import { GroupPreview } from "../cmps/GroupPreview"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import { addGroup, loadBoard, removeGroup, saveBoard, updateGroup, updateGroups, updateLabels } from "../store/actions/board.actions"
 import { useEffect } from "react"
+import { logout } from "../store/actions/user.actions"
 
 export function GroupList({ board }) {
   const { _id: boardId, groups } = board
@@ -112,6 +113,7 @@ export function GroupList({ board }) {
       <DragDropContext
         onDragEnd={handleDragEnd}
       >
+
         <div className="group-list">
           <Droppable droppableId={boardId} direction="vertical" type="groups" >
             {(provided) => (

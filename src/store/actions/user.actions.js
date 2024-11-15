@@ -1,4 +1,4 @@
-import { userService } from '../../services/user/user.service.local'
+import { userService } from '../../services/user/user.service.remote'
 import { REMOVE_USER, SET_USER, SET_USERS, SET_WATCHED_USER } from '../reducers/user.reducer'
 import { store } from '../store'
 
@@ -25,7 +25,7 @@ export async function login(credentials, navigate) {
         const user = await userService.login(credentials)
         console.log(user)
         store.dispatch({ type: SET_USER, user })
-        navigate('/board') 
+        navigate('/board')
         return user
     } catch (err) {
         console.error("Cannot login", err)

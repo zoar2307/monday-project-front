@@ -1,4 +1,4 @@
-import { userService } from "../../services/user/user.service.local"
+import { userService } from "../../services/user/user.service.remote"
 
 
 export const SET_USER = 'SET_USER'
@@ -10,7 +10,7 @@ const initialState = {
     count: 10,
     user: userService.getLoggedinUser(),
     users: [],
-    watchedUser : null
+    watchedUser: null
 }
 
 export function userReducer(state = initialState, action) {

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { login } from "../store/actions/user.actions"
-import { userService } from "../services/user/user.service.local"
+import { userService } from "../services/user/user.service.remote"
 
 export function Login() {
     const [users, setUsers] = useState([])
     const [credentials, setCredentials] = useState({
-        email: "",
+        username: "",
         password: "",
     })
     const [error, setError] = useState("")
@@ -31,13 +31,13 @@ export function Login() {
         ev.preventDefault()
         setError("")
 
-        if (!credentials.email || !credentials.password) {
+        if (!credentials.username || !credentials.password) {
             setError("Please provide both username and password.")
             return
         }
 
         try {
-            const user = await login(credentials, navigate) 
+            const user = await login(credentials, navigate)
             if (user) navigate("/board")
         } catch (err) {
             console.error("Login failed:", err)
@@ -55,11 +55,11 @@ export function Login() {
             <h1>Login</h1>
             <form className="login-form" onSubmit={handleLogin}>
                 <div className="input-group">
-                    <label htmlFor="username">Email</label>
+                    <label htmlFor="username">Username</label>
                     <input
                         type="text"
-                        name="email"
-                        value={credentials.email}
+                        name="username"
+                        value={credentials.username}
                         onChange={handleChange}
                         placeholder="Enter your username"
                         required

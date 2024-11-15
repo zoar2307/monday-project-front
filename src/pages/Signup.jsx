@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import signupImg1 from '../assets/img/welcome-to-monday.avif'
-import { userService } from '../services/user/user.service.local'
+import { userService } from '../services/user/user.service.remote'
 import { makeId } from '../services/util.service'
 import { boardService } from '../services/board/board.service.local'
 export function Signup() {
@@ -10,24 +10,7 @@ export function Signup() {
         email: '',
         password: '',
         theme: 'light',
-        object: {
-            project: {
-                title: 'New Project',
-                isStarred: false,
-                archivedAt: null,
-                createdBy: {
-                    _id: '',
-                    fullname: '',
-                    imgUrl: ''
-                },
-                labels: [],
-                members: [],
-                groups: [],
-                activities: [],
-                cmpsLabels: [],
-                updatedAt: null
-            }
-        }
+
     })
     const [error, setError] = useState('')
     const navigate = useNavigate()
@@ -42,7 +25,8 @@ export function Signup() {
         setError('')
         try {
             const userCred = {
-                email : form.email,
+                // email: form.email,
+                username: form.username,
                 password: form.password,
                 fullname: form.fullname,
                 theme: form.theme,
@@ -82,10 +66,10 @@ export function Signup() {
                             <div className="input-container">
                                 <input
                                     className="btn"
-                                    type="email"
-                                    name="email"
-                                    placeholder="Email"
-                                    value={form.email}
+                                    type="username"
+                                    name="username"
+                                    placeholder="Username"
+                                    value={form.username}
                                     onChange={handleChange}
                                     required
                                 />

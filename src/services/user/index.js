@@ -5,11 +5,11 @@ import { userService as remote } from './user.service.remote'
 
 function getEmptyUser() {
     return {
-        username: '', 
-        password: '', 
+        username: '',
+        password: '',
         fullname: '',
         isAdmin: false,
-        score: 100,
+        imgUrl: 'https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg'
     }
 }
 
@@ -19,4 +19,4 @@ export const userService = { ...service, getEmptyUser }
 // Easy access to this service from the dev tools console
 // when using script - dev / dev:local
 
-if(DEV) window.userService = userService
+if (DEV) window.userService = userService
