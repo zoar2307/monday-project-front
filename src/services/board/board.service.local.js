@@ -1,5 +1,7 @@
 import { storageService } from "../async-storage.service.js"
+import { userService } from "../user/user.service.local.js"
 import { makeId } from "../util.service.js"
+
 
 const STORAGE_KEY = "boardDB"
 _createBoards()
@@ -17,8 +19,15 @@ window.cs = boardService
 
 async function query(filterBy = { title: "" }) {
   let boards = await storageService.query(STORAGE_KEY)
-  const { title } = filterBy
 
+  // const loggedInUser = userService.getLoggedinUser()
+  // if (!loggedInUser) return []
+
+  // boards = boards.filter((board) =>
+  //   board.members.some((member) => member._id === loggedInUser._id)
+  // )
+
+  const { title } = filterBy
   if (title) {
     const regex = new RegExp(title, "i")
     boards = boards.filter((board) => regex.test(board.title))
@@ -26,6 +35,7 @@ async function query(filterBy = { title: "" }) {
 
   return boards
 }
+
 
 function filterBoard(board, filters) {
   let filteredGroups = filterGroupsByTasks(board.groups, filters)
@@ -85,22 +95,17 @@ function advancedFilter(groups, filters) {
 function filterGroupsByTasks(groups, filters) {
   return groups
     .map(group => {
-      // Check if the group matches group-level filters
       let groupMatches = (!filters.title || new RegExp(filters.title, "i").test(group.title))
 
-      // Filter tasks within the group based on task-level filters only if the group does not match
       const filteredTasks = groupMatches ? group.tasks : filterEntities(group.tasks, filters)
 
-
-
-      // Only return the group if it matches group-level filters or contains matching tasks
       if (groupMatches || filteredTasks.length > 0) {
         return { ...group, tasks: filteredTasks }
       }
 
-      return null // Exclude groups that don't match and have no matching tasks
+      return null 
     })
-    .filter(group => group) // Exclude null groups
+    .filter(group => group)
 }
 
 function filterEntities(entities, filters) {
@@ -109,17 +114,6 @@ function filterEntities(entities, filters) {
     const regex = new RegExp(filters.title, "i")
     filtered = filtered.filter(entity => regex.test(entity.title))
   }
-
-
-  // if (filters.status) {
-  //   filtered = filtered.filter(entity => entity.status === filters.status)
-  // }
-  // if (filters.priority) {
-  //   filtered = filtered.filter(entity => entity.priority === filters.priority)
-  // }
-  // if (filters.members) {
-  //   filtered = filtered.filter(entity => entity.priority === filters.priority)
-  // }
 
   return filtered
 }
@@ -277,6 +271,9 @@ async function _createBoards() {
           "_id": "u109",
           "fullname": "Hader Nafuah",
           "imgUrl": "https://res.cloudinary.com/dafozl1ej/image/upload/v1727762531/samples/people/smiling-man.jpg"
+        }, 
+        {
+          "_id": "Luj0Z",
         }
       ],
       "groups": [

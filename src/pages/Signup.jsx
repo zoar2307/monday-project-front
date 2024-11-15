@@ -1,66 +1,120 @@
-import { Link } from 'react-router-dom'
-import signupImg1 from '../assets/img/welcome-to-monday.avif'
 import { useState } from 'react'
-
+import { useNavigate } from 'react-router-dom'
+import signupImg1 from '../assets/img/welcome-to-monday.avif'
+import { userService } from '../services/user/user.service.local'
+import { makeId } from '../services/util.service'
+import { boardService } from '../services/board/board.service.local'
 export function Signup() {
+    const [form, setForm] = useState({
+        fullname: '',
+        email: '',
+        password: '',
+        theme: 'light',
+        object: {
+            project: {
+                title: 'New Project',
+                isStarred: false,
+                archivedAt: null,
+                createdBy: {
+                    _id: '',
+                    fullname: '',
+                    imgUrl: ''
+                },
+                labels: [],
+                members: [],
+                groups: [],
+                activities: [],
+                cmpsLabels: [],
+                updatedAt: null
+            }
+        }
+    })
+    const [error, setError] = useState('')
+    const navigate = useNavigate()
 
-    function onSubmitEmail(ev) {
+    function handleChange({ target }) {
+        const { name, value } = target
+        setForm(prevForm => ({ ...prevForm, [name]: value }))
+    }
+
+    async function onSubmitSignup(ev) {
         ev.preventDefault()
+        setError('')
+        try {
+            const userCred = {
+                email : form.email,
+                password: form.password,
+                fullname: form.fullname,
+                theme: form.theme,
+            }
+
+            await userService.signup(userCred)
+            navigate('/board')
+        } catch (err) {
+            setError(err.message || 'Signup failed. Please try again.')
+        }
     }
 
     return (
-        <section className="signup .full">
+        <section className="signup full">
             <div className="main-container">
                 <div className="content">
                     <div className="signup-top">
                         <div className="signup-title">
                             <h1>Welcome to monday.com</h1>
                         </div>
-
                         <h2>Get started - it's free. No credit card needed.</h2>
                     </div>
 
                     <div className="form-container">
-                        <div className="button-container">
-                            <button className='google-button btn'>
-                                <img className="google-svg" alt="Continue with Google" src="https://dapulse-res.cloudinary.com/image/upload/remote_logos/995426/google-icon.svg" />
-                                <span>Continue with Google</span>
-                            </button>
-                        </div>
-
-                        <div className="or-container">
-                            <div className="or-line"></div>
-                            <div>Or</div>
-                            <div className="or-line"></div>
-                        </div>
-
-                        <form onSubmit={onSubmitEmail}>
+                        <form onSubmit={onSubmitSignup}>
                             <div className="input-container">
-                                <input className='btn' type="text" placeholder="Fullname" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                                <input
+                                    className="btn"
+                                    type="text"
+                                    name="fullname"
+                                    placeholder="Fullname"
+                                    value={form.fullname}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
                             <div className="input-container">
-                                <input className='btn' type="text" placeholder="name@compamy.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                                <input
+                                    className="btn"
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email"
+                                    value={form.email}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
                             <div className="input-container">
-                                <input className='btn' type="text" placeholder="Password" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+                                <input
+                                    className="btn"
+                                    type="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    value={form.password}
+                                    onChange={handleChange}
+                                    required
+                                />
                             </div>
-
+                            {error && <div className="error-msg">{error}</div>}
                             <div className="continue-container">
-                                <button className='continue-button btn'>Continue</button>
+                                <button className="continue-button btn">Sign Up</button>
                             </div>
-
                         </form>
                     </div>
                 </div>
                 <div className="signup-footer">
-                    <span>Already have an account?</span> <span><Link>Log in</Link></span>
+                    <span>Already have an account?</span> <span><a href="/login">Log in</a></span>
                 </div>
             </div>
 
-
-
             <div className="img-container">
-                <img src={signupImg1} alt="" />
+                <img src={signupImg1} alt="Welcome" />
             </div>
         </section>
     )
