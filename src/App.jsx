@@ -29,7 +29,7 @@ function App() {
               <Route element={<HomePage />} path="/" />
               <Route element={<AboutUs />} path="/about" />
               <Route element={<Signup />} path="/auth/signup" />
-              <Route element={<Login />} path="auth/log-in"  />
+              <Route element={<Login />} path="auth/log-in" />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board" />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/kanban/:boardId" />
               <Route element={<BoardPage onSidebarToggle={setIsSidebarClosed} />} path="/board/:boardId" />

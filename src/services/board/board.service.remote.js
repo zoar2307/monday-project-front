@@ -43,6 +43,7 @@ function getDefaultFilter() {
 function filterBoard(board, filters) {
     let filteredGroups = filterGroupsByTasks(board.groups, filters)
     filteredGroups = advancedFilter(filteredGroups, filters)
+    console.log(filteredGroups)
 
     return {
         ...board,
@@ -97,22 +98,17 @@ function advancedFilter(groups, filters) {
 function filterGroupsByTasks(groups, filters) {
     return groups
         .map(group => {
-            // Check if the group matches group-level filters
             let groupMatches = (!filters.title || new RegExp(filters.title, "i").test(group.title))
 
-            // Filter tasks within the group based on task-level filters only if the group does not match
             const filteredTasks = groupMatches ? group.tasks : filterEntities(group.tasks, filters)
 
-
-
-            // Only return the group if it matches group-level filters or contains matching tasks
             if (groupMatches || filteredTasks.length > 0) {
                 return { ...group, tasks: filteredTasks }
             }
 
-            return null // Exclude groups that don't match and have no matching tasks
+            return null
         })
-        .filter(group => group) // Exclude null groups
+        .filter(group => group)
 }
 
 function filterEntities(entities, filters) {
@@ -121,4 +117,6 @@ function filterEntities(entities, filters) {
         const regex = new RegExp(filters.title, "i")
         filtered = filtered.filter(entity => regex.test(entity.title))
     }
+
+    return filtered
 }
