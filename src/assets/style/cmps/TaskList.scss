@@ -17,6 +17,12 @@
     display: grid;
     grid-template-columns: subgrid;
     grid-column: 1/-1;
+
+    &.drag-over {
+
+      background-color: rgba($color: var(--background), $alpha: 0.3);
+
+    }
   }
 
   .task-row {
@@ -25,14 +31,42 @@
     grid-column: 1/-1;
     position: relative;
     border-bottom: 1px solid #d3d4dd;
+    background: white;
 
+    &.drag {
+      background: transparent;
+
+      .task-title {
+        width: 355px;
+        background-color: #e7fcff;
+        opacity: 0.9;
+        border: 2px black;
+
+        .chat {
+          display: none;
+        }
+      }
+
+      border: none;
+
+
+      .check-label {
+        display: none;
+      }
+
+      .labels {
+        display: none;
+      }
+
+      animation: shake 5s infinite;
+    }
 
     width: 100%;
     -height: 36px;
 
     .labels {
       display: grid;
-      grid-template-columns: repeat(5, 200px);
+      grid-template-columns: repeat(6, 220px);
       height: 36px;
 
       .label {
@@ -111,9 +145,9 @@
         content: '';
         position: absolute;
         right: 100%;
-        top: -3px;
+        // top: -3px;
         width: 5px;
-        height: calc(100% + 10px);
+        height: calc(100% + 2px);
         z-index: 3;
         background-color: var(--before-color);
       }
@@ -132,6 +166,7 @@
       opacity: 0;
       transition: opacity 0.3s ease;
       border-radius: 5px;
+      z-index: 5;
 
       &.active {
         opacity: 1;
@@ -299,42 +334,22 @@
       rotate: 0;
     }
 
-    10% {
-      rotate: 2deg;
-
-    }
 
     20% {
       rotate: -2deg;
     }
 
-    30% {
-      rotate: 2deg;
-    }
-
-    40% {
-      rotate: -2deg;
-    }
 
     50% {
       rotate: 2deg;
     }
 
-    60% {
-      rotate: -2deg;
-    }
 
     70% {
-      rotate: 2deg;
-    }
-
-    80% {
       rotate: -2deg;
     }
 
-    90% {
-      rotate: 2deg;
-    }
+
 
     100% {
       rotate: 0;

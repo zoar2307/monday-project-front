@@ -1,6 +1,6 @@
 import { boardService } from "../../services/board/board.service.local";
 import { getRandomColor, makeId } from "../../services/util.service";
-import { ADD_BOARD, ADD_GROUP, BOARD_UNDO, REMOVE_BOARD, REMOVE_GROUP, SET_BACKDROP, SET_BOARD, SET_BOARDS, SET_FILTER_BY, SET_GROUPS, SET_IS_ADD_BOARD_MODAL, UPDATE_BOARD, UPDATE_BOARD_LABELS, UPDATE_GROUP } from '../reducers/board.reducer'
+import { ADD_BOARD, ADD_GROUP, BOARD_UNDO, REMOVE_BOARD, REMOVE_GROUP, SET_BACKDROP, SET_BOARD, SET_BOARDS, SET_FILTER_BY, SET_GROUPS, SET_GROUPS_FOR_FILTER, SET_IS_ADD_BOARD_MODAL, UPDATE_BOARD, UPDATE_BOARD_LABELS, UPDATE_GROUP } from '../reducers/board.reducer'
 
 import { store } from '../store'
 
@@ -19,6 +19,7 @@ export async function loadBoard(boardId, filterBy) {
     try {
         const board = await boardService.getById(boardId)
         const filteredBoard = boardService.filterBoard(board, filterBy)
+        console.log(filteredBoard)
         filteredBoard._id = boardId
         store.dispatch({ type: SET_BOARD, board: filteredBoard })
         return filteredBoard
@@ -108,10 +109,14 @@ export async function addLabel(name) {
             labelClass = 'date'
             labelType = 'DatePicker'
             break;
-            case 'File':
-                labelClass = 'file'
-                labelType = 'FilePicker'
-                break;
+        case 'File':
+            labelClass = 'file'
+            labelType = 'FilePicker'
+            break;
+        case 'Progress':
+            labelClass = 'progress'
+            labelType = 'ProgressBar'
+            break;
 
         default:
             break;
@@ -213,6 +218,8 @@ export async function addTask(groupId, task) {
             group.id === groupId ? { ...group, tasks: [...group.tasks, task] } : group
         )
         store.dispatch({ type: SET_GROUPS, groups: currBoard.groups })
+        updateGroupsForFilter(currBoard.groups)
+
         await boardService.save(currBoard)
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })
@@ -228,6 +235,7 @@ export async function removeTask(groupId, taskId) {
         if (!group) throw new Error("Group not found")
         group.tasks = group.tasks.filter((task) => task.id !== taskId)
         store.dispatch({ type: UPDATE_GROUP, group: group })
+
         await boardService.save(currBoard)
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })
@@ -249,11 +257,11 @@ export async function updateTask(groupId, taskId, data) {
     else if (data.assignedTo) {
         updateTaskMember(groupId, taskId, data.assignedTo)
     }
-    else if (data.date){
-        updateTaskDate(groupId , taskId , data.date)
+    else if (data.date) {
+        updateTaskDate(groupId, taskId, data.date)
     }
-    else if (data.file){
-        updateTaskFile(groupId , taskId , data.file)
+    else if (data.file) {
+        updateTaskFile(groupId, taskId, data.file)
     }
 }
 

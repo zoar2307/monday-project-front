@@ -28,7 +28,9 @@ async function query(filterBy = { title: "" }) {
 }
 
 function filterBoard(board, filters) {
-  const filteredGroups = filterGroupsByTasks(board.groups, filters)
+  let filteredGroups = filterGroupsByTasks(board.groups, filters)
+  filteredGroups = advancedFilter(filteredGroups, filters)
+  console.log(filteredGroups)
 
   return {
     ...board,
@@ -36,15 +38,60 @@ function filterBoard(board, filters) {
   };
 }
 
+function advancedFilter(groups, filters) {
+  groups = groups.map(group => {
+
+    if (filters.person.length > 0) {
+      let filteredTasks = group.tasks.map(task => {
+        const assigned = [...task.assignedTo]
+        const member = assigned.find(member => {
+          if (filters.person.includes(member._id)) return member
+        })
+        if (member) {
+          return task
+        }
+      })
+      filteredTasks = filteredTasks.filter(task => !!task)
+      if (filteredTasks.length !== 0) group.tasks = filteredTasks
+      else group.tasks = []
+    }
+
+    if (filters.status.length > 0) {
+      let filteredTasks = group.tasks.map(task => {
+        const taskStatus = task.status
+        if (filters.status.includes(taskStatus)) return task
+      })
+      filteredTasks = filteredTasks.filter(task => !!task)
+      if (filteredTasks.length !== 0) group.tasks = filteredTasks
+      else group.tasks = []
+    }
+
+    if (filters.priority.length > 0) {
+      let filteredTasks = group.tasks.map(task => {
+        const taskPriority = task.priority
+        if (filters.priority.includes(taskPriority)) return task
+      })
+      filteredTasks = filteredTasks.filter(task => !!task)
+      if (filteredTasks.length !== 0) group.tasks = filteredTasks
+      else group.tasks = []
+    }
+
+    return group
+  })
+
+  return groups.filter(group => group.tasks)
+}
+
 function filterGroupsByTasks(groups, filters) {
   return groups
     .map(group => {
-
       // Check if the group matches group-level filters
-      const groupMatches = (!filters.title || new RegExp(filters.title, "i").test(group.title))
+      let groupMatches = (!filters.title || new RegExp(filters.title, "i").test(group.title))
 
       // Filter tasks within the group based on task-level filters only if the group does not match
       const filteredTasks = groupMatches ? group.tasks : filterEntities(group.tasks, filters)
+
+
 
       // Only return the group if it matches group-level filters or contains matching tasks
       if (groupMatches || filteredTasks.length > 0) {
@@ -58,17 +105,21 @@ function filterGroupsByTasks(groups, filters) {
 
 function filterEntities(entities, filters) {
   let filtered = entities
-
   if (filters.title) {
     const regex = new RegExp(filters.title, "i")
     filtered = filtered.filter(entity => regex.test(entity.title))
   }
-  if (filters.status) {
-    filtered = filtered.filter(entity => entity.status === filters.status)
-  }
-  if (filters.priority) {
-    filtered = filtered.filter(entity => entity.priority === filters.priority)
-  }
+
+
+  // if (filters.status) {
+  //   filtered = filtered.filter(entity => entity.status === filters.status)
+  // }
+  // if (filters.priority) {
+  //   filtered = filtered.filter(entity => entity.priority === filters.priority)
+  // }
+  // if (filters.members) {
+  //   filtered = filtered.filter(entity => entity.priority === filters.priority)
+  // }
 
   return filtered
 }
@@ -782,6 +833,7 @@ async function _createBoards() {
         { "type": "PriorityPicker", "title": "Priority", "id": "dl103", "class": "priority" },
         { "type": "DatePicker", "title": "Date", "id": "dl104", "class": "date" },
         { "type": "FilePicker", "title": "File", "id": "dl105", "class": "file" },
+        { "type": "ProgressBar", "title": "progress", "id": "dl106", "class": "progress" },
 
         // "StatusPicker",
         // "MemberPicker",

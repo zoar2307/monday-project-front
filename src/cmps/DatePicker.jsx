@@ -6,6 +6,8 @@ export function DatePickerModal({ info, onUpdate }) {
     const [isCalendarOpen, setCalendarOpen] = useState(false)
     const [selectedDate, setSelectedDate] = useState(info.date ? new Date(info.date) : null)
     const calendarRef = useRef()
+    const labelRef = useRef()
+
 
     const handleSelect = (date) => {
         setSelectedDate(date)
@@ -25,7 +27,8 @@ export function DatePickerModal({ info, onUpdate }) {
     }
 
     const handleClickOutside = (event) => {
-        if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        if (calendarRef.current && !calendarRef.current.contains(event.target) && labelRef.current &&
+            !labelRef.current.contains(event.target)) {
             setCalendarOpen(false)
         }
     }
@@ -45,6 +48,7 @@ export function DatePickerModal({ info, onUpdate }) {
     return (
         <div className='label-container' style={{ position: 'relative' }}>
             <div
+                ref={labelRef}
                 onClick={() => setCalendarOpen(!isCalendarOpen)}
                 className="date label not-header"
             >
@@ -52,8 +56,9 @@ export function DatePickerModal({ info, onUpdate }) {
             </div>
 
             {isCalendarOpen && (
-                <div ref={calendarRef} style={{ position: 'absolute', zIndex: 1000 , right : -60 }}>
+                <div ref={calendarRef} style={{ position: 'absolute', zIndex: 1000, right: -60 }}>
                     <DatePicker
+                        labelRef={labelRef}
                         selected={selectedDate}
                         onChange={handleSelect}
                         inline

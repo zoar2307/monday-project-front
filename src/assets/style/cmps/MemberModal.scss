@@ -21,7 +21,7 @@
   max-height: 180px;
 
   overflow-y: auto;
- 
+
 
   /* Hide scrollbar for Firefox */
 
@@ -223,6 +223,34 @@
 
     }
   }
+}
 
 
+.plus-member {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  // z-index: 3;
+
+  font-size: rem(14px);
+  margin-left: em(-16px, 14px);
+  padding: 0 em(1px, 14px);
+  line-height: lh(24px, 14px);
+
+
+  width: em(34px, 14px);
+  height: em(28px, 14px);
+
+  font-family: Figtree;
+
+  border: 1px solid white;
+
+  border-radius: em(14px, 14px);
+  // background-color: $light-board-details-clr4;
+  background-color: #dcdfec;
+  margin: 0 -4px;
+
+  color: $light-board-details-clr2;
 }

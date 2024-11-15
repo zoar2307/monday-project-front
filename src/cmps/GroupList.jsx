@@ -131,17 +131,27 @@ export function GroupList({ board }) {
                     />
                   </div>
                 ))}
+                {groups.length === 0 &&
+                  < div className="not-found">
+                    <img class="search-empty-state-component__image" src="https://cdn.monday.com/images/search_empty_state.svg"></img>
+                    <h2>No results found</h2>
+                  </div>
+                }
                 {provided.placeholder}
               </div>
             )}
 
           </Droppable>
-          <button onClick={handleAddGroup} className="add-group-btn flex align-center">
-            <i className="fa-solid fa-plus"></i>
-            Add new group
-          </button>
-        </div>
-      </DragDropContext>
+
+          <div className="btn-container">
+
+            <button onClick={handleAddGroup} className="add-group-btn flex align-center">
+              <i className="fa-solid fa-plus"></i>
+              Add new group
+            </button>
+          </div>
+        </div >
+      </DragDropContext >
     </>
   )
 }

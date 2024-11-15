@@ -9,7 +9,6 @@ export function LabelModal({ type,
     labelId,
     modalRemoveBtnRef }) {
     const modalRef = useRef()
-    const [clickPos, setClickPos] = useState({})
 
     const handleClickOutside = (event) => {
         if (!modalAddBtnRef) {
@@ -58,14 +57,10 @@ export function LabelModal({ type,
         setLabelModal(prev => ({ ...prev, isDisplay: false }))
     }
 
-
-
-
-
     return (
         <section ref={modalRef} className="label-modal" style={{
             top: type === 'add' ? '-20%' : '-20%',
-            right: type === 'add' ? '80%' : '',
+            right: type === 'add' ? '100%' : '',
             left: type === 'add' ? '' : '100%'
         }}>
             {type === 'add' ?
@@ -138,6 +133,43 @@ export function LabelModal({ type,
                             </div>
 
                             <span>Date</span>
+                        </div>
+                    }
+
+                    {board.cmpsLabels.find(lable => lable.type === 'ProgressBar') ?
+                        <div className="label-type disabled">
+                            <div className="img-container progress">
+                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/date-column-icon.svg" alt=""></img>
+                            </div>
+
+                            <span>Progress</span>
+                        </div>
+                        :
+                        <div onClick={() => onAddLabel('Progress')} className="label-type">
+                            <div className="img-container progress">
+                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/date-column-icon.svg" alt=""></img>
+
+                            </div>
+
+                            <span>Progress</span>
+                        </div>
+                    }
+                    {board.cmpsLabels.find(lable => lable.type === 'FilePicker') ?
+                        <div className="label-type disabled">
+                            <div className="img-container file">
+                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/date-column-icon.svg" alt=""></img>
+                            </div>
+
+                            <span>File</span>
+                        </div>
+                        :
+                        <div onClick={() => onAddLabel('File')} className="label-type">
+                            <div className="img-container file">
+                                <img class="monday-column-icon-component__icon" src="https://cdn.monday.com/images/column-store/columns/date-column-icon.svg" alt=""></img>
+
+                            </div>
+
+                            <span>File</span>
                         </div>
                     }
 
