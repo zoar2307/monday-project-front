@@ -96,38 +96,60 @@ export function GroupPreview({
   function formatDateRange(earliestDate, latestDate) {
     const sameYear = earliestDate.getFullYear() === latestDate.getFullYear()
     const sameMonth = sameYear && earliestDate.getMonth() === latestDate.getMonth()
-    if (sameMonth) {
-      return `${earliestDate.getDate()}-${latestDate.getDate()} ${earliestDate.toLocaleDateString('en-US', { month: 'short' })}`
+    const sameDate = earliestDate.getTime() === latestDate.getTime()
+
+    const formatDate = (date, includeYear = true) => {
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: includeYear ? '2-digit' : undefined,
+      })
+    }
+
+    if (sameDate) {
+      return `${formatDate(earliestDate)}`
+    } else if (sameMonth) {
+      return `${earliestDate.getDate()} - ${latestDate.getDate()} ${earliestDate.toLocaleDateString('en-US', { month: 'short' })} ${earliestDate.getFullYear()}`
     } else if (sameYear) {
-      return `${earliestDate.getDate()} ${earliestDate.toLocaleDateString('en-US', { month: 'short' })} - ${latestDate.getDate()} ${latestDate.toLocaleDateString('en-US', { month: 'short' })}`
+      return `${formatDate(earliestDate, false)} - ${formatDate(latestDate)}`
     } else {
-      return `${earliestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' })} - ${latestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' })}`
+      return `${formatDate(earliestDate)} - ${formatDate(latestDate)}`
     }
   }
 
+
+
   function calculateDateStats(tasks) {
-    const dates = tasks.map(task => task.date).filter(date => date).map(date => new Date(date))
-    if (dates.length === 0) return { progress: 0, dateRange: 'No Date', daysDifference: 0 }
+    const dates = tasks
+      .map(task => task.date)
+      .filter(date => date)
+      .map(date => new Date(date))
+
+    if (dates.length === 0) {
+      return { progress: 0, dateRange: 'No Date', daysDifference: 0 }
+    }
 
     const earliestDate = new Date(Math.min(...dates))
     const latestDate = new Date(Math.max(...dates))
     const today = new Date()
-    const totalRange = latestDate - earliestDate
-    const elapsedRange = today - earliestDate
-    const progress = Math.min(100, Math.max(0, (elapsedRange / totalRange) * 100))
-    const daysDifference = Math.ceil((latestDate - earliestDate) / (1000 * 60 * 60 * 24))
-    const dateRange = formatDateRange(earliestDate, latestDate)
-    if (dates.length === 1) {
-      return {
-        progress: 100,
-        dateRange: earliestDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
-        daysDifference: 0,
-        singleDate: true
-      }
-    }
-    return { progress, dateRange, daysDifference }
 
+    const totalRange = Math.max(1, latestDate - earliestDate)
+    const elapsedRange = Math.max(0, today - earliestDate)
+
+    const progress = Math.min(100, Math.max(0, (elapsedRange / totalRange) * 100))
+    const daysDifference = Math.ceil(totalRange / (1000 * 60 * 60 * 24))
+
+    const dateRange = formatDateRange(earliestDate, latestDate)
+
+    return {
+      progress,
+      dateRange,
+      daysDifference,
+    }
   }
+
+
+
 
 
   const dateStats = calculateDateStats(group.tasks)
@@ -420,15 +442,25 @@ export function GroupPreview({
                                   width: `${dateStats.progress}%`,
                                 }}
                               ></div>
-                              <span className="date-range">
-                                {isHovered ? `${dateStats.daysDifference} days` : dateStats.dateRange}
-                              </span>
+                              <div className="date-range">
+                                {dateStats.earliestFormatted && dateStats.latestFormatted ? (
+                                  <>
+                                    <span>{dateStats.earliestFormatted.date}</span>
+                                    {dateStats.earliestFormatted.date !== dateStats.latestFormatted.date && (
+                                      <>
+                                        {' - '}
+                                        <span>{dateStats.latestFormatted.date}</span>
+                                      </>
+                                    )}
+                                  </>
+                                ) : (
+                                  <span>{dateStats.dateRange}</span>
+                                )}
+                              </div>
                             </div>
                           </div>
                         )
                       }
-
-
                     })}
 
                   </div>
@@ -443,7 +475,7 @@ export function GroupPreview({
             </div>
           </div>
         )}
-      </Draggable >
+      </Draggable>
     </>
   )
 }
