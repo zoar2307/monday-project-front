@@ -33,6 +33,12 @@
     border-bottom: 1px solid #d3d4dd;
     background: white;
 
+    &:hover {
+      & .dots-button {
+        opacity: 1;
+      }
+    }
+
     &.drag {
       background: transparent;
 
@@ -114,12 +120,12 @@
     }
 
     .check-label {
+      position: sticky;
       width: 100%;
       height: calc(100%);
       display: flex;
       justify-content: center;
       align-items: center;
-      position: sticky;
       left: 40px;
       z-index: 1;
       background: white;
@@ -128,6 +134,17 @@
         min-width: 16px;
         height: 16px;
         cursor: pointer;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        right: 100%;
+        // top: -3px;
+        width: 5px;
+        height: calc(100% + 2px);
+        z-index: 3;
+        background-color: var(--before-color);
       }
 
       &::after {
@@ -141,23 +158,14 @@
         background-color: white;
       }
 
-      &::before {
-        content: '';
-        position: absolute;
-        right: 100%;
-        // top: -3px;
-        width: 5px;
-        height: calc(100% + 2px);
-        z-index: 3;
-        background-color: var(--before-color);
-      }
     }
+
 
     .dots-button {
       position: absolute;
       width: 30px;
       height: 30px;
-      left: -40px;
+      left: -35px;
       top: 50%;
       transform: translateY(-50%);
       background: none;
@@ -167,6 +175,7 @@
       transition: opacity 0.3s ease;
       border-radius: 5px;
       z-index: 5;
+
 
       &.active {
         opacity: 1;

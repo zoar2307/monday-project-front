@@ -92,14 +92,15 @@ export function TaskPreview({ idx, task, group, board }) {
                     ref={provided.innerRef}
                 >
 
-
+                    <button className={`dots-button ${isModalOpen ? 'active' : ''}`} onClick={toggleModal}>
+                        <img src={dots} alt="do" />
+                    </button>
                     <div className='check-label'
                         style={{ '--before-color': group.color }}
-                    ><input type="checkbox" /></div>
+                    ><input type="checkbox" />
+                    </div>
                     <div className='task-title'>
-                        <button className={`dots-button ${isModalOpen ? 'active' : ''}`} onClick={toggleModal}>
-                            <img src={dots} alt="do" />
-                        </button>
+
                         <div className='task-title-txt'>
 
                             {isEditTaskTitle ?
