@@ -14,8 +14,6 @@ export function TaskConversation() {
     const [isWriting, setIsWriting] = useState(false)
     const [newUpdate, setNewUpdate] = useState({ txt: '' })
 
-
-
     const { boardId, taskId, groupId } = useParams()
     const { groups } = board
 
@@ -36,8 +34,7 @@ export function TaskConversation() {
             const task = group.tasks.find(task => task.id === taskId)
             setSelectedTask(task)
         }
-    }, [taskId])
-
+    }, [taskId, board])
 
 
     function onCloseConversation() {
@@ -108,7 +105,7 @@ export function TaskConversation() {
 
     return (
         <section className={`task-conversation ${conversationClass}`}>
-            <div className="drag-container"></div>
+            {/* <div className="drag-container"></div> */}
             <div className="content">
                 <div className="header">
                     <div className="title">

@@ -371,24 +371,22 @@ export async function updateTaskFile(groupId, taskId, fileUrl) {
 
 export async function addTaskConversationUpdate(groupId, taskId, update) {
     const { currBoard } = store.getState().boardModule
+    const { user } = store.getState().userModule
 
     update.createdAt = Date.now()
     update.member = {
-        _id: 'u101',
-        fullname: 'Avivit Nehamia',
-        imgUrl: 'https://res.cloudinary.com/dafozl1ej/image/upload/v1727762541/samples/upscale-face-1.jpg'
+        _id: user._id,
+        fullname: user.fullname,
+        imgUrl: user.imgUrl
     }
     update.id = makeId()
     update.likes = []
 
-    console.log(update)
 
     try {
         const group = currBoard.groups.find((grp) => grp.id === groupId)
         const task = group.tasks.find((tsk) => tsk.id === taskId)
         task.conversation.unshift(update)
-        console.log(task)
-        console.log(group)
         store.dispatch({ type: UPDATE_GROUP, group: group })
         await boardService.save(currBoard)
 
@@ -406,6 +404,22 @@ export async function updateLabelsKanban(labels) {
     try {
         store.dispatch({ type: SET_LABELS, labels })
         currBoard.labels = labels
+        await boardService.save(currBoard)
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.error("Cannot add group:", err)
+    }
+}
+
+// add user to board
+
+export async function addMemberToBoard(member) {
+    const { currBoard } = store.getState().boardModule
+    console.log(member)
+    try {
+        currBoard.members.push(member)
+        store.dispatch({ type: SET_BOARD, board: currBoard })
+
         await boardService.save(currBoard)
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })

@@ -57,6 +57,18 @@ export async function logout() {
     }
 }
 
+export async function updateUser(user) {
+    try {
+        user.imgUrl = 'https://res.cloudinary.com/dafozl1ej/image/upload/v1731763550/WhatsApp_Image_2024-11-07_at_13.51.54_yzsrkn.jpg'
+        console.log(`user-action:`, user)
+        await userService.update(user)
+        store.dispatch({ type: SET_USER, user: user })
+    } catch (err) {
+        console.error("Cannot logout", err)
+        throw err
+    }
+}
+
 export async function loadUser(userId) {
     try {
         const user = await userService.getById(userId)

@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router'
 import logo from '../assets/img/logo.png'
-import { logout } from '../store/actions/user.actions'
+import { logout, updateUser } from '../store/actions/user.actions'
+import { useSelector } from 'react-redux'
 
 export function BoardHeader({ isSidebarClosed }) {
   const navigate = useNavigate()
+  const user = useSelector(storeState => storeState.userModule.user)
+  if (!user) return <div>Loading</div>
 
   function handleLogout() {
     try {
@@ -12,6 +15,10 @@ export function BoardHeader({ isSidebarClosed }) {
     } catch (err) {
       console.log(err)
     }
+  }
+
+  function handleUserUpdate() {
+    updateUser(user)
   }
 
 
@@ -47,10 +54,11 @@ export function BoardHeader({ isSidebarClosed }) {
             <button>
               <div class="right-logo-container">
                 <img class="right-logo" src={logo} alt="Logo" />
+                <img src={user.imgUrl} alt="" />
               </div>
             </button>
             <button onClick={handleLogout}>Logout</button>
-
+            <button onClick={handleUserUpdate}>update</button>
           </div>
         </div>
       </header>
