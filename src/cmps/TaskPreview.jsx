@@ -1,5 +1,5 @@
 // TaskPreview.js
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { DynamicCmp } from './DynamicCmp'
 import { Draggable } from 'react-beautiful-dnd'
 import { updateGroup, updateTask } from '../store/actions/board.actions'
@@ -30,6 +30,9 @@ export function TaskPreview({ idx, task, group, board }) {
     const [isEditTaskTitle, setIsEditTaskTitle] = useState(false)
     const [updateSelectedTask, setUpdateSelectedTask] = useState(task)
 
+    useEffect(() => {
+        setUpdateSelectedTask(task)
+    }, [task])
 
     const toggleModal = () => setModalOpen(!isModalOpen)
 
@@ -117,7 +120,7 @@ export function TaskPreview({ idx, task, group, board }) {
                                     className="task-title-input"
                                     onClick={() => {
                                         setIsEditTaskTitle(true)
-                                        inputRef.current.focus()
+
                                     }}
                                 >{updateSelectedTask.title}</span>
                             }
