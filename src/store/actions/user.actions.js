@@ -1,3 +1,4 @@
+import { socketService } from '../../services/socket.service'
 import { userService } from '../../services/user/user.service.remote'
 import { REMOVE_USER, SET_USER, SET_USERS, SET_WATCHED_USER } from '../reducers/user.reducer'
 import { store } from '../store'
@@ -23,9 +24,9 @@ export async function removeUser(userId) {
 export async function login(credentials, navigate) {
     try {
         const user = await userService.login(credentials)
-        console.log(user)
         store.dispatch({ type: SET_USER, user })
         navigate('/board')
+        socketService.login(user._id)
         return user
     } catch (err) {
         console.error("Cannot login", err)
@@ -37,6 +38,7 @@ export async function signup(credentials) {
     try {
         const user = await userService.signup(credentials)
         store.dispatch({ type: SET_USER, user })
+        socketService.login(user._id)
         return user
     } catch (err) {
         console.error("Cannot signup", err)
@@ -48,6 +50,7 @@ export async function logout() {
     try {
         await userService.logout()
         store.dispatch({ type: SET_USER, user: null })
+        socketService.logout()
     } catch (err) {
         console.error("Cannot logout", err)
         throw err

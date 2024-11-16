@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, useParams, useLocation } from "react-router-dom"
+import { BrowserRouter as Router, Route, Routes, useParams, useLocation, useNavigate } from "react-router-dom"
 
 import { BoardIndex } from "../cmps/BoardIndex"
 import { SideBar } from "../cmps/SideBar"
@@ -7,11 +7,16 @@ import { BoardDetails } from "./BoardDetails"
 import { MyWork } from "../cmps/MyWork"
 import { loadBoards } from "../store/actions/board.actions"
 import { Kanban } from "../cmps/Kanban"
+import { useSelector } from "react-redux"
 
 export function BoardPage({ onSidebarToggle }) {
-  useEffect(() => {
-    loadBoards()
+  const user = useSelector(storeState => storeState.userModule.user)
+  const navigate = useNavigate()
 
+
+  useEffect(() => {
+    if (!user) navigate('/')
+    loadBoards()
   }, [])
 
   const { boardId } = useParams()

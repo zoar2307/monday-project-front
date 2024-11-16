@@ -1,4 +1,4 @@
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { TaskList } from "../cmps/TaskList"
 import { Draggable, Droppable } from "react-beautiful-dnd"
 import { addTask, updateGroup } from "../store/actions/board.actions"
@@ -6,6 +6,9 @@ import { OptionGroupModal } from "./OptionGroupModal"
 import dots from '../assets/img/dots.svg'
 import { useSelector } from "react-redux"
 import { LabelModal } from "./LabelModal"
+import { SOCKET_EVENT_BOARD_UPDATE, socketService } from "../services/socket.service"
+import { SET_BOARD } from "../store/reducers/board.reducer"
+import { useDispatch } from "react-redux"
 
 export function GroupPreview({
   group,
@@ -13,6 +16,7 @@ export function GroupPreview({
 }) {
   const board = useSelector(storeState => storeState.boardModule.currBoard)
   const { title, tasks, id: groupId } = group
+
   let taskStrCount = ''
   if (tasks.length === 1) taskStrCount = `${tasks.length} Task`
   if (tasks.length > 1) taskStrCount = `${tasks.length} Tasks`
@@ -32,7 +36,6 @@ export function GroupPreview({
   }
   const [isHovered, setIsHovered] = useState(false)
 
-
   const cmpsOrder = board.cmpsLabels.map(label => label.type)
 
   async function onSubmitTask(ev) {
@@ -45,6 +48,10 @@ export function GroupPreview({
       console.log(err)
     }
   }
+
+  useEffect(() => {
+    setGroupTitle(title)
+  }, [title])
 
   function handleChange({ target }) {
     let { value, name: field, type } = target
@@ -67,7 +74,7 @@ export function GroupPreview({
     ev.preventDefault()
     try {
       const updatedGroup = { ...group, title: groupTitle }
-      await updateGroup(updatedGroup)
+      await updateGroup(updatedGroup, board)
       setIsEditGroupTitle(false)
     } catch (err) {
       console.log(err)
@@ -125,11 +132,6 @@ export function GroupPreview({
 
   const dateStats = calculateDateStats(group.tasks)
 
-
-
-
-
-
   const groupProgress = group.tasks.reduce((acc, task) => {
     if (!task.status) return acc
     if (!acc[task.status]) acc[task.status] = 0
@@ -137,8 +139,6 @@ export function GroupPreview({
     acc.count++
     return acc
   }, { count: 0 })
-
-
 
   return (
     <>

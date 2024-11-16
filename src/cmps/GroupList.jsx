@@ -3,9 +3,13 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import { addGroup, loadBoard, removeGroup, saveBoard, updateGroup, updateGroups, updateLabels } from "../store/actions/board.actions"
 import { useEffect } from "react"
 import { logout } from "../store/actions/user.actions"
+import { SOCKET_EVENT_BOARD_UPDATE, socketService } from "../services/socket.service"
+import { useDispatch } from "react-redux"
+import { SET_BOARD } from "../store/reducers/board.reducer"
 
 export function GroupList({ board }) {
   const { _id: boardId, groups } = board
+  const dispatch = useDispatch()
 
   const handleAddGroup = async () => {
     try {

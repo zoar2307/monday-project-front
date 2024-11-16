@@ -56,10 +56,14 @@ function advancedFilter(groups, filters) {
 
         if (filters.person.length > 0) {
             let filteredTasks = group.tasks.map(task => {
-                const assigned = [...task.assignedTo]
-                const member = assigned.find(member => {
-                    if (filters.person.includes(member._id)) return member
-                })
+                let assigned
+                let member
+                if (task.assignedTo) {
+                    assigned = [...task.assignedTo]
+                    member = assigned.find(member => {
+                        if (filters.person.includes(member._id)) return member
+                    })
+                }
                 if (member) {
                     return task
                 }

@@ -192,8 +192,11 @@ export async function updateGroup(updatedGroup) {
     const { currBoard } = store.getState().boardModule
 
     try {
-        store.dispatch({ type: UPDATE_GROUP, group: updatedGroup })
-        currBoard.groups = currBoard.groups.map((group) => group.id === updatedGroup.id ? updatedGroup : group)
+        // store.dispatch({ type: UPDATE_GROUP, group: updatedGroup })
+        const newGroups = currBoard.groups.map((group) => group.id === updatedGroup.id ? updatedGroup : group)
+        currBoard.groups = newGroups
+        // store.dispatch({ type: SET_GROUPS, groups: currBoard.groups })
+        store.dispatch({ type: SET_GROUPS, groups: currBoard.groups })
         await boardService.save(currBoard)
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })
