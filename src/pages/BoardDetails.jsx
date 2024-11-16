@@ -13,16 +13,12 @@ import { SET_BOARD } from "../store/reducers/board.reducer"
 
 export function BoardDetails() {
   const board = useSelector(storeState => storeState.boardModule.currBoard)
+  const user = useSelector(storeState => storeState.userModule.user)
   const filterBy = useSelector(storeState => storeState.boardModule.filterBy)
   const dispatch = useDispatch()
 
   const { boardId, taskId } = useParams()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    if (boardId) initBoard()
-  }, [boardId, filterBy])
-
 
   useEffect(() => {
     resetFilterBy()
@@ -34,6 +30,20 @@ export function BoardDetails() {
       socketService.off(SOCKET_EVENT_BOARD_UPDATE)
     }
   }, [])
+
+  useEffect(() => {
+    if (boardId) initBoard()
+  }, [boardId, filterBy])
+
+
+  useEffect(() => {
+    if (board) {
+      const isInclude = board.members.some(member => member._id === user._id)
+      if (!isInclude) navigate('/board')
+    }
+  }, [board])
+
+
 
   async function initBoard() {
     try {
