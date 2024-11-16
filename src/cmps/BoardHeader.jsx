@@ -1,6 +1,20 @@
+import { useNavigate } from 'react-router'
 import logo from '../assets/img/logo.png'
+import { logout } from '../store/actions/user.actions'
 
 export function BoardHeader({ isSidebarClosed }) {
+  const navigate = useNavigate()
+
+  function handleLogout() {
+    try {
+      logout()
+      navigate('/')
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+
   return (
     <>
       <header className="board-header flex justify-between align-center" style={{
@@ -35,6 +49,7 @@ export function BoardHeader({ isSidebarClosed }) {
                 <img class="right-logo" src={logo} alt="Logo" />
               </div>
             </button>
+            <button onClick={handleLogout}>Logout</button>
 
           </div>
         </div>
