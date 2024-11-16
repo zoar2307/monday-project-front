@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, useParams, useLocation, useNavi
 
 import { BoardIndex } from "../cmps/BoardIndex"
 import { SideBar } from "../cmps/SideBar"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { BoardDetails } from "./BoardDetails"
 import { MyWork } from "../cmps/MyWork"
 import { loadBoards } from "../store/actions/board.actions"
@@ -19,7 +19,6 @@ export function BoardPage({ onSidebarToggle }) {
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
-
   useEffect(() => {
     if (!user) navigate('/')
     loadBoards()
@@ -35,7 +34,6 @@ export function BoardPage({ onSidebarToggle }) {
     }
 
   }, [])
-
   const { boardId } = useParams()
 
   const location = useLocation()

@@ -169,6 +169,14 @@
                 &:hover {
                     background: $light-signup-clr7;
                 }
+
+                &.disable {
+                    background-color: lightgray;
+
+                    &:active {
+                        scale: 1;
+                    }
+                }
             }
         }
     }
@@ -201,6 +209,10 @@
             height: 100%;
             object-fit: cover;
         }
+    }
+
+    svg {
+        height: 50px;
     }
 
 }

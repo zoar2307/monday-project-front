@@ -27,7 +27,6 @@ export async function login(credentials, navigate) {
     try {
         const user = await userService.login(credentials)
         store.dispatch({ type: SET_USER, user })
-        navigate('/board')
         socketService.login(user._id)
         loadUsers()
         return user
@@ -41,7 +40,6 @@ export async function signup(credentials) {
     try {
         const user = await userService.signup(credentials)
         store.dispatch({ type: SET_USER, user })
-        navigate('/board')
         socketService.login(user._id)
         loadUsers()
         return user

@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import signupImg1 from '../assets/img/welcome-to-monday.avif'
 import { userService } from '../services/user/user.service.remote'
 import { makeId } from '../services/util.service'
 import { boardService } from '../services/board/board.service.local'
+import { signup } from '../store/actions/user.actions'
 export function Signup() {
     const [form, setForm] = useState({
         fullname: '',
@@ -12,6 +13,7 @@ export function Signup() {
         theme: 'light',
 
     })
+
     const [error, setError] = useState('')
     const navigate = useNavigate()
 
@@ -24,6 +26,7 @@ export function Signup() {
         ev.preventDefault()
         setError('')
         try {
+            setIsLoading(true)
             const userCred = {
                 // email: form.email,
                 username: form.username,
@@ -32,9 +35,10 @@ export function Signup() {
                 theme: form.theme,
             }
 
-            await userService.signup(userCred)
-            navigate('/board')
+            const user = await signup(userCred)
+            if (user) navigate('/board')
         } catch (err) {
+            setIsLoading(false)
             setError(err.message || 'Signup failed. Please try again.')
         }
     }
@@ -87,7 +91,14 @@ export function Signup() {
                             </div>
                             {error && <div className="error-msg">{error}</div>}
                             <div className="continue-container">
-                                <button className="continue-button btn">Sign Up</button>
+
+                                <button
+                                    className="continue-button btn">
+                                    Sign Up
+                                </button>
+
+
+
                             </div>
                         </form>
                     </div>
@@ -95,11 +106,11 @@ export function Signup() {
                 <div className="signup-footer">
                     <span>Already have an account?</span> <span><a href="/auth/login">Log in</a></span>
                 </div>
-            </div>
+            </div >
 
             <div className="img-container">
                 <img src={signupImg1} alt="Welcome" />
             </div>
-        </section>
+        </section >
     )
 }

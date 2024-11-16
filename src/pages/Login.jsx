@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { login } from "../store/actions/user.actions"
 import { userService } from "../services/user/user.service.remote"
@@ -29,6 +29,7 @@ export function Login() {
     async function handleLogin(ev) {
         ev.preventDefault()
         setError("")
+        setIsLoading(true)
 
         if (!credentials.username || !credentials.password) {
             setError("Please provide both username and password.")
@@ -37,9 +38,12 @@ export function Login() {
 
         try {
             const user = await login(credentials, navigate)
-            if (user) navigate("/board")
+            if (user) navigate('/board')
+
+
         } catch (err) {
             console.error("Login failed:", err)
+            setIsLoading(false)
             setError(err.message || "Login failed. Please try again.")
         }
     }
@@ -84,9 +88,12 @@ export function Login() {
                         />
                     </div>
                     {error && <div className="error-msg">{error}</div>}
-                    <button type="submit" className="login-button btn">
-                        Login
-                    </button>
+                    <div className="login-container">
+
+                        <button type="submit" className="login-button btn">
+                            Login
+                        </button>
+                    </div>
                 </form>
                 <div className="login-footer">
                     <span>Don't have an account yet?</span> <span><a href="/auth/signup">Sign up</a></span>

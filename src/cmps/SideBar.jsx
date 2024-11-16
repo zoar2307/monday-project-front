@@ -249,7 +249,6 @@ export function SideBar({ onSidebarToggle }) {
 
 
     const hiddenClass = favoritesIsOpen ? 'hidden' : ''
-
     return (
         <section
             onMouseDown={handleMouseDown}

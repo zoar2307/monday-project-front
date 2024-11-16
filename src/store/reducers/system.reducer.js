@@ -1,8 +1,7 @@
 export const SET_CONVERSATION_STATUS = 'LOADING_START'
 
-
 const initialState = {
-    isConversationOpen: false
+    isConversationOpen: false,
 }
 
 export function systemReducer(state = initialState, action = {}) {

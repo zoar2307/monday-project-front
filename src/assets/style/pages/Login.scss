@@ -104,22 +104,35 @@
         }
     }
 
-    .login-button {
-        margin-bottom: 36px;
-        transition: scale 0.2s;
+    .login-container {
+        height: em(40px, 16px);
 
-        &:active {
-            scale: 0.9;
-        }
+        .login-button {
+            margin-bottom: 36px;
+            transition: scale 0.2s;
 
-        color: white;
-        background: $light-signup-clr6;
-        border: none;
-        cursor: pointer;
-        font-weight: 300;
+            &:active {
+                scale: 0.9;
+            }
 
-        &:hover {
-            background: $light-signup-clr7;
+
+            color: white;
+            background: $light-signup-clr6;
+            border: none;
+            cursor: pointer;
+            font-weight: 300;
+
+            &:hover {
+                background: $light-signup-clr7;
+            }
+
+            &.disable {
+                background-color: lightgray;
+
+                &:active {
+                    scale: 1;
+                }
+            }
         }
     }
 
@@ -147,6 +160,10 @@
                 }
             }
         }
+    }
+
+    svg {
+        height: 50px;
     }
 
 }
