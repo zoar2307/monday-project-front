@@ -8,6 +8,7 @@ import { MyWork } from "../cmps/MyWork"
 import { loadBoards } from "../store/actions/board.actions"
 import { Kanban } from "../cmps/Kanban"
 import { useSelector } from "react-redux"
+import { loadUsers } from "../store/actions/user.actions"
 
 export function BoardPage({ onSidebarToggle }) {
   const user = useSelector(storeState => storeState.userModule.user)
@@ -17,6 +18,7 @@ export function BoardPage({ onSidebarToggle }) {
   useEffect(() => {
     if (!user) navigate('/')
     loadBoards()
+    loadUsers()
   }, [])
 
   const { boardId } = useParams()

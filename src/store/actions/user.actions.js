@@ -57,6 +57,18 @@ export async function logout() {
     }
 }
 
+export async function updateUser(user, url) {
+    try {
+        user.imgUrl = url
+        console.log(`user-action:`, user)
+        await userService.update(user)
+        store.dispatch({ type: SET_USER, user: user })
+    } catch (err) {
+        console.error("Cannot logout", err)
+        throw err
+    }
+}
+
 export async function loadUser(userId) {
     try {
         const user = await userService.getById(userId)

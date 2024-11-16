@@ -1,9 +1,13 @@
 import { BoardDetailsFilter } from "./BoardDetailsFilter"
 import { useNavigate, useParams } from "react-router"
+import { ManageBoardMembers } from "./ManageBoardMembers.jsx"
+import { useState } from "react"
+
 
 export function BoardDetailsHeader({ board }) {
     const { boardId } = useParams()
     const navigate = useNavigate()
+    const [manageModal, setManageModal] = useState(false)
 
     return (
         <div className="board-details-header">
@@ -36,8 +40,9 @@ export function BoardDetailsHeader({ board }) {
                 </div>
 
                 <div className="invite">
-                    <button className="invite-button">invite / {board.members.length}</button>
+                    <button onClick={() => setManageModal(true)} className="invite-button">manage / {board.members.length}</button>
                 </div>
+                {manageModal && <ManageBoardMembers board={board} setManageModal={setManageModal} />}
 
                 {/* <div className="dots">
                     <button>
