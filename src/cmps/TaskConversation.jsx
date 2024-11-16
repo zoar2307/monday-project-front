@@ -43,7 +43,7 @@ export function TaskConversation() {
             setSelectedTask({})
             setActivityLog([])
         }
-    }, [taskId, groupId, groups])
+    }, [taskId, groupId, groups, board])
 
 
 

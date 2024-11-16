@@ -16,6 +16,8 @@ export async function removeUser(userId) {
     try {
         await userService.remove(userId)
         store.dispatch({ type: REMOVE_USER, userId })
+        loadUsers()
+
     } catch (err) {
         console.error('UserActions: error in removeUser', err)
     }
@@ -27,6 +29,7 @@ export async function login(credentials, navigate) {
         store.dispatch({ type: SET_USER, user })
         navigate('/board')
         socketService.login(user._id)
+        loadUsers()
         return user
     } catch (err) {
         console.error("Cannot login", err)
@@ -38,7 +41,9 @@ export async function signup(credentials) {
     try {
         const user = await userService.signup(credentials)
         store.dispatch({ type: SET_USER, user })
+        navigate('/board')
         socketService.login(user._id)
+        loadUsers()
         return user
     } catch (err) {
         console.error("Cannot signup", err)
@@ -63,6 +68,7 @@ export async function updateUser(user, url) {
         console.log(`user-action:`, user)
         await userService.update(user)
         store.dispatch({ type: SET_USER, user: user })
+        loadUsers()
     } catch (err) {
         console.error("Cannot logout", err)
         throw err

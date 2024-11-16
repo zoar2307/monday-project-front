@@ -11,6 +11,7 @@ import { userService } from './user'
 // export const SOCKET_EVENT_REVIEW_ABOUT_YOU = 'review-about-you'
 
 export const SOCKET_EVENT_BOARD_UPDATE = 'board-update'
+export const SOCKET_EVENT_USER_UPDATE = 'user-update'
 
 const SOCKET_EMIT_LOGIN = 'set-user-socket'
 const SOCKET_EMIT_LOGOUT = 'unset-user-socket'

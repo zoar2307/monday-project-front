@@ -3,7 +3,7 @@
     position: sticky;
     left: 0;
     top: 0;
-    z-index: 100;
+    z-index: 98;
     background-color: #fff;
     column-gap: 16px;
     display: grid;
@@ -149,7 +149,9 @@
                 justify-content: center;
 
                 min-width: em(28px, 16px);
-                height: em(28px, 16px);
+                max-width: em(28px, 16px);
+                min-height: em(28px, 16px);
+                max-height: em(28px, 16px);
                 border-radius: 50%;
                 border: 1px solid white;
 
@@ -238,6 +240,7 @@
                     height: em(24px, 16px);
                     min-width: em(24px, 16px);
                     color: $light-board-details-clr1;
+                    outline: none;
                 }
 
             }
@@ -292,6 +295,7 @@
             svg {
                 height: em(16px, 14px);
                 width: em(16px, 14px);
+                outline: none;
             }
 
             .active-line {

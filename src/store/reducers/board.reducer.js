@@ -62,7 +62,7 @@ export function boardReducer(state = initialState, action = {}) {
             boards = state.boards.map(board =>
                 board._id === action.board._id ? action.board : board
             )
-            return { ...state, boards, currBoard: action.board } // Ensure currBoard updated correctly
+            return { ...state, boards } // Ensure currBoard updated correctly
 
         case UPDATE_BOARD_LABELS:
             return { ...state, currBoard: { ...state.currBoard, cmpsLabels: action.newLabels } }

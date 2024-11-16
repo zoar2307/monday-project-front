@@ -19,7 +19,6 @@ export function Login() {
     async function loadUsers() {
         try {
             const fetchedUsers = await userService.getUsers()
-            console.log(fetchedUsers)
             setUsers(fetchedUsers)
         } catch (err) {
             console.error("Failed to load users", err)
@@ -52,35 +51,47 @@ export function Login() {
 
     return (
         <section className="login-page">
-            <h1>Login</h1>
-            <form className="login-form" onSubmit={handleLogin}>
-                <div className="input-group">
-                    <label htmlFor="username">Username</label>
-                    <input
-                        type="text"
-                        name="username"
-                        value={credentials.username}
-                        onChange={handleChange}
-                        placeholder="Enter your username"
-                        required
-                    />
+            <div className="login-header">
+                <div className="logo flex align-center">
+                    <img src="../src/assets/img/logo.png" alt="Logo" />
+                    <h1 className="logo-home-nav">Sundae</h1>
                 </div>
-                <div className="input-group">
-                    <label htmlFor="password">Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={credentials.password}
-                        onChange={handleChange}
-                        placeholder="Enter your password"
-                        required
-                    />
+            </div>
+            <div className="login-body">
+                <h1>Log in to your account</h1>
+                <form className="login-form" onSubmit={handleLogin}>
+                    <div className="input-group">
+                        {/* <label htmlFor="username">Username</label> */}
+                        <input
+                            className="btn"
+                            type="text"
+                            name="username"
+                            value={credentials.username}
+                            onChange={handleChange}
+                            placeholder="Enter your username"
+                            required
+                        />
+                    </div>
+                    <div className="input-group">
+                        <input
+                            className="btn"
+                            type="password"
+                            name="password"
+                            value={credentials.password}
+                            onChange={handleChange}
+                            placeholder="Enter your password"
+                            required
+                        />
+                    </div>
+                    {error && <div className="error-msg">{error}</div>}
+                    <button type="submit" className="login-button btn">
+                        Login
+                    </button>
+                </form>
+                <div className="login-footer">
+                    <span>Don't have an account yet?</span> <span><a href="/auth/signup">Sign up</a></span>
                 </div>
-                {error && <div className="error-msg">{error}</div>}
-                <button type="submit" className="login-button">
-                    Login
-                </button>
-            </form>
+            </div>
         </section>
     )
 }

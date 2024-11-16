@@ -9,16 +9,31 @@ import { loadBoards } from "../store/actions/board.actions"
 import { Kanban } from "../cmps/Kanban"
 import { useSelector } from "react-redux"
 import { loadUsers } from "../store/actions/user.actions"
+import { SOCKET_EVENT_USER_UPDATE, socketService } from "../services/socket.service"
+import { useDispatch } from "react-redux"
+import { SET_USERS } from "../store/reducers/user.reducer"
 
 export function BoardPage({ onSidebarToggle }) {
   const user = useSelector(storeState => storeState.userModule.user)
-  const navigate = useNavigate()
+  const users = useSelector(storeState => storeState.userModule.users)
+  const dispatch = useDispatch()
 
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!user) navigate('/')
     loadBoards()
     loadUsers()
+
+    socketService.on(SOCKET_EVENT_USER_UPDATE, updatedUser => {
+      const updatedUsers = users.map(user => user._id === updatedUser._id ? updatedUser : user)
+      dispatch({ type: SET_USERS, users: updatedUsers })
+    })
+
+    return () => {
+      socketService.off(SOCKET_EVENT_USER_UPDATE)
+    }
+
   }, [])
 
   const { boardId } = useParams()

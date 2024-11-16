@@ -729,15 +729,16 @@
     position: absolute;
 
 
-      background: white;
-      border: 1px solid #d3d4dd;
-      z-index: 1001;
-      padding: 8px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      pointer-events: auto;
-      width: 260px;
-      button {
+    background: white;
+    border: 1px solid #d3d4dd;
+    z-index: 1001;
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
+    width: 260px;
+
+    button {
         width: 100%;
         font-family: Figtree;
         background: none;

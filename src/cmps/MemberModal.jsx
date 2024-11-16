@@ -10,6 +10,10 @@ export function MemberModal({ options,
   const [filterByToEdit, setFilterByToEdit] = useState({ name: '' })
   const [availableMembers, setAvailableMembers] = useState(options)
 
+  useEffect(() => {
+    setAvailableMembers(options)
+  }, [options])
+
   function handleChange({ target }) {
     let { value, name: field, type } = target
     switch (type) {
@@ -67,7 +71,7 @@ export function MemberModal({ options,
         <div className='assigned-members'>
           {assignedMembers.map(member => {
             return (
-              <div className='member'>
+              <div key={member._id} className='member'>
                 <div className='member-img'>
                   <img src={member.imgUrl} alt="" />
                 </div>

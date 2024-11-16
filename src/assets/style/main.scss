@@ -34,13 +34,14 @@
 @import 'cmps/DynmicCmp';
 @import 'cmps/FilterModal';
 @import 'cmps/Kanban';
-@import 'cmps/AddMemberToBoard.scss';
+@import 'cmps/AddMemberToBoard';
 
 
 /* Pages */
 @import 'pages/HomePage';
-@import 'pages/BoardPage.scss';
-@import 'pages/BoardDetails.scss';
+@import 'pages/BoardPage';
+@import 'pages/BoardDetails';
+@import 'pages/Login';
 
 // .app {
 //     // display: flex;

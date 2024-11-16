@@ -44,7 +44,9 @@ export async function saveBoard(board) {
     try {
         const savedBoard = await boardService.save(board)
         store.dispatch({ type, board: savedBoard })
-        store.dispatch({ type: SET_BOARD, board: savedBoard })
+        if (type === 'ADD_BOARD') {
+            store.dispatch({ type: SET_BOARD, board: savedBoard })
+        }
         return savedBoard
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })
@@ -415,11 +417,39 @@ export async function updateLabelsKanban(labels) {
 
 export async function addMemberToBoard(member) {
     const { currBoard } = store.getState().boardModule
-    console.log(member)
     try {
         currBoard.members.push(member)
         store.dispatch({ type: SET_BOARD, board: currBoard })
 
+        await boardService.save(currBoard)
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.error("Cannot add group:", err)
+    }
+}
+
+export async function removeMemberFromBoard(member) {
+    const { currBoard } = store.getState().boardModule
+    try {
+        currBoard.members = currBoard.members.filter(currBoardUser => currBoardUser._id !== member._id)
+        const newGroups = currBoard.groups.map(group => {
+            console.log(currBoard.groups)
+            let groupTasks
+            let newTasks
+
+            groupTasks = group.tasks.map(task => {
+                if (!task.assignedTo || task.assignedTo.length === 0) return task
+                else {
+                    const newTask = { ...task, assignedTo: task.assignedTo.filter(taskAssignedMember => taskAssignedMember._id !== member._id) }
+                    return newTask
+                }
+            })
+            group.tasks = groupTasks
+            return group
+        })
+        console.log(...newGroups)
+        currBoard.groups = [...newGroups]
+        store.dispatch({ type: SET_GROUPS, groups: currBoard.groups })
         await boardService.save(currBoard)
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })

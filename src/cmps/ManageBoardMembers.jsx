@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { addMemberToBoard, setBackdrop } from "../store/actions/board.actions"
+import { addMemberToBoard, removeMemberFromBoard, setBackdrop } from "../store/actions/board.actions"
 import { useEffect, useState } from "react"
 
 export function ManageBoardMembers({ board, setManageModal }) {
@@ -9,6 +9,10 @@ export function ManageBoardMembers({ board, setManageModal }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ name: '' })
     const [availableMembers, setAvailableMembers] = useState(users)
+
+    useEffect(() => {
+        setAvailableMembers(users)
+    }, [users])
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
@@ -38,14 +42,23 @@ export function ManageBoardMembers({ board, setManageModal }) {
         }
     }, [filterByToEdit])
 
-    function onAddMember(user) {
+    async function onAddMember(user) {
         try {
-            addMemberToBoard(user)
+            await addMemberToBoard(user)
+            onClose()
         } catch (err) {
             console.log(err)
         }
     }
 
+    async function onRemoveMember(user) {
+        try {
+            await removeMemberFromBoard(user)
+            // onClose()
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     return (
         <>
@@ -89,7 +102,7 @@ export function ManageBoardMembers({ board, setManageModal }) {
                                 < div key={member._id} className="user" >
                                     <img className="user-img" src={member.imgUrl}></img>
                                     <div className="user-name">{member.fullname}</div>
-                                    {user._id === board.owner._id && <button className="remove-btn"><i class="fa-solid fa-xmark"></i></button>}
+                                    {user._id === board.owner._id && <button onClick={() => onRemoveMember(member)} className="remove-btn"><i class="fa-solid fa-xmark"></i></button>}
                                 </div>
                             )
                         }

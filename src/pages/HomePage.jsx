@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import Svg1 from '../assets/img/asset174.svg'
+import { login } from "../store/actions/user.actions"
 
 export function HomePage() {
+  const navigate = useNavigate()
   const [images, setImages] = useState([
     "./src/assets/img/homepageimgs/IMG_0029.jpeg",
     "./src/assets/img/homepageimgs/IMG_0030.jpeg",
@@ -23,6 +25,11 @@ export function HomePage() {
     'https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Homepage - 2024/motion tabs/Operations.png',
     'https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Homepage - 2024/motion tabs/roadmap.png'
   ]
+
+  const [credentials, setCredentials] = useState({
+    username: "guest",
+    password: "123",
+  })
 
   const beehiveCards = [
     {
@@ -100,6 +107,26 @@ export function HomePage() {
     })
   }
 
+  async function onGetStarted(ev) {
+    ev.preventDefault()
+    // setError("")
+
+    // if (!credentials.username || !credentials.password) {
+    //   setError("Please provide both username and password.")
+    //   return
+    // }
+
+    try {
+      const user = await login(credentials, navigate)
+      if (user) navigate("/board")
+    } catch (err) {
+      console.error("Login failed:", err)
+      // setError(err.message || "Login failed. Please try again.")
+    }
+  }
+
+
+
   return (
     <div className="homepage">
 
@@ -112,10 +139,10 @@ export function HomePage() {
 
         <div className="home-nav-right">
           <div className="navs flex align-center"  >
-            <NavLink to="/about">
+            {/* <NavLink to="/about">
               About us
-            </NavLink>
-            <NavLink to="auth/log-in">
+            </NavLink> */}
+            <NavLink to="auth/login">
               Log in
             </NavLink >
           </div>
@@ -140,7 +167,7 @@ export function HomePage() {
           to make strategic decisions with confidence
         </p>
         <NavLink to="/board">
-          <button className="btn-content">
+          <button onClick={onGetStarted} className="btn-content">
             Get Started
             <span>
               <i className="fa-solid fa-arrow-right"></i>
@@ -166,7 +193,7 @@ export function HomePage() {
             })}
 
             <div className="beehive-btn">
-              <button className="btn-nav ">
+              <button onClick={onGetStarted} className="btn-nav ">
                 Get Started
                 <span>
                   <i className="fa-solid fa-arrow-right"></i>

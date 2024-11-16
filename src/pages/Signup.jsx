@@ -45,7 +45,7 @@ export function Signup() {
                 <div className="content">
                     <div className="signup-top">
                         <div className="signup-title">
-                            <h1>Welcome to monday.com</h1>
+                            <h1>Welcome to sundae.com</h1>
                         </div>
                         <h2>Get started - it's free. No credit card needed.</h2>
                     </div>
@@ -93,7 +93,7 @@ export function Signup() {
                     </div>
                 </div>
                 <div className="signup-footer">
-                    <span>Already have an account?</span> <span><a href="/login">Log in</a></span>
+                    <span>Already have an account?</span> <span><a href="/auth/login">Log in</a></span>
                 </div>
             </div>
 

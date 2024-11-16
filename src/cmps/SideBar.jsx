@@ -4,7 +4,6 @@ import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { loadBoards, removeBoard, saveBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions"
 import { BoardOptionsModal } from "./BoardOptionsModal"
 
-
 export function SideBar({ onSidebarToggle }) {
     let boards = useSelector(storeState => storeState.boardModule.boards)
     const navigate = useNavigate()
@@ -38,6 +37,7 @@ export function SideBar({ onSidebarToggle }) {
     const { pathname } = useLocation()
 
     const [filteredBoards, setFilteredBoards] = useState(boards)
+
 
     useEffect(() => {
         removeNavigateActive()
