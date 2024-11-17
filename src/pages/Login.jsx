@@ -42,7 +42,6 @@ export function Login() {
 
         } catch (err) {
             console.error("Login failed:", err)
-            setIsLoading(false)
             setError(err.message || "Login failed. Please try again.")
         }
     }

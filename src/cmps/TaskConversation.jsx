@@ -8,6 +8,7 @@ import { addTaskConversationUpdate } from "../store/actions/board.actions"
 export function TaskConversation() {
     const isConversationOpen = useSelector(storeState => storeState.systemModule.isConversationOpen)
     const board = useSelector(storeState => storeState.boardModule.currBoard)
+    const user = useSelector(storeState => storeState.userModule.user)
 
     const [selectedTask, setSelectedTask] = useState({})
     const [isWriting, setIsWriting] = useState(false)
@@ -54,7 +55,7 @@ export function TaskConversation() {
 
         const newLog = {
             id: `${label}-${Date.now()}`,
-            member: { imgUrl: '/path/to/user.jpg', fullname: 'Current User' },
+            member: { imgUrl: user.imgUrl, fullname: user.fullname },
             taskTitle: task.title,
             label,
             prevValue,
