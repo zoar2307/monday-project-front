@@ -31,6 +31,9 @@
             .title-card {
                 display: flex;
                 align-content: center;
+                overflow: hidden;
+
+
 
                 svg {
                     display: none;
@@ -38,6 +41,9 @@
 
                 span:nth-child(2) {
                     padding: 0 9px;
+                    text-wrap: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
 
                 }
             }

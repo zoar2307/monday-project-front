@@ -252,7 +252,7 @@
 
     .labels {
       display: grid;
-      grid-template-columns: repeat(var(--labels), 150px);
+      grid-template-columns: repeat(var(--labels), 220px);
       height: 36px;
 
 
@@ -531,7 +531,7 @@
       .content {
 
         display: grid;
-        grid-template-columns: repeat(var(--labels), 150px);
+        grid-template-columns: repeat(var(--labels), 220px);
         grid-auto-columns: 200px;
         position: relative;
         grid-column: 3 /-1;

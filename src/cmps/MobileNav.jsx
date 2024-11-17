@@ -3,7 +3,7 @@ import { useNavigate } from "react-router"
 import { setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions"
 
 export function MobileNav() {
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(false)
 
     const navigate = useNavigate()
 
