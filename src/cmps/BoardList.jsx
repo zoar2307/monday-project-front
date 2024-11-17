@@ -9,7 +9,7 @@ export function BoardList({ boards }) {
       {boards.map((board, idx) => {
         const isInclude = board.members.some(member => member._id === user._id)
         if (isInclude) {
-          if (idx < 4) return (
+          return (
             <div className="board-list" key={board._id}>
               <BoardPreview board={board} />
             </div>

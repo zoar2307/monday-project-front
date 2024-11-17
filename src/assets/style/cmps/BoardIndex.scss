@@ -25,11 +25,8 @@
         .header-container {
             display: flex;
             align-content: center;
-
             gap: 12px;
             padding-left: 14px;
-
-
 
             height: 100%;
             // flex-grow: 1;
@@ -81,8 +78,15 @@
 .boards-body {
     font-size: 15px;
     width: 100%;
-    overflow-y: auto;
+    background-color: #fff;
 
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: #fff;
+        padding-top: 24px;
+    }
 
     @media (width > 1500px) {
         padding: 0 80px;
@@ -90,14 +94,23 @@
 
     .main-panel-container {
         margin: 16px;
+        margin-bottom: 30px;
         padding: 24px;
+        padding-top: 0;
         border-radius: 8px;
         box-shadow: 0px 3px 12px rgb(230, 233, 239);
-        width: calc(100% - 300px - 24px);
+        width: 100%;
+        // overflow: hidden;
+        height: 600px;
+        overflow-y: auto;
+        padding-bottom: 50px;
 
         .category-container {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+
         }
 
         .category-content {
@@ -105,8 +118,12 @@
             grid-template-rows: auto;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             grid-gap: 20px;
-            padding: 16px 16px 24px 16px;
+            // padding: 16px 16px 24px 16px;
             width: 100%;
+            padding-bottom: 70px;
+            margin-bottom: 20px;
+            height: max-content;
+
 
 
             &> :hover {
@@ -137,3 +154,80 @@
     justify-content: center;
     align-items: center;
 }
+
+//small
+@media (width > 632px) {}
+
+//medium
+@media (width > 932px) {
+
+    .boards-body {
+        font-size: 15px;
+        width: 100%;
+        height: 100%;
+
+
+        @media (width > 1500px) {
+            padding: 0 80px;
+        }
+
+        .main-panel-container {
+            margin: 16px;
+            padding: 24px;
+            padding-top: 0;
+            border-radius: 8px;
+            box-shadow: 0px 3px 12px rgb(230, 233, 239);
+            width: calc(100% - 300px - 24px);
+            overflow-y: hidden;
+            height: calc(100% - 100px);
+
+
+            .category-container {
+                display: flex;
+                flex-direction: row;
+                overflow-y: auto;
+                margin: 24px 0;
+                padding: 24px 0;
+
+
+            }
+
+            .category-content {
+                display: grid;
+                grid-template-rows: auto;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                grid-gap: 20px;
+                padding: 16px 16px 24px 16px;
+                width: 100%;
+
+
+
+                &> :hover {
+
+                    background-color: transparent;
+                    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+                    border-color: transparent;
+                }
+            }
+
+            .category-header {
+                display: flex;
+
+                .arrow {
+                    button {
+                        all: unset;
+                    }
+
+                    cursor: pointer;
+                }
+            }
+        }
+
+    }
+}
+
+//large
+@media (width > 1232px) {}
+
+//xl
+@media (width > 1532px) {}

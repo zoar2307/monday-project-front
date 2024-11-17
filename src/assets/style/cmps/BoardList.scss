@@ -1,7 +1,15 @@
 .board-list {
     padding: 8px;
-    border: 1px solid;
+    border-bottom: 1px solid;
     border-color: rgb(208, 212, 228);
     border-radius: 4px;
+    height: max-content;
 
+
+
+    //small
+    @media (width > 632px) {
+        border: 1px solid;
+        border-color: rgb(208, 212, 228);
+    }
 }

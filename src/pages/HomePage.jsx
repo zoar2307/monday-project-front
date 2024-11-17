@@ -229,38 +229,47 @@ export function HomePage() {
       </div>
 
       <div className="video-container">
-        <div className="video-content">
-          <div className="cordions">
-            <div className="cordion">
-              <h4>Flexible to the extreme</h4>
-              <p>Customize the platform to meet your most complex needs with drag-and-drop, from structuring a project to building robust workflows.</p>
-              <div className="button-container">
-                <button onClick={() => setIsFirst(true)} className="play-btn"><i class="fa-solid fa-play"></i></button>
-              </div>
-            </div>
-            <div className="cordion">
-              <h4>Adopted by anyone</h4>
-              <p>From startups to enterprises, get up to speed with a platform that's quick to learn and easy to love.</p>
-              <div className="button-container">
-                <button onClick={() => setIsFirst(false)} className="play-btn"><i class="fa-solid fa-play"></i></button>
-              </div>
+        <div className="cordions">
+          <div className="cordion">
+            <h4>Flexible to the extreme</h4>
+            <p>Customize the platform to meet your most complex needs with drag-and-drop, from structuring a project to building robust workflows.</p>
+            <div className="button-container">
+              <button onClick={() => setIsFirst(true)} className="play-btn"><i class="fa-solid fa-play"></i></button>
             </div>
           </div>
+          <div className="cordion">
+            <h4>Adopted by anyone</h4>
+            <p>From startups to enterprises, get up to speed with a platform that's quick to learn and easy to love.</p>
+            <div className="button-container">
+              <button onClick={() => setIsFirst(false)} className="play-btn"><i class="fa-solid fa-play"></i></button>
+            </div>
+          </div>
+        </div>
 
+
+
+        <div className="videos-holder">
+          <video
+            className={`1 ${isFirst ? '' : 'hide'}`}
+            autoPlay
+            loop
+            poster="./src/assets/img/logo.png"
+
+            src="https://dapulse-res.cloudinary.com/video/upload/q_auto,f_auto,cs_copy/Generator_featured%20images/Homepage%20-%202024/motion-values/_Platform_values_flexability_OPT2.mp4">
+          </video>
+          <video
+            className={`2 ${isFirst ? 'hide' : ''}`}
+            autoPlay
+            loop
+            poster="./src/assets/img/logo.png"
+
+            src="https://dapulse-res.cloudinary.com/video/upload/q_auto,f_auto,cs_copy/Generator_featured%20images/Homepage%20-%202024/motion-values/_Platform_values_Adopted_by_anyone_2.mp4">
+          </video>
 
         </div>
 
 
-        <video
-          autoPlay
-          loop
-          poster="./src/assets/img/logo.png"
 
-          src={isFirst ?
-            "https://dapulse-res.cloudinary.com/video/upload/q_auto,f_auto,cs_copy/Generator_featured%20images/Homepage%20-%202024/motion-values/_Platform_values_flexability_OPT2.mp4"
-            :
-            "https://dapulse-res.cloudinary.com/video/upload/q_auto,f_auto,cs_copy/Generator_featured%20images/Homepage%20-%202024/motion-values/_Platform_values_Adopted_by_anyone_2.mp4"}>
-        </video>
       </div>
 
 
@@ -270,7 +279,6 @@ export function HomePage() {
             <div className="logo">
               <img src="./src/assets/img/logo.png" alt="Logo" />
             </div>
-            {/* <div className="title">The best task organizer</div> */}
           </div>
           <div className="paragraph">
             <p>sundae.com recognized as a Leader in the 2024 Magic Quadrant™ for <b>Adaptive Project Management and Reporting</b></p>

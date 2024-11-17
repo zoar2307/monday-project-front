@@ -315,7 +315,11 @@ export function GroupPreview({
                 <div className="stats-labels">
                   <div className="empty"></div>
                   <div className="empty2"></div>
-                  <div className="content">
+                  <div className="content"
+                    style={{
+                      '--labels': board.cmpsLabels.length
+                    }}
+                  >
 
                     {cmpsOrder.map((cmp, idx) => {
                       if (cmp === 'StatusPicker') return (
