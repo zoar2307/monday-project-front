@@ -19,6 +19,7 @@
     line-height: lh(17px, 13px);
     border-radius: em(40px);
     padding: em(8px, 13px) em(14px, 13px) em(8px, 13px) em(16px, 13px);
+
     width: 130px;
 
     span {
@@ -47,6 +48,24 @@
     background-color: white;
 
     z-index: 100;
+
+
+    button {
+      background-color: $light-menu-button;
+      color: white;
+      border: none;
+      border-radius: em(40px);
+
+      &:hover {
+        background: $light-menu-button-hover;
+      }
+
+      cursor: pointer;
+
+      i {
+        margin-left: rem(10px);
+      }
+    }
 
 
     .logo {
@@ -104,6 +123,24 @@
     &>* {
       grid-column: 2;
       place-self: center;
+    }
+
+
+    button {
+      background-color: $light-menu-button;
+      color: white;
+      border: none;
+      border-radius: em(40px);
+
+      &:hover {
+        background: $light-menu-button-hover;
+      }
+
+      cursor: pointer;
+
+      i {
+        margin-left: rem(10px);
+      }
     }
 
     h1 {
@@ -231,7 +268,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: em(64px, 16px);
+    margin-bottom: em(100px, 16px);
 
 
     .img-container {
@@ -275,32 +312,81 @@
     }
   }
 
+  .quote {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: rem(54px);
+    font-family: Poppins;
+    // line-height: lh(85px, 76px);
+    font-weight: 100;
+    margin-bottom: em(100px, 54px);
+  }
 
 
 
+  .video-container {
+    display: flex;
+    gap: 100px;
+    height: 100%;
 
-  button {
-    background-color: $light-menu-button;
-    color: white;
-    border: none;
-    border-radius: em(40px);
-
-    &:hover {
-      background: $light-menu-button-hover;
+    .cordions {
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+      height: 100%;
+      justify-content: space-evenly;
+      padding-left: 20px;
+      width: 100%;
     }
 
-    cursor: pointer;
+    h4 {
+      font-size: rem(35px);
+    }
 
-    i {
-      margin-left: rem(10px);
+    p {
+      font-size: rem(20px);
+    }
+
+    .cordion {
+      display: flex;
+      flex-direction: column;
+
+
+
+      .button-container {
+        width: 100%;
+        height: 50%;
+
+        display: flex;
+        justify-content: end;
+
+        .play-btn {
+          background-color: transparent;
+          border: none;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          border: 2px #7d73fc solid;
+          cursor: pointer;
+        }
+      }
     }
   }
+
+  video {
+    width: 50%;
+    height: 100%;
+  }
+
+
 
   .about-container {
     color: white;
     font-size: rem(16px);
     width: 100%;
-    padding: em(64px, 16px) em(165px, 16px);
+    // padding: em(64px, 16px) em(165px, 16px);
     margin-bottom: em(64px, 16px);
     margin-top: em(64px, 16px);
 
@@ -309,7 +395,7 @@
       height: 420px;
       background-color: black;
       padding: em(60px, 16px) em(70px, 16px);
-      border-radius: em(16px, 16px);
+      border-radius: em(40px, 16px);
       display: flex;
       align-items: center;
     }
@@ -320,7 +406,10 @@
       justify-content: center;
       flex-direction: column;
 
-      img {}
+      img {
+        height: 550px;
+        object-fit: cover;
+      }
 
       .title {
         display: flex;
@@ -350,6 +439,76 @@
 
       b {
         font-weight: 700;
+      }
+    }
+  }
+
+  .experience {
+    font-size: rem(96px);
+    font-weight: 100;
+    width: 70%;
+    padding: 15px;
+    margin-bottom: em(64px, 96px);
+
+
+    button {
+      background-color: $light-menu-button;
+      color: white;
+      border: none;
+      border-radius: em(40px);
+      width: max-content;
+
+      &:hover {
+        background: $light-menu-button-hover;
+      }
+
+      cursor: pointer;
+
+      i {
+        margin-left: rem(10px);
+      }
+    }
+
+    span {
+      margin-right: 10px;
+    }
+
+    img {
+      min-height: 90px;
+      min-width: 90px;
+      max-width: 90px;
+      max-height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 -4px;
+
+
+    }
+
+    .btn-nav {
+      height: 49px;
+    }
+
+  }
+
+  .footer {
+    position: relative;
+    padding-left: 110px;
+
+    .logo {
+      position: relative;
+
+      img {
+        height: em(54px, 16px);
+      }
+
+      .logo-home-nav {
+        position: relative;
+        right: 10px;
+        font-size: rem(35px);
+        font-weight: 600;
+        color: #7d73fc;
+        letter-spacing: -2px;
       }
     }
   }

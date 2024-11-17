@@ -310,7 +310,16 @@ export function TaskConversation() {
                                     </div>
                                 ) : (
                                     <div className="no-updates">
-                                        <h2>No updates yet for this task.</h2>
+                                        <div className="first-img">
+                                            <img
+                                                src="https://cdn.monday.com/images/pulse-page-empty-state.svg" />
+                                        </div>
+                                        <h2>No updates yet for this item</h2>
+                                        <p>
+                                            Be the first one to update about progress, mention someone
+                                            <br />
+                                            or upload files to share with your team members
+                                        </p>
                                     </div>
                                 )}
                             </div>

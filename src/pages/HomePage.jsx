@@ -5,6 +5,7 @@ import { login } from "../store/actions/user.actions"
 
 export function HomePage() {
   const navigate = useNavigate()
+  const [isFirst, setIsFirst] = useState(true)
   const [images, setImages] = useState([
     "./src/assets/img/homepageimgs/IMG_0029.jpeg",
     "./src/assets/img/homepageimgs/IMG_0030.jpeg",
@@ -222,20 +223,82 @@ export function HomePage() {
         </button>
       </div>
 
+      <div className="quote">
+        “...it's going to do things you
+        <br />didn't think were possible.”
+      </div>
+
+      <div className="video-container">
+        <div className="video-content">
+          <div className="cordions">
+            <div className="cordion">
+              <h4>Flexible to the extreme</h4>
+              <p>Customize the platform to meet your most complex needs with drag-and-drop, from structuring a project to building robust workflows.</p>
+              <div className="button-container">
+                <button onClick={() => setIsFirst(true)} className="play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+            </div>
+            <div className="cordion">
+              <h4>Adopted by anyone</h4>
+              <p>From startups to enterprises, get up to speed with a platform that's quick to learn and easy to love.</p>
+              <div className="button-container">
+                <button onClick={() => setIsFirst(false)} className="play-btn"><i class="fa-solid fa-play"></i></button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+        <video
+          autoPlay
+          loop
+          poster="./src/assets/img/logo.png"
+
+          src={isFirst ?
+            "https://dapulse-res.cloudinary.com/video/upload/q_auto,f_auto,cs_copy/Generator_featured%20images/Homepage%20-%202024/motion-values/_Platform_values_flexability_OPT2.mp4"
+            :
+            "https://dapulse-res.cloudinary.com/video/upload/q_auto,f_auto,cs_copy/Generator_featured%20images/Homepage%20-%202024/motion-values/_Platform_values_Adopted_by_anyone_2.mp4"}>
+        </video>
+      </div>
+
+
       <div className="about-container">
         <div className="black-bgc">
           <div className="left">
             <div className="logo">
               <img src="./src/assets/img/logo.png" alt="Logo" />
             </div>
-            <div className="title">The best task organizer</div>
+            {/* <div className="title">The best task organizer</div> */}
           </div>
           <div className="paragraph">
             <p>sundae.com recognized as a Leader in the 2024 Magic Quadrant™ for <b>Adaptive Project Management and Reporting</b></p>
-
           </div>
         </div>
 
+      </div>
+
+      <div className="experience">
+        <div className="experience-content ">
+          <span> Experience the sundae.com <br />difference</span>
+          <img src="https://res.cloudinary.com/drj1liym1/image/upload/v1731785982/t3syudxzyzcglq6rs9rz.png" alt="" />
+          <img src="https://res.cloudinary.com/drj1liym1/image/upload/v1731773149/etgqjpbw5x9nvrsbwsle.jpg" alt="" />
+          <img src="https://res.cloudinary.com/drj1liym1/image/upload/v1731712455/xnko0jgowesbjih92aza.jpg" alt="" />
+        </div>
+        <button onClick={onGetStarted} className="btn-nav ">
+          Get Started
+          <span>
+            <i className="fa-solid fa-arrow-right"></i>
+          </span>
+        </button>
+      </div>
+
+      <div className="footer">
+        <div className="logo flex align-center">
+          <img src="./src/assets/img/logo.png" alt="Logo" />
+          <h1 className="logo-home-nav">Sundae</h1>
+        </div>
       </div>
 
 

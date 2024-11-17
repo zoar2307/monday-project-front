@@ -29,7 +29,6 @@ export function Login() {
     async function handleLogin(ev) {
         ev.preventDefault()
         setError("")
-        setIsLoading(true)
 
         if (!credentials.username || !credentials.password) {
             setError("Please provide both username and password.")

@@ -26,7 +26,6 @@ export function Signup() {
         ev.preventDefault()
         setError('')
         try {
-            setIsLoading(true)
             const userCred = {
                 // email: form.email,
                 username: form.username,
@@ -38,7 +37,6 @@ export function Signup() {
             const user = await signup(userCred)
             if (user) navigate('/board')
         } catch (err) {
-            setIsLoading(false)
             setError(err.message || 'Signup failed. Please try again.')
         }
     }
