@@ -175,7 +175,7 @@ export function GroupPreview({
         {(provided) => (
           <div {...provided.draggableProps} ref={provided.innerRef}>
             <div className="group-preview">
-              <header  {...provided.dragHandleProps}>
+              <header className={`${isGroupCollapsed ? 'collapsed' : ''}`}  {...provided.dragHandleProps}>
                 <div className="group-name">
                   <button
                     ref={buttonRef}
