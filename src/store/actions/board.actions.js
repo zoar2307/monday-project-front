@@ -55,6 +55,23 @@ export async function saveBoard(board) {
     }
 }
 
+export async function addAiBoard(data) {
+    const type = ADD_BOARD
+    try {
+        const savedBoard = await boardService.aiBoard(data)
+        console.log(savedBoard)
+        store.dispatch({ type, board: savedBoard })
+        if (type === 'ADD_BOARD') {
+            store.dispatch({ type: SET_BOARD, board: savedBoard })
+        }
+        return savedBoard
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.log('board action -> Cannot save board', err)
+        throw err
+    }
+}
+
 // Labels
 
 export async function updateLabels(newLabels) {

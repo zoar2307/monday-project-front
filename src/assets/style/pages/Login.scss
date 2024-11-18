@@ -1,5 +1,5 @@
 .login-page {
-    height: 100vw;
+    height: 100vh;
     width: 100%;
     font-family: Figtree;
 
@@ -43,22 +43,21 @@
 
     .login-body {
         padding: em(40px, 16px);
-        margin: em(40px, 16px);
+
         display: flex;
         align-items: center;
         flex-direction: column;
     }
 
     h1 {
-        font-size: rem(40px);
+        font-size: rem(30px);
         font-family: Figtree;
         font-weight: 100;
         margin-bottom: em(36px, 40px);
     }
 
     form {
-        width: 400px;
-
+        width: 100%;
     }
 
     .btn {
@@ -165,5 +164,29 @@
     svg {
         height: 50px;
     }
+
+    //small
+    @media (width > 632px) {
+        .login-body {
+            margin: em(40px, 16px);
+        }
+
+        h1 {
+            font-size: rem(40px);
+        }
+
+        form {
+            width: 400px;
+        }
+    }
+
+    //medium
+    @media (width > 932px) {}
+
+    //large
+    @media (width > 1232px) {}
+
+    //xl
+    @media (width > 1532px) {}
 
 }

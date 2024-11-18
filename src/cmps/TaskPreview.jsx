@@ -86,6 +86,7 @@ export function TaskPreview({ idx, task, group, board }) {
         <Draggable draggableId={task.id} index={idx} key={task.id}>
             {(provided, snapshot) => (
                 <div
+
                     className={`task-row ${dragClass}`}
 
                     {...provided.draggableProps}
@@ -137,7 +138,10 @@ export function TaskPreview({ idx, task, group, board }) {
                     </div>
 
                     {setIsDragOn(snapshot.isDragging)}
-                    <div className='labels'>
+                    <div className='labels'
+                        style={{
+                            '--labels': board.cmpsLabels.length
+                        }}>
                         {
                             cmpsOrder.map((cmp, idx) => (
                                 // <div  className='task-label'>

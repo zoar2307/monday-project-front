@@ -1,11 +1,9 @@
 .signup {
     font-family: "Figtree", sans-serif;
 
-    display: grid;
-    grid-template-columns: auto 40%;
-
     overflow: hidden;
     // height: 100vh;
+    width: 100%;
 
     .btn {
         display: inline-flex;
@@ -26,8 +24,12 @@
     .main-container {
         display: flex;
         flex-direction: column;
+        justify-content: center;
         align-items: center;
         overflow: hidden;
+        padding: 20px;
+
+        width: 100%;
 
         grid-column: 1;
         height: 100vh;
@@ -74,7 +76,7 @@
     }
 
     .form-container {
-        width: 400px;
+        width: 100%;
 
         .button-container {
             height: em(40px, 16px);
@@ -203,16 +205,56 @@
 
 
     .img-container {
-        grid-column: 2;
-
-        img {
-            height: 100%;
-            object-fit: cover;
-        }
+        display: none;
     }
 
     svg {
         height: 50px;
     }
+
+    //small
+    @media (width > 632px) {
+        padding: 0;
+
+        .form-container {
+            width: 400px;
+        }
+    }
+
+    //medium
+    @media (width > 932px) {
+        display: grid;
+        grid-template-columns: auto 40%;
+
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            padding: 0;
+
+            grid-column: 1;
+            height: 100vh;
+        }
+
+
+        .img-container {
+            display: block;
+            grid-column: 2;
+
+            img {
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+
+    //large
+    @media (width > 1232px) {}
+
+    //xl
+    @media (width > 1532px) {}
+
 
 }

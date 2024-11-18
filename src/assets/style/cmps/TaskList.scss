@@ -72,7 +72,7 @@
 
     .labels {
       display: grid;
-      grid-template-columns: repeat(6, 220px);
+      grid-template-columns: repeat(var(--labels), 220px);
       height: 36px;
 
       .label {
@@ -419,5 +419,16 @@
         }
       }
     }
+  }
+
+  @media (width > 932px) {
+
+    .labels {
+      display: grid;
+      grid-template-columns: repeat(var(--labels), 220px);
+      height: 36px;
+    }
+
+
   }
 }

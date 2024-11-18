@@ -1,25 +1,29 @@
+import { useSelector } from "react-redux"
+
 export function BoardIndexHeader() {
+    const user = useSelector(storeState => storeState.userModule.user)
+
 
     return (
         <>
             <header className='second-header flex'>
                 <div className='header-container flex'>
                     <div className='titles-container flex flex-column'>
-                        <div className='welcome-message '>Good afternoon Avi!</div>
+                        <div className='welcome-message '>Good afternoon {user.fullname}!</div>
                         <div className='header-title'>Quickly access your recent boards, Inbox and workspaces</div>
                     </div>
                     <div className='header-img flex'>
                         <img src="https://cdn.monday.com/images/homepage-desktop/header-background-v2.svg" alt="" />
                     </div>
                 </div>
-                <div className='buttons-container'>
+                {/* <div className='buttons-container'>
                     <div className="buttons">
                         <div className="feedback-button">
                             <span>Give feedback</span>
                         </div>
 
                     </div>
-                </div>
+                </div> */}
             </header>
         </>)
 }
