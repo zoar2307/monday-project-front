@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { NavLink, useNavigate } from "react-router-dom"
 import Svg1 from '../assets/img/asset174.svg'
 import { login } from "../store/actions/user.actions"
+import logo from '../assets/img/logo.png'
 
 export function HomePage() {
   const navigate = useNavigate()
@@ -134,7 +135,7 @@ export function HomePage() {
       <nav className="home-nav flex justify-between align-center">
 
         <div className="logo flex align-center">
-          <img src="./src/assets/img/logo.png" alt="Logo" />
+          <img src={logo} alt="Logo" />
           <h1 className="logo-home-nav">Sundae</h1>
         </div>
 
@@ -208,7 +209,7 @@ export function HomePage() {
 
 
 
-      <div className="carousel">
+      {/* <div className="carousel">
         <button className="carousel-btn left" onClick={shiftLeft}>
           <i className="fa-solid fa-arrow-left"></i>
         </button>
@@ -221,7 +222,7 @@ export function HomePage() {
         <button className="carousel-btn right" onClick={shiftRight}>
           <i className="fa-solid fa-arrow-right"></i>
         </button>
-      </div>
+      </div> */}
 
       <div className="quote">
         “...it's going to do things you
@@ -254,7 +255,7 @@ export function HomePage() {
         <video
           autoPlay
           loop
-          poster="./src/assets/img/logo.png"
+          poster={logo}
 
           src={isFirst ?
             "https://dapulse-res.cloudinary.com/video/upload/q_auto,f_auto,cs_copy/Generator_featured%20images/Homepage%20-%202024/motion-values/_Platform_values_flexability_OPT2.mp4"
@@ -268,7 +269,7 @@ export function HomePage() {
         <div className="black-bgc">
           <div className="left">
             <div className="logo">
-              <img src="./src/assets/img/logo.png" alt="Logo" />
+              <img src={logo} alt="Logo" />
             </div>
             {/* <div className="title">The best task organizer</div> */}
           </div>
@@ -296,7 +297,7 @@ export function HomePage() {
 
       <div className="footer">
         <div className="logo flex align-center">
-          <img src="./src/assets/img/logo.png" alt="Logo" />
+          <img src={logo} alt="Logo" />
           <h1 className="logo-home-nav">Sundae</h1>
         </div>
       </div>
