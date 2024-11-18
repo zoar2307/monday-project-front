@@ -1,6 +1,6 @@
 .group-preview {
   display: grid;
-  grid-template-columns: 36px 355px min-content 400px;
+  grid-template-columns: 36px 355px min-content 1fr;
   width: 100%;
   height: 100%;
 
@@ -61,6 +61,7 @@
       transition: opacity 0.3s ease;
       border-radius: 5px;
       z-index: 8;
+      display: none;
     }
 
     &:hover {
@@ -180,6 +181,7 @@
   }
 
 
+
   .group-header {
     font-size: rem(14px);
     color: #323338;
@@ -192,6 +194,61 @@
     border-bottom: 1px solid #d3d4dd;
     border-top: 1px solid #d3d4dd;
     height: 36px;
+
+    &.collapsed {
+
+      font-size: 16px;
+      border-bottom: 0;
+      height: 22px;
+
+      h4 {
+        font-family: Poppins;
+      }
+    }
+
+    .col-group-title {
+      grid-column: 1 / 3;
+      border: 1px solid #d3d4dd;
+      border-top: none;
+      height: 59px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: 1fr 1fr;
+      align-items: center;
+
+      &::before {
+        content: '';
+        position: absolute;
+        right: 100%;
+        top: -1px;
+        width: 5px;
+        border-top-left-radius: 4px;
+        z-index: 3;
+        background-color: var(--before-color);
+        height: 60px;
+        border-bottom-left-radius: 5px;
+      }
+
+      p {
+        margin: 0;
+        margin-left: 10px;
+        margin-top: 10px;
+        width: 23px;
+        font-size: 14px;
+      }
+
+      h4 {
+        margin-top: 5px;
+        font-weight: 600;
+        font-size: 18px;
+      }
+
+      .tasks-count {
+        font-family: figtree;
+        grid-column: 2;
+        font-size: 14px;
+      }
+    }
 
 
     .check-label {
@@ -236,6 +293,8 @@
     }
 
     .task-title {
+      font-family: 'Figtree';
+
       background: white;
       border-right: 1px solid #d3d4dd;
       border-left: 1px solid #d3d4dd;
@@ -254,6 +313,7 @@
       display: grid;
       grid-template-columns: repeat(var(--labels), 220px);
       height: 36px;
+      font-family: 'Figtree';
 
 
 
@@ -265,6 +325,12 @@
         justify-content: center;
         align-items: center;
         border-right: 1px solid #d3d4dd;
+        font-family: 'Figtree';
+
+        &.collapsed {
+          height: 58%;
+          font-size: 14px;
+        }
 
         .dots-container {
           position: absolute;
@@ -335,11 +401,11 @@
     }
 
     .add-label-container {
-      position: absolute;
-      left: 100%;
+      position: relative;
       display: flex;
       align-items: center;
       width: 100%;
+      z-index: 10;
     }
 
     .add-label {
@@ -480,6 +546,10 @@
       height: 36px;
       z-index: 2;
 
+      &.collapsed {
+        border-bottom: 1px solid #d3d4dd;
+        height: 38px;
+      }
 
 
       .empty {
@@ -490,6 +560,24 @@
         height: 100%;
 
         z-index: 3;
+
+        &.collapsed {
+          border-bottom: 1px solid #d3d4dd;
+          border-left: 1px solid #d3d4dd;
+          display: none;
+
+          &::after {
+            content: '';
+            position: absolute;
+            right: 102%;
+            top: 5px;
+            width: 40px;
+            height: 40px;
+            z-index: 2;
+            background-color: white;
+          }
+        }
+
 
         &::after {
           content: '';
@@ -510,13 +598,17 @@
         left: 76px;
         background-color: white;
         z-index: 3;
-        height: 120%;
+        height: 100%;
+
+        &.collapsed {
+          display: none;
+        }
 
         &::after {
           content: '';
           position: absolute;
           display: block;
-          right: -18px;
+          right: -19px;
           width: 20px;
 
           height: 36px;
@@ -542,12 +634,16 @@
         height: 100%;
         width: 100%;
 
+        &.collapsed {
+
+          width: 0;
+        }
+
         >* {
           display: flex;
           justify-content: center;
           padding: 6px;
           border-right: 1px solid #d3d4dd;
-
         }
 
         .status-stats {
@@ -570,7 +666,7 @@
           display: flex;
           width: 100%;
           height: 100%;
-
+          margin-right: 1px;
 
           >* {
             width: 100%;
@@ -584,7 +680,6 @@
         }
 
         .date-stats {
-
 
 
           .date-progress-bar {
