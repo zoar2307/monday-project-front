@@ -27,6 +27,7 @@ export function BoardPage({ onSidebarToggle }) {
 
     socketService.on(SOCKET_EVENT_USER_UPDATE, updatedUser => {
       const updatedUsers = users.map(user => user._id === updatedUser._id ? updatedUser : user)
+      loadBoards()
       dispatch({ type: SET_USERS, users: updatedUsers })
     })
 
