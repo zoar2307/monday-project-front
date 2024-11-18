@@ -3,7 +3,7 @@
     left: 50%;
     top: 50%;
     translate: -50% -50%;
-    z-index: 102;
+    z-index: 10;
     background-color: white;
     width: 300px;
     height: 513px;
@@ -14,7 +14,7 @@
     .backdrop {
         position: fixed;
         inset: 0;
-        z-index: 88;
+        z-index: 9;
     }
 
     >* {
@@ -177,7 +177,7 @@
         left: 50%;
         top: 50%;
         translate: -50% -50%;
-        z-index: 102;
+        z-index: 10;
         background-color: white;
         width: 530px;
         height: 513px;
@@ -188,7 +188,7 @@
         .backdrop {
             position: fixed;
             inset: 0;
-            z-index: 88;
+            z-index: 9;
         }
 
         >* {

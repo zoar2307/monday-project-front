@@ -56,7 +56,7 @@ export function OpenAi() {
                     <input onChange={handleChange} type="text" placeholder="Enter a theme" name="theme" />
                     <button><i class="fa-solid fa-wand-magic-sparkles"></i>
                     </button>
-                    <button type="button" className="close" onClick={false}>x</button>
+                    <button type="button" className="close" onClick={() => setIsModal(false)}>x</button>
                 </form>
                 {isLoading && <img src={loader} alt="" />}
             </div>}

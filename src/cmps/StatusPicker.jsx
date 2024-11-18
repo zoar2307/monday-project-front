@@ -21,11 +21,21 @@ export function StatusPicker({ info, onUpdate, labels }) {
       <div
         ref={labelRef}
         onClick={() => setModalOpen(prev => !prev)}
-        className="status label not-header table"
+        className={`status label not-header table ${info.status === 'Done' ? "done" : ''}`}
         style={{
           backgroundColor: getLabelColor("status", info.status),
         }}
       >
+        {info.status === 'Done' && <div className='animation c1'></div>}
+        {info.status === 'Done' && <div className='animation c2'></div>}
+        {info.status === 'Done' && <div className='animation c3'></div>}
+        {info.status === 'Done' && <div className='animation c4'></div>}
+        {info.status === 'Done' && <div className='animation c5'></div>}
+        {info.status === 'Done' && <div className='animation c6'></div>}
+        {info.status === 'Done' && <div className='animation c7'></div>}
+        {info.status === 'Done' && <div className='animation c8'></div>}
+        {info.status === 'Done' && <div className='animation c9'></div>}
+        {info.status === 'Done' && <div className='animation c10'></div>}
         {info.status}
       </div>
 
