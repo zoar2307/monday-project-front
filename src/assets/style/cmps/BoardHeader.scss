@@ -21,23 +21,20 @@
     align-items: center;
   }
 
-
   .logo-home-nav {
     font-size: rem(18px);
     font-weight: 600;
     color: black;
-    // letter-spacing: -1px;
     font-family: Poppins;
     margin-right: 4px;
   }
 
   .logo-home-nav2 {
     font-size: rem(18px);
-    font-weight: 600;
+    font-weight: 300;
     color: black;
     letter-spacing: -1px;
     font-family: Poppins;
-    font-weight: 300;
   }
 
   .right-side-container {
@@ -52,7 +49,6 @@
     position: relative;
     height: 32px;
     background-color: rgba(255, 255, 255, 0.5);
-    ;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     cursor: pointer;
@@ -99,12 +95,11 @@
     border-radius: em(4px, 16px);
     padding: 10px;
 
-    >* {
+    > * {
       font-family: Figtree;
       font-weight: 200;
       font-size: rem(14px);
       color: #323338;
-      padding: 0;
       margin: 0;
       min-width: 204px;
       height: 32px;
@@ -114,30 +109,28 @@
       padding: 10px;
       gap: 8px;
       border-radius: 4px;
-
       cursor: pointer;
 
       &:hover {
         background-color: rgba($color: $light-board-details-clr1, $alpha: 0.1);
       }
     }
-
-    button {}
-
   }
 
+  @media screen and (max-width: 632px) {
+    .logo-home-nav2 {
+      margin-top: 2px;
+        font-size: 0.92rem;
+    }
+    }
+  
 
-  //small
-  @media (width > 632px) {}
+  @media screen and (max-width: 932px) {
+  }
 
-  //medium
-  @media (width > 932px) {}
+  @media screen and (max-width: 1232px) {
+  }
 
-  //large
-  @media (width > 1232px) {}
-
-  //xl
-  @media (width > 1532px) {}
-
-
+  @media screen and (max-width: 1532px) {
+  }
 }

@@ -758,4 +758,36 @@
 
   }
 
+  @media screen and (max-width: 632px) {
+
+    .group-name{
+      left: 24px;
+    }
+    .group-header{
+      .check-label{
+        left: 25px;
+      }
+      .task-title{
+        left: 61px;
+      }
+    }
+    .group-footer{
+      .stats-labels{
+        .empty2{
+          left: 61px;
+        }
+        
+      }
+      .add-task{
+        .check-label{
+          left: 25px;
+        }
+        form{
+          left: 61px;
+        }
+      }
+    }
+    grid-template-columns: 36px 140px min-content 1fr;
+  }
+
 }

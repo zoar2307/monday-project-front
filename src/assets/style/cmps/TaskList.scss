@@ -461,6 +461,21 @@
 
 
   }
+  @media screen and (max-width: 632px) {
+    .task-row{
+      .dots-button{
+        opacity: 1;
+        left: -5px;
+      }
+      .check-label{
+        left: 25px;
+      }
+      .task-title{
+        padding-left: 10px;
+        left: 61px;
+      }
+    }
+  }
 }
 
 // animation done
