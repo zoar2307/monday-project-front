@@ -128,7 +128,7 @@
         background-color: #64677ab7;
         align-items: center;
         justify-content: center;
-        z-index: 1000;
+        z-index: 10;
 
         .img-modal-content {
             position: absolute;
@@ -145,6 +145,7 @@
             will-change: width;
             display: grid;
             grid-template-rows: auto auto auto;
+
             header {
                 grid-row: 1;
                 display: grid;
@@ -181,7 +182,8 @@
                     display: flex;
                     align-items: center;
                     justify-items: space-between;
-                    svg{
+
+                    svg {
                         margin-right: 22px;
                     }
                 }

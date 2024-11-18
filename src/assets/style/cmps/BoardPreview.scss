@@ -1,5 +1,7 @@
 .board-preview {
+
     .project-card {
+        flex-direction: row;
 
         .img-card {
             display: flex;
@@ -7,6 +9,12 @@
             background-color: #6c6cff;
             border-radius: 4px;
             justify-content: center;
+            min-width: 50px;
+            min-height: 50px;
+            max-width: 50px;
+            max-height: 50px;
+            object-fit: cover;
+            border-radius: 30%;
 
             overflow: hidden;
         }
@@ -17,17 +25,30 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            width: 100%;
 
 
             .title-card {
                 display: flex;
                 align-content: center;
+                overflow: hidden;
+
+
+
+                svg {
+                    display: none;
+                }
 
                 span:nth-child(2) {
                     padding: 0 9px;
+                    text-wrap: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
 
                 }
             }
+
+
 
             .star-icon {
                 width: 32px;
@@ -41,4 +62,74 @@
             align-items: center;
         }
     }
+
+    //small
+    @media (width > 632px) {}
+
+    //medium
+    @media (width > 932px) {
+        .project-card {
+            flex-direction: column;
+
+            .img-card {
+                display: flex;
+                margin-bottom: 8px;
+                background-color: #6c6cff;
+                border-radius: 4px;
+                justify-content: center;
+                min-width: 100%;
+                min-height: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: cover;
+
+                overflow: hidden;
+            }
+
+            .name-card {
+                font-weight: 700;
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+
+                .title-card {
+                    display: flex;
+                    align-content: center;
+
+                    svg {
+                        display: block;
+                    }
+
+                    span:nth-child(2) {
+                        padding: 0 9px;
+
+                    }
+                }
+
+                .star-icon {
+                    width: 32px;
+                    height: 32px;
+                }
+
+            }
+
+            .path-card {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+
+
+
+
+    }
+
+    //large
+    @media (width > 1232px) {}
+
+    //xl
+    @media (width > 1532px) {}
 }

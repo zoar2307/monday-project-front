@@ -391,7 +391,11 @@ export function GroupPreview({
                     <div className={`empty2 ${isGroupCollapsed ? 'collapsed' : ''}`}></div>
                   </>
 
-                  <div className={`content ${isGroupCollapsed ? 'collapsed' : ''}`}>
+                  <div className={`content ${isGroupCollapsed ? 'collapsed' : ''}`}
+                    style={{
+                      '--labels': board.cmpsLabels.length
+                    }}
+                  >
 
                     {cmpsOrder.map((cmp, idx) => {
                       if (cmp === 'StatusPicker') return (

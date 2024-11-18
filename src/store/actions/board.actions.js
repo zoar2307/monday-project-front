@@ -55,6 +55,23 @@ export async function saveBoard(board) {
     }
 }
 
+export async function addAiBoard(data) {
+    const type = ADD_BOARD
+    try {
+        const savedBoard = await boardService.aiBoard(data)
+        console.log(savedBoard)
+        store.dispatch({ type, board: savedBoard })
+        if (type === 'ADD_BOARD') {
+            store.dispatch({ type: SET_BOARD, board: savedBoard })
+        }
+        return savedBoard
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.log('board action -> Cannot save board', err)
+        throw err
+    }
+}
+
 // Labels
 
 export async function updateLabels(newLabels) {
@@ -369,8 +386,6 @@ export async function updateTaskFile(groupId, taskId, fileUrl) {
     }
 }
 
-
-
 export async function addTaskConversationUpdate(groupId, taskId, update) {
     const { currBoard } = store.getState().boardModule
     const { user } = store.getState().userModule
@@ -383,13 +398,37 @@ export async function addTaskConversationUpdate(groupId, taskId, update) {
     }
     update.id = makeId()
     update.likes = []
-
-
+    console.log(taskId)
     try {
         const group = currBoard.groups.find((grp) => grp.id === groupId)
         const task = group.tasks.find((tsk) => tsk.id === taskId)
         task.conversation.unshift(update)
+        let membersToUpdate = currBoard.members.map(member => {
+            if (!member.unread) member.unread = []
+            if (member._id !== user._id) {
+                if (member.unread.length === 0) {
+                    member.unread.push({ tId: taskId, count: 1 })
+                }
+                else {
+                    console.log(member.unread)
+                    if (member.unread.find(unreadTaskUpdates => unreadTaskUpdates.tId === taskId)) {
+                        member.unread.map(unreadTaskUpdates => {
+                            if (unreadTaskUpdates.tId === taskId) unreadTaskUpdates.count++
+                            return unreadTaskUpdates
+                        })
+                    } else {
+                        member.unread.push({ tId: taskId, count: 1 })
+                    }
+                }
+                console.log(member)
+
+            }
+            return member
+        })
+        membersToUpdate = membersToUpdate.filter(member => member)
+        currBoard.members = membersToUpdate
         store.dispatch({ type: UPDATE_GROUP, group: group })
+        store.dispatch({ type: UPDATE_BOARD, board: currBoard })
         await boardService.save(currBoard)
 
     } catch (err) {
@@ -398,8 +437,9 @@ export async function addTaskConversationUpdate(groupId, taskId, update) {
     }
 }
 
-// Labels
 
+
+// Labels
 
 export async function updateLabelsKanban(labels) {
     const { currBoard } = store.getState().boardModule
@@ -435,7 +475,6 @@ export async function removeMemberFromBoard(member) {
         const newGroups = currBoard.groups.map(group => {
             console.log(currBoard.groups)
             let groupTasks
-            let newTasks
 
             groupTasks = group.tasks.map(task => {
                 if (!task.assignedTo || task.assignedTo.length === 0) return task
@@ -456,6 +495,33 @@ export async function removeMemberFromBoard(member) {
         console.error("Cannot add group:", err)
     }
 }
+
+// remove unread tasks update from member
+
+export async function updateMemberUnreadTaskUpdates(taskId) {
+    const { currBoard } = store.getState().boardModule
+    const { user } = store.getState().userModule
+
+    try {
+        let membersToUpdate = currBoard.members.map(member => {
+            if (member._id === user._id) {
+                member.unread = member.unread.filter(unreadMessagesInTask => unreadMessagesInTask.tId !== taskId)
+            }
+            console.log(member)
+
+            return member
+        })
+        console.log(membersToUpdate)
+        currBoard.members = membersToUpdate
+        store.dispatch({ type: UPDATE_BOARD, board: currBoard })
+        await boardService.save(currBoard)
+
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.error('Cannot update task priority:', err)
+    }
+}
+
 
 export function setFilterBy(filterBy = boardService.getDefaultFilter()) {
     store.dispatch({ type: SET_FILTER_BY, filterBy: filterBy })

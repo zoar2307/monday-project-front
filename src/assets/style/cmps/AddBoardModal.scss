@@ -3,7 +3,7 @@
     top: 50%;
     left: 50%;
     translate: -50% -50%;
-    z-index: 100;
+    z-index: 10;
 
     border-radius: em(8px, 16px);
     padding: em(32px, 16px);
@@ -44,7 +44,7 @@
         font-size: rem(32px);
         line-height: lh(48px, 32px);
         margin-bottom: em(16px, 32px);
-        width: em(436px, 32px);
+        width: em(250px, 32px);
 
         font-weight: 400;
     }
@@ -109,6 +109,18 @@
             &:hover {
                 background-color: $light-board-details-filter-clr3;
             }
+        }
+    }
+
+    //small
+    @media (width > 632px) {
+        h2 {
+            font-size: rem(32px);
+            line-height: lh(48px, 32px);
+            margin-bottom: em(16px, 32px);
+            width: em(436px, 32px);
+
+            font-weight: 400;
         }
     }
 }

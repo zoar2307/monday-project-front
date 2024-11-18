@@ -3,6 +3,7 @@ import { useSelector } from "react-redux"
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { loadBoards, removeBoard, saveBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions"
 import { BoardOptionsModal } from "./BoardOptionsModal"
+import { OpenAi } from "./OpenAi"
 
 export function SideBar({ onSidebarToggle }) {
     let boards = useSelector(storeState => storeState.boardModule.boards)
@@ -247,7 +248,6 @@ export function SideBar({ onSidebarToggle }) {
 
 
 
-
     const hiddenClass = favoritesIsOpen ? 'hidden' : ''
     return (
         <section
@@ -347,6 +347,8 @@ export function SideBar({ onSidebarToggle }) {
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="icon_e7210c37bd noFocusStyle_26dd7872ca" data-testid="icon"><g id="Icon / Basic / Add"><path id="Union" d="M10 2.25C10.4142 2.25 10.75 2.58579 10.75 3V9.25H17C17.4142 9.25 17.75 9.58579 17.75 10C17.75 10.4142 17.4142 10.75 17 10.75H10.75V17C10.75 17.4142 10.4142 17.75 10 17.75C9.58579 17.75 9.25 17.4142 9.25 17V10.75H3C2.58579 10.75 2.25 10.4142 2.25 10C2.25 9.58579 2.58579 9.25 3 9.25H9.25V3C9.25 2.58579 9.58579 2.25 10 2.25Z" fill="currentColor" fillRule="evenodd" clipRule="evenodd" /></g></svg>
                 </button>
             </div>
+
+            <OpenAi />
 
             {boards && (
                 <div className={`boards ${hiddenClass}`}>

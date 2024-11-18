@@ -72,7 +72,7 @@
 
     .labels {
       display: grid;
-      grid-template-columns: repeat(6, 220px);
+      grid-template-columns: repeat(var(--labels), 220px);
       height: 36px;
 
       .label {
@@ -84,6 +84,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
         width: 100%;
 
         &::after {
@@ -94,7 +95,14 @@
           transition: 0.5s;
           border-bottom: 0 solid white;
           border-right: 0 solid white;
+
         }
+
+        .animation {
+          position: absolute;
+          z-index: 1;
+        }
+
 
         &.file {
           color: #323338;
@@ -299,6 +307,7 @@
       }
 
       .chat {
+        position: relative;
         height: 100%;
         padding: 0 16px;
         display: flex;
@@ -313,6 +322,27 @@
           &:hover {
             color: $light-signup-clr6;
           }
+        }
+
+        &.unseen {
+          svg {
+            color: $light-signup-clr6;
+          }
+        }
+
+        .message-count {
+          width: 11px;
+          height: 11px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          bottom: 8px;
+          color: white;
+          background-color: $light-signup-clr6;
+          font-size: rem(8px);
+          right: 20px;
         }
 
       }
@@ -419,5 +449,240 @@
         }
       }
     }
+  }
+
+  @media (width > 932px) {
+
+    .labels {
+      display: grid;
+      grid-template-columns: repeat(var(--labels), 220px);
+      height: 36px;
+    }
+
+
+  }
+}
+
+// animation done
+
+.label {
+
+  .c1 {
+    width: 8px;
+    height: 15px;
+    right: 60px;
+    bottom: -16px;
+    background-color: red;
+    border-radius: 4px;
+    rotate: 22deg;
+    animation: doneC1 1.5s;
+
+  }
+
+  .c2 {
+    left: 60px;
+    width: 8px;
+    height: 15px;
+    rotate: -22deg;
+    bottom: -16px;
+    background-color: rgb(0, 213, 255);
+    border-radius: 4px;
+    animation: doneC2 1.5s;
+  }
+
+  .c3 {
+
+    width: 8px;
+    height: 15px;
+    left: 60px;
+    bottom: -16px;
+    border-radius: 4px;
+    rotate: -45deg;
+    background: rgb(255, 208, 0);
+    animation: doneC3 1.5s;
+  }
+
+  .c4 {
+    bottom: -16px;
+    width: 8px;
+    height: 15px;
+    right: 60px;
+    rotate: 45deg;
+    border-radius: 4px;
+    background: rgb(228, 0, 160);
+    animation: doneC4 1.5s;
+
+  }
+
+  .c5 {
+
+    width: 15px;
+    height: 15px;
+    border: 5px solid rgb(255, 0, 93);
+    border-radius: 50%;
+    bottom: -16px;
+    left: 60px;
+
+  }
+
+  .c6 {
+    bottom: -16px;
+    width: 15px;
+    height: 15px;
+    border: 5px solid rgb(0, 255, 149);
+    border-radius: 50%;
+    right: 60px;
+
+  }
+
+  .c7 {
+    opacity: 0;
+
+    width: 15px;
+    height: 15px;
+    border: 5px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    left: 30px;
+  }
+
+  .c8 {
+    opacity: 0;
+
+    width: 15px;
+    height: 15px;
+    border: 5px solid rgb(0, 0, 0);
+    border-radius: 50%;
+    left: 30px;
+  }
+
+  .c9 {
+    opacity: 0;
+
+    width: 15px;
+    height: 15px;
+    border: 5px solid rgb(255, 0, 153);
+    border-radius: 50%;
+    left: 30px;
+  }
+
+  .c10 {
+    opacity: 0;
+
+    width: 15px;
+    height: 15px;
+    border: 5px solid rgb(255, 140, 0);
+    border-radius: 50%;
+    left: 30px;
+  }
+}
+
+
+@keyframes doneC1 {
+  0% {}
+
+  25% {
+    bottom: 15px;
+  }
+
+  50% {
+    bottom: 17px;
+    rotate: 360deg;
+  }
+
+  70% {
+    bottom: 15px;
+  }
+
+  100% {
+    bottom: -16px;
+    rotate: 400deg;
+  }
+}
+
+@keyframes doneC2 {
+  0% {}
+
+  25% {
+    bottom: 15px;
+  }
+
+  50% {
+    bottom: 17px;
+    rotate: -360deg;
+  }
+
+  70% {
+    bottom: 15px;
+  }
+
+  100% {
+    bottom: -16px;
+    rotate: -400deg;
+  }
+}
+
+@keyframes doneC3 {
+  0% {}
+
+  25% {
+    bottom: 15px;
+    left: 20px;
+    background-color: transparent;
+    border: 3px solid rgb(255, 208, 0);
+    border-radius: 50%;
+  }
+
+  50% {
+    bottom: 17px;
+    rotate: -360deg;
+    width: 30px;
+    height: 30px;
+
+  }
+
+  70% {
+    bottom: 15px;
+  }
+
+  100% {
+    bottom: -30px;
+    rotate: -400deg;
+    left: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+}
+
+@keyframes doneC4 {
+  0% {}
+
+  25% {
+    bottom: 15px;
+    right: 20px;
+    background-color: transparent;
+    border: 3px solid rgb(228, 0, 160);
+    border-radius: 50%;
+  }
+
+  50% {
+    bottom: 17px;
+    rotate: 360deg;
+    width: 30px;
+    height: 30px;
+
+  }
+
+  70% {
+    bottom: 15px;
+  }
+
+  100% {
+    bottom: -30px;
+    rotate: 400deg;
+    right: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
   }
 }

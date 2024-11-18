@@ -12,6 +12,7 @@ import { loadUsers } from "../store/actions/user.actions"
 import { SOCKET_EVENT_USER_UPDATE, socketService } from "../services/socket.service"
 import { useDispatch } from "react-redux"
 import { SET_USERS } from "../store/reducers/user.reducer"
+import { MobileNav } from "../cmps/MobileNav"
 
 export function BoardPage({ onSidebarToggle }) {
   const user = useSelector(storeState => storeState.userModule.user)
@@ -52,6 +53,7 @@ export function BoardPage({ onSidebarToggle }) {
         {boardId && location.pathname.includes("/board") && < BoardDetails />}
         {isMyWorkPage && <MyWork />}
         {isKanBan && <Kanban />}
+        <MobileNav />
         {/* </main> */}
       </section>
     </>

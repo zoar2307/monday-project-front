@@ -93,7 +93,7 @@ export function BoardHeader({ isSidebarClosed }) {
           </div>
         </div>
         <div className="board-header-btns flex  align-center">
-          <div>
+          {/* <div>
             <button>
               <i className="fa-regular fa-bell"></i>
             </button>
@@ -106,7 +106,7 @@ export function BoardHeader({ isSidebarClosed }) {
             <button>
               <i className="fa-solid fa-magnifying-glass"></i>
             </button>
-          </div>
+          </div> */}
           <div className='right-side-container'>
             <button>
               <div onClick={() => setIsUserModal(prev => !prev)} class="right-logo-container">

@@ -32,7 +32,7 @@
   }
 
   .logo-home-nav2 {
-    font-size: rem(16px);
+    font-size: rem(18px);
     font-weight: 600;
     color: black;
     letter-spacing: -1px;
@@ -91,15 +91,13 @@
     align-items: center;
     position: absolute;
     top: 110%;
-    z-index: 101;
+    z-index: 9;
     background-color: white;
     right: 20%;
     width: max-content;
     box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
     border-radius: em(4px, 16px);
     padding: 10px;
-
-
 
     >* {
       font-family: Figtree;
@@ -128,6 +126,18 @@
 
   }
 
+
+  //small
+  @media (width > 632px) {}
+
+  //medium
+  @media (width > 932px) {}
+
+  //large
+  @media (width > 1232px) {}
+
+  //xl
+  @media (width > 1532px) {}
 
 
 }

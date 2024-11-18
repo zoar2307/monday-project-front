@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { login } from "../store/actions/user.actions"
 import { userService } from "../services/user/user.service.remote"
+import logo from '../assets/img/logo.png'
 
 export function Login() {
     const [users, setUsers] = useState([])
@@ -55,7 +56,7 @@ export function Login() {
         <section className="login-page">
             <div className="login-header">
                 <div className="logo flex align-center">
-                    <img src="../src/assets/img/logo.png" alt="Logo" />
+                    <img src={logo} alt="Logo" />
                     <h1 className="logo-home-nav">Sundae</h1>
                 </div>
             </div>
