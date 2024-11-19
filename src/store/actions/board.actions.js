@@ -61,7 +61,7 @@ export async function saveBoardDemo(board) {
         const savedBoard = await boardService.saveDemo(board)
         store.dispatch({ type, board: savedBoard })
         if (type === 'ADD_BOARD') {
-            store.dispatch({ type: SET_BOARD, board: savedBoard })
+            // store.dispatch({ type: SET_BOARD, board: savedBoard })
         }
         return savedBoard
     } catch (err) {

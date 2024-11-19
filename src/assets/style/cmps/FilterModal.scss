@@ -139,4 +139,12 @@
         left: 0;
 
     }
+
+    img {
+        min-height: 26px;
+        max-height: 26px;
+        min-width: 26px;
+        max-width: 26px;
+        object-fit: cover;
+    }
 }

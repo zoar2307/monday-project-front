@@ -4,6 +4,7 @@ import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { loadBoards, removeBoard, saveBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions"
 import { BoardOptionsModal } from "./BoardOptionsModal"
 import { OpenAi } from "./OpenAi"
+import { showErrorMsg } from "../services/event-bus.service"
 
 export function SideBar({ onSidebarToggle }) {
     let boards = useSelector(storeState => storeState.boardModule.boards)
@@ -171,6 +172,7 @@ export function SideBar({ onSidebarToggle }) {
                 navigate('/board')
             }
         } catch (err) {
+            showErrorMsg('You cant delete this board , make sure you are the owner')
             console.error("Error deleting board:", err)
         }
     }

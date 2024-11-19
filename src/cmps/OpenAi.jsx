@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import { useNavigate } from "react-router"
-import { addAiBoard, saveBoardDemo } from "../store/actions/board.actions"
+import { addAiBoard, resetFilterBy, saveBoardDemo } from "../store/actions/board.actions"
 import loader from '../assets/img/loader.gif'
 import { makeId } from "../services/util.service"
 import { ADD_BOARD, SET_BOARD } from "../store/reducers/board.reducer"
@@ -14,6 +14,7 @@ export function OpenAi() {
     const [data, setData] = useState({})
 
     const navigate = useNavigate() // Initialize the navigate function
+    const dispatch = useDispatch() // Initialize the navigate function
 
     const timeOutRef = useRef()
 
@@ -268,8 +269,10 @@ export function OpenAi() {
             const saved = await saveBoardDemo(demoAiBoard)
             if (saved) {
                 timeOutRef = setTimeout(() => {
-                    setIsLoading(true)
+                    resetFilterBy()
+                    setIsLoading(false)
                     setIsModal(false)
+                    dispatch({ type: SET_BOARD, board: saved })
                     navigate(`/board/${saved._id}`)
                 }, 7000)
             }
