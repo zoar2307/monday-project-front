@@ -286,7 +286,7 @@ export function OpenAi() {
 
         } catch (err) {
             // console.log(err)
-            showErrorMsg('Ai failed create board , try again later')
+            // showErrorMsg('Ai failed create board , try again later')
 
         }
     }
