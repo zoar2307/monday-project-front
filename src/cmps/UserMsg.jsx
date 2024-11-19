@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
-import { eventBus } from '../services/event-bus.service'
+import { eventBusService } from '../services/event-bus.service'
 import loader from '../assets/img/loading4.mp4'
 
 
 export function UserMsg() {
   const [msg, setMsg] = useState(null)
+  const [isClose, setIsClose] = useState(true)
   const timeoutIdRef = useRef()
 
   useEffect(() => {
-    const unsubscribe = eventBus.on('show-user-msg', msg => {
+    const unsubscribe = eventBusService.on('show-user-msg', msg => {
       setMsg(msg)
       console.log(msg)
       // window.scrollTo({top: 0, behavior: 'smooth'});
@@ -27,7 +28,7 @@ export function UserMsg() {
 
   if (!msg) return <span></span>
   return (
-    <section className={`user-msg ${msg.type}`}>
+    <section className={`user-msg ${msg.type} ${isClose ? 'close' : 'open'}`}>
 
       {/* <video
         loop
@@ -35,7 +36,6 @@ export function UserMsg() {
         src={loader}
       ></video> */}
       <span>{msg.txt}</span>
-      <button onClick={closeMsg}>x</button>
     </section>
   )
 }

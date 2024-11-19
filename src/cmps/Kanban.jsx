@@ -7,6 +7,7 @@ import { KanbanList } from "./KanbanList";
 import { SOCKET_EVENT_BOARD_UPDATE } from "../services/socket.service";
 import { SET_BOARD } from "../store/reducers/board.reducer";
 import { useDispatch } from "react-redux";
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
 
 export function Kanban() {
     const board = useSelector(storeState => storeState.boardModule.currBoard)
@@ -16,10 +17,7 @@ export function Kanban() {
     const { boardId, taskId } = useParams()
     const navigate = useNavigate()
 
-
     useEffect(() => {
-
-
         socketService.on(SOCKET_EVENT_BOARD_UPDATE, updatedBoard => {
             // loadBoards()
             dispatch({ type: SET_BOARD, board: updatedBoard })
@@ -41,8 +39,9 @@ export function Kanban() {
     async function initBoard() {
         try {
             await loadBoard(boardId, filterBy)
+            showSuccessMsg('Kanban loaded')
         } catch (err) {
-            console.log('Had issues in board details', err)
+            showErrorMsg('Had issues in board details')
             navigate('/board')
         }
     }

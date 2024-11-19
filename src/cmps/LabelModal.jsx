@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { addLabel, removeLabel } from "../store/actions/board.actions"
+import { showSuccessMsg } from "../services/event-bus.service"
 
 export function LabelModal({ type,
     setLabelModal,
@@ -48,11 +49,13 @@ export function LabelModal({ type,
     async function onAddLabel(name) {
         await addLabel(name)
         setLabelModal(prev => ({ ...prev, isDisplay: false }))
+        showSuccessMsg('Label added successfully')
     }
 
     async function onRemoveLabel(name) {
         await removeLabel(labelId)
         setLabelModal(prev => ({ ...prev, isDisplay: false }))
+        showSuccessMsg('Label removed successfully')
     }
 
     return (

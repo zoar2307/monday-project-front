@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux'
 import { SET_CONVERSATION_STATUS } from '../store/reducers/system.reducer'
 import dots from '../assets/img/dots.svg'
 import { useSelector } from 'react-redux'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 
 export function TaskPreview({ idx, task, group, board }) {
     const { labels, members } = board
@@ -65,8 +66,10 @@ export function TaskPreview({ idx, task, group, board }) {
             }
 
             await updateGroup(updatedGroup)
+            showSuccessMsg('Updated task successfully')
         } catch (err) {
-            console.log(err)
+            // console.log(err)
+            showErrorMsg('Failed update task')
         }
     }
 

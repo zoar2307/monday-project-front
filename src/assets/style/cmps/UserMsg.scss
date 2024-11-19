@@ -1,8 +1,35 @@
 .user-msg {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: fixed;
-    width: 150px;
+    width: max-content;
     height: 40px;
     bottom: 40px;
     right: 40px;
-    background-color: red;
+    background-color: blue;
+    z-index: 100;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: Figtree;
+
+    button {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        color: white;
+    }
+
+    &.error {
+        background-color: black;
+        color: red;
+    }
+
+
 }

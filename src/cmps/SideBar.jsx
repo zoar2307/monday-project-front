@@ -4,7 +4,7 @@ import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom"
 import { loadBoards, removeBoard, saveBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions"
 import { BoardOptionsModal } from "./BoardOptionsModal"
 import { OpenAi } from "./OpenAi"
-import { showErrorMsg } from "../services/event-bus.service"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
 export function SideBar({ onSidebarToggle }) {
     let boards = useSelector(storeState => storeState.boardModule.boards)
@@ -170,6 +170,7 @@ export function SideBar({ onSidebarToggle }) {
                 await loadBoards()
                 closeModal()
                 navigate('/board')
+                showSuccessMsg('Board removed successfully')
             }
         } catch (err) {
             showErrorMsg('You cant delete this board , make sure you are the owner')
@@ -188,7 +189,7 @@ export function SideBar({ onSidebarToggle }) {
                 closeModal()
             }
         } catch (err) {
-            console.error("Error updating favorites:", err)
+            // console.error("Error updating favorites:", err)
         }
     }
 
@@ -241,10 +242,12 @@ export function SideBar({ onSidebarToggle }) {
             if (updatedTitle) {
                 const updatedBoardData = { ...boards.find(b => b._id === boardId), title: updatedTitle }
                 await saveBoard(updatedBoardData)
+                showSuccessMsg('Group name changed successfully')
                 setRenameMode(null)
             }
         } catch (err) {
-            console.error("Error updating title:", err)
+            // console.error("Error updating title:", err)
+            showErrorMsg("Failed updating title")
         }
     }
 

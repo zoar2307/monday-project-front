@@ -3,6 +3,7 @@ import logo from '../assets/img/logo.png'
 import { loadUsers, logout, updateUser } from '../store/actions/user.actions'
 import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 
 export function BoardHeader({ isSidebarClosed }) {
   const navigate = useNavigate()
@@ -34,8 +35,9 @@ export function BoardHeader({ isSidebarClosed }) {
     try {
       logout()
       navigate('/')
+      showSuccessMsg('Logged out successfully')
     } catch (err) {
-      console.log(err)
+      showErrorMsg('Failed logout , try again')
     }
   }
 
@@ -49,9 +51,11 @@ export function BoardHeader({ isSidebarClosed }) {
         setImageUrl(url)
         await updateUser(user, url)
         loadUsers()
+        showSuccessMsg('Image updated')
       }
     } else {
       alert('Please select a valid image file')
+      showErrorMsg('Make sure you selected a valid image')
     }
   }
 
@@ -72,7 +76,8 @@ export function BoardHeader({ isSidebarClosed }) {
       const data = await res.json()
       return data.secure_url
     } catch (err) {
-      console.error('Error uploading image:', err)
+      // console.error('Error uploading image:', err)
+      showErrorMsg('Failed uploading image')
       return null
     }
   }

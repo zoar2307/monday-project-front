@@ -6,6 +6,7 @@ import { makeId } from "../services/util.service"
 import { ADD_BOARD, SET_BOARD } from "../store/reducers/board.reducer"
 import { useDispatch } from "react-redux"
 import { boardService } from "../services/board/board.service.remote"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
 export function OpenAi() {
 
@@ -39,15 +40,18 @@ export function OpenAi() {
         ev.preventDefault()
         try {
             setIsLoading(true)
+            showSuccessMsg('Ai started board creation')
             const savedBoard = await addAiBoard(data)
             if (savedBoard) {
                 setIsModal(false)
                 navigate(`/board/${savedBoard._id}`)
                 setIsLoading(false)
                 setData(prevData => ({ ...prevData, theme: '' }))
+                showSuccessMsg('Ai board created successfully')
             }
         } catch (err) {
-            console.log(err)
+            // console.log(err)
+            showErrorMsg('Ai failed create board , try again later')
         }
     }
 
@@ -61,7 +65,7 @@ export function OpenAi() {
                 "owner": {
                     "_id": "673c5da78af25152208746cb",
                     "fullname": "Avi Museri",
-                    "imgUrl": "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png",
+                    "imgUrl": "https://res.cloudinary.com/drj1liym1/image/upload/v1732014309/kdnfyljpgquuwhqy0n7b.jpg",
                     "isAdmin": null
                 },
                 "isStarred": false,
@@ -265,6 +269,7 @@ export function OpenAi() {
                     }
                 ]
             }
+            showSuccessMsg('Ai started board creation')
 
             const saved = await saveBoardDemo(demoAiBoard)
             if (saved) {
@@ -274,11 +279,15 @@ export function OpenAi() {
                     setIsModal(false)
                     dispatch({ type: SET_BOARD, board: saved })
                     navigate(`/board/${saved._id}`)
+                    showSuccessMsg('Ai board created successfully')
+
                 }, 7000)
             }
 
         } catch (err) {
-            console.log(err)
+            // console.log(err)
+            showErrorMsg('Ai failed create board , try again later')
+
         }
     }
 

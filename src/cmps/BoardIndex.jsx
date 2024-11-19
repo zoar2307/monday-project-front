@@ -16,7 +16,7 @@ export function BoardIndex() {
     useEffect(() => {
         loadBoards(filterBy)
             .catch(err => {
-                showErrorMsg('Cannot load boards!', err)
+                showErrorMsg('Failed load boards!')
             })
     }, [filterBy])
 
