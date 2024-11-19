@@ -57,15 +57,18 @@
         align-items: center;
         gap: em(12px, 16px);
 
+
         .filter-container {
             height: 270px;
-            min-width: 150px;
-
+            // max-width: 150px;
+            width: max-content;
             display: flex;
             flex-direction: column;
 
             justify-content: start;
             overflow-y: auto;
+
+
 
             .filter-title {
                 display: flex;
@@ -87,6 +90,16 @@
                 height: 100%;
                 width: 100%;
 
+                &::-webkit-scrollbar {
+                    width: 4px;
+
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: #98999f;
+                    border-radius: 4px;
+                }
+
                 .option {
                     display: flex;
                     justify-content: center;
@@ -103,11 +116,14 @@
                     justify-content: start;
                     gap: 8px;
 
+
+
                     p {
                         overflow: hidden;
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         text-wrap: nowrap;
+                        // width: 80px
                     }
 
                     img {
