@@ -69,13 +69,6 @@ function getLoggedinUser() {
 }
 
 function saveLoggedinUser(user) {
-	if (user.googleId) {
-		user = {
-			_id: user._id,
-			fullname: user.fullname,
-			imgUrl: user.imgUrl,
-		}
-	}
 	user = {
 		_id: user._id,
 		fullname: user.fullname,
