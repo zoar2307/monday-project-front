@@ -118,8 +118,8 @@ export function GroupList({ board }) {
     }
 
     try {
-      await updateGroup(newFinish)
-      await updateGroup(newStart)
+      updateGroup(newFinish)
+      updateGroup(newStart)
       showSuccessMsg('Groups updated successfully')
 
     } catch (err) {
