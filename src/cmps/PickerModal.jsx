@@ -3,19 +3,28 @@ import React, { useEffect, useRef } from 'react'
 export function PickerModal({ options, onSelect, closeModal, modalType, assignedIds = [], labelRef }) {
     const modalRef = useRef(null)
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (modalRef.current && !modalRef.current.contains(event.target)
-                && labelRef.current && !labelRef.current.contains(event.target)) {
-                closeModal()
-            }
+useEffect(() => {
+    const handleClickOutside = (event) => {
+        if (modalRef.current && !modalRef.current.contains(event.target)
+            && labelRef.current && !labelRef.current.contains(event.target)) {
+            closeModal()
         }
+    }
 
-        document.addEventListener('mousedown', handleClickOutside)
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
-        }
-    }, [closeModal])
+    const handleScroll = () => {
+        closeModal()
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('touchstart', handleClickOutside) // For touch devices
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+        document.removeEventListener('mousedown', handleClickOutside)
+        document.removeEventListener('touchstart', handleClickOutside)
+        window.removeEventListener('scroll', handleScroll)
+    }
+}, [closeModal])
 
     return (
         <div className="picker-modal-overlay" onClick={closeModal}>
