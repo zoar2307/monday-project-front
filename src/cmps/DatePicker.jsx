@@ -57,7 +57,7 @@ export function DatePickerModal({ info, onUpdate }) {
             </div>
 
             {isCalendarOpen && (
-                <div ref={calendarRef} style={{ position: 'absolute', zIndex: 1000, right: -60 }}>
+                <div ref={calendarRef} style={{ position: 'absolute', zIndex: 9, right: -60 }}>
                     <DatePicker
                         labelRef={labelRef}
                         selected={selectedDate}
