@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { loadBoard, resetFilterBy, updateGroups } from "../store/actions/board.actions"
+import { loadBoard, loadBoards, resetFilterBy, updateGroups } from "../store/actions/board.actions"
 import { BoardDetailsHeader } from "../cmps/BoardDetailsHeader"
 import { GroupList } from "../cmps/GroupList"
 import { useSelector } from "react-redux"
 import { boardService } from "../services/board/board.service.remote"
 import { TaskConversation } from "../cmps/TaskConversation"
 import { store } from "../store/store"
-import { SOCKET_EVENT_BOARD_UPDATE, socketService } from "../services/socket.service"
+import { SOCKET_EVENT_BOARD_UPDATE, SOCKET_EVENT_USER_UPDATE, socketService } from "../services/socket.service"
 import { useDispatch } from "react-redux"
 import { SET_BOARD } from "../store/reducers/board.reducer"
+import loader from '../assets/img/loading4.mp4'
 
 export function BoardDetails() {
   const board = useSelector(storeState => storeState.boardModule.currBoard)
@@ -20,14 +21,22 @@ export function BoardDetails() {
   const { boardId, taskId } = useParams()
   const navigate = useNavigate()
 
+
   useEffect(() => {
     resetFilterBy()
+    socketService.on(SOCKET_EVENT_USER_UPDATE, updatedUser => {
+      loadBoard(boardId, filterBy)
+    })
+
+
     socketService.on(SOCKET_EVENT_BOARD_UPDATE, updatedBoard => {
+      loadBoards()
       dispatch({ type: SET_BOARD, board: updatedBoard })
     })
 
     return () => {
       socketService.off(SOCKET_EVENT_BOARD_UPDATE)
+      socketService.off(SOCKET_EVENT_USER_UPDATE)
     }
   }, [])
 
@@ -54,7 +63,15 @@ export function BoardDetails() {
     }
   }
 
-  if (!board) return <div>Loading...</div>
+  if (!board) return <div className="board-details-loader">
+    <video
+      loop
+      autoPlay={true}
+      src={loader}
+    >
+
+    </video>
+  </div>
 
   return (
     boardId ? (

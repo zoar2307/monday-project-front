@@ -8,12 +8,12 @@ export function HomePage() {
   const navigate = useNavigate()
   const [isFirst, setIsFirst] = useState(true)
   const [images, setImages] = useState([
-    "./src/assets/img/homepageimgs/IMG_0029.jpeg",
-    "./src/assets/img/homepageimgs/IMG_0030.jpeg",
-    "./src/assets/img/homepageimgs/Screenshot 2024-11-08 at 14.25.43.png",
-    "./src/assets/img/homepageimgs/Screenshot 2024-11-08 at 14.26.46.png",
-    "./src/assets/img/homepageimgs/Screenshot 2024-11-08 at 14.27.16.png",
-    "./src/assets/img/homepageimgs/Screenshot 2024-11-08 at 14.27.31.png",
+    "https://res.cloudinary.com/drj1liym1/image/upload/v1731971887/o5jnjfwyvmgnmdlt39dw.png",
+    "https://res.cloudinary.com/drj1liym1/image/upload/v1731971882/l4eh9rtzf5bpuvofsa7q.png",
+    "https://res.cloudinary.com/drj1liym1/image/upload/v1731971874/d8u6cavbkbxpuyw2e3dv.png",
+    "https://res.cloudinary.com/drj1liym1/image/upload/v1731971867/vpot45ih1nd9ubyqjvny.png",
+    "https://res.cloudinary.com/drj1liym1/image/upload/v1731971864/uberigion9qwfz1ij5yw.jpg",
+    "https://res.cloudinary.com/drj1liym1/image/upload/v1731971845/k26ykj0mr1hcu2xykke3.jpg",
   ])
 
   const heroSrc = [
@@ -29,8 +29,8 @@ export function HomePage() {
   ]
 
   const [credentials, setCredentials] = useState({
-    username: "guest",
-    password: "123",
+    username: "zoar",
+    password: "12",
   })
 
   const beehiveCards = [
@@ -209,7 +209,7 @@ export function HomePage() {
 
 
 
-      {/* <div className="carousel">
+      <div className="carousel">
         <button className="carousel-btn left" onClick={shiftLeft}>
           <i className="fa-solid fa-arrow-left"></i>
         </button>
@@ -222,7 +222,7 @@ export function HomePage() {
         <button className="carousel-btn right" onClick={shiftRight}>
           <i className="fa-solid fa-arrow-right"></i>
         </button>
-      </div> */}
+      </div>
 
       <div className="quote">
         “...it's going to do things you

@@ -3,6 +3,12 @@
     right: 0;
     bottom: 0;
 
+    >* {
+        svg {
+            outline: none;
+        }
+    }
+
     z-index: 1000000;
 
     background: white;
@@ -394,6 +400,7 @@
                 height: 100%;
                 font-family: Figtree;
                 color: #323338;
+                text-wrap: auto;
 
             }
         }
@@ -466,6 +473,53 @@
             margin-top: 16px;
         }
     }
+
+
+    @media screen and (max-width: 632px) {
+        &.open {
+            width: 100%;
+        }
+
+        .body {
+            .input {
+                margin: 20px 20px;
+            }
+        }
+
+        .chat {
+            padding: 0px 20px;
+
+            .chat-list {
+                .chat-container {
+                    height: 100%;
+                }
+
+                .chat-body {
+                    padding: 0 20px;
+                    min-height: 0;
+
+                    .update {
+                        margin: 0;
+                        margin-bottom: 15px;
+                    }
+                }
+            }
+        }
+
+        .activity-log-section {
+            .activity-list-wrapper {
+                padding: 0;
+
+                .activity-list {
+                    .activity-item {
+                        margin: 0;
+                        padding: 5px;
+                    }
+                }
+            }
+        }
+    }
+
 }
 
 .activity-log-section {

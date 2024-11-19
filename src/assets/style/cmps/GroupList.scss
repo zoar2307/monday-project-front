@@ -13,7 +13,8 @@
         height: 200px;
         display: flex;
         align-items: center;
-
+        // width: calc(100% + 120px);
+        width: auto;
     }
 
     .add-group-btn {
@@ -23,7 +24,7 @@
         background-color: transparent;
         border: 1px rgba(128, 128, 128, 0.563) solid;
         border-radius: 5px;
-        width: 140px;
+        width: auto;
         height: 30px;
         gap: 10px;
         padding: 5px;
@@ -53,5 +54,9 @@
         img {
             width: 215px;
         }
+    }
+
+    @media screen and (max-width: 632px) {
+        padding-left: 0;
     }
 }
