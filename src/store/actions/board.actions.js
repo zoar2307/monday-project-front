@@ -54,6 +54,22 @@ export async function saveBoard(board) {
         throw err
     }
 }
+export async function saveBoardDemo(board) {
+    const type = ADD_BOARD
+    try {
+        console.log(board)
+        const savedBoard = await boardService.saveDemo(board)
+        store.dispatch({ type, board: savedBoard })
+        if (type === 'ADD_BOARD') {
+            store.dispatch({ type: SET_BOARD, board: savedBoard })
+        }
+        return savedBoard
+    } catch (err) {
+        store.dispatch({ type: BOARD_UNDO })
+        console.log('board action -> Cannot save board', err)
+        throw err
+    }
+}
 
 export async function addAiBoard(data) {
     const type = ADD_BOARD
@@ -398,7 +414,6 @@ export async function addTaskConversationUpdate(groupId, taskId, update) {
     }
     update.id = makeId()
     update.likes = []
-    console.log(taskId)
     try {
         const group = currBoard.groups.find((grp) => grp.id === groupId)
         const task = group.tasks.find((tsk) => tsk.id === taskId)
@@ -410,7 +425,6 @@ export async function addTaskConversationUpdate(groupId, taskId, update) {
                     member.unread.push({ tId: taskId, count: 1 })
                 }
                 else {
-                    console.log(member.unread)
                     if (member.unread.find(unreadTaskUpdates => unreadTaskUpdates.tId === taskId)) {
                         member.unread.map(unreadTaskUpdates => {
                             if (unreadTaskUpdates.tId === taskId) unreadTaskUpdates.count++
@@ -420,7 +434,6 @@ export async function addTaskConversationUpdate(groupId, taskId, update) {
                         member.unread.push({ tId: taskId, count: 1 })
                     }
                 }
-                console.log(member)
 
             }
             return member
