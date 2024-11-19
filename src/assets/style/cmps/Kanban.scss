@@ -62,11 +62,13 @@
         height: 100%;
 
         &::-webkit-scrollbar {
-            width: 5px;
+            width: 4px;
+
         }
 
         &::-webkit-scrollbar-thumb {
-            background: grey;
+            background: #98999f;
+            border-radius: 4px;
         }
     }
 
