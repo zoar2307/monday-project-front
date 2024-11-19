@@ -40,8 +40,6 @@ async function query(filterBy = { title: "" }) {
 function filterBoard(board, filters) {
   let filteredGroups = filterGroupsByTasks(board.groups, filters)
   filteredGroups = advancedFilter(filteredGroups, filters)
-  console.log(filteredGroups)
-
   return {
     ...board,
     groups: filteredGroups,

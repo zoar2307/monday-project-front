@@ -47,6 +47,7 @@ export async function saveBoard(board) {
         if (type === 'ADD_BOARD') {
             store.dispatch({ type: SET_BOARD, board: savedBoard })
         }
+        console.log(savedBoard)
         return savedBoard
     } catch (err) {
         store.dispatch({ type: BOARD_UNDO })

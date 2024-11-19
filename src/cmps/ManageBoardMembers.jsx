@@ -3,7 +3,6 @@ import { addMemberToBoard, removeMemberFromBoard, setBackdrop } from "../store/a
 import { useEffect, useState } from "react"
 
 export function ManageBoardMembers({ board, setManageModal }) {
-    console.log(board)
     const user = useSelector(storeState => storeState.userModule.user)
     const users = useSelector(storeState => storeState.userModule.users)
 

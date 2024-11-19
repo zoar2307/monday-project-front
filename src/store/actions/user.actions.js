@@ -23,8 +23,10 @@ export async function removeUser(userId) {
     }
 }
 
-export async function login(credentials, navigate) {
+export async function login(credentials) {
     try {
+        console.log(credentials);
+
         const user = await userService.login(credentials)
         store.dispatch({ type: SET_USER, user })
         socketService.login(user._id)
@@ -35,6 +37,19 @@ export async function login(credentials, navigate) {
         throw err
     }
 }
+export async function loginGoogle(token) {
+    try {
+        const user = await userService.loginGoogle(token)
+        store.dispatch({ type: SET_USER, user })
+        socketService.login(user._id)
+        loadUsers()
+        return user
+    } catch (err) {
+        console.error("Cannot login", err)
+        throw err
+    }
+}
+
 
 export async function signup(credentials) {
     try {

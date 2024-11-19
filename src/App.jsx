@@ -13,7 +13,6 @@ import { AddBoardModal } from "./cmps/AddBoardModal.jsx"
 import { useState } from "react"
 import { Login } from "./pages/Login.jsx"
 
-
 function App() {
   const [isSidebarClosed, setIsSidebarClosed] = useState(false)
 
@@ -41,6 +40,7 @@ function App() {
           {/* <AppFooter /> */}
         </section>
       </Router>
+
     </Provider>
   )
 }

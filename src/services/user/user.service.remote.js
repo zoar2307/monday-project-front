@@ -4,6 +4,7 @@ const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
 export const userService = {
 	login,
+	loginGoogle,
 	logout,
 	signup,
 	getUsers,
@@ -42,6 +43,14 @@ async function login(userCred) {
 	if (user) return saveLoggedinUser(user)
 }
 
+async function loginGoogle(token) {
+	const newToken = {
+		token
+	}
+	const user = await httpService.post('auth/google', newToken)
+	if (user) return saveLoggedinUser(user)
+}
+
 async function signup(userCred) {
 	console.log(userCred)
 	if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
@@ -60,6 +69,13 @@ function getLoggedinUser() {
 }
 
 function saveLoggedinUser(user) {
+	if (user.googleId) {
+		user = {
+			_id: user._id,
+			fullname: user.fullname,
+			imgUrl: user.imgUrl,
+		}
+	}
 	user = {
 		_id: user._id,
 		fullname: user.fullname,
