@@ -6,7 +6,7 @@ import { resetFilterBy, setFilterBy } from "../store/actions/board.actions"
 export function FilterModal({ setLabelModal, labelModal, modalBtnRef }) {
     const filterBy = useSelector(storeState => storeState.boardModule.filterBy)
     const board = useSelector(storeState => storeState.boardModule.currBoard)
-    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy, person: [], group: [], task: [], status: [], priority: [] })
+    const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
     let allTasks = board.groups.map(group => {
         if (group) return group.tasks.map(task => task)

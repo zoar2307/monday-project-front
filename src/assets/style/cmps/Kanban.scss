@@ -60,6 +60,16 @@
         padding: em(10px, 16px);
         padding-bottom: em(200px, 16px);
         height: 100%;
+
+        &::-webkit-scrollbar {
+            width: 4px;
+
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #98999f;
+            border-radius: 4px;
+        }
     }
 
 

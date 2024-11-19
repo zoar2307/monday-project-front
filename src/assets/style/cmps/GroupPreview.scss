@@ -18,9 +18,10 @@
     background-color: #fff;
     z-index: 5;
 
-    &.collapsed{
+    &.collapsed {
       display: none;
     }
+
     &::after {
       content: '';
       position: absolute;
@@ -193,7 +194,7 @@
     display: grid;
     grid-template-columns: subgrid;
     background: white;
-    position: relative;
+
     border-bottom: 1px solid #d3d4dd;
     border-top: 1px solid #d3d4dd;
     height: 36px;
@@ -772,33 +773,39 @@
 
   @media screen and (max-width: 632px) {
 
-    .group-name{
+    .group-name {
       left: 24px;
     }
-    .group-header{
-      .check-label{
+
+    .group-header {
+      .check-label {
         left: 25px;
       }
-      .task-title{
+
+      .task-title {
         left: 61px;
       }
     }
-    .group-footer{
-      .stats-labels{
-        .empty2{
+
+    .group-footer {
+      .stats-labels {
+        .empty2 {
           left: 61px;
         }
-        
+
       }
-      .add-task{
-        .check-label{
+
+      .add-task {
+        .check-label {
           left: 25px;
         }
-        form{
+
+        form {
           left: 61px;
         }
       }
     }
+
     grid-template-columns: 36px 140px min-content 1fr;
   }
 
