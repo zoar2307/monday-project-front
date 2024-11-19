@@ -48,7 +48,7 @@ export function MemberPicker({ info, onUpdate, members }) {
             //   alt={member.fullname}
             //   title={member.fullname}
             // />
-            if (idx < 4) {
+            if (idx < 3) {
               return (<img
                 key={member._id}
                 src={member.imgUrl}
@@ -64,7 +64,7 @@ export function MemberPicker({ info, onUpdate, members }) {
             style={{ width: '30px', height: '30px', borderRadius: '50%' }}
           />
         )}
-        {assignedMembers.length > 4 && <div className="plus-member">+{assignedMembers.length - 4}</div>}
+        {assignedMembers.length > 3 && <div className="plus-member">+{assignedMembers.length - 3}</div>}
       </div>
 
       {isModalOpen && (

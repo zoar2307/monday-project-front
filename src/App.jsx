@@ -12,6 +12,7 @@ import { BackDrop } from "./cmps/BackDrop.jsx"
 import { AddBoardModal } from "./cmps/AddBoardModal.jsx"
 import { useState } from "react"
 import { Login } from "./pages/Login.jsx"
+import { UserMsg } from "./cmps/UserMsg.jsx"
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           {/* <AppFooter /> */}
         </section>
       </Router>
+      <UserMsg />
     </Provider>
   )
 }

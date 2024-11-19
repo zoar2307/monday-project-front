@@ -9,7 +9,7 @@ export const boardService = {
     save,
     remove,
     getDefaultFilter,
-    filterBoard, aiBoard
+    filterBoard, aiBoard, saveDemo
 }
 window.cs = boardService
 
@@ -31,13 +31,18 @@ async function save(board) {
     } else {
         savedBoard = await httpService.post('board', board)
     }
+    return savedBoard
+}
 
+async function saveDemo(board) {
+    var savedBoard
+
+    savedBoard = await httpService.post('board/demo', board)
     return savedBoard
 }
 
 async function aiBoard(data) {
     var savedBoard
-    console.log(data)
     savedBoard = await httpService.post('board/ai', data)
     return savedBoard
 }
@@ -50,7 +55,6 @@ function getDefaultFilter() {
 function filterBoard(board, filters) {
     let filteredGroups = filterGroupsByTasks(board.groups, filters)
     filteredGroups = advancedFilter(filteredGroups, filters)
-    console.log(filteredGroups)
 
     return {
         ...board,

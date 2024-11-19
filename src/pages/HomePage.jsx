@@ -29,8 +29,8 @@ export function HomePage() {
   ]
 
   const [credentials, setCredentials] = useState({
-    username: "guest",
-    password: "123",
+    username: "av1",
+    password: "12",
   })
 
   const beehiveCards = [

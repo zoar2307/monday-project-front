@@ -10,6 +10,7 @@ import { store } from "../store/store"
 import { SOCKET_EVENT_BOARD_UPDATE, SOCKET_EVENT_USER_UPDATE, socketService } from "../services/socket.service"
 import { useDispatch } from "react-redux"
 import { SET_BOARD } from "../store/reducers/board.reducer"
+import loader from '../assets/img/loading4.mp4'
 
 export function BoardDetails() {
   const board = useSelector(storeState => storeState.boardModule.currBoard)
@@ -62,7 +63,15 @@ export function BoardDetails() {
     }
   }
 
-  if (!board) return <div>Loading...</div>
+  if (!board) return <div className="board-details-loader">
+    <video
+      loop
+      autoPlay={true}
+      src={loader}
+    >
+
+    </video>
+  </div>
 
   return (
     boardId ? (
