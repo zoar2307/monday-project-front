@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom" // Import useNavigate from react-router-dom
 import { addGroup, saveBoard, setBackdrop, setIsAddBoardModal } from "../store/actions/board.actions"
 import { useSelector } from "react-redux"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
 export function AddBoardModal() {
     const isAddBoardModal = useSelector((state) => state.boardModule.isAddBoardModal)
@@ -16,13 +17,16 @@ export function AddBoardModal() {
 
         try {
             const savedBoard = await saveBoard(newBoard) // Save the board and get the response
+            console.log(savedBoard);
+
             if (savedBoard && savedBoard._id) {
                 navigate(`/board/${savedBoard._id}`) // Navigate to the new board's page using its ID
             }
+            showSuccessMsg('Board created successfully')
 
             onClose()
         } catch (err) {
-            console.log(err)
+            showErrorMsg('Failed create board, try agin later')
         }
     }
 

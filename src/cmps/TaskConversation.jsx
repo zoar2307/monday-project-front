@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router"
 import { SET_CONVERSATION_STATUS } from "../store/reducers/system.reducer"
 import { useEffect, useState } from "react"
 import { addTaskConversationUpdate } from "../store/actions/board.actions"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
 export function TaskConversation() {
     const isConversationOpen = useSelector(storeState => storeState.systemModule.isConversationOpen)
@@ -164,12 +165,15 @@ export function TaskConversation() {
     async function onSubmitUpdate(ev) {
         ev.preventDefault()
         if (!newUpdate.txt) return
+
         try {
             await addTaskConversationUpdate(groupId, selectedTask.id, newUpdate)
             setIsWriting(false)
             setNewUpdate({ txt: '' })
+            showSuccessMsg('Update sended successfully')
         } catch (err) {
-            console.log(err)
+            // console.log(err)
+            showErrorMsg('Failed send update')
         }
     }
 

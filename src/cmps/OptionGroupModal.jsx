@@ -11,6 +11,7 @@ import plus from '../assets/img/plus-modal-icon.svg'
 import addSubitem from '../assets/img/add-subitem-icon.svg'
 import convertSubitem from '../assets/img/convert-subitem-icon.svg'
 import archive from '../assets/img/archive-icon.svg'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 
 export function OptionGroupModal({ closeModal, groupId }) {
     const board = useSelector(storeState => storeState.boardModule.currBoard)
@@ -33,8 +34,10 @@ export function OptionGroupModal({ closeModal, groupId }) {
         try {
             await removeGroup(boardId, groupId)
             closeModal()
+            showSuccessMsg('Group deleted successfully')
         } catch (error) {
-            console.error('Failed to delete group:', error)
+            // console.error('Failed to delete group:', error)
+            showErrorMsg('Failed to delete group')
         }
     }
 

@@ -9,6 +9,7 @@ import { LabelModal } from "./LabelModal"
 import { SOCKET_EVENT_BOARD_UPDATE, socketService } from "../services/socket.service"
 import { SET_BOARD } from "../store/reducers/board.reducer"
 import { useDispatch } from "react-redux"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
 export function GroupPreview({
   group,
@@ -45,9 +46,11 @@ export function GroupPreview({
     if (newTask.title.length === 0) return
     try {
       await addTask(groupId, newTask)
+      showSuccessMsg('Task added')
       setNewTask({ title: '' })
     } catch (err) {
-      console.log(err)
+      // console.log(err)
+      showErrorMsg('Can\'t add task , try again later')
     }
   }
 
@@ -82,8 +85,11 @@ export function GroupPreview({
       const updatedGroup = { ...group, title: groupTitle }
       await updateGroup(updatedGroup, board)
       setIsEditGroupTitle(false)
+      showSuccessMsg('Group updated')
+
     } catch (err) {
-      console.log(err)
+      // console.log(err)
+      showErrorMsg('Can\'t edit group , try again later')
     }
   }
 
@@ -153,10 +159,6 @@ export function GroupPreview({
       daysDifference,
     }
   }
-
-
-
-
 
   const dateStats = calculateDateStats(group.tasks)
 

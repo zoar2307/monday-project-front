@@ -6,6 +6,7 @@ import { logout } from "../store/actions/user.actions"
 import { SOCKET_EVENT_BOARD_UPDATE, socketService } from "../services/socket.service"
 import { useDispatch } from "react-redux"
 import { SET_BOARD } from "../store/reducers/board.reducer"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
 export function GroupList({ board }) {
   const { _id: boardId, groups } = board
@@ -14,8 +15,10 @@ export function GroupList({ board }) {
   const handleAddGroup = async () => {
     try {
       await addGroup(boardId)
+      showSuccessMsg('Group added successfully')
     } catch (err) {
-      console.log(err)
+      // console.log(err)
+      showErrorMsg('Can\'t add group try again later')
     }
   }
   const handleRemoveGroup = (groupId) => removeGroup(boardId, groupId)
@@ -37,8 +40,10 @@ export function GroupList({ board }) {
 
       try {
         await updateLabels(newLabelsOrder)
+        showSuccessMsg('Label updated successfully')
       } catch (err) {
-        console.log(err)
+        // console.log(err)
+        showErrorMsg('Failed update label , try again')
       }
 
       return
@@ -53,8 +58,12 @@ export function GroupList({ board }) {
 
       try {
         await updateGroups(newGroupOrder)
+        showSuccessMsg('Group updated successfully')
+
       } catch (err) {
-        console.log(err)
+        // console.log(err)
+        showErrorMsg('Failed update group , try again')
+
       }
 
       return
@@ -80,8 +89,12 @@ export function GroupList({ board }) {
 
       try {
         await updateGroup(newGroup)
+        showSuccessMsg('Group updated successfully')
+
       } catch (err) {
-        console.log(err)
+        // console.log(err)
+        showErrorMsg('Failed update group , try again')
+
       }
       return
     }
@@ -105,10 +118,14 @@ export function GroupList({ board }) {
     }
 
     try {
-      updateGroup(newFinish)
-      updateGroup(newStart)
+      await updateGroup(newFinish)
+      await updateGroup(newStart)
+      showSuccessMsg('Groups updated successfully')
+
     } catch (err) {
-      console.log(err)
+      // console.log(err)
+      showErrorMsg('Failed update groups , try again')
+
     }
   }
 

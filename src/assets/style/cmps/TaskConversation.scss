@@ -3,6 +3,12 @@
     right: 0;
     bottom: 0;
 
+    >* {
+        svg {
+            outline: none;
+        }
+    }
+
     z-index: 1000000;
 
     background: white;
@@ -499,11 +505,13 @@
                 }
             }
         }
-        .activity-log-section{
-            .activity-list-wrapper{
+
+        .activity-log-section {
+            .activity-list-wrapper {
                 padding: 0;
-                .activity-list{
-                    .activity-item{
+
+                .activity-list {
+                    .activity-item {
                         margin: 0;
                         padding: 5px;
                     }

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom"
 import { UPDATE_BOARD } from "../store/reducers/board.reducer";
 import { saveBoard } from "../store/actions/board.actions";
+import { showErrorMsg } from "../services/event-bus.service";
 
 
 
@@ -24,7 +25,7 @@ export function BoardPreview({ board }) {
             dispatch({ type: UPDATE_BOARD, board: updatedBoard })
             setIsStarred(isStarred => !isStarred)
         } catch (error) {
-            console.log('Had issues in board edit', err)
+            showErrorMsg('Had issues in board edit')
         }
     }
 

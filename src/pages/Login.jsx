@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { login } from "../store/actions/user.actions"
+import { login, loginGoogle } from "../store/actions/user.actions"
 import { userService } from "../services/user/user.service.remote"
 import logo from '../assets/img/logo.png'
+import { GoogleLogin } from '@react-oauth/google';
 
 export function Login() {
     const [users, setUsers] = useState([])
@@ -94,9 +95,20 @@ export function Login() {
                         </button>
                     </div>
                 </form>
+
                 <div className="login-footer">
                     <span>Don't have an account yet?</span> <span><a href="/auth/signup">Sign up</a></span>
                 </div>
+                <GoogleLogin
+                    onSuccess={async credentialResponse => {
+                        const userGoogle = await loginGoogle(credentialResponse.credential)
+                        if (userGoogle) navigate('/board')
+                    }}
+                    onError={() => {
+                        console.error("Login failed:", err)
+                        setError(err.message || "Login failed. Please try again.")
+                    }}
+                />
             </div>
         </section>
     )

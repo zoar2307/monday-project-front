@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux"
 import { addMemberToBoard, removeMemberFromBoard, setBackdrop } from "../store/actions/board.actions"
 import { useEffect, useState } from "react"
+import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
 export function ManageBoardMembers({ board, setManageModal }) {
-    console.log(board)
     const user = useSelector(storeState => storeState.userModule.user)
     const users = useSelector(storeState => storeState.userModule.users)
 
@@ -46,17 +46,23 @@ export function ManageBoardMembers({ board, setManageModal }) {
         try {
             await addMemberToBoard(user)
             onClose()
+            showSuccessMsg('Member added to board successfully')
         } catch (err) {
-            console.log(err)
+            // console.log(err)
+            showErrorMsg('Failed add member to board')
         }
     }
 
     async function onRemoveMember(user) {
         try {
             await removeMemberFromBoard(user)
+            showSuccessMsg('Member removed from board successfully')
+
             // onClose()
         } catch (err) {
-            console.log(err)
+            // console.log(err)
+            showErrorMsg('Failed remove member to board')
+
         }
     }
 

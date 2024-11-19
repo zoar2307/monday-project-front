@@ -4,6 +4,7 @@ const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
 export const userService = {
 	login,
+	loginGoogle,
 	logout,
 	signup,
 	getUsers,
@@ -39,6 +40,14 @@ async function update(user) {
 
 async function login(userCred) {
 	const user = await httpService.post('auth/login', userCred)
+	if (user) return saveLoggedinUser(user)
+}
+
+async function loginGoogle(token) {
+	const newToken = {
+		token
+	}
+	const user = await httpService.post('auth/google', newToken)
 	if (user) return saveLoggedinUser(user)
 }
 

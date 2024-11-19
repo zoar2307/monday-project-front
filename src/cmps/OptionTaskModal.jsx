@@ -10,6 +10,7 @@ import convertSubitem from '../assets/img/convert-subitem-icon.svg'
 import archive from '../assets/img/archive-icon.svg'
 import { useEffect, useRef } from 'react'
 import { removeTask } from '../store/actions/board.actions'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 
 export function OptionTaskModal({ closeModal, groupId, taskId }) {
   const modalRef = useRef(null)
@@ -31,9 +32,11 @@ export function OptionTaskModal({ closeModal, groupId, taskId }) {
   const deleteTask = async () => {
     try {
       await removeTask(groupId, taskId)
+      showSuccessMsg('Task removed successfully')
       closeModal()
     } catch (error) {
-      console.error('Failed to delete task:', error)
+      // console.error('Failed to delete task:', error)
+      showErrorMsg('Failed to delete task')
     }
   }
   return (

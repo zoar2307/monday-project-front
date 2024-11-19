@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import { BoardList } from './BoardList'
-
-import { boardService } from '../services/board/board.service.remote'
 import { useSelector } from 'react-redux'
 import { loadBoards } from '../store/actions/board.actions'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
@@ -16,7 +14,7 @@ export function BoardIndex() {
     useEffect(() => {
         loadBoards(filterBy)
             .catch(err => {
-                showErrorMsg('Cannot load boards!', err)
+                showErrorMsg('Failed load boards!')
             })
     }, [filterBy])
 
