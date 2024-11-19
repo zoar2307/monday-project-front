@@ -130,7 +130,7 @@ export function OpenAi() {
                     {
                         "_id": "673c5da78af25152208746cb",
                         "fullname": "Avi Museri",
-                        "imgUrl": "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png",
+                        "imgUrl": "https://res.cloudinary.com/drj1liym1/image/upload/v1732014309/kdnfyljpgquuwhqy0n7b.jpg",
                         "isAdmin": null
                     }
                 ],
