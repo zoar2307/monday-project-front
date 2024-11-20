@@ -17,7 +17,12 @@ export function OpenAi() {
     const navigate = useNavigate() // Initialize the navigate function
     const dispatch = useDispatch() // Initialize the navigate function
 
-    const timeOutRef = useRef()
+    let timeOutRef = useRef()
+    let timeOutRef2 = useRef()
+    let timeOutRef3 = useRef()
+    const updateOneRef = useRef()
+    const updateTwoRef = useRef()
+    const updateThreeRef = useRef()
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
@@ -41,8 +46,15 @@ export function OpenAi() {
         try {
             setIsLoading(true)
             showSuccessMsg('Ai started board creation')
+            updateOneRef.current.style.display = 'block'
             const savedBoard = await addAiBoard(data)
             if (savedBoard) {
+                timeOutRef2 = setTimeout(() => {
+                    updateTwoRef.current.style.display = 'block'
+                }, 3500)
+                timeOutRef3 = setTimeout(() => {
+                    updateThreeRef.current.style.display = 'block'
+                }, 6000)
                 setIsModal(false)
                 navigate(`/board/${savedBoard._id}`)
                 setIsLoading(false)
@@ -59,7 +71,7 @@ export function OpenAi() {
         ev.preventDefault()
         try {
             setIsLoading(true)
-
+            updateOneRef.current.style.display = 'block'
             const demoAiBoard = {
                 "title": "Vacation Planner",
                 "owner": {
@@ -272,7 +284,14 @@ export function OpenAi() {
             showSuccessMsg('Ai started board creation')
 
             const saved = await saveBoardDemo(demoAiBoard)
+
             if (saved) {
+                timeOutRef2 = setTimeout(() => {
+                    updateTwoRef.current.style.display = 'block'
+                }, 3500)
+                timeOutRef3 = setTimeout(() => {
+                    updateThreeRef.current.style.display = 'block'
+                }, 6000)
                 timeOutRef = setTimeout(() => {
                     resetFilterBy()
                     setIsLoading(false)
@@ -298,12 +317,18 @@ export function OpenAi() {
             <button onClick={() => setIsModal(true)}>Generate <i class="fa-solid fa-robot"></i></button>
             {isModal && <div onCanPlay={() => setIsModal(false)} className="backdrop"></div>}
             {isModal && <div className="gen-modal">
+                <h2 className="board-ai">Board Ai</h2>
+                <h2 className="welcome-title">Hello , please insert a board theme</h2>
+                <button type="button" className="close" onClick={() => setIsModal(false)}>x</button>
+                <div className="updates">
+                    <p ref={updateOneRef} className="update one">Generating board</p>
+                    <p ref={updateTwoRef} className="update two">Creating tasks</p>
+                    <p ref={updateThreeRef} className="update three">Done</p>
+                </div>
                 <form onSubmit={onSubmitDemo}>
-                    <h2>Board Ai</h2>
-                    <input onChange={handleChange} type="text" placeholder="Enter a theme" name="theme" />
+                    <input onChange={handleChange} type="text" placeholder="Message boardAi" name="theme" />
                     <button><i class="fa-solid fa-wand-magic-sparkles"></i>
                     </button>
-                    <button type="button" className="close" onClick={() => setIsModal(false)}>x</button>
                 </form>
                 {isLoading && <img src={loader} alt="" />}
             </div>}
