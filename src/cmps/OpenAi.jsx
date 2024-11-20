@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux"
 import { boardService } from "../services/board/board.service.remote"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
-export function OpenAi() {
+export function OpenAi({ isOpen = false }) {
 
     const [isModal, setIsModal] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
@@ -47,14 +47,12 @@ export function OpenAi() {
             setIsLoading(true)
             showSuccessMsg('Ai started board creation')
             updateOneRef.current.style.display = 'block'
+            timeOutRef2 = setTimeout(() => {
+                updateTwoRef.current.style.display = 'block'
+            }, 3500)
             const savedBoard = await addAiBoard(data)
             if (savedBoard) {
-                timeOutRef2 = setTimeout(() => {
-                    updateTwoRef.current.style.display = 'block'
-                }, 3500)
-                timeOutRef3 = setTimeout(() => {
-                    updateThreeRef.current.style.display = 'block'
-                }, 6000)
+                updateThreeRef.current.style.display = 'block'
                 setIsModal(false)
                 navigate(`/board/${savedBoard._id}`)
                 setIsLoading(false)
@@ -314,7 +312,7 @@ export function OpenAi() {
 
     return (
         <section className="generate">
-            <button onClick={() => setIsModal(true)}>Generate <i class="fa-solid fa-robot"></i></button>
+            <button className={`gen-btn ${isOpen ? 'open' : 'close'}`} onClick={() => setIsModal(true)}><i class="fa-solid fa-robot"></i></button>
             {isModal && <div onCanPlay={() => setIsModal(false)} className="backdrop"></div>}
             {isModal && <div className="gen-modal">
                 <h2 className="board-ai">Board Ai</h2>

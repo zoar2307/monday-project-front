@@ -59,7 +59,7 @@
             justify-content: center;
             gap: 20px;
             align-items: center;
-            width: 500px;
+            width: 90%;
             height: 50px;
             background: #d3d3d3;
             border-radius: 12px;
@@ -124,6 +124,7 @@
         top: 20px;
         color: #212121;
         overflow: hidden;
+        font-size: 18px;
         animation:
             typing 2.5s steps(40, end),
             blink-caret .75s step-end infinite;
@@ -134,7 +135,7 @@
 
     .updates {
         position: relative;
-        width: 500px;
+        width: 90%;
         display: flex;
         flex-direction: column;
         align-items: start;
@@ -158,17 +159,44 @@
     .three {
         display: none;
     }
-}
 
-@keyframes typing {
-    from {
-        width: 0
+    @keyframes typing {
+        from {
+            width: 0
+        }
+
+        to {
+            width: 200px;
+        }
     }
 
-    to {
-        width: 360px;
+    //medium
+    @media (width > 932px) {
+        .welcome-title {
+            font-size: 24px;
+        }
+
+        .updates {
+            width: 500px;
+        }
+
+        form {
+            width: 500px;
+        }
+
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 360px;
+            }
+        }
     }
 }
+
 
 @keyframes blink-caret {
 

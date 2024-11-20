@@ -8,6 +8,7 @@ import { SOCKET_EVENT_BOARD_UPDATE } from "../services/socket.service";
 import { SET_BOARD } from "../store/reducers/board.reducer";
 import { useDispatch } from "react-redux";
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service";
+import loader from '../assets/img/loading4.mp4'
 
 export function Kanban() {
     const board = useSelector(storeState => storeState.boardModule.currBoard)
@@ -46,7 +47,16 @@ export function Kanban() {
         }
     }
 
-    if (!board) return <div>Loading...</div>
+    if (!board) return <div className="board-details-loader">
+        <video
+            loop
+            autoPlay={true}
+            src={loader}
+        >
+
+        </video>
+    </div>
+
 
     return (
         <section className="kanban">
